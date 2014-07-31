@@ -1,4 +1,4 @@
-﻿namespace PixYAAL
+﻿namespace YAAL
 {
     partial class SettingsDialog
     {

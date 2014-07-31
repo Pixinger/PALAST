@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace PixYAAL
+namespace YAAL
 {
     public partial class FormMain : Form
     {
@@ -23,36 +23,30 @@ namespace PixYAAL
             InitializeComponent();
         }
 
-        protected override void OnShown(EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            base.OnShown(e);
+            base.OnLoad(e);
 
-            RefreshNames();
+            if (!System.IO.File.Exists(_Configuration.Arma3Exe))
+            {
+                SettingsDialog.ExecuteDialog(_Configuration);
+
+                if (!System.IO.File.Exists(_Configuration.Arma3Exe))
+                {
+                    MessageBox.Show("Arma3.exe not found. YAAL will exit now.");
+                    Close();
+                }
+            }
+
             RefreshMenu();
-            RefreshAddons();
+            RefreshNames();
         }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
 
             _Configuration.Save();
-        }
-
-        private void tbtnSettings_Click(object sender, EventArgs e)
-        {
-            SettingsDialog.ExecuteDialog(_Configuration);
-
-            RefreshMenu();
-            RefreshAddons();
-        }
-        private void tddbPreset_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            foreach (ToolStripMenuItem item in tddbPreset.DropDownItems)
-                item.Checked = false;
-
-            ((ToolStripMenuItem)e.ClickedItem).Checked = true;
-            _Configuration.SelectedPreset = (e.ClickedItem.Tag as Configuration.Preset).Name;
-            RefreshPreset();
         }
 
         private Configuration.Preset SelectedPreset
@@ -66,6 +60,15 @@ namespace PixYAAL
 
                 return null;
             }
+        }
+        private void RefreshNames()
+        {
+            cmbName.Items.Clear();
+
+            string armaOtherProfilesFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Arma 3 - Other Profiles");
+            string[] profileFolders = System.IO.Directory.GetDirectories(armaOtherProfilesFolder);
+            foreach (string profileFolder in profileFolders)
+                cmbName.Items.Add(profileFolder.Remove(0, armaOtherProfilesFolder.Length + 1));
         }
         private void RefreshMenu()
         {
@@ -88,14 +91,16 @@ namespace PixYAAL
 
             // Wenn nichts gewählt wurde, versuchen das erste zu wählen.
             if ((preset == null) && (_Configuration.Presets != null) && (_Configuration.Presets.Length > 0))
+            {
                 preset = _Configuration.Presets[0];
+                ((ToolStripMenuItem)tddbPreset.DropDownItems[0]).Checked = true;
+                _Configuration.SelectedPreset = preset.ToString();
+            }
 
             if (preset != null)
             {
                 _BlockEventHandler = true;
                 tddbPreset.Text = preset.Name;
-
-                clstAddons.Items.Clear();
 
                 chbNoSpalsh.Checked = preset.ParamNoSplash;
                 chbWorldEmpty.Checked = preset.ParamWorldEmpty;
@@ -147,32 +152,28 @@ namespace PixYAAL
             }
             else
             {
-                clstAddons.Items.Clear();
-
                 tddbPreset.Enabled = false;
                 grpAddons.Enabled = false;
                 grpParameter.Enabled = false;
             }
-        }
-        private void RefreshNames()
-        {
-            cmbName.Items.Clear();
 
-            string armaOtherProfilesFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Arma 3 - Other Profiles");
-            string[] profileFolders = System.IO.Directory.GetDirectories(armaOtherProfilesFolder);
-            foreach (string profileFolder in profileFolders)
-                cmbName.Items.Add(profileFolder.Remove(0,armaOtherProfilesFolder.Length+1));
+            RefreshAddons();
         }
         private void RefreshAddons()
         {
             clstAddons.Items.Clear();
-            string armaFolder = System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe);
-            string[] addons = System.IO.Directory.GetDirectories(armaFolder, "@*");
-            foreach (string addon in addons)
+
+            Configuration.Preset preset = SelectedPreset;
+            if ((preset != null) && (System.IO.File.Exists(_Configuration.Arma3Exe)))
             {
-                string shortName = addon.Remove(0, armaFolder.Length + 1);
-                bool chk = ((SelectedPreset != null) && (SelectedPreset.SelectedAddons != null) && (SelectedPreset.SelectedAddons.Contains(shortName)));                
-                clstAddons.Items.Add(shortName, chk);
+                string armaFolder = System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe);
+                string[] addons = System.IO.Directory.GetDirectories(armaFolder, "@*");
+                foreach (string addon in addons)
+                {
+                    string shortName = addon.Remove(0, armaFolder.Length + 1);
+                    bool chk = ((SelectedPreset != null) && (SelectedPreset.SelectedAddons != null) && (SelectedPreset.SelectedAddons.Contains(shortName)));
+                    clstAddons.Items.Add(shortName, chk);
+                }
             }
         }
 
@@ -449,6 +450,12 @@ namespace PixYAAL
             SelectedPreset.SelectedAddons = selectedAddons.ToArray();
         }
 
+        private void tbtnSettings_Click(object sender, EventArgs e)
+        {
+            SettingsDialog.ExecuteDialog(_Configuration);
+
+            RefreshMenu();
+        }
         private void btnLaunch_Click(object sender, EventArgs e)
         {
 
@@ -529,10 +536,18 @@ namespace PixYAAL
             if (_Configuration.CloseAfterStart)
                 Close();
         }
-
         private void tbtnInfo_Click(object sender, EventArgs e)
         {
             AboutDialog.ExecuteDialog();
+        }
+        private void tddbPreset_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            foreach (ToolStripMenuItem item in tddbPreset.DropDownItems)
+                item.Checked = false;
+
+            ((ToolStripMenuItem)e.ClickedItem).Checked = true;
+            _Configuration.SelectedPreset = (e.ClickedItem.Tag as Configuration.Preset).Name;
+            RefreshPreset();
         }
     }
 }

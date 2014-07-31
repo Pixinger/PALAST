@@ -1,4 +1,4 @@
-﻿namespace PixYAAL
+﻿namespace YAAL
 {
     partial class FormMain
     {
@@ -572,7 +572,7 @@
             // 
             this.tbtnInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tbtnInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnInfo.Image = global::PixYAAL.Properties.Resources.help;
+            this.tbtnInfo.Image = global::YAAL.Properties.Resources.help;
             this.tbtnInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnInfo.Name = "tbtnInfo";
             this.tbtnInfo.Size = new System.Drawing.Size(23, 22);
@@ -583,7 +583,7 @@
             // 
             this.tbtnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tbtnSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnSettings.Image = global::PixYAAL.Properties.Resources.cog;
+            this.tbtnSettings.Image = global::YAAL.Properties.Resources.cog;
             this.tbtnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnSettings.Name = "tbtnSettings";
             this.tbtnSettings.Size = new System.Drawing.Size(23, 22);
@@ -592,7 +592,7 @@
             // 
             // tddbPreset
             // 
-            this.tddbPreset.Image = global::PixYAAL.Properties.Resources.target;
+            this.tddbPreset.Image = global::YAAL.Properties.Resources.target;
             this.tddbPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tddbPreset.Name = "tddbPreset";
             this.tddbPreset.Size = new System.Drawing.Size(68, 22);
