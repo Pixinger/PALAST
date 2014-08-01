@@ -161,6 +161,8 @@ namespace YAAL
         }
         private void RefreshAddons()
         {
+            _BlockEventHandler = true;
+
             clstAddons.Items.Clear();
 
             Configuration.Preset preset = SelectedPreset;
@@ -175,6 +177,8 @@ namespace YAAL
                     clstAddons.Items.Add(shortName, chk);
                 }
             }
+
+            _BlockEventHandler = false;
         }
 
 
@@ -438,18 +442,6 @@ namespace YAAL
             }
         }
 
-        private void clstAddons_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (_BlockEventHandler)
-                return;
-
-            List<string> selectedAddons = new List<string>();
-            foreach (string selectedItem in clstAddons.CheckedItems)
-                selectedAddons.Add(selectedItem);
-
-            SelectedPreset.SelectedAddons = selectedAddons.ToArray();
-        }
-
         private void tbtnSettings_Click(object sender, EventArgs e)
         {
             SettingsDialog.ExecuteDialog(_Configuration);
@@ -548,6 +540,20 @@ namespace YAAL
             ((ToolStripMenuItem)e.ClickedItem).Checked = true;
             _Configuration.SelectedPreset = (e.ClickedItem.Tag as Configuration.Preset).Name;
             RefreshPreset();
+        }
+
+        private void clstAddons_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (_BlockEventHandler)
+                return;
+
+            List<string> selectedAddons = (SelectedPreset.SelectedAddons) != null ? new List<string>(SelectedPreset.SelectedAddons) : new List<string>();
+            if (e.NewValue == CheckState.Checked)
+                selectedAddons.Add(clstAddons.Items[e.Index].ToString());
+            else
+                selectedAddons.Remove(clstAddons.Items[e.Index].ToString());
+
+            SelectedPreset.SelectedAddons = selectedAddons.ToArray();
         }
     }
 }

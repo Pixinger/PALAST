@@ -67,10 +67,10 @@
             this.chbWorldEmpty = new System.Windows.Forms.CheckBox();
             this.chbSkipIntro = new System.Windows.Forms.CheckBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnLaunch = new System.Windows.Forms.Button();
             this.tbtnInfo = new System.Windows.Forms.ToolStripButton();
             this.tbtnSettings = new System.Windows.Forms.ToolStripButton();
             this.tddbPreset = new System.Windows.Forms.ToolStripDropDownButton();
+            this.btnLaunch = new System.Windows.Forms.Button();
             this.grpAutoConnect.SuspendLayout();
             this.grpAddons.SuspendLayout();
             this.grpParameter.SuspendLayout();
@@ -93,7 +93,7 @@
             this.clstAddons.Name = "clstAddons";
             this.clstAddons.Size = new System.Drawing.Size(180, 304);
             this.clstAddons.TabIndex = 3;
-            this.clstAddons.SelectedValueChanged += new System.EventHandler(this.clstAddons_SelectedValueChanged);
+            this.clstAddons.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clstAddons_ItemCheck);
             // 
             // chbShowScriptErrors
             // 
@@ -558,16 +558,6 @@
             this.toolStrip1.TabIndex = 33;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // btnLaunch
-            // 
-            this.btnLaunch.Location = new System.Drawing.Point(12, 377);
-            this.btnLaunch.Name = "btnLaunch";
-            this.btnLaunch.Size = new System.Drawing.Size(601, 28);
-            this.btnLaunch.TabIndex = 34;
-            this.btnLaunch.Text = "Start ArmA3";
-            this.btnLaunch.UseVisualStyleBackColor = true;
-            this.btnLaunch.Click += new System.EventHandler(this.btnLaunch_Click);
-            // 
             // tbtnInfo
             // 
             this.tbtnInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -598,6 +588,16 @@
             this.tddbPreset.Size = new System.Drawing.Size(68, 22);
             this.tddbPreset.Text = "Preset";
             this.tddbPreset.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tddbPreset_DropDownItemClicked);
+            // 
+            // btnLaunch
+            // 
+            this.btnLaunch.Location = new System.Drawing.Point(12, 377);
+            this.btnLaunch.Name = "btnLaunch";
+            this.btnLaunch.Size = new System.Drawing.Size(601, 28);
+            this.btnLaunch.TabIndex = 34;
+            this.btnLaunch.Text = "Start ArmA3";
+            this.btnLaunch.UseVisualStyleBackColor = true;
+            this.btnLaunch.Click += new System.EventHandler(this.btnLaunch_Click);
             // 
             // FormMain
             // 
