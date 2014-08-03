@@ -117,17 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="cog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chbExThreads.Text" xml:space="preserve">
+    <value>-exThreads</value>
   </data>
-  <data name="target" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\target.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chbCpuCount.Text" xml:space="preserve">
+    <value>-cpuCount</value>
   </data>
-  <data name="help" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chbMaxMem.Text" xml:space="preserve">
+    <value>-maxMem</value>
   </data>
-  <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chbMaxMem.ToolTip" xml:space="preserve">
+    <value>Defines memory allocation limit to number (in MegaBytes). 256 is hard-coded minimum (anything lower falls backs to 256). 3072 is hard-coded maximum (anything higher falls back to 3072).  Engine uses automatic values (512-1536 MB) w/o maxMem parameter.</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Server</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="lblPassword.Text" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="chbAutoConnectEnabled.Text" xml:space="preserve">
+    <value>enabled</value>
+  </data>
+  <data name="grpAutoConnect.Text" xml:space="preserve">
+    <value>Automatisch verbinden</value>
+  </data>
+  <data name="grpAddons.Text" xml:space="preserve">
+    <value>Addons</value>
+  </data>
+  <data name="grpAdditionalParameters.Text" xml:space="preserve">
+    <value>Zusätzliche Parameter</value>
+  </data>
+  <data name="chbCheckSignatures.Text" xml:space="preserve">
+    <value>-checkSignatures</value>
+  </data>
+  <data name="grpDeveloperOptions.Text" xml:space="preserve">
+    <value>Entwickler Optionen</value>
+  </data>
+  <data name="grpProfileOptions.Text" xml:space="preserve">
+    <value>Profiloptionen</value>
+  </data>
+  <data name="grpPerformance.Text" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="grpGameLoadingSpeedup.Text" xml:space="preserve">
+    <value>Spielstartbeschleunigung</value>
+  </data>
+  <data name="grpParameter.Text" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="tbtnInfo.Text" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="tbtnSettings.Text" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="tddbPreset.Text" xml:space="preserve">
+    <value>Vorlagen</value>
+  </data>
+  <data name="btnLaunch.Text" xml:space="preserve">
+    <value>Start ArmA3</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>YAAL (Yet Another Arma Launcher)</value>
   </data>
 </root>

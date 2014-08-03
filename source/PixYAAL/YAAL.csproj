@@ -65,6 +65,12 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="OptionInfoDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionInfoDialog.Designer.cs">
+      <DependentUpon>OptionInfoDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,14 +85,29 @@
     <Compile Include="RenamePresetDialog.Designer.cs">
       <DependentUpon>RenamePresetDialog.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AboutDialog.de-DE.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.de-DE.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OptionInfoDialog.resx">
+      <DependentUpon>OptionInfoDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RenamePresetDialog.de-DE.resx">
+      <DependentUpon>RenamePresetDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RenamePresetDialog.resx">
       <DependentUpon>RenamePresetDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsDialog.de-DE.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
@@ -121,6 +142,7 @@
     <None Include="Resources\help.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\exclamation.png" />
     <Content Include="tklogo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

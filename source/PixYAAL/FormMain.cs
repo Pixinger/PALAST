@@ -21,6 +21,8 @@ namespace YAAL
         public FormMain()
         {
             InitializeComponent();
+
+            Text = Text + " - " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -428,6 +430,7 @@ namespace YAAL
 
             if (chbAutoConnectEnabled.Checked)
             {
+                MessageBox.Show("Es kann sein, daß diese Parameter in Arma3 nicht funktionieren!");
                 SelectedPreset.AutoConnectEnabled = true;
                 txtServer.Enabled = true;
                 txtPort.Enabled = true;
@@ -554,6 +557,13 @@ namespace YAAL
                 selectedAddons.Remove(clstAddons.Items[e.Index].ToString());
 
             SelectedPreset.SelectedAddons = selectedAddons.ToArray();
+        }
+
+        private void btnInfoOptions_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+                OptionInfoDialog.ExecuteDialog(button.Tag as string);
         }
     }
 }

@@ -15,7 +15,6 @@ namespace YAAL
         {
             InitializeComponent();
 
-            lblVersion.Text = Application.ProductVersion;
             lblVersion.Text = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 

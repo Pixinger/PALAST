@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.clstAddons = new System.Windows.Forms.CheckedListBox();
             this.chbShowScriptErrors = new System.Windows.Forms.CheckBox();
@@ -47,23 +48,39 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.grpAutoConnect = new System.Windows.Forms.GroupBox();
+            this.btnInfoAutoConnect = new System.Windows.Forms.Button();
             this.chbAutoConnectEnabled = new System.Windows.Forms.CheckBox();
             this.grpAddons = new System.Windows.Forms.GroupBox();
             this.grpParameter = new System.Windows.Forms.GroupBox();
             this.grpAdditionalParameters = new System.Windows.Forms.GroupBox();
             this.txtAdditionalParameter = new System.Windows.Forms.TextBox();
             this.grpDeveloperOptions = new System.Windows.Forms.GroupBox();
+            this.btnInfoCheckSignatures = new System.Windows.Forms.Button();
+            this.btnInfoNoFilePatching = new System.Windows.Forms.Button();
+            this.btnInfoShowScriptErrors = new System.Windows.Forms.Button();
             this.chbCheckSignatures = new System.Windows.Forms.CheckBox();
+            this.btnInfoNoPause = new System.Windows.Forms.Button();
             this.grpProfileOptions = new System.Windows.Forms.GroupBox();
+            this.btnInfoName = new System.Windows.Forms.Button();
             this.cmbName = new System.Windows.Forms.ComboBox();
             this.grpPerformance = new System.Windows.Forms.GroupBox();
+            this.btnInfoNoLogs = new System.Windows.Forms.Button();
+            this.btnInfoExThreads = new System.Windows.Forms.Button();
+            this.btnInfoCpuCount = new System.Windows.Forms.Button();
+            this.btnInfoNoCB = new System.Windows.Forms.Button();
+            this.btnInfoWinXP = new System.Windows.Forms.Button();
+            this.btnInfoMaxVRAM = new System.Windows.Forms.Button();
+            this.btnInfoMaxMem = new System.Windows.Forms.Button();
             this.cmbExThreads = new System.Windows.Forms.ComboBox();
             this.cmbCpuCount = new System.Windows.Forms.ComboBox();
-            this.numMaxVRAM = new System.Windows.Forms.NumericUpDown();
             this.numMaxMem = new System.Windows.Forms.NumericUpDown();
+            this.numMaxVRAM = new System.Windows.Forms.NumericUpDown();
             this.chbWinXP = new System.Windows.Forms.CheckBox();
             this.chbNoCB = new System.Windows.Forms.CheckBox();
             this.grpGameLoadingSpeedup = new System.Windows.Forms.GroupBox();
+            this.btnInfoSkipIntro = new System.Windows.Forms.Button();
+            this.btnInfoWorldEmpty = new System.Windows.Forms.Button();
+            this.btnInfoNoSplash = new System.Windows.Forms.Button();
             this.chbWorldEmpty = new System.Windows.Forms.CheckBox();
             this.chbSkipIntro = new System.Windows.Forms.CheckBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -71,6 +88,7 @@
             this.tbtnSettings = new System.Windows.Forms.ToolStripButton();
             this.tddbPreset = new System.Windows.Forms.ToolStripDropDownButton();
             this.btnLaunch = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.grpAutoConnect.SuspendLayout();
             this.grpAddons.SuspendLayout();
             this.grpParameter.SuspendLayout();
@@ -78,189 +96,125 @@
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
             this.grpPerformance.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxVRAM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxMem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxVRAM)).BeginInit();
             this.grpGameLoadingSpeedup.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // clstAddons
             // 
-            this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.clstAddons, "clstAddons");
             this.clstAddons.FormattingEnabled = true;
-            this.clstAddons.IntegralHeight = false;
-            this.clstAddons.Location = new System.Drawing.Point(10, 23);
             this.clstAddons.Name = "clstAddons";
-            this.clstAddons.Size = new System.Drawing.Size(180, 304);
-            this.clstAddons.TabIndex = 3;
             this.clstAddons.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clstAddons_ItemCheck);
             // 
             // chbShowScriptErrors
             // 
-            this.chbShowScriptErrors.AutoSize = true;
-            this.chbShowScriptErrors.Location = new System.Drawing.Point(6, 42);
+            resources.ApplyResources(this.chbShowScriptErrors, "chbShowScriptErrors");
             this.chbShowScriptErrors.Name = "chbShowScriptErrors";
-            this.chbShowScriptErrors.Size = new System.Drawing.Size(108, 17);
-            this.chbShowScriptErrors.TabIndex = 4;
-            this.chbShowScriptErrors.Text = "-showScriptErrors";
             this.chbShowScriptErrors.UseVisualStyleBackColor = true;
             this.chbShowScriptErrors.CheckedChanged += new System.EventHandler(this.chbShowScriptErrors_CheckedChanged);
             // 
             // chbNoPause
             // 
-            this.chbNoPause.AutoSize = true;
-            this.chbNoPause.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.chbNoPause, "chbNoPause");
             this.chbNoPause.Name = "chbNoPause";
-            this.chbNoPause.Size = new System.Drawing.Size(71, 17);
-            this.chbNoPause.TabIndex = 5;
-            this.chbNoPause.Text = "-noPause";
             this.chbNoPause.UseVisualStyleBackColor = true;
             this.chbNoPause.CheckedChanged += new System.EventHandler(this.chbNoPause_CheckedChanged);
             // 
             // chbExThreads
             // 
-            this.chbExThreads.AutoSize = true;
-            this.chbExThreads.Location = new System.Drawing.Point(6, 134);
+            resources.ApplyResources(this.chbExThreads, "chbExThreads");
             this.chbExThreads.Name = "chbExThreads";
-            this.chbExThreads.Size = new System.Drawing.Size(79, 17);
-            this.chbExThreads.TabIndex = 6;
-            this.chbExThreads.Text = "-exThreads";
             this.chbExThreads.UseVisualStyleBackColor = true;
             this.chbExThreads.CheckedChanged += new System.EventHandler(this.chbExThreads_CheckedChanged);
             // 
             // chbNoFilePatching
             // 
-            this.chbNoFilePatching.AutoSize = true;
-            this.chbNoFilePatching.Location = new System.Drawing.Point(6, 65);
+            resources.ApplyResources(this.chbNoFilePatching, "chbNoFilePatching");
             this.chbNoFilePatching.Name = "chbNoFilePatching";
-            this.chbNoFilePatching.Size = new System.Drawing.Size(99, 17);
-            this.chbNoFilePatching.TabIndex = 7;
-            this.chbNoFilePatching.Text = "-noFilePatching";
             this.chbNoFilePatching.UseVisualStyleBackColor = true;
             this.chbNoFilePatching.CheckedChanged += new System.EventHandler(this.chbNoFilePatching_CheckedChanged);
             // 
             // chbNoSpalsh
             // 
-            this.chbNoSpalsh.AutoSize = true;
-            this.chbNoSpalsh.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.chbNoSpalsh, "chbNoSpalsh");
             this.chbNoSpalsh.Name = "chbNoSpalsh";
-            this.chbNoSpalsh.Size = new System.Drawing.Size(73, 17);
-            this.chbNoSpalsh.TabIndex = 9;
-            this.chbNoSpalsh.Text = "-noSplash";
             this.chbNoSpalsh.UseVisualStyleBackColor = true;
             this.chbNoSpalsh.CheckedChanged += new System.EventHandler(this.chbNoSpalsh_CheckedChanged);
             // 
             // chbNoLogs
             // 
-            this.chbNoLogs.AutoSize = true;
-            this.chbNoLogs.Location = new System.Drawing.Point(6, 157);
+            resources.ApplyResources(this.chbNoLogs, "chbNoLogs");
             this.chbNoLogs.Name = "chbNoLogs";
-            this.chbNoLogs.Size = new System.Drawing.Size(64, 17);
-            this.chbNoLogs.TabIndex = 11;
-            this.chbNoLogs.Text = "-noLogs";
             this.chbNoLogs.UseVisualStyleBackColor = true;
             this.chbNoLogs.CheckedChanged += new System.EventHandler(this.chbNoLogs_CheckedChanged);
             // 
             // chbCpuCount
             // 
-            this.chbCpuCount.AutoSize = true;
-            this.chbCpuCount.Location = new System.Drawing.Point(6, 111);
+            resources.ApplyResources(this.chbCpuCount, "chbCpuCount");
             this.chbCpuCount.Name = "chbCpuCount";
-            this.chbCpuCount.Size = new System.Drawing.Size(75, 17);
-            this.chbCpuCount.TabIndex = 12;
-            this.chbCpuCount.Text = "-cpuCount";
             this.chbCpuCount.UseVisualStyleBackColor = true;
             this.chbCpuCount.CheckedChanged += new System.EventHandler(this.chbCpuCount_CheckedChanged);
             // 
             // chbMaxMem
             // 
-            this.chbMaxMem.AutoSize = true;
-            this.chbMaxMem.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.chbMaxMem, "chbMaxMem");
             this.chbMaxMem.Name = "chbMaxMem";
-            this.chbMaxMem.Size = new System.Drawing.Size(71, 17);
-            this.chbMaxMem.TabIndex = 13;
-            this.chbMaxMem.Text = "-maxMem";
             this.chbMaxMem.UseVisualStyleBackColor = true;
             this.chbMaxMem.CheckedChanged += new System.EventHandler(this.chbMaxMem_CheckedChanged);
             // 
             // chbMaxVRAM
             // 
-            this.chbMaxVRAM.AutoSize = true;
-            this.chbMaxVRAM.Location = new System.Drawing.Point(6, 42);
+            resources.ApplyResources(this.chbMaxVRAM, "chbMaxVRAM");
             this.chbMaxVRAM.Name = "chbMaxVRAM";
-            this.chbMaxVRAM.Size = new System.Drawing.Size(79, 17);
-            this.chbMaxVRAM.TabIndex = 14;
-            this.chbMaxVRAM.Text = "-maxVRAM";
             this.chbMaxVRAM.UseVisualStyleBackColor = true;
             this.chbMaxVRAM.CheckedChanged += new System.EventHandler(this.chbMaxVRAM_CheckedChanged);
             // 
             // chbName
             // 
-            this.chbName.AutoSize = true;
-            this.chbName.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.chbName, "chbName");
             this.chbName.Name = "chbName";
-            this.chbName.Size = new System.Drawing.Size(55, 17);
-            this.chbName.TabIndex = 15;
-            this.chbName.Text = "-name";
             this.chbName.UseVisualStyleBackColor = true;
             this.chbName.CheckedChanged += new System.EventHandler(this.chbName_CheckedChanged);
             // 
             // txtServer
             // 
-            this.txtServer.Enabled = false;
-            this.txtServer.Location = new System.Drawing.Point(87, 13);
+            resources.ApplyResources(this.txtServer, "txtServer");
             this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(95, 20);
-            this.txtServer.TabIndex = 20;
             this.txtServer.TextChanged += new System.EventHandler(this.txtServer_TextChanged);
             // 
             // txtPort
             // 
-            this.txtPort.Enabled = false;
-            this.txtPort.Location = new System.Drawing.Point(87, 36);
+            resources.ApplyResources(this.txtPort, "txtPort");
             this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(95, 20);
-            this.txtPort.TabIndex = 21;
             this.txtPort.TextChanged += new System.EventHandler(this.txtPort_TextChanged);
             // 
             // txtPasswort
             // 
-            this.txtPasswort.Enabled = false;
-            this.txtPasswort.Location = new System.Drawing.Point(87, 58);
+            resources.ApplyResources(this.txtPasswort, "txtPasswort");
             this.txtPasswort.Name = "txtPasswort";
-            this.txtPasswort.Size = new System.Drawing.Size(95, 20);
-            this.txtPasswort.TabIndex = 22;
             this.txtPasswort.TextChanged += new System.EventHandler(this.txtPasswort_TextChanged);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 16);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Server";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 39);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 13);
-            this.label2.TabIndex = 25;
-            this.label2.Text = "Port";
             // 
             // lblPassword
             // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(6, 61);
+            resources.ApplyResources(this.lblPassword, "lblPassword");
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(50, 13);
-            this.lblPassword.TabIndex = 26;
-            this.lblPassword.Text = "Passwort";
             // 
             // grpAutoConnect
             // 
+            this.grpAutoConnect.Controls.Add(this.btnInfoAutoConnect);
             this.grpAutoConnect.Controls.Add(this.chbAutoConnectEnabled);
             this.grpAutoConnect.Controls.Add(this.label1);
             this.grpAutoConnect.Controls.Add(this.txtServer);
@@ -268,35 +222,33 @@
             this.grpAutoConnect.Controls.Add(this.lblPassword);
             this.grpAutoConnect.Controls.Add(this.txtPasswort);
             this.grpAutoConnect.Controls.Add(this.label2);
-            this.grpAutoConnect.Location = new System.Drawing.Point(200, 184);
+            resources.ApplyResources(this.grpAutoConnect, "grpAutoConnect");
             this.grpAutoConnect.Name = "grpAutoConnect";
-            this.grpAutoConnect.Size = new System.Drawing.Size(188, 102);
-            this.grpAutoConnect.TabIndex = 30;
             this.grpAutoConnect.TabStop = false;
-            this.grpAutoConnect.Text = "Auto-Connect";
+            // 
+            // btnInfoAutoConnect
+            // 
+            this.btnInfoAutoConnect.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoAutoConnect, "btnInfoAutoConnect");
+            this.btnInfoAutoConnect.Name = "btnInfoAutoConnect";
+            this.btnInfoAutoConnect.Tag = "-autoConnect";
+            this.toolTip1.SetToolTip(this.btnInfoAutoConnect, resources.GetString("btnInfoAutoConnect.ToolTip"));
+            this.btnInfoAutoConnect.UseVisualStyleBackColor = true;
+            this.btnInfoAutoConnect.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
             // chbAutoConnectEnabled
             // 
-            this.chbAutoConnectEnabled.AutoSize = true;
-            this.chbAutoConnectEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chbAutoConnectEnabled.Location = new System.Drawing.Point(118, 83);
+            resources.ApplyResources(this.chbAutoConnectEnabled, "chbAutoConnectEnabled");
             this.chbAutoConnectEnabled.Name = "chbAutoConnectEnabled";
-            this.chbAutoConnectEnabled.Size = new System.Drawing.Size(64, 17);
-            this.chbAutoConnectEnabled.TabIndex = 27;
-            this.chbAutoConnectEnabled.Text = "enabled";
             this.chbAutoConnectEnabled.UseVisualStyleBackColor = true;
             this.chbAutoConnectEnabled.CheckedChanged += new System.EventHandler(this.chbAutoConnectEnabled_CheckedChanged);
             // 
             // grpAddons
             // 
             this.grpAddons.Controls.Add(this.clstAddons);
-            this.grpAddons.Location = new System.Drawing.Point(12, 28);
+            resources.ApplyResources(this.grpAddons, "grpAddons");
             this.grpAddons.Name = "grpAddons";
-            this.grpAddons.Padding = new System.Windows.Forms.Padding(10);
-            this.grpAddons.Size = new System.Drawing.Size(200, 337);
-            this.grpAddons.TabIndex = 31;
             this.grpAddons.TabStop = false;
-            this.grpAddons.Text = "Addons";
             // 
             // grpParameter
             // 
@@ -306,167 +258,244 @@
             this.grpParameter.Controls.Add(this.grpAutoConnect);
             this.grpParameter.Controls.Add(this.grpPerformance);
             this.grpParameter.Controls.Add(this.grpGameLoadingSpeedup);
-            this.grpParameter.Location = new System.Drawing.Point(218, 26);
+            resources.ApplyResources(this.grpParameter, "grpParameter");
             this.grpParameter.Name = "grpParameter";
-            this.grpParameter.Size = new System.Drawing.Size(395, 345);
-            this.grpParameter.TabIndex = 32;
             this.grpParameter.TabStop = false;
-            this.grpParameter.Text = "Parameter";
             // 
             // grpAdditionalParameters
             // 
             this.grpAdditionalParameters.Controls.Add(this.txtAdditionalParameter);
-            this.grpAdditionalParameters.Location = new System.Drawing.Point(6, 292);
+            resources.ApplyResources(this.grpAdditionalParameters, "grpAdditionalParameters");
             this.grpAdditionalParameters.Name = "grpAdditionalParameters";
-            this.grpAdditionalParameters.Size = new System.Drawing.Size(382, 46);
-            this.grpAdditionalParameters.TabIndex = 37;
             this.grpAdditionalParameters.TabStop = false;
-            this.grpAdditionalParameters.Text = "additional parameters";
             // 
             // txtAdditionalParameter
             // 
-            this.txtAdditionalParameter.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.txtAdditionalParameter, "txtAdditionalParameter");
             this.txtAdditionalParameter.Name = "txtAdditionalParameter";
-            this.txtAdditionalParameter.Size = new System.Drawing.Size(370, 20);
-            this.txtAdditionalParameter.TabIndex = 17;
             this.txtAdditionalParameter.TextChanged += new System.EventHandler(this.txtAdditionalParameter_TextChanged);
             // 
             // grpDeveloperOptions
             // 
+            this.grpDeveloperOptions.Controls.Add(this.btnInfoCheckSignatures);
             this.grpDeveloperOptions.Controls.Add(this.chbNoPause);
+            this.grpDeveloperOptions.Controls.Add(this.btnInfoNoFilePatching);
             this.grpDeveloperOptions.Controls.Add(this.chbShowScriptErrors);
+            this.grpDeveloperOptions.Controls.Add(this.btnInfoShowScriptErrors);
             this.grpDeveloperOptions.Controls.Add(this.chbCheckSignatures);
+            this.grpDeveloperOptions.Controls.Add(this.btnInfoNoPause);
             this.grpDeveloperOptions.Controls.Add(this.chbNoFilePatching);
-            this.grpDeveloperOptions.Location = new System.Drawing.Point(200, 70);
+            resources.ApplyResources(this.grpDeveloperOptions, "grpDeveloperOptions");
             this.grpDeveloperOptions.Name = "grpDeveloperOptions";
-            this.grpDeveloperOptions.Size = new System.Drawing.Size(188, 108);
-            this.grpDeveloperOptions.TabIndex = 36;
             this.grpDeveloperOptions.TabStop = false;
-            this.grpDeveloperOptions.Text = "developer options";
+            // 
+            // btnInfoCheckSignatures
+            // 
+            this.btnInfoCheckSignatures.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoCheckSignatures, "btnInfoCheckSignatures");
+            this.btnInfoCheckSignatures.Name = "btnInfoCheckSignatures";
+            this.btnInfoCheckSignatures.Tag = "-checkSignatures";
+            this.toolTip1.SetToolTip(this.btnInfoCheckSignatures, resources.GetString("btnInfoCheckSignatures.ToolTip"));
+            this.btnInfoCheckSignatures.UseVisualStyleBackColor = true;
+            this.btnInfoCheckSignatures.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoNoFilePatching
+            // 
+            this.btnInfoNoFilePatching.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoNoFilePatching, "btnInfoNoFilePatching");
+            this.btnInfoNoFilePatching.Name = "btnInfoNoFilePatching";
+            this.btnInfoNoFilePatching.Tag = "-noFilePatching";
+            this.toolTip1.SetToolTip(this.btnInfoNoFilePatching, resources.GetString("btnInfoNoFilePatching.ToolTip"));
+            this.btnInfoNoFilePatching.UseVisualStyleBackColor = true;
+            this.btnInfoNoFilePatching.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoShowScriptErrors
+            // 
+            this.btnInfoShowScriptErrors.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoShowScriptErrors, "btnInfoShowScriptErrors");
+            this.btnInfoShowScriptErrors.Name = "btnInfoShowScriptErrors";
+            this.btnInfoShowScriptErrors.Tag = "-showScriptErrors";
+            this.toolTip1.SetToolTip(this.btnInfoShowScriptErrors, resources.GetString("btnInfoShowScriptErrors.ToolTip"));
+            this.btnInfoShowScriptErrors.UseVisualStyleBackColor = true;
+            this.btnInfoShowScriptErrors.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
             // chbCheckSignatures
             // 
-            this.chbCheckSignatures.AutoSize = true;
-            this.chbCheckSignatures.Location = new System.Drawing.Point(6, 88);
+            resources.ApplyResources(this.chbCheckSignatures, "chbCheckSignatures");
             this.chbCheckSignatures.Name = "chbCheckSignatures";
-            this.chbCheckSignatures.Size = new System.Drawing.Size(109, 17);
-            this.chbCheckSignatures.TabIndex = 23;
-            this.chbCheckSignatures.Text = "-checkSignatures";
             this.chbCheckSignatures.UseVisualStyleBackColor = true;
             this.chbCheckSignatures.CheckedChanged += new System.EventHandler(this.chbCheckSignatures_CheckedChanged);
             // 
+            // btnInfoNoPause
+            // 
+            this.btnInfoNoPause.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoNoPause, "btnInfoNoPause");
+            this.btnInfoNoPause.Name = "btnInfoNoPause";
+            this.btnInfoNoPause.Tag = "-noPause";
+            this.toolTip1.SetToolTip(this.btnInfoNoPause, resources.GetString("btnInfoNoPause.ToolTip"));
+            this.btnInfoNoPause.UseVisualStyleBackColor = true;
+            this.btnInfoNoPause.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
             // grpProfileOptions
             // 
+            this.grpProfileOptions.Controls.Add(this.btnInfoName);
             this.grpProfileOptions.Controls.Add(this.cmbName);
             this.grpProfileOptions.Controls.Add(this.chbName);
-            this.grpProfileOptions.Location = new System.Drawing.Point(200, 19);
+            resources.ApplyResources(this.grpProfileOptions, "grpProfileOptions");
             this.grpProfileOptions.Name = "grpProfileOptions";
-            this.grpProfileOptions.Size = new System.Drawing.Size(188, 45);
-            this.grpProfileOptions.TabIndex = 35;
             this.grpProfileOptions.TabStop = false;
-            this.grpProfileOptions.Text = "profile options";
+            // 
+            // btnInfoName
+            // 
+            this.btnInfoName.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoName, "btnInfoName");
+            this.btnInfoName.Name = "btnInfoName";
+            this.btnInfoName.Tag = "-name";
+            this.toolTip1.SetToolTip(this.btnInfoName, resources.GetString("btnInfoName.ToolTip"));
+            this.btnInfoName.UseVisualStyleBackColor = true;
+            this.btnInfoName.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
             // cmbName
             // 
-            this.cmbName.Enabled = false;
+            resources.ApplyResources(this.cmbName, "cmbName");
             this.cmbName.FormattingEnabled = true;
-            this.cmbName.Location = new System.Drawing.Point(87, 17);
             this.cmbName.Name = "cmbName";
-            this.cmbName.Size = new System.Drawing.Size(95, 21);
-            this.cmbName.TabIndex = 17;
             this.cmbName.SelectedIndexChanged += new System.EventHandler(this.cmbName_SelectedIndexChanged);
             // 
             // grpPerformance
             // 
+            this.grpPerformance.Controls.Add(this.btnInfoNoLogs);
+            this.grpPerformance.Controls.Add(this.btnInfoExThreads);
+            this.grpPerformance.Controls.Add(this.btnInfoCpuCount);
+            this.grpPerformance.Controls.Add(this.btnInfoNoCB);
+            this.grpPerformance.Controls.Add(this.btnInfoWinXP);
+            this.grpPerformance.Controls.Add(this.btnInfoMaxVRAM);
+            this.grpPerformance.Controls.Add(this.btnInfoMaxMem);
             this.grpPerformance.Controls.Add(this.cmbExThreads);
             this.grpPerformance.Controls.Add(this.cmbCpuCount);
-            this.grpPerformance.Controls.Add(this.numMaxVRAM);
             this.grpPerformance.Controls.Add(this.numMaxMem);
-            this.grpPerformance.Controls.Add(this.chbMaxMem);
+            this.grpPerformance.Controls.Add(this.numMaxVRAM);
             this.grpPerformance.Controls.Add(this.chbCpuCount);
+            this.grpPerformance.Controls.Add(this.chbMaxMem);
             this.grpPerformance.Controls.Add(this.chbNoLogs);
             this.grpPerformance.Controls.Add(this.chbMaxVRAM);
             this.grpPerformance.Controls.Add(this.chbWinXP);
             this.grpPerformance.Controls.Add(this.chbExThreads);
             this.grpPerformance.Controls.Add(this.chbNoCB);
-            this.grpPerformance.Location = new System.Drawing.Point(6, 110);
+            resources.ApplyResources(this.grpPerformance, "grpPerformance");
             this.grpPerformance.Name = "grpPerformance";
-            this.grpPerformance.Size = new System.Drawing.Size(188, 176);
-            this.grpPerformance.TabIndex = 34;
             this.grpPerformance.TabStop = false;
-            this.grpPerformance.Text = "performance";
+            // 
+            // btnInfoNoLogs
+            // 
+            this.btnInfoNoLogs.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoNoLogs, "btnInfoNoLogs");
+            this.btnInfoNoLogs.Name = "btnInfoNoLogs";
+            this.btnInfoNoLogs.Tag = "-noLogs";
+            this.toolTip1.SetToolTip(this.btnInfoNoLogs, resources.GetString("btnInfoNoLogs.ToolTip"));
+            this.btnInfoNoLogs.UseVisualStyleBackColor = true;
+            this.btnInfoNoLogs.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoExThreads
+            // 
+            this.btnInfoExThreads.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoExThreads, "btnInfoExThreads");
+            this.btnInfoExThreads.Name = "btnInfoExThreads";
+            this.btnInfoExThreads.Tag = "-exThreads";
+            this.toolTip1.SetToolTip(this.btnInfoExThreads, resources.GetString("btnInfoExThreads.ToolTip"));
+            this.btnInfoExThreads.UseVisualStyleBackColor = true;
+            this.btnInfoExThreads.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoCpuCount
+            // 
+            this.btnInfoCpuCount.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoCpuCount, "btnInfoCpuCount");
+            this.btnInfoCpuCount.Name = "btnInfoCpuCount";
+            this.btnInfoCpuCount.Tag = "-cpuCount";
+            this.toolTip1.SetToolTip(this.btnInfoCpuCount, resources.GetString("btnInfoCpuCount.ToolTip"));
+            this.btnInfoCpuCount.UseVisualStyleBackColor = true;
+            this.btnInfoCpuCount.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoNoCB
+            // 
+            this.btnInfoNoCB.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoNoCB, "btnInfoNoCB");
+            this.btnInfoNoCB.Name = "btnInfoNoCB";
+            this.btnInfoNoCB.Tag = "-noCB";
+            this.toolTip1.SetToolTip(this.btnInfoNoCB, resources.GetString("btnInfoNoCB.ToolTip"));
+            this.btnInfoNoCB.UseVisualStyleBackColor = true;
+            this.btnInfoNoCB.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoWinXP
+            // 
+            this.btnInfoWinXP.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoWinXP, "btnInfoWinXP");
+            this.btnInfoWinXP.Name = "btnInfoWinXP";
+            this.btnInfoWinXP.Tag = "-winXP";
+            this.toolTip1.SetToolTip(this.btnInfoWinXP, resources.GetString("btnInfoWinXP.ToolTip"));
+            this.btnInfoWinXP.UseVisualStyleBackColor = true;
+            this.btnInfoWinXP.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoMaxVRAM
+            // 
+            this.btnInfoMaxVRAM.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoMaxVRAM, "btnInfoMaxVRAM");
+            this.btnInfoMaxVRAM.Name = "btnInfoMaxVRAM";
+            this.btnInfoMaxVRAM.Tag = "-maxVRAM";
+            this.toolTip1.SetToolTip(this.btnInfoMaxVRAM, resources.GetString("btnInfoMaxVRAM.ToolTip"));
+            this.btnInfoMaxVRAM.UseVisualStyleBackColor = true;
+            this.btnInfoMaxVRAM.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoMaxMem
+            // 
+            this.btnInfoMaxMem.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoMaxMem, "btnInfoMaxMem");
+            this.btnInfoMaxMem.Name = "btnInfoMaxMem";
+            this.btnInfoMaxMem.Tag = "-maxMem";
+            this.toolTip1.SetToolTip(this.btnInfoMaxMem, resources.GetString("btnInfoMaxMem.ToolTip"));
+            this.btnInfoMaxMem.UseVisualStyleBackColor = true;
+            this.btnInfoMaxMem.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
             // cmbExThreads
             // 
-            this.cmbExThreads.Enabled = false;
+            resources.ApplyResources(this.cmbExThreads, "cmbExThreads");
             this.cmbExThreads.FormattingEnabled = true;
             this.cmbExThreads.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "3",
-            "5",
-            "7"});
-            this.cmbExThreads.Location = new System.Drawing.Point(87, 132);
+            resources.GetString("cmbExThreads.Items"),
+            resources.GetString("cmbExThreads.Items1"),
+            resources.GetString("cmbExThreads.Items2"),
+            resources.GetString("cmbExThreads.Items3"),
+            resources.GetString("cmbExThreads.Items4")});
             this.cmbExThreads.Name = "cmbExThreads";
-            this.cmbExThreads.Size = new System.Drawing.Size(95, 21);
-            this.cmbExThreads.TabIndex = 25;
             this.cmbExThreads.SelectedIndexChanged += new System.EventHandler(this.cmbExThreads_SelectedIndexChanged);
             // 
             // cmbCpuCount
             // 
-            this.cmbCpuCount.Enabled = false;
+            resources.ApplyResources(this.cmbCpuCount, "cmbCpuCount");
             this.cmbCpuCount.FormattingEnabled = true;
             this.cmbCpuCount.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16"});
-            this.cmbCpuCount.Location = new System.Drawing.Point(87, 109);
+            resources.GetString("cmbCpuCount.Items"),
+            resources.GetString("cmbCpuCount.Items1"),
+            resources.GetString("cmbCpuCount.Items2"),
+            resources.GetString("cmbCpuCount.Items3"),
+            resources.GetString("cmbCpuCount.Items4"),
+            resources.GetString("cmbCpuCount.Items5"),
+            resources.GetString("cmbCpuCount.Items6"),
+            resources.GetString("cmbCpuCount.Items7"),
+            resources.GetString("cmbCpuCount.Items8"),
+            resources.GetString("cmbCpuCount.Items9"),
+            resources.GetString("cmbCpuCount.Items10"),
+            resources.GetString("cmbCpuCount.Items11"),
+            resources.GetString("cmbCpuCount.Items12"),
+            resources.GetString("cmbCpuCount.Items13"),
+            resources.GetString("cmbCpuCount.Items14"),
+            resources.GetString("cmbCpuCount.Items15")});
             this.cmbCpuCount.Name = "cmbCpuCount";
-            this.cmbCpuCount.Size = new System.Drawing.Size(95, 21);
-            this.cmbCpuCount.TabIndex = 24;
             this.cmbCpuCount.SelectedIndexChanged += new System.EventHandler(this.cmbCpuCount_SelectedIndexChanged);
-            // 
-            // numMaxVRAM
-            // 
-            this.numMaxVRAM.Enabled = false;
-            this.numMaxVRAM.Location = new System.Drawing.Point(87, 41);
-            this.numMaxVRAM.Maximum = new decimal(new int[] {
-            2047,
-            0,
-            0,
-            0});
-            this.numMaxVRAM.Minimum = new decimal(new int[] {
-            128,
-            0,
-            0,
-            0});
-            this.numMaxVRAM.Name = "numMaxVRAM";
-            this.numMaxVRAM.Size = new System.Drawing.Size(95, 20);
-            this.numMaxVRAM.TabIndex = 23;
-            this.numMaxVRAM.Value = new decimal(new int[] {
-            2047,
-            0,
-            0,
-            0});
-            this.numMaxVRAM.ValueChanged += new System.EventHandler(this.numMaxVRAM_ValueChanged);
             // 
             // numMaxMem
             // 
-            this.numMaxMem.Enabled = false;
-            this.numMaxMem.Location = new System.Drawing.Point(87, 18);
+            resources.ApplyResources(this.numMaxMem, "numMaxMem");
             this.numMaxMem.Maximum = new decimal(new int[] {
             3072,
             0,
@@ -478,8 +507,6 @@
             0,
             0});
             this.numMaxMem.Name = "numMaxMem";
-            this.numMaxMem.Size = new System.Drawing.Size(95, 20);
-            this.numMaxMem.TabIndex = 22;
             this.numMaxMem.Value = new decimal(new int[] {
             3072,
             0,
@@ -487,60 +514,94 @@
             0});
             this.numMaxMem.ValueChanged += new System.EventHandler(this.numMaxMem_ValueChanged);
             // 
+            // numMaxVRAM
+            // 
+            resources.ApplyResources(this.numMaxVRAM, "numMaxVRAM");
+            this.numMaxVRAM.Maximum = new decimal(new int[] {
+            2047,
+            0,
+            0,
+            0});
+            this.numMaxVRAM.Minimum = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
+            this.numMaxVRAM.Name = "numMaxVRAM";
+            this.numMaxVRAM.Value = new decimal(new int[] {
+            2047,
+            0,
+            0,
+            0});
+            this.numMaxVRAM.ValueChanged += new System.EventHandler(this.numMaxVRAM_ValueChanged);
+            // 
             // chbWinXP
             // 
-            this.chbWinXP.AutoSize = true;
-            this.chbWinXP.Location = new System.Drawing.Point(6, 65);
+            resources.ApplyResources(this.chbWinXP, "chbWinXP");
             this.chbWinXP.Name = "chbWinXP";
-            this.chbWinXP.Size = new System.Drawing.Size(59, 17);
-            this.chbWinXP.TabIndex = 20;
-            this.chbWinXP.Text = "-winXP";
             this.chbWinXP.UseVisualStyleBackColor = true;
             this.chbWinXP.CheckedChanged += new System.EventHandler(this.chbWinXP_CheckedChanged);
             // 
             // chbNoCB
             // 
-            this.chbNoCB.AutoSize = true;
-            this.chbNoCB.Location = new System.Drawing.Point(6, 88);
+            resources.ApplyResources(this.chbNoCB, "chbNoCB");
             this.chbNoCB.Name = "chbNoCB";
-            this.chbNoCB.Size = new System.Drawing.Size(55, 17);
-            this.chbNoCB.TabIndex = 21;
-            this.chbNoCB.Text = "-noCB";
             this.chbNoCB.UseVisualStyleBackColor = true;
             this.chbNoCB.CheckedChanged += new System.EventHandler(this.chbNoCB_CheckedChanged);
             // 
             // grpGameLoadingSpeedup
             // 
+            this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoSkipIntro);
+            this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoWorldEmpty);
+            this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoNoSplash);
             this.grpGameLoadingSpeedup.Controls.Add(this.chbNoSpalsh);
             this.grpGameLoadingSpeedup.Controls.Add(this.chbWorldEmpty);
             this.grpGameLoadingSpeedup.Controls.Add(this.chbSkipIntro);
-            this.grpGameLoadingSpeedup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpGameLoadingSpeedup.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.grpGameLoadingSpeedup, "grpGameLoadingSpeedup");
             this.grpGameLoadingSpeedup.Name = "grpGameLoadingSpeedup";
-            this.grpGameLoadingSpeedup.Size = new System.Drawing.Size(188, 85);
-            this.grpGameLoadingSpeedup.TabIndex = 24;
             this.grpGameLoadingSpeedup.TabStop = false;
-            this.grpGameLoadingSpeedup.Text = "game loading speedup";
+            // 
+            // btnInfoSkipIntro
+            // 
+            this.btnInfoSkipIntro.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoSkipIntro, "btnInfoSkipIntro");
+            this.btnInfoSkipIntro.Name = "btnInfoSkipIntro";
+            this.btnInfoSkipIntro.Tag = "-skipIntro";
+            this.toolTip1.SetToolTip(this.btnInfoSkipIntro, resources.GetString("btnInfoSkipIntro.ToolTip"));
+            this.btnInfoSkipIntro.UseVisualStyleBackColor = true;
+            this.btnInfoSkipIntro.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoWorldEmpty
+            // 
+            this.btnInfoWorldEmpty.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoWorldEmpty, "btnInfoWorldEmpty");
+            this.btnInfoWorldEmpty.Name = "btnInfoWorldEmpty";
+            this.btnInfoWorldEmpty.Tag = "-worldEmtpy";
+            this.toolTip1.SetToolTip(this.btnInfoWorldEmpty, resources.GetString("btnInfoWorldEmpty.ToolTip"));
+            this.btnInfoWorldEmpty.UseVisualStyleBackColor = true;
+            this.btnInfoWorldEmpty.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoNoSplash
+            // 
+            this.btnInfoNoSplash.Image = global::YAAL.Properties.Resources.exclamation;
+            resources.ApplyResources(this.btnInfoNoSplash, "btnInfoNoSplash");
+            this.btnInfoNoSplash.Name = "btnInfoNoSplash";
+            this.btnInfoNoSplash.Tag = "-noSplash";
+            this.toolTip1.SetToolTip(this.btnInfoNoSplash, resources.GetString("btnInfoNoSplash.ToolTip"));
+            this.btnInfoNoSplash.UseVisualStyleBackColor = true;
+            this.btnInfoNoSplash.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
             // chbWorldEmpty
             // 
-            this.chbWorldEmpty.AutoSize = true;
-            this.chbWorldEmpty.Location = new System.Drawing.Point(6, 42);
+            resources.ApplyResources(this.chbWorldEmpty, "chbWorldEmpty");
             this.chbWorldEmpty.Name = "chbWorldEmpty";
-            this.chbWorldEmpty.Size = new System.Drawing.Size(88, 17);
-            this.chbWorldEmpty.TabIndex = 18;
-            this.chbWorldEmpty.Text = "-world=empty";
             this.chbWorldEmpty.UseVisualStyleBackColor = true;
             this.chbWorldEmpty.CheckedChanged += new System.EventHandler(this.chbWorldEmpty_CheckedChanged);
             // 
             // chbSkipIntro
             // 
-            this.chbSkipIntro.AutoSize = true;
-            this.chbSkipIntro.Location = new System.Drawing.Point(6, 65);
+            resources.ApplyResources(this.chbSkipIntro, "chbSkipIntro");
             this.chbSkipIntro.Name = "chbSkipIntro";
-            this.chbSkipIntro.Size = new System.Drawing.Size(69, 17);
-            this.chbSkipIntro.TabIndex = 19;
-            this.chbSkipIntro.Text = "-skipIntro";
             this.chbSkipIntro.UseVisualStyleBackColor = true;
             this.chbSkipIntro.CheckedChanged += new System.EventHandler(this.chbSkipIntro_CheckedChanged);
             // 
@@ -552,21 +613,16 @@
             this.tbtnInfo,
             this.tbtnSettings,
             this.tddbPreset});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(625, 25);
-            this.toolStrip1.TabIndex = 33;
-            this.toolStrip1.Text = "toolStrip1";
             // 
             // tbtnInfo
             // 
             this.tbtnInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tbtnInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnInfo.Image = global::YAAL.Properties.Resources.help;
-            this.tbtnInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            resources.ApplyResources(this.tbtnInfo, "tbtnInfo");
             this.tbtnInfo.Name = "tbtnInfo";
-            this.tbtnInfo.Size = new System.Drawing.Size(23, 22);
-            this.tbtnInfo.Text = "info";
             this.tbtnInfo.Click += new System.EventHandler(this.tbtnInfo_Click);
             // 
             // tbtnSettings
@@ -574,48 +630,37 @@
             this.tbtnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tbtnSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnSettings.Image = global::YAAL.Properties.Resources.cog;
-            this.tbtnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            resources.ApplyResources(this.tbtnSettings, "tbtnSettings");
             this.tbtnSettings.Name = "tbtnSettings";
-            this.tbtnSettings.Size = new System.Drawing.Size(23, 22);
-            this.tbtnSettings.Text = "settings";
             this.tbtnSettings.Click += new System.EventHandler(this.tbtnSettings_Click);
             // 
             // tddbPreset
             // 
             this.tddbPreset.Image = global::YAAL.Properties.Resources.target;
-            this.tddbPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            resources.ApplyResources(this.tddbPreset, "tddbPreset");
             this.tddbPreset.Name = "tddbPreset";
-            this.tddbPreset.Size = new System.Drawing.Size(68, 22);
-            this.tddbPreset.Text = "Preset";
             this.tddbPreset.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tddbPreset_DropDownItemClicked);
             // 
             // btnLaunch
             // 
-            this.btnLaunch.Location = new System.Drawing.Point(12, 377);
+            resources.ApplyResources(this.btnLaunch, "btnLaunch");
             this.btnLaunch.Name = "btnLaunch";
-            this.btnLaunch.Size = new System.Drawing.Size(601, 28);
-            this.btnLaunch.TabIndex = 34;
-            this.btnLaunch.Text = "Start ArmA3";
             this.btnLaunch.UseVisualStyleBackColor = true;
             this.btnLaunch.Click += new System.EventHandler(this.btnLaunch_Click);
             // 
             // FormMain
             // 
             this.AcceptButton = this.btnLaunch;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 417);
             this.Controls.Add(this.btnLaunch);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.grpParameter);
             this.Controls.Add(this.grpAddons);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "YAAL (Yet Another Arma Launcher)";
             this.grpAutoConnect.ResumeLayout(false);
             this.grpAutoConnect.PerformLayout();
             this.grpAddons.ResumeLayout(false);
@@ -628,8 +673,8 @@
             this.grpProfileOptions.PerformLayout();
             this.grpPerformance.ResumeLayout(false);
             this.grpPerformance.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxVRAM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxMem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxVRAM)).EndInit();
             this.grpGameLoadingSpeedup.ResumeLayout(false);
             this.grpGameLoadingSpeedup.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -683,6 +728,23 @@
         private System.Windows.Forms.Button btnLaunch;
         private System.Windows.Forms.CheckBox chbAutoConnectEnabled;
         private System.Windows.Forms.ToolStripButton tbtnInfo;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnInfoNoSplash;
+        private System.Windows.Forms.Button btnInfoSkipIntro;
+        private System.Windows.Forms.Button btnInfoWorldEmpty;
+        private System.Windows.Forms.Button btnInfoAutoConnect;
+        private System.Windows.Forms.Button btnInfoCheckSignatures;
+        private System.Windows.Forms.Button btnInfoNoFilePatching;
+        private System.Windows.Forms.Button btnInfoShowScriptErrors;
+        private System.Windows.Forms.Button btnInfoNoPause;
+        private System.Windows.Forms.Button btnInfoName;
+        private System.Windows.Forms.Button btnInfoNoLogs;
+        private System.Windows.Forms.Button btnInfoExThreads;
+        private System.Windows.Forms.Button btnInfoCpuCount;
+        private System.Windows.Forms.Button btnInfoNoCB;
+        private System.Windows.Forms.Button btnInfoWinXP;
+        private System.Windows.Forms.Button btnInfoMaxVRAM;
+        private System.Windows.Forms.Button btnInfoMaxMem;
     }
 }
 
