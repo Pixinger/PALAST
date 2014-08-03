@@ -14,7 +14,7 @@ namespace YAAL
         #region nLog instance (LOG)
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
-		
+
         private bool _BlockEventHandler = true;
         private Configuration _Configuration = Configuration.Load();
 
@@ -228,7 +228,7 @@ namespace YAAL
         {
             if (_BlockEventHandler)
                 return;
-            
+
             SelectedPreset.ParamMaxMem = (int)numMaxMem.Value;
         }
         private void chbMaxVRAM_CheckedChanged(object sender, EventArgs e)
@@ -558,7 +558,6 @@ namespace YAAL
 
             SelectedPreset.SelectedAddons = selectedAddons.ToArray();
         }
-
         private void btnInfoOptions_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;

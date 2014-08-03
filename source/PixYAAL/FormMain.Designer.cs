@@ -104,6 +104,7 @@
             // 
             // clstAddons
             // 
+            this.clstAddons.CheckOnClick = true;
             resources.ApplyResources(this.clstAddons, "clstAddons");
             this.clstAddons.FormattingEnabled = true;
             this.clstAddons.Name = "clstAddons";
@@ -497,7 +498,7 @@
             // 
             resources.ApplyResources(this.numMaxMem, "numMaxMem");
             this.numMaxMem.Maximum = new decimal(new int[] {
-            3072,
+            16000,
             0,
             0,
             0});
@@ -518,7 +519,7 @@
             // 
             resources.ApplyResources(this.numMaxVRAM, "numMaxVRAM");
             this.numMaxVRAM.Maximum = new decimal(new int[] {
-            2047,
+            16000,
             0,
             0,
             0});
