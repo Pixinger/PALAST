@@ -142,7 +142,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtArmaExe.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -169,7 +169,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="btnBrowse.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -196,7 +196,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnBrowse.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="grpPresets.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -208,7 +208,7 @@
     <value>False</value>
   </data>
   <data name="btnRemove.Location" type="System.Drawing.Point, System.Drawing">
-    <value>565, 106</value>
+    <value>387, 106</value>
   </data>
   <data name="btnRemove.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -238,7 +238,7 @@
     <value>False</value>
   </data>
   <data name="btnRename.Location" type="System.Drawing.Point, System.Drawing">
-    <value>565, 77</value>
+    <value>387, 77</value>
   </data>
   <data name="btnRename.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -268,7 +268,7 @@
     <value>False</value>
   </data>
   <data name="btnClone.Location" type="System.Drawing.Point, System.Drawing">
-    <value>565, 48</value>
+    <value>387, 48</value>
   </data>
   <data name="btnClone.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -295,7 +295,7 @@
     <value>Top, Right</value>
   </data>
   <data name="btnAdd.Location" type="System.Drawing.Point, System.Drawing">
-    <value>565, 19</value>
+    <value>387, 19</value>
   </data>
   <data name="btnAdd.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -328,7 +328,7 @@
     <value>6, 19</value>
   </data>
   <data name="lstPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>553, 200</value>
+    <value>375, 187</value>
   </data>
   <data name="lstPreset.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -349,7 +349,7 @@
     <value>12, 51</value>
   </data>
   <data name="grpPresets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>646, 225</value>
+    <value>468, 212</value>
   </data>
   <data name="grpPresets.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -367,6 +367,63 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;grpPresets.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="grpOptions.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="chbCloseAfterLaunch.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="chbCloseAfterLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="chbCloseAfterLaunch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 33</value>
+  </data>
+  <data name="chbCloseAfterLaunch.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="chbCloseAfterLaunch.Text" xml:space="preserve">
+    <value>Close after launch</value>
+  </data>
+  <data name="chbCloseAfterLaunch.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;chbCloseAfterLaunch.Name" xml:space="preserve">
+    <value>chbCloseAfterLaunch</value>
+  </data>
+  <data name="&gt;&gt;chbCloseAfterLaunch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chbCloseAfterLaunch.Parent" xml:space="preserve">
+    <value>grpOptions</value>
+  </data>
+  <data name="&gt;&gt;chbCloseAfterLaunch.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>486, 51</value>
+  </data>
+  <data name="grpOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>172, 212</value>
+  </data>
+  <data name="grpOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="grpOptions.Text" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="&gt;&gt;grpOptions.Name" xml:space="preserve">
+    <value>grpOptions</value>
+  </data>
+  <data name="&gt;&gt;grpOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpOptions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;grpOptions.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -376,7 +433,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>670, 288</value>
+    <value>670, 275</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

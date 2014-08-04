@@ -25,6 +25,7 @@ namespace YAAL
                 dlg._Configuration = configuration;
                 dlg.RefreshListbox();
                 dlg.txtArmaExe.Text = configuration.Arma3Exe;
+                dlg.chbCloseAfterLaunch.Checked = configuration.CloseAfterStart;
                 dlg.ShowDialog();
             }
         }
@@ -121,6 +122,11 @@ namespace YAAL
                 btnRename.Enabled = false;
                 btnClone.Enabled = false;
             }
+        }
+
+        private void chbCloseAfterLaunch_CheckedChanged(object sender, EventArgs e)
+        {
+            _Configuration.CloseAfterStart = chbCloseAfterLaunch.Checked;
         }
     }
 }

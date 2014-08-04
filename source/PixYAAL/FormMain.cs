@@ -517,6 +517,9 @@ namespace YAAL
             LOG.Info("Starting Arma with args: {0}", args);
             LOG.Info("Using Arma3.exe: {0}", _Configuration.Arma3Exe);
 
+#if(DEBUG)
+            MessageBox.Show(args);
+#else
             using (System.Diagnostics.Process process = new System.Diagnostics.Process())
             {
                 process.StartInfo.FileName = System.IO.Path.GetFileName(_Configuration.Arma3Exe);
@@ -527,6 +530,7 @@ namespace YAAL
                 process.StartInfo.CreateNoWindow = false;
                 process.Start();
             }
+#endif
 
             if (_Configuration.CloseAfterStart)
                 Close();

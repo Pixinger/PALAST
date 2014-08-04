@@ -38,7 +38,10 @@
             this.btnClone = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.lstPreset = new System.Windows.Forms.ListBox();
+            this.grpOptions = new System.Windows.Forms.GroupBox();
+            this.chbCloseAfterLaunch = new System.Windows.Forms.CheckBox();
             this.grpPresets.SuspendLayout();
+            this.grpOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtArmaExe
@@ -105,16 +108,32 @@
             this.lstPreset.Name = "lstPreset";
             this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
             // 
+            // grpOptions
+            // 
+            resources.ApplyResources(this.grpOptions, "grpOptions");
+            this.grpOptions.Controls.Add(this.chbCloseAfterLaunch);
+            this.grpOptions.Name = "grpOptions";
+            this.grpOptions.TabStop = false;
+            // 
+            // chbCloseAfterLaunch
+            // 
+            resources.ApplyResources(this.chbCloseAfterLaunch, "chbCloseAfterLaunch");
+            this.chbCloseAfterLaunch.Name = "chbCloseAfterLaunch";
+            this.chbCloseAfterLaunch.UseVisualStyleBackColor = true;
+            this.chbCloseAfterLaunch.CheckedChanged += new System.EventHandler(this.chbCloseAfterLaunch_CheckedChanged);
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.grpOptions);
             this.Controls.Add(this.grpPresets);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtArmaExe);
             this.Name = "SettingsDialog";
             this.grpPresets.ResumeLayout(false);
+            this.grpOptions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,5 +150,7 @@
         private System.Windows.Forms.Button btnClone;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.ListBox lstPreset;
+        private System.Windows.Forms.GroupBox grpOptions;
+        private System.Windows.Forms.CheckBox chbCloseAfterLaunch;
     }
 }
