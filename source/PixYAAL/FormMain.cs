@@ -495,7 +495,7 @@ namespace YAAL
             {
                 if ((preset.ParamServer != null) && (preset.ParamServer != "") && (preset.ParamPort != null) && (preset.ParamPort != ""))
                 {
-                    args += string.Format(" -server={0}", preset.ParamServer);
+                    args += string.Format(" -connect={0}", preset.ParamServer);
                     args += string.Format(" -port={0}", preset.ParamPort);
                     if ((preset.ParamPassword != null) && (preset.ParamPassword != ""))
                         args += string.Format(" -password={0}", preset.ParamPassword);
