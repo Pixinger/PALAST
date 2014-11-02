@@ -395,6 +395,5 @@ namespace YAAST
             lstLog.Items.Clear();
             Application.DoEvents();
         }
-
     }
 }
