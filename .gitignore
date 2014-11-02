@@ -21,4 +21,9 @@
 *.app
 /source/PixYAAL/bin
 /source/PixYAAL/obj
+/source/YAAST.Common/bin
+/source/YAAST.Common/obj
+/source/YAASTServer/bin
+/source/YAASTServer/obj
 /source/*.suo
+/source/_bin
