@@ -31,19 +31,13 @@ namespace YAAL
 
             if (!System.IO.File.Exists(_Configuration.Arma3Exe))
             {
-                SettingsDialog.ExecuteDialog(_Configuration);
-
-                if (!System.IO.File.Exists(_Configuration.Arma3Exe))
-                {
-                    MessageBox.Show("Arma3.exe not found. YAAL will exit now.");
-                    Close();
-                }
+                if (!SettingsDialog.ExecuteDialog(_Configuration))
+                    Close();                    
             }
 
             RefreshMenu();
             RefreshNames();
         }
-
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
@@ -55,12 +49,13 @@ namespace YAAL
         {
             get
             {
-                if ((_Configuration.SelectedPreset != null) && (_Configuration.Presets != null))
+             /*   if ((_Configuration.SelectedPreset != null) && (_Configuration.Presets != null))
                     foreach (Configuration.Preset cfgPreset in _Configuration.Presets)
                         if (cfgPreset.Name == _Configuration.SelectedPreset)
-                            return cfgPreset;
+                            return cfgPreset;*/
+                return lstPreset.SelectedItem as Configuration.Preset;
 
-                return null;
+                //return null;
             }
         }
         private void RefreshNames()
@@ -74,15 +69,13 @@ namespace YAAL
         }
         private void RefreshMenu()
         {
-            tddbPreset.DropDownItems.Clear();
+            lstPreset.Items.Clear();
             if (_Configuration.Presets != null)
                 foreach (Configuration.Preset cfgPreset in _Configuration.Presets)
                 {
-                    ToolStripMenuItem item = new ToolStripMenuItem(cfgPreset.Name);
-                    item.Tag = cfgPreset;
-                    tddbPreset.DropDownItems.Add(item);
-                    if (item.Text == _Configuration.SelectedPreset)
-                        item.Checked = true;
+                    lstPreset.Items.Add(cfgPreset);
+                    if (cfgPreset.Name == _Configuration.SelectedPreset)
+                        lstPreset.SelectedIndex = lstPreset.Items.Count - 1;
                 }
 
             RefreshPreset();
@@ -95,14 +88,13 @@ namespace YAAL
             if ((preset == null) && (_Configuration.Presets != null) && (_Configuration.Presets.Length > 0))
             {
                 preset = _Configuration.Presets[0];
-                ((ToolStripMenuItem)tddbPreset.DropDownItems[0]).Checked = true;
                 _Configuration.SelectedPreset = preset.ToString();
+                lstPreset.SelectedIndex = 0;
             }
 
             if (preset != null)
             {
                 _BlockEventHandler = true;
-                tddbPreset.Text = preset.Name;
 
                 chbNoSpalsh.Checked = preset.ParamNoSplash;
                 chbWorldEmpty.Checked = preset.ParamWorldEmpty;
@@ -146,17 +138,15 @@ namespace YAAL
 
                 txtAdditionalParameter.Text = preset.ParamAdditionalParameters;
 
-                tddbPreset.Enabled = true;
-                grpAddons.Enabled = true;
-                grpParameter.Enabled = true;
+               // grpAddons.Enabled = true;
+                //grpParameter.Enabled = true;
 
                 _BlockEventHandler = false;
             }
             else
             {
-                tddbPreset.Enabled = false;
-                grpAddons.Enabled = false;
-                grpParameter.Enabled = false;
+               // grpAddons.Enabled = false;
+                //grpParameter.Enabled = false;
             }
 
             RefreshAddons();
@@ -445,15 +435,126 @@ namespace YAAL
             }
         }
 
+        private void lstPreset_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstPreset.SelectedIndex != -1)
+            {
+                tbtnClonePreset.Enabled = true;
+                tbtnDeletePreset.Enabled = true;
+                tbtnEditPreset.Enabled = true;
+                tbtnLaunch.Enabled = true;
+                tbtnUpdateAddons.Enabled = true;
+
+                _Configuration.SelectedPreset = lstPreset.SelectedItem.ToString();
+                
+                RefreshPreset();
+            }
+            else
+            {
+                tbtnClonePreset.Enabled = false;
+                tbtnDeletePreset.Enabled = false;
+                tbtnEditPreset.Enabled = false;
+                tbtnLaunch.Enabled = false;
+                tbtnUpdateAddons.Enabled = false;
+            }
+        }
+
+        private void clstAddons_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (_BlockEventHandler)
+                return;
+
+            List<string> selectedAddons = (SelectedPreset.SelectedAddons) != null ? new List<string>(SelectedPreset.SelectedAddons) : new List<string>();
+            if (e.NewValue == CheckState.Checked)
+                selectedAddons.Add(clstAddons.Items[e.Index].ToString());
+            else
+                selectedAddons.Remove(clstAddons.Items[e.Index].ToString());
+
+            SelectedPreset.SelectedAddons = selectedAddons.ToArray();
+        }
+        private void btnInfoOptions_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+                OptionInfoDialog.ExecuteDialog(button.Tag as string);
+        }
+
+        private bool IsNameValid(string name)
+        {
+            foreach (Configuration.Preset preset in _Configuration.Presets)
+                if (preset.Name == name)
+                    return false;
+
+            return true;
+        }
+        private void tbtnAddPreset_Click(object sender, EventArgs e)
+        {
+            string name = RenamePresetDialog.ExecuteDialog("new");
+            if (name != null)
+            {
+                if (!IsNameValid(name))
+                    MessageBox.Show("Invalid name");
+                else
+                {
+                    Configuration.Preset preset = new Configuration.Preset();
+                    preset.Name = name;
+                    List<Configuration.Preset> list = (_Configuration.Presets != null) ? new List<Configuration.Preset>(_Configuration.Presets) : new List<Configuration.Preset>();
+                    list.Add(preset);
+                    _Configuration.Presets = list.ToArray();
+                    RefreshMenu();
+                    lstPreset.SelectedIndex = lstPreset.Items.Count - 1;
+                }
+            }
+
+        }
+        private void tbtnEditPreset_Click(object sender, EventArgs e)
+        {
+            Configuration.Preset preset = lstPreset.SelectedItem as Configuration.Preset;
+            string name = RenamePresetDialog.ExecuteDialog(preset.Name);
+            if (name != null)
+            {
+                preset.Name = name;
+                int index = lstPreset.SelectedIndex;
+                RefreshMenu();
+                lstPreset.SelectedIndex = index;
+
+            }
+        }
+        private void tbtnClonePreset_Click(object sender, EventArgs e)
+        {
+            Configuration.Preset preset = (lstPreset.SelectedItem as Configuration.Preset).Clone();
+            string newName = preset.Name + " (clone)";
+            while (!IsNameValid(newName)) { newName += " (clone)"; }
+            preset.Name = newName;
+
+            List<Configuration.Preset> list = new List<Configuration.Preset>(_Configuration.Presets);
+            list.Add(preset);
+            _Configuration.Presets = list.ToArray();
+            RefreshMenu();
+            lstPreset.SelectedIndex = lstPreset.Items.Count - 1;
+        }
+        private void tbtnDeletePreset_Click(object sender, EventArgs e)
+        {
+            List<Configuration.Preset> list = new List<Configuration.Preset>(_Configuration.Presets);
+            foreach (Configuration.Preset preset in lstPreset.SelectedItems)
+                list.Remove(preset);
+            _Configuration.Presets = list.ToArray();
+            RefreshMenu();
+            lstPreset.SelectedIndex = lstPreset.Items.Count - 1;
+        }
         private void tbtnSettings_Click(object sender, EventArgs e)
         {
             SettingsDialog.ExecuteDialog(_Configuration);
 
             RefreshMenu();
         }
-        private void btnLaunch_Click(object sender, EventArgs e)
+        private void tbtnInfo_Click(object sender, EventArgs e)
         {
+            AboutDialog.ExecuteDialog();
+        }
 
+        private void tbtnLaunch_Click(object sender, EventArgs e)
+        {
             Configuration.Preset preset = SelectedPreset;
             if (preset == null)
                 return;
@@ -517,56 +618,36 @@ namespace YAAL
             LOG.Info("Starting Arma with args: {0}", args);
             LOG.Info("Using Arma3.exe: {0}", _Configuration.Arma3Exe);
 
-#if(DEBUG)
-            MessageBox.Show(args);
-#else
-            using (System.Diagnostics.Process process = new System.Diagnostics.Process())
+            if (System.IO.File.Exists(_Configuration.Arma3Exe))
             {
-                process.StartInfo.FileName = System.IO.Path.GetFileName(_Configuration.Arma3Exe);
-                process.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe);
-                process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-                process.StartInfo.Arguments = args;
-                process.StartInfo.UseShellExecute = true;
-                process.StartInfo.CreateNoWindow = false;
-                process.Start();
-            }
+#if(DEBUG)
+                MessageBox.Show(args);
+#else
+                using (System.Diagnostics.Process process = new System.Diagnostics.Process())
+                {
+                    process.StartInfo.FileName = System.IO.Path.GetFileName(_Configuration.Arma3Exe);
+                    process.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe);
+                    process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                    process.StartInfo.Arguments = args;
+                    process.StartInfo.UseShellExecute = true;
+                    process.StartInfo.CreateNoWindow = false;
+                    process.Start();
+                }
 #endif
+            }
+            else
+            {
+                MessageBox.Show("Arma3.exe not found. Please configure the correct path in the settings.\n\nCommandline arguments:\n" + args);
+            }
 
             if (_Configuration.CloseAfterStart)
                 Close();
         }
-        private void tbtnInfo_Click(object sender, EventArgs e)
+        private void tbtnUpdateAddons_Click(object sender, EventArgs e)
         {
-            AboutDialog.ExecuteDialog();
-        }
-        private void tddbPreset_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            foreach (ToolStripMenuItem item in tddbPreset.DropDownItems)
-                item.Checked = false;
+            AddonSyncDialog.ExecuteDialog(System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe), SelectedPreset);
 
-            ((ToolStripMenuItem)e.ClickedItem).Checked = true;
-            _Configuration.SelectedPreset = (e.ClickedItem.Tag as Configuration.Preset).Name;
-            RefreshPreset();
-        }
-
-        private void clstAddons_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-            if (_BlockEventHandler)
-                return;
-
-            List<string> selectedAddons = (SelectedPreset.SelectedAddons) != null ? new List<string>(SelectedPreset.SelectedAddons) : new List<string>();
-            if (e.NewValue == CheckState.Checked)
-                selectedAddons.Add(clstAddons.Items[e.Index].ToString());
-            else
-                selectedAddons.Remove(clstAddons.Items[e.Index].ToString());
-
-            SelectedPreset.SelectedAddons = selectedAddons.ToArray();
-        }
-        private void btnInfoOptions_Click(object sender, EventArgs e)
-        {
-            Button button = sender as Button;
-            if (button != null)
-                OptionInfoDialog.ExecuteDialog(button.Tag as string);
+            RefreshMenu();
         }
     }
 }

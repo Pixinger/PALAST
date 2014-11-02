@@ -142,7 +142,7 @@
     <value>settings</value>
   </data>
   <data name="chbCloseAfterLaunch.Text" xml:space="preserve">
-    <value>Nach dem Starten beenden</value>
+    <value>Nachdem ARMA gestartet wurde den Launcher beenden.</value>
   </data>
   <data name="grpOptions.Text" xml:space="preserve">
     <value>Optionen</value>

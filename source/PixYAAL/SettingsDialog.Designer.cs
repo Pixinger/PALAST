@@ -32,15 +32,10 @@
             this.txtArmaExe = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnBrowse = new System.Windows.Forms.Button();
-            this.grpPresets = new System.Windows.Forms.GroupBox();
-            this.btnRemove = new System.Windows.Forms.Button();
-            this.btnRename = new System.Windows.Forms.Button();
-            this.btnClone = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.lstPreset = new System.Windows.Forms.ListBox();
             this.grpOptions = new System.Windows.Forms.GroupBox();
             this.chbCloseAfterLaunch = new System.Windows.Forms.CheckBox();
-            this.grpPresets.SuspendLayout();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.grpOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,52 +57,6 @@
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
-            // grpPresets
-            // 
-            resources.ApplyResources(this.grpPresets, "grpPresets");
-            this.grpPresets.Controls.Add(this.btnRemove);
-            this.grpPresets.Controls.Add(this.btnRename);
-            this.grpPresets.Controls.Add(this.btnClone);
-            this.grpPresets.Controls.Add(this.btnAdd);
-            this.grpPresets.Controls.Add(this.lstPreset);
-            this.grpPresets.Name = "grpPresets";
-            this.grpPresets.TabStop = false;
-            // 
-            // btnRemove
-            // 
-            resources.ApplyResources(this.btnRemove, "btnRemove");
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // btnRename
-            // 
-            resources.ApplyResources(this.btnRename, "btnRename");
-            this.btnRename.Name = "btnRename";
-            this.btnRename.UseVisualStyleBackColor = true;
-            this.btnRename.Click += new System.EventHandler(this.btnRename_Click);
-            // 
-            // btnClone
-            // 
-            resources.ApplyResources(this.btnClone, "btnClone");
-            this.btnClone.Name = "btnClone";
-            this.btnClone.UseVisualStyleBackColor = true;
-            this.btnClone.Click += new System.EventHandler(this.btnClone_Click);
-            // 
-            // btnAdd
-            // 
-            resources.ApplyResources(this.btnAdd, "btnAdd");
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // lstPreset
-            // 
-            resources.ApplyResources(this.lstPreset, "lstPreset");
-            this.lstPreset.FormattingEnabled = true;
-            this.lstPreset.Name = "lstPreset";
-            this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
-            // 
             // grpOptions
             // 
             resources.ApplyResources(this.grpOptions, "grpOptions");
@@ -120,19 +69,34 @@
             resources.ApplyResources(this.chbCloseAfterLaunch, "chbCloseAfterLaunch");
             this.chbCloseAfterLaunch.Name = "chbCloseAfterLaunch";
             this.chbCloseAfterLaunch.UseVisualStyleBackColor = true;
-            this.chbCloseAfterLaunch.CheckedChanged += new System.EventHandler(this.chbCloseAfterLaunch_CheckedChanged);
+            // 
+            // btnOK
+            // 
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            resources.ApplyResources(this.btnOK, "btnOK");
+            this.btnOK.Name = "btnOK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.btnCancel, "btnCancel");
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // SettingsDialog
             // 
+            this.AcceptButton = this.btnOK;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
             this.Controls.Add(this.grpOptions);
-            this.Controls.Add(this.grpPresets);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtArmaExe);
             this.Name = "SettingsDialog";
-            this.grpPresets.ResumeLayout(false);
             this.grpOptions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -144,13 +108,9 @@
         private System.Windows.Forms.TextBox txtArmaExe;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBrowse;
-        private System.Windows.Forms.GroupBox grpPresets;
-        private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.Button btnRename;
-        private System.Windows.Forms.Button btnClone;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.ListBox lstPreset;
         private System.Windows.Forms.GroupBox grpOptions;
         private System.Windows.Forms.CheckBox chbCloseAfterLaunch;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

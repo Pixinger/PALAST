@@ -50,10 +50,6 @@
             this.grpAutoConnect = new System.Windows.Forms.GroupBox();
             this.btnInfoAutoConnect = new System.Windows.Forms.Button();
             this.chbAutoConnectEnabled = new System.Windows.Forms.CheckBox();
-            this.grpAddons = new System.Windows.Forms.GroupBox();
-            this.grpParameter = new System.Windows.Forms.GroupBox();
-            this.grpAdditionalParameters = new System.Windows.Forms.GroupBox();
-            this.txtAdditionalParameter = new System.Windows.Forms.TextBox();
             this.grpDeveloperOptions = new System.Windows.Forms.GroupBox();
             this.btnInfoCheckSignatures = new System.Windows.Forms.Button();
             this.btnInfoNoFilePatching = new System.Windows.Forms.Button();
@@ -83,23 +79,41 @@
             this.btnInfoNoSplash = new System.Windows.Forms.Button();
             this.chbWorldEmpty = new System.Windows.Forms.CheckBox();
             this.chbSkipIntro = new System.Windows.Forms.CheckBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lstPreset = new System.Windows.Forms.ListBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.pnlParameter = new System.Windows.Forms.Panel();
+            this.grpAdditionalParameters = new System.Windows.Forms.GroupBox();
+            this.txtAdditionalParameter = new System.Windows.Forms.TextBox();
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.tbtnLaunch = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbtnUpdateAddons = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.tbtnAddPreset = new System.Windows.Forms.ToolStripButton();
+            this.tbtnEditPreset = new System.Windows.Forms.ToolStripButton();
+            this.tbtnClonePreset = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbtnDeletePreset = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnInfo = new System.Windows.Forms.ToolStripButton();
             this.tbtnSettings = new System.Windows.Forms.ToolStripButton();
-            this.tddbPreset = new System.Windows.Forms.ToolStripDropDownButton();
-            this.btnLaunch = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.grpAutoConnect.SuspendLayout();
-            this.grpAddons.SuspendLayout();
-            this.grpParameter.SuspendLayout();
-            this.grpAdditionalParameters.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
             this.grpPerformance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxMem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxVRAM)).BeginInit();
             this.grpGameLoadingSpeedup.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.pnlParameter.SuspendLayout();
+            this.grpAdditionalParameters.SuspendLayout();
+            this.toolStrip3.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // clstAddons
@@ -243,38 +257,6 @@
             this.chbAutoConnectEnabled.Name = "chbAutoConnectEnabled";
             this.chbAutoConnectEnabled.UseVisualStyleBackColor = true;
             this.chbAutoConnectEnabled.CheckedChanged += new System.EventHandler(this.chbAutoConnectEnabled_CheckedChanged);
-            // 
-            // grpAddons
-            // 
-            this.grpAddons.Controls.Add(this.clstAddons);
-            resources.ApplyResources(this.grpAddons, "grpAddons");
-            this.grpAddons.Name = "grpAddons";
-            this.grpAddons.TabStop = false;
-            // 
-            // grpParameter
-            // 
-            this.grpParameter.Controls.Add(this.grpAdditionalParameters);
-            this.grpParameter.Controls.Add(this.grpDeveloperOptions);
-            this.grpParameter.Controls.Add(this.grpProfileOptions);
-            this.grpParameter.Controls.Add(this.grpAutoConnect);
-            this.grpParameter.Controls.Add(this.grpPerformance);
-            this.grpParameter.Controls.Add(this.grpGameLoadingSpeedup);
-            resources.ApplyResources(this.grpParameter, "grpParameter");
-            this.grpParameter.Name = "grpParameter";
-            this.grpParameter.TabStop = false;
-            // 
-            // grpAdditionalParameters
-            // 
-            this.grpAdditionalParameters.Controls.Add(this.txtAdditionalParameter);
-            resources.ApplyResources(this.grpAdditionalParameters, "grpAdditionalParameters");
-            this.grpAdditionalParameters.Name = "grpAdditionalParameters";
-            this.grpAdditionalParameters.TabStop = false;
-            // 
-            // txtAdditionalParameter
-            // 
-            resources.ApplyResources(this.txtAdditionalParameter, "txtAdditionalParameter");
-            this.txtAdditionalParameter.Name = "txtAdditionalParameter";
-            this.txtAdditionalParameter.TextChanged += new System.EventHandler(this.txtAdditionalParameter_TextChanged);
             // 
             // grpDeveloperOptions
             // 
@@ -552,6 +534,7 @@
             // 
             // grpGameLoadingSpeedup
             // 
+            this.grpGameLoadingSpeedup.BackColor = System.Drawing.SystemColors.Control;
             this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoSkipIntro);
             this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoWorldEmpty);
             this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoNoSplash);
@@ -606,16 +589,146 @@
             this.chbSkipIntro.UseVisualStyleBackColor = true;
             this.chbSkipIntro.CheckedChanged += new System.EventHandler(this.chbSkipIntro_CheckedChanged);
             // 
-            // toolStrip1
+            // lstPreset
             // 
-            this.toolStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            resources.ApplyResources(this.lstPreset, "lstPreset");
+            this.lstPreset.FormattingEnabled = true;
+            this.lstPreset.Name = "lstPreset";
+            this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
+            // 
+            // splitContainer1
+            // 
+            resources.ApplyResources(this.splitContainer1, "splitContainer1");
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.lstPreset);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.clstAddons);
+            this.splitContainer1.Panel2.Controls.Add(this.pnlParameter);
+            this.splitContainer1.Panel2.Controls.Add(this.toolStrip3);
+            // 
+            // pnlParameter
+            // 
+            this.pnlParameter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlParameter.Controls.Add(this.grpAdditionalParameters);
+            this.pnlParameter.Controls.Add(this.grpAutoConnect);
+            this.pnlParameter.Controls.Add(this.grpDeveloperOptions);
+            this.pnlParameter.Controls.Add(this.grpGameLoadingSpeedup);
+            this.pnlParameter.Controls.Add(this.grpProfileOptions);
+            this.pnlParameter.Controls.Add(this.grpPerformance);
+            resources.ApplyResources(this.pnlParameter, "pnlParameter");
+            this.pnlParameter.Name = "pnlParameter";
+            // 
+            // grpAdditionalParameters
+            // 
+            this.grpAdditionalParameters.Controls.Add(this.txtAdditionalParameter);
+            resources.ApplyResources(this.grpAdditionalParameters, "grpAdditionalParameters");
+            this.grpAdditionalParameters.Name = "grpAdditionalParameters";
+            this.grpAdditionalParameters.TabStop = false;
+            // 
+            // txtAdditionalParameter
+            // 
+            resources.ApplyResources(this.txtAdditionalParameter, "txtAdditionalParameter");
+            this.txtAdditionalParameter.Name = "txtAdditionalParameter";
+            this.txtAdditionalParameter.TextChanged += new System.EventHandler(this.txtAdditionalParameter_TextChanged);
+            // 
+            // toolStrip3
+            // 
+            this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbtnLaunch,
+            this.toolStripSeparator3,
+            this.tbtnUpdateAddons,
+            this.toolStripSeparator4});
+            resources.ApplyResources(this.toolStrip3, "toolStrip3");
+            this.toolStrip3.Name = "toolStrip3";
+            // 
+            // tbtnLaunch
+            // 
+            this.tbtnLaunch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tbtnLaunch, "tbtnLaunch");
+            this.tbtnLaunch.Image = global::YAAL.Properties.Resources.control_play_blue;
+            this.tbtnLaunch.Name = "tbtnLaunch";
+            this.tbtnLaunch.Click += new System.EventHandler(this.tbtnLaunch_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
+            // 
+            // tbtnUpdateAddons
+            // 
+            this.tbtnUpdateAddons.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tbtnUpdateAddons, "tbtnUpdateAddons");
+            this.tbtnUpdateAddons.Image = global::YAAL.Properties.Resources.arrow_refresh_small;
+            this.tbtnUpdateAddons.Name = "tbtnUpdateAddons";
+            this.tbtnUpdateAddons.Click += new System.EventHandler(this.tbtnUpdateAddons_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbtnAddPreset,
+            this.tbtnEditPreset,
+            this.tbtnClonePreset,
+            this.toolStripSeparator1,
+            this.tbtnDeletePreset,
+            this.toolStripSeparator2,
             this.tbtnInfo,
-            this.tbtnSettings,
-            this.tddbPreset});
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
-            this.toolStrip1.Name = "toolStrip1";
+            this.tbtnSettings});
+            resources.ApplyResources(this.toolStrip2, "toolStrip2");
+            this.toolStrip2.Name = "toolStrip2";
+            // 
+            // tbtnAddPreset
+            // 
+            this.tbtnAddPreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnAddPreset.Image = global::YAAL.Properties.Resources.table_add;
+            resources.ApplyResources(this.tbtnAddPreset, "tbtnAddPreset");
+            this.tbtnAddPreset.Name = "tbtnAddPreset";
+            this.tbtnAddPreset.Click += new System.EventHandler(this.tbtnAddPreset_Click);
+            // 
+            // tbtnEditPreset
+            // 
+            this.tbtnEditPreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tbtnEditPreset, "tbtnEditPreset");
+            this.tbtnEditPreset.Image = global::YAAL.Properties.Resources.table_edit;
+            this.tbtnEditPreset.Name = "tbtnEditPreset";
+            this.tbtnEditPreset.Click += new System.EventHandler(this.tbtnEditPreset_Click);
+            // 
+            // tbtnClonePreset
+            // 
+            this.tbtnClonePreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tbtnClonePreset, "tbtnClonePreset");
+            this.tbtnClonePreset.Image = global::YAAL.Properties.Resources.table_go;
+            this.tbtnClonePreset.Name = "tbtnClonePreset";
+            this.tbtnClonePreset.Click += new System.EventHandler(this.tbtnClonePreset_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            // 
+            // tbtnDeletePreset
+            // 
+            this.tbtnDeletePreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.tbtnDeletePreset, "tbtnDeletePreset");
+            this.tbtnDeletePreset.Image = global::YAAL.Properties.Resources.table_delete;
+            this.tbtnDeletePreset.Name = "tbtnDeletePreset";
+            this.tbtnDeletePreset.Click += new System.EventHandler(this.tbtnDeletePreset_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // tbtnInfo
             // 
@@ -635,39 +748,17 @@
             this.tbtnSettings.Name = "tbtnSettings";
             this.tbtnSettings.Click += new System.EventHandler(this.tbtnSettings_Click);
             // 
-            // tddbPreset
-            // 
-            this.tddbPreset.Image = global::YAAL.Properties.Resources.target;
-            resources.ApplyResources(this.tddbPreset, "tddbPreset");
-            this.tddbPreset.Name = "tddbPreset";
-            this.tddbPreset.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tddbPreset_DropDownItemClicked);
-            // 
-            // btnLaunch
-            // 
-            resources.ApplyResources(this.btnLaunch, "btnLaunch");
-            this.btnLaunch.Name = "btnLaunch";
-            this.btnLaunch.UseVisualStyleBackColor = true;
-            this.btnLaunch.Click += new System.EventHandler(this.btnLaunch_Click);
-            // 
             // FormMain
             // 
-            this.AcceptButton = this.btnLaunch;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnLaunch);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.grpParameter);
-            this.Controls.Add(this.grpAddons);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.toolStrip2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMain";
             this.grpAutoConnect.ResumeLayout(false);
             this.grpAutoConnect.PerformLayout();
-            this.grpAddons.ResumeLayout(false);
-            this.grpParameter.ResumeLayout(false);
-            this.grpAdditionalParameters.ResumeLayout(false);
-            this.grpAdditionalParameters.PerformLayout();
             this.grpDeveloperOptions.ResumeLayout(false);
             this.grpDeveloperOptions.PerformLayout();
             this.grpProfileOptions.ResumeLayout(false);
@@ -678,8 +769,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.numMaxVRAM)).EndInit();
             this.grpGameLoadingSpeedup.ResumeLayout(false);
             this.grpGameLoadingSpeedup.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.pnlParameter.ResumeLayout(false);
+            this.grpAdditionalParameters.ResumeLayout(false);
+            this.grpAdditionalParameters.PerformLayout();
+            this.toolStrip3.ResumeLayout(false);
+            this.toolStrip3.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -705,18 +806,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.GroupBox grpAutoConnect;
-        private System.Windows.Forms.GroupBox grpAddons;
-        private System.Windows.Forms.GroupBox grpParameter;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton tddbPreset;
-        private System.Windows.Forms.ToolStripButton tbtnSettings;
-        private System.Windows.Forms.TextBox txtAdditionalParameter;
         private System.Windows.Forms.CheckBox chbSkipIntro;
         private System.Windows.Forms.CheckBox chbWorldEmpty;
         private System.Windows.Forms.CheckBox chbCheckSignatures;
         private System.Windows.Forms.CheckBox chbNoCB;
         private System.Windows.Forms.CheckBox chbWinXP;
-        private System.Windows.Forms.GroupBox grpAdditionalParameters;
         private System.Windows.Forms.GroupBox grpDeveloperOptions;
         private System.Windows.Forms.GroupBox grpProfileOptions;
         private System.Windows.Forms.GroupBox grpPerformance;
@@ -726,9 +820,7 @@
         private System.Windows.Forms.ComboBox cmbExThreads;
         private System.Windows.Forms.ComboBox cmbCpuCount;
         private System.Windows.Forms.ComboBox cmbName;
-        private System.Windows.Forms.Button btnLaunch;
         private System.Windows.Forms.CheckBox chbAutoConnectEnabled;
-        private System.Windows.Forms.ToolStripButton tbtnInfo;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnInfoNoSplash;
         private System.Windows.Forms.Button btnInfoSkipIntro;
@@ -746,6 +838,25 @@
         private System.Windows.Forms.Button btnInfoWinXP;
         private System.Windows.Forms.Button btnInfoMaxVRAM;
         private System.Windows.Forms.Button btnInfoMaxMem;
+        private System.Windows.Forms.ListBox lstPreset;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Panel pnlParameter;
+        private System.Windows.Forms.GroupBox grpAdditionalParameters;
+        private System.Windows.Forms.TextBox txtAdditionalParameter;
+        private System.Windows.Forms.ToolStrip toolStrip3;
+        private System.Windows.Forms.ToolStripButton tbtnLaunch;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton tbtnUpdateAddons;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripButton tbtnAddPreset;
+        private System.Windows.Forms.ToolStripButton tbtnEditPreset;
+        private System.Windows.Forms.ToolStripButton tbtnClonePreset;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton tbtnDeletePreset;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton tbtnInfo;
+        private System.Windows.Forms.ToolStripButton tbtnSettings;
     }
 }
 

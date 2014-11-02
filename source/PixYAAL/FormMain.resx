@@ -127,10 +127,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="clstAddons.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 23</value>
+    <value>0, 25</value>
   </data>
   <data name="clstAddons.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 304</value>
+    <value>219, 643</value>
   </data>
   <data name="clstAddons.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -142,7 +142,7 @@
     <value>System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;clstAddons.Parent" xml:space="preserve">
-    <value>grpAddons</value>
+    <value>splitContainer1.Panel2</value>
   </data>
   <data name="&gt;&gt;clstAddons.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -154,7 +154,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbShowScriptErrors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 42</value>
+    <value>6, 42</value>
   </data>
   <data name="chbShowScriptErrors.Size" type="System.Drawing.Size, System.Drawing">
     <value>108, 17</value>
@@ -184,7 +184,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbNoPause.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 19</value>
+    <value>6, 19</value>
   </data>
   <data name="chbNoPause.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 17</value>
@@ -214,7 +214,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbExThreads.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 134</value>
+    <value>6, 134</value>
   </data>
   <data name="chbExThreads.Size" type="System.Drawing.Size, System.Drawing">
     <value>79, 17</value>
@@ -244,7 +244,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbNoFilePatching.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 65</value>
+    <value>6, 65</value>
   </data>
   <data name="chbNoFilePatching.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 17</value>
@@ -274,7 +274,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbNoSpalsh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 19</value>
+    <value>6, 19</value>
   </data>
   <data name="chbNoSpalsh.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 17</value>
@@ -304,7 +304,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbNoLogs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 157</value>
+    <value>6, 157</value>
   </data>
   <data name="chbNoLogs.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 17</value>
@@ -334,7 +334,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbCpuCount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 111</value>
+    <value>6, 111</value>
   </data>
   <data name="chbCpuCount.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 17</value>
@@ -364,7 +364,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbMaxMem.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 19</value>
+    <value>6, 19</value>
   </data>
   <data name="chbMaxMem.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 17</value>
@@ -394,7 +394,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbMaxVRAM.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 42</value>
+    <value>6, 42</value>
   </data>
   <data name="chbMaxVRAM.Size" type="System.Drawing.Size, System.Drawing">
     <value>79, 17</value>
@@ -424,7 +424,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 20</value>
+    <value>6, 19</value>
   </data>
   <data name="chbName.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 17</value>
@@ -451,7 +451,7 @@
     <value>False</value>
   </data>
   <data name="txtServer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>107, 33</value>
+    <value>84, 33</value>
   </data>
   <data name="txtServer.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 20</value>
@@ -475,7 +475,7 @@
     <value>False</value>
   </data>
   <data name="txtPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>107, 55</value>
+    <value>84, 55</value>
   </data>
   <data name="txtPort.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 20</value>
@@ -499,7 +499,7 @@
     <value>False</value>
   </data>
   <data name="txtPasswort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>107, 77</value>
+    <value>84, 77</value>
   </data>
   <data name="txtPasswort.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 20</value>
@@ -526,7 +526,7 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 39</value>
+    <value>6, 36</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>38, 13</value>
@@ -556,7 +556,7 @@
     <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 62</value>
+    <value>6, 59</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>26, 13</value>
@@ -586,7 +586,7 @@
     <value>NoControl</value>
   </data>
   <data name="lblPassword.Location" type="System.Drawing.Point, System.Drawing">
-    <value>26, 84</value>
+    <value>6, 81</value>
   </data>
   <data name="lblPassword.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 13</value>
@@ -613,7 +613,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoAutoConnect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>189, 13</value>
   </data>
   <data name="btnInfoAutoConnect.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -646,7 +646,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbAutoConnectEnabled.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 19</value>
+    <value>6, 19</value>
   </data>
   <data name="chbAutoConnectEnabled.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 17</value>
@@ -670,10 +670,13 @@
     <value>1</value>
   </data>
   <data name="grpAutoConnect.Location" type="System.Drawing.Point, System.Drawing">
-    <value>223, 184</value>
+    <value>7, 5</value>
+  </data>
+  <data name="grpAutoConnect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
   </data>
   <data name="grpAutoConnect.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 102</value>
+    <value>211, 105</value>
   </data>
   <data name="grpAutoConnect.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -688,88 +691,16 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;grpAutoConnect.Parent" xml:space="preserve">
-    <value>grpParameter</value>
+    <value>pnlParameter</value>
   </data>
   <data name="&gt;&gt;grpAutoConnect.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="grpAddons.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 28</value>
-  </data>
-  <data name="grpAddons.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="grpAddons.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 337</value>
-  </data>
-  <data name="grpAddons.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="grpAddons.Text" xml:space="preserve">
-    <value>Addons</value>
-  </data>
-  <data name="&gt;&gt;grpAddons.Name" xml:space="preserve">
-    <value>grpAddons</value>
-  </data>
-  <data name="&gt;&gt;grpAddons.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpAddons.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;grpAddons.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="txtAdditionalParameter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
-  <data name="txtAdditionalParameter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>413, 20</value>
-  </data>
-  <data name="txtAdditionalParameter.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;txtAdditionalParameter.Name" xml:space="preserve">
-    <value>txtAdditionalParameter</value>
-  </data>
-  <data name="&gt;&gt;txtAdditionalParameter.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;txtAdditionalParameter.Parent" xml:space="preserve">
-    <value>grpAdditionalParameters</value>
-  </data>
-  <data name="&gt;&gt;txtAdditionalParameter.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="grpAdditionalParameters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 292</value>
-  </data>
-  <data name="grpAdditionalParameters.Size" type="System.Drawing.Size, System.Drawing">
-    <value>428, 46</value>
-  </data>
-  <data name="grpAdditionalParameters.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="grpAdditionalParameters.Text" xml:space="preserve">
-    <value>additional parameters</value>
-  </data>
-  <data name="&gt;&gt;grpAdditionalParameters.Name" xml:space="preserve">
-    <value>grpAdditionalParameters</value>
-  </data>
-  <data name="&gt;&gt;grpAdditionalParameters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grpAdditionalParameters.Parent" xml:space="preserve">
-    <value>grpParameter</value>
-  </data>
-  <data name="&gt;&gt;grpAdditionalParameters.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="btnInfoCheckSignatures.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnInfoCheckSignatures.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 87</value>
+    <value>189, 87</value>
   </data>
   <data name="btnInfoCheckSignatures.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -796,7 +727,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoNoFilePatching.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 64</value>
+    <value>189, 64</value>
   </data>
   <data name="btnInfoNoFilePatching.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -823,7 +754,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoShowScriptErrors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 41</value>
+    <value>189, 41</value>
   </data>
   <data name="btnInfoShowScriptErrors.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -853,7 +784,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbCheckSignatures.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 88</value>
+    <value>6, 88</value>
   </data>
   <data name="chbCheckSignatures.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 17</value>
@@ -880,7 +811,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoNoPause.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>189, 18</value>
   </data>
   <data name="btnInfoNoPause.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -904,10 +835,13 @@
     <value>6</value>
   </data>
   <data name="grpDeveloperOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>223, 70</value>
+    <value>7, 462</value>
+  </data>
+  <data name="grpDeveloperOptions.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
   </data>
   <data name="grpDeveloperOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 108</value>
+    <value>211, 111</value>
   </data>
   <data name="grpDeveloperOptions.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
@@ -922,16 +856,16 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;grpDeveloperOptions.Parent" xml:space="preserve">
-    <value>grpParameter</value>
+    <value>pnlParameter</value>
   </data>
   <data name="&gt;&gt;grpDeveloperOptions.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="btnInfoName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnInfoName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
+    <value>189, 19</value>
   </data>
   <data name="btnInfoName.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -958,7 +892,7 @@
     <value>False</value>
   </data>
   <data name="cmbName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 18</value>
+    <value>87, 17</value>
   </data>
   <data name="cmbName.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 21</value>
@@ -979,7 +913,10 @@
     <value>1</value>
   </data>
   <data name="grpProfileOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>223, 19</value>
+    <value>7, 407</value>
+  </data>
+  <data name="grpProfileOptions.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
   </data>
   <data name="grpProfileOptions.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 45</value>
@@ -997,16 +934,16 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;grpProfileOptions.Parent" xml:space="preserve">
-    <value>grpParameter</value>
+    <value>pnlParameter</value>
   </data>
   <data name="&gt;&gt;grpProfileOptions.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="btnInfoNoLogs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnInfoNoLogs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 156</value>
+    <value>188, 156</value>
   </data>
   <data name="btnInfoNoLogs.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1033,7 +970,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoExThreads.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 133</value>
+    <value>188, 133</value>
   </data>
   <data name="btnInfoExThreads.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1060,7 +997,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoCpuCount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 110</value>
+    <value>188, 110</value>
   </data>
   <data name="btnInfoCpuCount.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1087,7 +1024,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoNoCB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 87</value>
+    <value>188, 87</value>
   </data>
   <data name="btnInfoNoCB.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1114,7 +1051,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoWinXP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 64</value>
+    <value>188, 64</value>
   </data>
   <data name="btnInfoWinXP.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1141,7 +1078,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoMaxVRAM.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 41</value>
+    <value>188, 41</value>
   </data>
   <data name="btnInfoMaxVRAM.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1168,7 +1105,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoMaxMem.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>188, 18</value>
   </data>
   <data name="btnInfoMaxMem.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1210,7 +1147,7 @@
     <value>7</value>
   </data>
   <data name="cmbExThreads.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 132</value>
+    <value>87, 132</value>
   </data>
   <data name="cmbExThreads.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 21</value>
@@ -1282,7 +1219,7 @@
     <value>16</value>
   </data>
   <data name="cmbCpuCount.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 109</value>
+    <value>87, 109</value>
   </data>
   <data name="cmbCpuCount.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 21</value>
@@ -1306,7 +1243,7 @@
     <value>False</value>
   </data>
   <data name="numMaxMem.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 18</value>
+    <value>87, 18</value>
   </data>
   <data name="numMaxMem.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 20</value>
@@ -1330,7 +1267,7 @@
     <value>False</value>
   </data>
   <data name="numMaxVRAM.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 41</value>
+    <value>87, 41</value>
   </data>
   <data name="numMaxVRAM.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 20</value>
@@ -1357,7 +1294,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbWinXP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 65</value>
+    <value>6, 65</value>
   </data>
   <data name="chbWinXP.Size" type="System.Drawing.Size, System.Drawing">
     <value>59, 17</value>
@@ -1387,7 +1324,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbNoCB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 88</value>
+    <value>6, 88</value>
   </data>
   <data name="chbNoCB.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 17</value>
@@ -1411,10 +1348,13 @@
     <value>17</value>
   </data>
   <data name="grpPerformance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 110</value>
+    <value>7, 218</value>
+  </data>
+  <data name="grpPerformance.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
   </data>
   <data name="grpPerformance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 176</value>
+    <value>211, 179</value>
   </data>
   <data name="grpPerformance.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -1429,16 +1369,16 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;grpPerformance.Parent" xml:space="preserve">
-    <value>grpParameter</value>
+    <value>pnlParameter</value>
   </data>
   <data name="&gt;&gt;grpPerformance.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="btnInfoSkipIntro.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="btnInfoSkipIntro.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 64</value>
+    <value>188, 64</value>
   </data>
   <data name="btnInfoSkipIntro.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1465,7 +1405,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoWorldEmpty.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 41</value>
+    <value>188, 41</value>
   </data>
   <data name="btnInfoWorldEmpty.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1492,7 +1432,7 @@
     <value>NoControl</value>
   </data>
   <data name="btnInfoNoSplash.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>188, 18</value>
   </data>
   <data name="btnInfoNoSplash.Size" type="System.Drawing.Size, System.Drawing">
     <value>16, 16</value>
@@ -1522,7 +1462,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbWorldEmpty.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 42</value>
+    <value>6, 42</value>
   </data>
   <data name="chbWorldEmpty.Size" type="System.Drawing.Size, System.Drawing">
     <value>88, 17</value>
@@ -1552,7 +1492,7 @@
     <value>NoControl</value>
   </data>
   <data name="chbSkipIntro.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 65</value>
+    <value>6, 65</value>
   </data>
   <data name="chbSkipIntro.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 17</value>
@@ -1579,10 +1519,13 @@
     <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="grpGameLoadingSpeedup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
+    <value>7, 120</value>
+  </data>
+  <data name="grpGameLoadingSpeedup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
   </data>
   <data name="grpGameLoadingSpeedup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 85</value>
+    <value>211, 88</value>
   </data>
   <data name="grpGameLoadingSpeedup.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -1597,38 +1540,275 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;grpGameLoadingSpeedup.Parent" xml:space="preserve">
-    <value>grpParameter</value>
+    <value>pnlParameter</value>
   </data>
   <data name="&gt;&gt;grpGameLoadingSpeedup.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
-  <data name="grpParameter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>218, 26</value>
+  <data name="lstPreset.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="grpParameter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>441, 345</value>
+  <data name="lstPreset.IntegralHeight" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="grpParameter.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
+  <data name="lstPreset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="grpParameter.Text" xml:space="preserve">
-    <value>Parameter</value>
+  <data name="lstPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 668</value>
   </data>
-  <data name="&gt;&gt;grpParameter.Name" xml:space="preserve">
-    <value>grpParameter</value>
+  <data name="lstPreset.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
   </data>
-  <data name="&gt;&gt;grpParameter.Type" xml:space="preserve">
+  <data name="&gt;&gt;lstPreset.Name" xml:space="preserve">
+    <value>lstPreset</value>
+  </data>
+  <data name="&gt;&gt;lstPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstPreset.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;lstPreset.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="splitContainer1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="splitContainer1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 25</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel1.Name" xml:space="preserve">
+    <value>splitContainer1.Panel1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel1.Parent" xml:space="preserve">
+    <value>splitContainer1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="txtAdditionalParameter.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="txtAdditionalParameter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="txtAdditionalParameter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 20</value>
+  </data>
+  <data name="txtAdditionalParameter.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;txtAdditionalParameter.Name" xml:space="preserve">
+    <value>txtAdditionalParameter</value>
+  </data>
+  <data name="&gt;&gt;txtAdditionalParameter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtAdditionalParameter.Parent" xml:space="preserve">
+    <value>grpAdditionalParameters</value>
+  </data>
+  <data name="&gt;&gt;txtAdditionalParameter.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpAdditionalParameters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 582</value>
+  </data>
+  <data name="grpAdditionalParameters.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>5, 5, 5, 5</value>
+  </data>
+  <data name="grpAdditionalParameters.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 46</value>
+  </data>
+  <data name="grpAdditionalParameters.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="grpAdditionalParameters.Text" xml:space="preserve">
+    <value>additional parameters</value>
+  </data>
+  <data name="&gt;&gt;grpAdditionalParameters.Name" xml:space="preserve">
+    <value>grpAdditionalParameters</value>
+  </data>
+  <data name="&gt;&gt;grpAdditionalParameters.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;grpParameter.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;grpAdditionalParameters.Parent" xml:space="preserve">
+    <value>pnlParameter</value>
   </data>
-  <data name="&gt;&gt;grpParameter.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;grpAdditionalParameters.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pnlParameter.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="pnlParameter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>219, 25</value>
+  </data>
+  <data name="pnlParameter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>227, 643</value>
+  </data>
+  <data name="pnlParameter.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="&gt;&gt;pnlParameter.Name" xml:space="preserve">
+    <value>pnlParameter</value>
+  </data>
+  <data name="&gt;&gt;pnlParameter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlParameter.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel2</value>
+  </data>
+  <data name="&gt;&gt;pnlParameter.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="toolStrip3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>324, 17</value>
+  </metadata>
+  <data name="tbtnLaunch.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbtnLaunch.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tbtnLaunch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tbtnLaunch.Text" xml:space="preserve">
+    <value>launch game</value>
+  </data>
+  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="tbtnUpdateAddons.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbtnUpdateAddons.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tbtnUpdateAddons.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tbtnUpdateAddons.Text" xml:space="preserve">
+    <value>update addons</value>
+  </data>
+  <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="toolStrip3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="toolStrip3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>446, 25</value>
+  </data>
+  <data name="toolStrip3.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="toolStrip3.Text" xml:space="preserve">
+    <value>toolStrip3</value>
+  </data>
+  <data name="&gt;&gt;toolStrip3.Name" xml:space="preserve">
+    <value>toolStrip3</value>
+  </data>
+  <data name="&gt;&gt;toolStrip3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStrip3.Parent" xml:space="preserve">
+    <value>splitContainer1.Panel2</value>
+  </data>
+  <data name="&gt;&gt;toolStrip3.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <data name="&gt;&gt;splitContainer1.Panel2.Name" xml:space="preserve">
+    <value>splitContainer1.Panel2</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel2.Parent" xml:space="preserve">
+    <value>splitContainer1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Panel2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="splitContainer1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>654, 668</value>
+  </data>
+  <data name="splitContainer1.SplitterDistance" type="System.Int32, mscorlib">
+    <value>204</value>
+  </data>
+  <data name="splitContainer1.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Name" xml:space="preserve">
+    <value>splitContainer1</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitContainer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="toolStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>429, 17</value>
   </metadata>
+  <data name="tbtnAddPreset.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tbtnAddPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tbtnAddPreset.Text" xml:space="preserve">
+    <value>add preset</value>
+  </data>
+  <data name="tbtnEditPreset.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbtnEditPreset.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tbtnEditPreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tbtnEditPreset.Text" xml:space="preserve">
+    <value>edit preset</value>
+  </data>
+  <data name="tbtnClonePreset.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbtnClonePreset.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tbtnClonePreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tbtnClonePreset.Text" xml:space="preserve">
+    <value>clone preset</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
+  <data name="tbtnDeletePreset.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbtnDeletePreset.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="tbtnDeletePreset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 22</value>
+  </data>
+  <data name="tbtnDeletePreset.Text" xml:space="preserve">
+    <value>delete preset</value>
+  </data>
+  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>6, 25</value>
+  </data>
   <data name="tbtnInfo.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
@@ -1647,65 +1827,29 @@
   <data name="tbtnSettings.Text" xml:space="preserve">
     <value>settings</value>
   </data>
-  <data name="tddbPreset.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="tddbPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>68, 22</value>
-  </data>
-  <data name="tddbPreset.Text" xml:space="preserve">
-    <value>Preset</value>
-  </data>
-  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="toolStrip2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>667, 25</value>
+  <data name="toolStrip2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>654, 25</value>
   </data>
-  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
+  <data name="toolStrip2.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
   </data>
-  <data name="toolStrip1.Text" xml:space="preserve">
-    <value>toolStrip1</value>
+  <data name="toolStrip2.Text" xml:space="preserve">
+    <value>toolStrip2</value>
   </data>
-  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
-    <value>toolStrip1</value>
+  <data name="&gt;&gt;toolStrip2.Name" xml:space="preserve">
+    <value>toolStrip2</value>
   </data>
-  <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
+  <data name="&gt;&gt;toolStrip2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;toolStrip2.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;toolStrip2.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="btnLaunch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="btnLaunch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 377</value>
-  </data>
-  <data name="btnLaunch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>647, 28</value>
-  </data>
-  <data name="btnLaunch.TabIndex" type="System.Int32, mscorlib">
-    <value>34</value>
-  </data>
-  <data name="btnLaunch.Text" xml:space="preserve">
-    <value>Start ArmA3</value>
-  </data>
-  <data name="&gt;&gt;btnLaunch.Name" xml:space="preserve">
-    <value>btnLaunch</value>
-  </data>
-  <data name="&gt;&gt;btnLaunch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnLaunch.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;btnLaunch.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -1714,7 +1858,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>667, 417</value>
+    <value>654, 693</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2052,6 +2196,72 @@
   <data name="$this.Text" xml:space="preserve">
     <value>YAAL (Yet Another Arma Launcher)</value>
   </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbtnLaunch.Name" xml:space="preserve">
+    <value>tbtnLaunch</value>
+  </data>
+  <data name="&gt;&gt;tbtnLaunch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
+    <value>toolStripSeparator3</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbtnUpdateAddons.Name" xml:space="preserve">
+    <value>tbtnUpdateAddons</value>
+  </data>
+  <data name="&gt;&gt;tbtnUpdateAddons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
+    <value>toolStripSeparator4</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbtnAddPreset.Name" xml:space="preserve">
+    <value>tbtnAddPreset</value>
+  </data>
+  <data name="&gt;&gt;tbtnAddPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbtnEditPreset.Name" xml:space="preserve">
+    <value>tbtnEditPreset</value>
+  </data>
+  <data name="&gt;&gt;tbtnEditPreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbtnClonePreset.Name" xml:space="preserve">
+    <value>tbtnClonePreset</value>
+  </data>
+  <data name="&gt;&gt;tbtnClonePreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbtnDeletePreset.Name" xml:space="preserve">
+    <value>tbtnDeletePreset</value>
+  </data>
+  <data name="&gt;&gt;tbtnDeletePreset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;tbtnInfo.Name" xml:space="preserve">
     <value>tbtnInfo</value>
   </data>
@@ -2063,18 +2273,6 @@
   </data>
   <data name="&gt;&gt;tbtnSettings.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tddbPreset.Name" xml:space="preserve">
-    <value>tddbPreset</value>
-  </data>
-  <data name="&gt;&gt;tddbPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
-    <value>toolTip1</value>
-  </data>
-  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>FormMain</value>

@@ -56,6 +56,8 @@ namespace YAAL
         {
             public string Name;
             public string[] SelectedAddons;
+            public string AddonSyncUrl = "http://www.teamkommando.net/arma3sync/public/yaast.xml";
+            public int AddonSyncRevision = 0;
 
             public bool ParamNoSplash = true;
             public bool ParamWorldEmpty = true;
