@@ -166,7 +166,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>rem copy $(TargetPath) d:\_Programme\Yaal\</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_bin
+copy $(TargetDir)nlog.dll $(SolutionDir)_bin</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

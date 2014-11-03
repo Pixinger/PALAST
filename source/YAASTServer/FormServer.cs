@@ -158,45 +158,62 @@ namespace YAAST
             if (_ProjectXml == null)
                 return;
 
-            LogList.Clear();
+            LockGui();
 
-            // SyncExecutor erstellen
-            LogList.Info("Initialize updater");
-            SyncServer syncServer = null;
-            if (_ProjectXml.FtpRepository != null)
-                syncServer = new SyncServerFtpGz(_ProjectXml.AddonDirectory, _ProjectXml.FtpRepository.Address, _ProjectXml.FtpRepository.Username, _ProjectXml.FtpRepository.Password, _ProjectXml.FtpRepository.Passive, _ProjectXml.FtpRepository.ConnectionLimit, _ProjectXml.SelectedAddons);
-            else
-                syncServer = new SyncServerLocalGz(_ProjectXml.AddonDirectory, _ProjectXml.LocalRepository.Directory, _ProjectXml.SelectedAddons);
-
-            LogList.Info("Load repositories");
-            syncServer.LoadRepositories();
-
-            LogList.Info("Compare addons");
-            SyncBase.CompareResult[] compareResults = syncServer.CompareRepositories(true);
-            System.Diagnostics.Debug.Assert(compareResults != null);
-
-            LogList.Info("------------------------------------------------------------------------");
-            int modifications = 0;
-            for (int i = 0; i < compareResults.Length; i++)
+            try
             {
-                modifications += compareResults[i].Count;
-                LogList.Info(compareResults[i] + " - (" + compareResults[i].Count + " modifications)");
-            }
-            LogList.Info("------------------------------------------------------------------------");
-            LogList.Info("== Total modifications: " + modifications + " ==");
+                LogList.Clear();
 
-            if (uploadData && (modifications > 0))
-            {
-                LogList.Info("Synchronize addons");
-                if (!syncServer.Synchronize(compareResults))
-                    throw new Exception("Synchronize() failed.");
+                // SyncExecutor erstellen
+                LogList.Info("Initialize updater");
+                SyncServer syncServer = null;
+                if (_ProjectXml.FtpRepository != null)
+                    syncServer = new SyncServerFtpGz(_ProjectXml.AddonDirectory, _ProjectXml.FtpRepository.Address, _ProjectXml.FtpRepository.Username, _ProjectXml.FtpRepository.Password, _ProjectXml.FtpRepository.Passive, _ProjectXml.FtpRepository.ConnectionLimit, _ProjectXml.SelectedAddons);
+                else
+                    syncServer = new SyncServerLocalGz(_ProjectXml.AddonDirectory, _ProjectXml.LocalRepository.Directory, _ProjectXml.SelectedAddons);
 
-                LogList.Info("Update target repository xml");
-                if (!syncServer.UpdateTargetRepositoryXml())
-                    throw new Exception("UpdateTargetRepositoryXml() failed.");
+                LogList.Info("Load repositories");
+                syncServer.LoadRepositories();
+
+                LogList.Info("Compare addons");
+                SyncBase.CompareResult[] compareResults = syncServer.CompareRepositories(true);
+                System.Diagnostics.Debug.Assert(compareResults != null);
 
                 LogList.Info("------------------------------------------------------------------------");
-                LogList.Info("Operation finished successfully !!!");
+                int modifications = 0;
+                for (int i = 0; i < compareResults.Length; i++)
+                {
+                    modifications += compareResults[i].Count;
+                    LogList.Info(compareResults[i] + " - (" + compareResults[i].Count + " modifications)");
+                }
+                LogList.Info("------------------------------------------------------------------------");
+                LogList.Info("== Total modifications: " + modifications + " ==");
+
+                if (uploadData && (modifications > 0))
+                {
+                    LogList.Info("Synchronize addons");
+                    if (!syncServer.Synchronize(compareResults))
+                        throw new Exception("Synchronize() failed.");
+
+                    LogList.Info("Update target repository xml");
+                    if (!syncServer.UpdateTargetRepositoryXml())
+                        throw new Exception("UpdateTargetRepositoryXml() failed.");
+
+                    LogList.Info("------------------------------------------------------------------------");
+                    LogList.Info("Operation finished successfully !!!");
+                }
+            }
+            catch (Exception ex)
+            {
+#if(DEBUG)
+                MessageBox.Show(ex.Message + "\n\n---------------------------------\n" + ex.StackTrace.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#else
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#endif
+            }
+            finally
+            {
+                UnlockGui();
             }
         }
         private void RefreshAddonList()
@@ -224,7 +241,50 @@ namespace YAAST
                     clstAddons.SetItemChecked(clstAddons.Items.Count - 1, true);
             }
         }
+        private void CopyKey(string addonName)
+        {
+            string keysDirectory = Path.Combine(_ProjectXml.AddonDirectory, "Keys");
+            if (Directory.Exists(keysDirectory))
+            {
+                string addonDirectory = Path.Combine(_ProjectXml.AddonDirectory, addonName);
 
+                DirectoryInfo directoryInfo = null;
+                if (Directory.Exists(Path.Combine(addonDirectory, "keys")))
+                    directoryInfo = new DirectoryInfo(Path.Combine(addonDirectory, "keys"));
+                else if (Directory.Exists(Path.Combine(addonDirectory, "key")))
+                    directoryInfo = new DirectoryInfo(Path.Combine(addonDirectory, "key"));
+
+                if (directoryInfo != null)
+                {
+                    FileInfo[] files = directoryInfo.GetFiles("*.bikey");
+                    foreach (FileInfo file in files)
+                    {
+                        string filename = Path.Combine(keysDirectory, file.Name);
+
+                        if (File.Exists(filename))
+                            if (MessageBox.Show("Soll die Datei: " + filename + " wirklich überschrieben werden?", "Achtung", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
+                                continue;
+
+                        lstLog.Items.Add("copy key: " + filename);
+                        file.CopyTo(filename, true);
+                    }
+                }
+                else
+                    MessageBox.Show("Es konnten keine bikey-Dateien gefunden werden.");
+            }
+            else
+                MessageBox.Show("Es wurde kein 'Keys' Verzeichnis im Addon-Verzeichnis gefunden. Diese Funktion kann nicht ausgeführt werden.");
+        }
+        private void ReSignKey(string addonName)
+        {
+            MessageBox.Show("Diese Funktion ist noch nicht verfügbar");
+        }
+        private void LockGui()
+        {
+        }
+        private void UnlockGui()
+        {
+        }
         protected bool Modified
         {
             get
@@ -331,18 +391,39 @@ namespace YAAST
             }
             Modified = true;
         }
-        private void clstAddons_SelectedValueChanged(object sender, EventArgs e)
+        private void clstAddons_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             if (_BlockEvents)
                 return;
             if (_ProjectXml == null)
                 return;
 
-            string[] items = new string[clstAddons.CheckedItems.Count];
-            for (int i = 0; i < clstAddons.CheckedItems.Count; i++)
-                items[i] = (string)clstAddons.CheckedItems[i];
+            if (_ProjectXml.SelectedAddons == null)
+                _ProjectXml.SelectedAddons = new string[0];
 
-            _ProjectXml.SelectedAddons = items;
+            if (e.NewValue == CheckState.Checked)
+            {
+                string[] items = new string[_ProjectXml.SelectedAddons.Length + 1];
+                for (int i = 0; i < clstAddons.CheckedItems.Count; i++)
+                    items[i] = clstAddons.CheckedItems[i] as string;
+                items[items.Length - 1] = clstAddons.Items[e.Index] as string;
+                _ProjectXml.SelectedAddons = items;
+            }
+            else
+            {
+                int o = 0;
+                string[] items = new string[_ProjectXml.SelectedAddons.Length - 1];
+                for (int i = 0; i < clstAddons.CheckedItems.Count; i++)
+                {
+                    if (clstAddons.CheckedItems[i] != clstAddons.Items[e.Index])
+                    {
+                        items[o] = clstAddons.CheckedItems[i] as string;
+                        o++;
+                    }
+                }
+                _ProjectXml.SelectedAddons = items;
+            }
+
             Modified = true;
         }
 
@@ -395,5 +476,24 @@ namespace YAAST
             lstLog.Items.Clear();
             Application.DoEvents();
         }
+
+        private void cmenReSign_Click(object sender, EventArgs e)
+        {
+            if (clstAddons.SelectedItem != null)
+                ReSignKey(clstAddons.SelectedItem as string);
+        }
+        private void cmenCopyKey_Click(object sender, EventArgs e)
+        {
+            if (clstAddons.SelectedItem != null)
+                CopyKey(clstAddons.SelectedItem as string);
+        }
+
+        private void cmenMain_Opening(object sender, CancelEventArgs e)
+        {
+            cmenCopyKey.Enabled = clstAddons.SelectedItem != null;
+            cmenReSign.Enabled = clstAddons.SelectedItem != null;
+        }
+
+     
     }
 }

@@ -34,15 +34,10 @@ namespace YAAST
 
         protected override Repository OnLoadSourceRepository()
         {
-            try
-            {
-                return Repository.FromDirectory(_SourcePath, _SelectedAddons);
-            }
-            catch (Exception ex)
-            {
-                LogList.Error(ex.Message);
-                return null;
-            }
+            if (!Directory.Exists(_SourcePath))
+                throw new ApplicationException("Addon directory not found: " + _SourcePath);
+
+            return Repository.FromDirectory(_SourcePath, _SelectedAddons);
         }
         protected override Repository OnLoadTargetRepository()
         {
@@ -53,37 +48,21 @@ namespace YAAST
             catch (System.Net.WebException ex)
             {
                 System.Net.FtpWebResponse response = ex.Response as System.Net.FtpWebResponse;
-                if (response == null)
+                if ((response != null) && (response.StatusCode == System.Net.FtpStatusCode.ActionNotTakenFileUnavailable))
                 {
-                    LogList.Error(ex.Message);
-                    return null;
-                }
+                    // Fragen ob ein neues Repo erstellt werden soll, oder nicht.
+                    DialogResult result = MessageBox.Show("There is no repository at the specified address. Create a new repository?", "Warning", MessageBoxButtons.OKCancel);
+                    if (result == System.Windows.Forms.DialogResult.Cancel)
+                        throw new ApplicationException("Operation aborted");
 
-                if (response.StatusCode != System.Net.FtpStatusCode.ActionNotTakenFileUnavailable)
-                {
-                    LogList.Error("FTP-ResponseCode: " + response.StatusCode.ToString());
-                    return null;
+                    // Neues Repo erstellen
+                    Repository repository = new Repository();
+                    repository.Addons = new Repository.Directory();
+                    repository.Addons.Name = "";
+                    return repository;
                 }
-
-                // Fragen ob ein neues Repo erstellt werden soll, oder nicht.
-                DialogResult result = MessageBox.Show("There is no repository at the specified address. Create a new repository?", "Warning", MessageBoxButtons.OKCancel);
-                if (result == System.Windows.Forms.DialogResult.Cancel)
-                {
-                    LogList.Info("Operation aborted");
-                    return null;
-                }
-
-                // Neues Repo erstellen
-                Repository repository = new Repository();
-                repository.Addons = new Repository.Directory();
-                repository.Addons.Name = "";
-                return repository;
-            }
-            catch (Exception ex)
-            {
-                LogList.Error("Unable to download repository image. Operation aborted.");
-                LogList.Error(ex.Message);
-                return null;
+                else
+                    throw ex;
             }
         }
         protected override bool OnUpdateTargetRepositoryXml(Repository repository)

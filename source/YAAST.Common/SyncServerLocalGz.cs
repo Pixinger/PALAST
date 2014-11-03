@@ -23,44 +23,23 @@ namespace YAAST
 
         protected override Repository OnLoadSourceRepository()
         {
-            try
-            {
-                return Repository.FromDirectory(_SourcePath, _SelectedAddons);
-            }
-            catch (Exception ex)
-            {
-                LogList.Error(ex.Message);
-                return null;
-            }
+            return Repository.FromDirectory(_SourcePath, _SelectedAddons);
         }
         protected override Repository OnLoadTargetRepository()
         {
-            try
+            if (File.Exists(_TargetPath + "/yaast.xml.gz"))
+                return Repository.FromFilenameGz(_TargetPath + "/yaast.xml");
+            else
             {
-                if (File.Exists(_TargetPath + "/yaast.xml.gz"))
-                {
-                    return Repository.FromFilenameGz(_TargetPath + "/yaast.xml");
-                }
-                else
-                {
-                    DialogResult result = MessageBox.Show("There is no repository at the specified address. Create a new repository?", "Warning", MessageBoxButtons.OKCancel);
-                    if (result != DialogResult.OK)
-                    {
-                        LogList.Info("Operation aborted");
-                        return null;
-                    }
+                DialogResult result = MessageBox.Show("There is no repository at the specified address. Create a new repository?", "Warning", MessageBoxButtons.OKCancel);
+                if (result != DialogResult.OK)
+                    throw new ApplicationException("Operation aborted");
 
-                    // Neues Repo erstellen
-                    Repository repository = new Repository();
-                    repository.Addons = new Repository.Directory();
-                    repository.Addons.Name = "";
-                    return repository;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogList.Error(ex.Message);
-                return null;
+                // Neues Repo erstellen
+                Repository repository = new Repository();
+                repository.Addons = new Repository.Directory();
+                repository.Addons.Name = "";
+                return repository;
             }
         }
         protected override bool OnUpdateTargetRepositoryXml(Repository repository)
