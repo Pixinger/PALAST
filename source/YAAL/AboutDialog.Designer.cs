@@ -44,65 +44,113 @@
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 23);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "YAAL:";
             // 
             // lblAuthor
             // 
-            resources.ApplyResources(this.lblAuthor, "lblAuthor");
+            this.lblAuthor.AutoSize = true;
+            this.lblAuthor.Location = new System.Drawing.Point(12, 32);
             this.lblAuthor.Name = "lblAuthor";
+            this.lblAuthor.Size = new System.Drawing.Size(58, 13);
+            this.lblAuthor.TabIndex = 1;
+            this.lblAuthor.Text = "Written by:";
             // 
             // label3
             // 
-            resources.ApplyResources(this.label3, "label3");
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 45);
             this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Usually found at:";
             // 
             // label4
             // 
-            resources.ApplyResources(this.label4, "label4");
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 58);
             this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "License:";
             // 
             // label5
             // 
-            resources.ApplyResources(this.label5, "label5");
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 81);
             this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(45, 13);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Version:";
             // 
             // lblVersion
             // 
-            resources.ApplyResources(this.lblVersion, "lblVersion");
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(104, 81);
             this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(40, 13);
+            this.lblVersion.TabIndex = 3;
+            this.lblVersion.Text = "0.0.0.0";
             // 
             // label2
             // 
-            resources.ApplyResources(this.label2, "label2");
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(104, 59);
             this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "The MIT License (MIT)";
             // 
             // label11
             // 
-            resources.ApplyResources(this.label11, "label11");
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(104, 33);
             this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(44, 13);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "Pixinger";
             // 
             // label12
             // 
-            resources.ApplyResources(this.label12, "label12");
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(104, 46);
             this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(124, 13);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "www.teamkommando.de";
             // 
             // label13
             // 
-            resources.ApplyResources(this.label13, "label13");
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.label13.Location = new System.Drawing.Point(104, 9);
             this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(195, 13);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "[Y]et [A]nother [A]rma [L]auncher";
             // 
             // richTextBox1
             // 
-            resources.ApplyResources(this.richTextBox1, "richTextBox1");
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.richTextBox1.Location = new System.Drawing.Point(12, 120);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(534, 266);
+            this.richTextBox1.TabIndex = 10;
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
             // AboutDialog
             // 
-            resources.ApplyResources(this, "$this");
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(558, 398);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -115,9 +163,12 @@
             this.Controls.Add(this.lblAuthor);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "About";
             this.ResumeLayout(false);
             this.PerformLayout();
 

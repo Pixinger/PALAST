@@ -8,8 +8,8 @@
     <ProjectGuid>{1B186679-FC05-4D80-86D4-8E297795541C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YAAST</RootNamespace>
-    <AssemblyName>YAAST.Common</AssemblyName>
+    <RootNamespace>PALAST</RootNamespace>
+    <AssemblyName>PALAST.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -55,10 +55,12 @@
     <Compile Include="SyncServerFtpGz.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyncServer.cs" />
+    <Compile Include="TrackedDownload.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_bin</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_bin
+copy $(TargetPath) $(SolutionDir)_iss</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

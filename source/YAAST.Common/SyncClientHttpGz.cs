@@ -12,10 +12,46 @@ namespace YAAST
 {
     public class SyncClientHttpGz: SyncClient
     {
+        #region private class TrackListViewItem : ListViewItem, IDownloadProgressChanged
+        private class TrackListViewItem : ListViewItem, IDownloadProgressChanged
+        {
+            Control _Control;
+            
+            public TrackListViewItem(string filename, Control control)
+                : base("")
+            {
+                SubItems.Add(filename);
+                _Control = control;
+            }
+            public TrackListViewItem(string status, string filename)
+                : base(status)
+            {
+                SubItems.Add(filename);
+            }
+
+            private delegate void DownloadProgressChangedDelegate(DownloadProgress downloadProgress);
+            public void DownloadProgressChanged(DownloadProgress downloadProgress)
+            {
+                if (_Control.InvokeRequired)
+                    _Control.BeginInvoke(new DownloadProgressChangedDelegate(DownloadProgressChanged), new object[] { downloadProgress });
+                else
+                {
+                    if (downloadProgress.Percent >= 100)
+                        SubItems[0].Text = "Heruntergeladen";
+                    else
+                        SubItems[0].Text = string.Format("{0:###}% ({1:###} kbit/s)", downloadProgress.Percent, downloadProgress.Kbs);
+                }
+            }
+        }
+        #endregion
+
+        delegate void TrackListViewItemDelegate(TrackListViewItem[] items);
+
         private string _HttpAddress;
         private string _AddonDirectory;
+        private ListView _ListView;
 
-        public SyncClientHttpGz(string httpAddress, string addonDirectory)
+        public SyncClientHttpGz(string httpAddress, string addonDirectory, ListView listView)
         {
             _HttpAddress = httpAddress;
             if (_HttpAddress.EndsWith("/"))
@@ -24,6 +60,21 @@ namespace YAAST
             _AddonDirectory = addonDirectory;
             if (_AddonDirectory.EndsWith("\\"))
                 _AddonDirectory = _AddonDirectory.Remove(_HttpAddress.Length - 1, 1);
+
+            _ListView = listView;
+        }
+
+        private void AddListViewItem(TrackListViewItem[] items)
+        {
+            if (_ListView.InvokeRequired)
+                _ListView.Invoke(new TrackListViewItemDelegate(AddListViewItem), new object[] { items });
+            else
+            {
+                foreach (TrackListViewItem item in items)
+                    _ListView.Items.Add(item);
+
+                _ListView.EnsureVisible(_ListView.Items.Count - 1);
+            }
         }
 
         protected override Repository OnLoadSourceRepository()
@@ -62,11 +113,20 @@ namespace YAAST
         {
             try
             {
-                if (targets != null)
-                    foreach (string target in targets)
-                        LogList.Info("copy: " + target);
+                // Listen vorbereiten
+                TrackListViewItem[] items = new TrackListViewItem[sources.Length];
+                TrackedDownload[] trackedDownloads = new TrackedDownload[sources.Length];
+                for (int i = 0; i < sources.Length; i++)
+                {
+                    items[i] = new TrackListViewItem(targets[i].Remove(0, _AddonDirectory.Length), _ListView);
+                    trackedDownloads[i] = new TrackedDownload(sources[i], targets[i], lastWriteTimesUtc[i], items[i]);
+                }
                 
-                HttpManager.DownloadGz(sources, targets, lastWriteTimesUtc);
+                // Zur ListView hinzufügen
+                AddListViewItem(items);
+                
+                // Herunterladen
+                HttpManager.DownloadGz_HttpWebRequest(trackedDownloads);
 
                 return true;
             }
@@ -80,12 +140,14 @@ namespace YAAST
         {
             try
             {
-                if (filenames != null)
-                    foreach (string filename in filenames)
-                        LogList.Info("delete: " + filename);
-
                 for (int i = 0; i < filenames.Length; i++)
+                {
+                    TrackListViewItem[] p = new TrackListViewItem[1];
+                    p[0] = new TrackListViewItem("Entfernen", filenames[i].Remove(0, _AddonDirectory.Length));
+                    AddListViewItem(p);
+
                     File.Delete(filenames[i]);
+                }
 
                 return true;
             }
@@ -99,11 +161,13 @@ namespace YAAST
         {
             try
             {
-                if (directorynames != null)
-                    foreach (string directoryname in directorynames)
-                        LogList.Info("delete: " + directoryname);
                 for (int i = 0; i < directorynames.Length; i++)
+                {
+                    TrackListViewItem[] p = new TrackListViewItem[1];
+                    p[0] = new TrackListViewItem("Entfernen", directorynames[i].Remove(0, _AddonDirectory.Length));
+                    AddListViewItem(p);
                     Directory.Delete(directorynames[i]);
+                }
 
                 return true;
             }
@@ -117,11 +181,13 @@ namespace YAAST
         {
             try
             {
-                if (directorynames != null)
-                    foreach (string directoryname in directorynames)
-                        LogList.Info("create: " + directoryname);
                 for (int i = 0; i < directorynames.Length; i++)
+                {
+                    TrackListViewItem[] p = new TrackListViewItem[1];
+                    p[0] = new TrackListViewItem("Erstellen", directorynames[i].Remove(0, _AddonDirectory.Length));
+                    AddListViewItem(p);
                     Directory.CreateDirectory(directorynames[i]);
+                }
 
                 return true;
             }
@@ -131,5 +197,6 @@ namespace YAAST
                 return false;
             }
         }
+
     }
 }

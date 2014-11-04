@@ -26,7 +26,7 @@ namespace YAAST
 
             string[] args = Environment.GetCommandLineArgs();
 
-            if (args.Length > 0)
+            if (args.Length > 1)
                 LoadProject(args[1]);
         }
 

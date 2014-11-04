@@ -8,8 +8,8 @@
     <ProjectGuid>{011E80A4-0C67-4B5F-890E-8E0BF4DE487C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>YAAL</RootNamespace>
-    <AssemblyName>YAAL</AssemblyName>
+    <RootNamespace>PALAST</RootNamespace>
+    <AssemblyName>PALAST</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -68,7 +68,6 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddonSyncManager.cs" />
     <Compile Include="OptionInfoDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,17 +93,11 @@
     <Compile Include="RenamePresetDialog.Designer.cs">
       <DependentUpon>RenamePresetDialog.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutDialog.de-DE.resx">
-      <DependentUpon>AboutDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddonSyncDialog.resx">
       <DependentUpon>AddonSyncDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.de-DE.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -112,14 +105,8 @@
     <EmbeddedResource Include="OptionInfoDialog.resx">
       <DependentUpon>OptionInfoDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RenamePresetDialog.de-DE.resx">
-      <DependentUpon>RenamePresetDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="RenamePresetDialog.resx">
       <DependentUpon>RenamePresetDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SettingsDialog.de-DE.resx">
-      <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
@@ -159,15 +146,18 @@
     <Content Include="tklogo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\YAAST.Common\YAAST.Common.csproj">
+    <ProjectReference Include="..\YAAST.Common\PALAST.Common.csproj">
       <Project>{1B186679-FC05-4D80-86D4-8E297795541C}</Project>
-      <Name>YAAST.Common</Name>
+      <Name>PALAST.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_bin
-copy $(TargetDir)nlog.dll $(SolutionDir)_bin</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) D:\_Programme\YAAL
+copy $(TargetPath) $(SolutionDir)_bin
+copy $(TargetDir)nlog.dll $(SolutionDir)_bin
+copy $(TargetPath) $(SolutionDir)_iss
+copy $(TargetDir)nlog.dll $(SolutionDir)_iss</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

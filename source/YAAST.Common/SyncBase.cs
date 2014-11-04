@@ -373,6 +373,107 @@ namespace YAAST
             return true;
         }
 
+
+        public class SyncStateObject
+        {
+            public CompareResult[] SelectedAddons;
+            public SynchronizeCompletedEventHandler OnSynchronizeCompleted;
+        }
+        public class SynchronizeResultObject
+        {
+            public bool IsFailed = false;
+            public string Error = "";
+        }
+
+        public delegate void SynchronizeCompletedEventHandler(object sender, SynchronizeResultObject e);
+        
+        private void SynchronizeThreadProc(object data)
+        {
+            SyncStateObject state = data as SyncStateObject;
+            SynchronizeResultObject result = new SynchronizeResultObject();
+
+            try
+            {
+                foreach (CompareResult syncSteps in state.SelectedAddons)
+                {
+                    for (int i = 0; i < syncSteps.Count; i++)
+                    {
+                        int lastIndex = LastCombinedIndex(syncSteps, i);
+                        string[] sources = new string[lastIndex - i + 1];
+                        string[] targets = new string[lastIndex - i + 1];
+                        DateTime[] dates = new DateTime[lastIndex - i + 1];
+                        switch (syncSteps[i].StepType)
+                        {
+                            case CompareResult.SyncStepTypes.CopyFile:
+                                for (int o = 0; o < sources.Length; o++)
+                                {
+                                    sources[o] = OnConvertSourcePath(syncSteps[i + o].Path);
+                                    targets[o] = OnConvertTargetPath(syncSteps[i + o].Path);
+                                    dates[o] = syncSteps[i + o].Date;
+                                }
+
+                                if (!OnCopyFiles(sources, targets, dates))
+                                {
+                                    result.IsFailed = true;
+                                    result.Error = "copy file failed";
+                                }
+                                break;
+                            case CompareResult.SyncStepTypes.DeleteFile:
+                                for (int o = 0; o < sources.Length; o++)
+                                    targets[o] = OnConvertTargetPath(syncSteps[i + o].Path);
+
+                                if (!OnDeleteTargetFiles(targets))
+                                {
+                                    result.IsFailed = true;
+                                    result.Error = "delete file failed";
+                                }
+                                break;
+                            case CompareResult.SyncStepTypes.CreateDirectory:
+                                for (int o = 0; o < sources.Length; o++)
+                                    targets[o] = OnConvertTargetPath(syncSteps[i + o].Path);
+
+                                if (!OnCreateTargetDirectorys(targets))
+                                {
+                                    result.IsFailed = true;
+                                    result.Error = "create directory failed";
+                                }
+                                break;
+                            case CompareResult.SyncStepTypes.DeleteDirectory:
+                                for (int o = 0; o < sources.Length; o++)
+                                    targets[o] = OnConvertTargetPath(syncSteps[i + o].Path);
+
+                                if (!OnDeleteTargetDirectorys(targets))
+                                {
+                                    result.IsFailed = true;
+                                    result.Error = "delete directory failed";
+                                }
+                                break;
+                            default:
+                                throw new NotImplementedException();
+                        }
+
+                        i = lastIndex;
+                    }
+                }
+
+            }
+            finally
+            {
+                state.OnSynchronizeCompleted(this, result);
+            }
+        }
+
+
+        public void SynchronizeAsync(CompareResult[] selectedAddons, SynchronizeCompletedEventHandler onSynchronizeCompleted)
+        {
+            SyncStateObject state = new SyncStateObject();
+            state.SelectedAddons = selectedAddons;
+            state.OnSynchronizeCompleted = onSynchronizeCompleted;
+ 
+            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(SynchronizeThreadProc));
+            thread.Start(state);
+        }
+
         private bool HasSameBaseDir(string path1, string path2)
         {
             int index1 = path1.LastIndexOf('|');

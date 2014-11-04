@@ -10,7 +10,7 @@ using YAAST;
 
 namespace YAAL
 {
-    public partial class AddonSyncDialog : Form, LogList.ILogWriter
+    public partial class AddonSyncDialog : Form
     {
         private string _ArmaDirectory;
         private Configuration.Preset _Preset;
@@ -48,7 +48,7 @@ namespace YAAL
         private void txtUrl_TextChanged(object sender, EventArgs e)
         {
             btnValidate.Enabled = !string.IsNullOrWhiteSpace(txtUrl.Text);
-            btnUpdate.Enabled = false;
+            btnSynchronize.Enabled = false;
             _Preset.AddonSyncUrl = txtUrl.Text;
 
             if (!btnValidate.Enabled)
@@ -62,23 +62,21 @@ namespace YAAL
 
             try
             {
-                btnUpdate.Enabled = false;
+                btnSynchronize.Enabled = false;
                 clstCompareResults.Items.Clear();
 
-                LogList.SetLogTarget(this);
+                lstActions.Items.Clear();
+                lstActions.Items.Add("Initializing updater");
+                _SyncClient = new SyncClientHttpGz(_Preset.AddonSyncUrl, _ArmaDirectory, lvwLog);
 
-                LogList.Clear();
-                LogList.Info("Initializing updater");
-                _SyncClient = new SyncClientHttpGz(_Preset.AddonSyncUrl, _ArmaDirectory);
-
-                LogList.Info("Load repositories");
+                lstActions.Items.Add("Load repositories");
                 _SyncClient.LoadRepositories();
 
-                LogList.Info("Compare addons");
+                lstActions.Items.Add("Compare addons");
                 SyncBase.CompareResult[] compareResults = _SyncClient.CompareRepositories();
                 System.Diagnostics.Debug.Assert(compareResults != null);
 
-                LogList.Info("------------------------------------------------------------------------");
+                lstActions.Items.Add("------------------------------------------------------------------------");
                 int modifications = 0;
                 for (int i = 0; i < compareResults.Length; i++)
                 {
@@ -87,11 +85,12 @@ namespace YAAL
                     modifications += compareResults[i].Count;
                     lstActions.Items.Add(compareResults[i] + " - (" + compareResults[i].Count + " modifications)");
                 }
-                LogList.Info("------------------------------------------------------------------------");
-                LogList.Info("== Total modifications: " + modifications + " ==");
-                LogList.SetLogTarget(null);
+                lstActions.Items.Add("------------------------------------------------------------------------");
+                lstActions.Items.Add("== Total modifications: " + modifications + " ==");
 
-                btnUpdate.Enabled = (modifications > 0);
+                btnValidate.BackColor = modifications > 0 ? Color.Red : Color.Lime;
+                lstActions.ForeColor = modifications > 0 ? Color.Red : Color.Green;
+                btnSynchronize.Enabled = (modifications > 0);
             }
             catch (Exception ex)
             {
@@ -106,16 +105,16 @@ namespace YAAL
                 UnlockGui();
             }
         }
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void btnSynchronize_Click(object sender, EventArgs e)
         {
             LockGui();
 
             try
             {
-                btnUpdate.Enabled = false;
+                btnSynchronize.Enabled = false;
+                btnValidate.BackColor = SystemColors.Control;
+                lstActions.ForeColor = SystemColors.WindowText;
 
-                LogList.SetLogTarget(this);
-                LogList.Clear();
                 // Zusammenstellen welche Ergebnisse zum Synchronisieren ausgewählt wurden.
                 List<SyncBase.CompareResult> compareResults = new List<SyncBase.CompareResult>();
                 for (int i = 0; i < clstCompareResults.CheckedItems.Count; i++)
@@ -126,13 +125,8 @@ namespace YAAL
                 }
 
                 // Die übergebene Liste synchronisieren
-                lstActions.Items.Add("Synchronize selected addons");
-                if (!_SyncClient.Synchronize(compareResults.ToArray()))
-                    throw new Exception("Synchronize() failed");
+                _SyncClient.SynchronizeAsync(compareResults.ToArray(), new SyncBase.SynchronizeCompletedEventHandler(OnSynchronizeCompletedEventHandler));
 
-                LogList.Info("------------------------------------------------------------------------");
-                LogList.Info("Operation finished successfully !!!");
-                LogList.SetLogTarget(null);
             }
             catch (Exception ex)
             {
@@ -142,22 +136,26 @@ namespace YAAL
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 #endif
             }
-            finally
+        }
+        private void OnSynchronizeCompletedEventHandler(object sender, SyncBase.SynchronizeResultObject e)
+        {
+            if (InvokeRequired)
+                Invoke(new SyncBase.SynchronizeCompletedEventHandler(OnSynchronizeCompletedEventHandler), new object[] { sender, e });
+            else
             {
                 UnlockGui();
+                
+                lstActions.Items.Clear();
+                if (e.IsFailed)
+                {
+                    lstActions.Items.Add("Synchronisieren fehlgeschlagen!");
+                    lstActions.Items.Add(e.Error);
+                }
+                else
+                {
+                    lstActions.Items.Add("Synchronisieren erfolgreich");
+                }
             }
-        }
-
-        public void WriteLog(string text)
-        {
-            lstActions.Items.Add(text);
-            lstActions.SelectedIndex = lstActions.Items.Count - 1;
-            Application.DoEvents();
-        }
-        public void ClearLog()
-        {
-            lstActions.Items.Clear();
-            Application.DoEvents();
         }
 
         private void LockGui()

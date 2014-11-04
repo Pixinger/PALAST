@@ -66,8 +66,6 @@ namespace YAAL
                 NLog.LogManager.GetCurrentClassLogger().Info("Process started: {0} LogLevel({1}) LogConfig({2}) CommandLine({3})", applicationName, NLog.LogManager.GlobalThreshold, configFile, Environment.CommandLine);
             }
             #endregion
-		
-
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

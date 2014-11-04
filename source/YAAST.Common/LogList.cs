@@ -40,5 +40,7 @@ namespace YAAST
             if (_ILogWriter != null)
                 _ILogWriter.ClearLog();
         }
+
+
     }
 }
