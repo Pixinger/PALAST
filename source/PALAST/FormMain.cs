@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace PALAST
 {
@@ -32,7 +33,7 @@ namespace PALAST
             if (!System.IO.File.Exists(_Configuration.Arma3Exe))
             {
                 if (!SettingsDialog.ExecuteDialog(_Configuration))
-                    Close();                    
+                    Close();
             }
 
             RefreshMenu();
@@ -49,10 +50,10 @@ namespace PALAST
         {
             get
             {
-             /*   if ((_Configuration.SelectedPreset != null) && (_Configuration.Presets != null))
-                    foreach (Configuration.Preset cfgPreset in _Configuration.Presets)
-                        if (cfgPreset.Name == _Configuration.SelectedPreset)
-                            return cfgPreset;*/
+                /*   if ((_Configuration.SelectedPreset != null) && (_Configuration.Presets != null))
+                       foreach (Configuration.Preset cfgPreset in _Configuration.Presets)
+                           if (cfgPreset.Name == _Configuration.SelectedPreset)
+                               return cfgPreset;*/
                 return lstPreset.SelectedItem as Configuration.Preset;
 
                 //return null;
@@ -138,14 +139,14 @@ namespace PALAST
 
                 txtAdditionalParameter.Text = preset.ParamAdditionalParameters;
 
-               // grpAddons.Enabled = true;
+                // grpAddons.Enabled = true;
                 //grpParameter.Enabled = true;
 
                 _BlockEventHandler = false;
             }
             else
             {
-               // grpAddons.Enabled = false;
+                // grpAddons.Enabled = false;
                 //grpParameter.Enabled = false;
             }
 
@@ -446,7 +447,7 @@ namespace PALAST
                 tbtnUpdateAddons.Enabled = true;
 
                 _Configuration.SelectedPreset = lstPreset.SelectedItem.ToString();
-                
+
                 RefreshPreset();
             }
             else
@@ -471,6 +472,18 @@ namespace PALAST
                 selectedAddons.Remove(clstAddons.Items[e.Index].ToString());
 
             SelectedPreset.SelectedAddons = selectedAddons.ToArray();
+        }
+        private void clstAddons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbtnTFAR.Enabled = false;
+
+            string addon = clstAddons.SelectedItem as string;
+            if (addon != null)
+            {
+                string pluginsSource = Path.Combine(Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon), "TeamSpeak 3 Client\\plugins");
+                if (Directory.Exists(pluginsSource))
+                    tbtnTFAR.Enabled = true;
+            }
         }
         private void btnInfoOptions_Click(object sender, EventArgs e)
         {
@@ -648,6 +661,44 @@ namespace PALAST
             AddonSyncDialog.ExecuteDialog(System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe), SelectedPreset);
 
             RefreshMenu();
+        }
+        private void tbtnTFAR_Click(object sender, EventArgs e)
+        {
+            string addon = clstAddons.SelectedItem as string;
+            if (addon != null)
+            {
+                string pluginsSource = Path.Combine(Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon), "TeamSpeak 3 Client\\plugins");
+                if (Directory.Exists(pluginsSource))
+                {
+                    TS3Manager ts3Manager = new TS3Manager();
+                    if (ts3Manager.IsElevatedRight)
+                    {
+                        if (ts3Manager.PluginDirectoryValid)
+                        {
+                            if (!ts3Manager.IsRunning)
+                            {
+                                DirectoryInfo source = new DirectoryInfo(pluginsSource);
+                                DirectoryInfo target = new DirectoryInfo(ts3Manager.PluginDirectory);
+                                CopyFilesRecursively(source, target);
+                            }
+                            else
+                                MessageBox.Show("Teamspeak scheint momentan zu laufen.\nBitte beenden Sie das Programm um die TFAR Plugins installieren zu können.");
+                        }
+                        else
+                            MessageBox.Show("TS3 konnte nicht zuverlässig erkannt werden. Das Setup kann deshalb nicht ausgeführt werden.");
+                    }
+                    else
+                        MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
+                }
+            }
+        }
+
+        public void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
+        {
+            foreach (DirectoryInfo dir in source.GetDirectories())
+                CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name));
+            foreach (FileInfo file in source.GetFiles())
+                file.CopyTo(Path.Combine(target.FullName, file.Name), true);
         }
     }
 }

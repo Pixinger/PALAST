@@ -93,6 +93,7 @@
     <Compile Include="RenamePresetDialog.Designer.cs">
       <DependentUpon>RenamePresetDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="TS3Manager.cs" />
     <EmbeddedResource Include="AboutDialog.resx">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,6 +144,7 @@
     <None Include="Resources\table_delete.png" />
     <None Include="Resources\table_edit.png" />
     <None Include="Resources\table_go.png" />
+    <None Include="Resources\TFAR.png" />
     <Content Include="tklogo.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -153,7 +155,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) D:\_Programme\YAAL
+    <PostBuildEvent>copy $(TargetPath) D:\_Programme\PALAST
+copy $(TargetDir)nlog.dll D:\_Programme\PALAST
 copy $(TargetPath) $(SolutionDir)_bin
 copy $(TargetDir)nlog.dll $(SolutionDir)_bin
 copy $(TargetPath) $(SolutionDir)_iss

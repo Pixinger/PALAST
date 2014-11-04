@@ -59,7 +59,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_bin
-copy $(TargetPath) $(SolutionDir)_iss</PostBuildEvent>
+copy $(TargetPath) $(SolutionDir)_iss
+copy $(TargetPath) D:\_Programme\PALAST
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

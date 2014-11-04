@@ -413,13 +413,13 @@
             // openDlg
             // 
             this.openDlg.DefaultExt = "*.yaast.proj";
-            this.openDlg.Filter = "YAAST Prjoject|*.yaast";
+            this.openDlg.Filter = "PALAST Project|*.ppp";
             this.openDlg.SupportMultiDottedExtensions = true;
             // 
             // saveDlg
             // 
             this.saveDlg.DefaultExt = "*.yaast.proj";
-            this.saveDlg.Filter = "YAAST Prjoject|*.yaast";
+            this.saveDlg.Filter = "PALAST Project|*.ppp";
             this.saveDlg.SupportMultiDottedExtensions = true;
             // 
             // pnlTop

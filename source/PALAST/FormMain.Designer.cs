@@ -90,6 +90,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnUpdateAddons = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbtnTFAR = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tbtnAddPreset = new System.Windows.Forms.ToolStripButton();
             this.tbtnEditPreset = new System.Windows.Forms.ToolStripButton();
@@ -127,6 +128,7 @@
             this.clstAddons.Size = new System.Drawing.Size(219, 643);
             this.clstAddons.TabIndex = 3;
             this.clstAddons.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clstAddons_ItemCheck);
+            this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
             // 
             // chbShowScriptErrors
             // 
@@ -854,7 +856,8 @@
             this.tbtnLaunch,
             this.toolStripSeparator3,
             this.tbtnUpdateAddons,
-            this.toolStripSeparator4});
+            this.toolStripSeparator4,
+            this.tbtnTFAR});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(446, 25);
@@ -892,6 +895,17 @@
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tbtnTFAR
+            // 
+            this.tbtnTFAR.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnTFAR.Enabled = false;
+            this.tbtnTFAR.Image = ((System.Drawing.Image)(resources.GetObject("tbtnTFAR.Image")));
+            this.tbtnTFAR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnTFAR.Name = "tbtnTFAR";
+            this.tbtnTFAR.Size = new System.Drawing.Size(23, 22);
+            this.tbtnTFAR.Text = "TFAR Setup";
+            this.tbtnTFAR.Click += new System.EventHandler(this.tbtnTFAR_Click);
             // 
             // toolStrip2
             // 
@@ -1099,6 +1113,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tbtnInfo;
         private System.Windows.Forms.ToolStripButton tbtnSettings;
+        private System.Windows.Forms.ToolStripButton tbtnTFAR;
     }
 }
 
