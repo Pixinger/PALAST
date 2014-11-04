@@ -49,7 +49,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(86, 23);
             this.label1.TabIndex = 0;
-            this.label1.Text = "YAAL:";
+            this.label1.Text = "PALAST:";
             // 
             // lblAuthor
             // 
@@ -129,9 +129,9 @@
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.label13.Location = new System.Drawing.Point(104, 9);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(195, 13);
+            this.label13.Size = new System.Drawing.Size(260, 13);
             this.label13.TabIndex = 8;
-            this.label13.Text = "[Y]et [A]nother [A]rma [L]auncher";
+            this.label13.Text = "[P]ixingers [A]rma [l]aunch [a]nd [s]ync [t]ool";
             // 
             // richTextBox1
             // 

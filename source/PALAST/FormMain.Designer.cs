@@ -998,7 +998,7 @@
             this.MinimizeBox = false;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "YAAL (Yet Another Arma Launcher)";
+            this.Text = "PALAST (Pixingers Arma Launcher and Sync Tool)";
             this.grpAutoConnect.ResumeLayout(false);
             this.grpAutoConnect.PerformLayout();
             this.grpDeveloperOptions.ResumeLayout(false);

@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.clstAddons = new System.Windows.Forms.CheckedListBox();
+            this.cmenMain = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmenReSign = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmenCopyKey = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tabControlMode = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -65,16 +68,13 @@
             this.saveDlg = new System.Windows.Forms.SaveFileDialog();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.folderDlg = new System.Windows.Forms.FolderBrowserDialog();
-            this.cmenMain = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmenReSign = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmenCopyKey = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmenMain.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabControlMode.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.pnlTop.SuspendLayout();
-            this.cmenMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // clstAddons
@@ -88,6 +88,29 @@
             this.clstAddons.Size = new System.Drawing.Size(205, 229);
             this.clstAddons.TabIndex = 5;
             this.clstAddons.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clstAddons_ItemCheck);
+            // 
+            // cmenMain
+            // 
+            this.cmenMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmenReSign,
+            this.cmenCopyKey});
+            this.cmenMain.Name = "cmenMain";
+            this.cmenMain.Size = new System.Drawing.Size(122, 48);
+            this.cmenMain.Opening += new System.ComponentModel.CancelEventHandler(this.cmenMain_Opening);
+            // 
+            // cmenReSign
+            // 
+            this.cmenReSign.Name = "cmenReSign";
+            this.cmenReSign.Size = new System.Drawing.Size(121, 22);
+            this.cmenReSign.Text = "re-sign";
+            this.cmenReSign.Click += new System.EventHandler(this.cmenReSign_Click);
+            // 
+            // cmenCopyKey
+            // 
+            this.cmenCopyKey.Name = "cmenCopyKey";
+            this.cmenCopyKey.Size = new System.Drawing.Size(121, 22);
+            this.cmenCopyKey.Text = "copy key";
+            this.cmenCopyKey.Click += new System.EventHandler(this.cmenCopyKey_Click);
             // 
             // panel3
             // 
@@ -369,14 +392,14 @@
             // menRepoVerify
             // 
             this.menRepoVerify.Name = "menRepoVerify";
-            this.menRepoVerify.Size = new System.Drawing.Size(152, 22);
+            this.menRepoVerify.Size = new System.Drawing.Size(111, 22);
             this.menRepoVerify.Text = "verify";
             this.menRepoVerify.Click += new System.EventHandler(this.menRepoVerify_Click);
             // 
             // menRepoUpload
             // 
             this.menRepoUpload.Name = "menRepoUpload";
-            this.menRepoUpload.Size = new System.Drawing.Size(152, 22);
+            this.menRepoUpload.Size = new System.Drawing.Size(111, 22);
             this.menRepoUpload.Text = "upload";
             this.menRepoUpload.Click += new System.EventHandler(this.menRepoUpload_Click);
             // 
@@ -414,29 +437,6 @@
             // 
             this.folderDlg.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
-            // cmenMain
-            // 
-            this.cmenMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmenReSign,
-            this.cmenCopyKey});
-            this.cmenMain.Name = "cmenMain";
-            this.cmenMain.Size = new System.Drawing.Size(122, 48);
-            this.cmenMain.Opening += new System.ComponentModel.CancelEventHandler(this.cmenMain_Opening);
-            // 
-            // cmenReSign
-            // 
-            this.cmenReSign.Name = "cmenReSign";
-            this.cmenReSign.Size = new System.Drawing.Size(152, 22);
-            this.cmenReSign.Text = "re-sign";
-            this.cmenReSign.Click += new System.EventHandler(this.cmenReSign_Click);
-            // 
-            // cmenCopyKey
-            // 
-            this.cmenCopyKey.Name = "cmenCopyKey";
-            this.cmenCopyKey.Size = new System.Drawing.Size(121, 22);
-            this.cmenCopyKey.Text = "copy key";
-            this.cmenCopyKey.Click += new System.EventHandler(this.cmenCopyKey_Click);
-            // 
             // FormServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -448,7 +448,8 @@
             this.MainMenuStrip = this.mainMenu;
             this.Name = "FormServer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "YAAST Server";
+            this.Text = "PALAST Server";
+            this.cmenMain.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.tabControlMode.ResumeLayout(false);
@@ -459,7 +460,6 @@
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.pnlTop.ResumeLayout(false);
-            this.cmenMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
