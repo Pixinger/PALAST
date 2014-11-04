@@ -180,32 +180,24 @@ namespace PALAST
         public static Repository FromFilenameGz(string filename)
         {
             Repository instance = null;
-            try
+            XmlSerializer serializer = new XmlSerializer(typeof(Repository));
+            using (FileStream compressedStream = new FileStream(filename + ".gz", FileMode.Open, FileAccess.Read))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Repository));
-                using (FileStream compressedStream = new FileStream(filename + ".gz", FileMode.Open, FileAccess.Read))
+                using (GZipStream decompressedStream = new GZipStream(compressedStream, CompressionMode.Decompress))
                 {
-                    using (GZipStream decompressedStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-                    {
-                        instance = serializer.Deserialize(decompressedStream) as Repository;
-                        compressedStream.Close();
-                    }
+                    instance = serializer.Deserialize(decompressedStream) as Repository;
+                    compressedStream.Close();
                 }
-
-                // Parent Referenzen aktualisieren:
-                if ((instance != null) && (instance.Addons != null))
-                    instance.Addons.UpdateParentReferences(null);
-
-                if (instance.Version > Repository.SUPPORTED_VERSION)
-                    throw new Exception("Downloaded repository version is to new. please update the software");
-
-                return instance;
             }
-            catch (Exception ex)
-            {
-                LogList.Error(ex.Message);
-                return null;
-            }
+
+            // Parent Referenzen aktualisieren:
+            if ((instance != null) && (instance.Addons != null))
+                instance.Addons.UpdateParentReferences(null);
+
+            if (instance.Version > Repository.SUPPORTED_VERSION)
+                throw new Exception("Downloaded repository version is to new. please update the software");
+
+            return instance;
         }
         public static Repository FromDirectory(string directoryname, string[] selectedAddonsOnly)
         {
@@ -278,29 +270,21 @@ namespace PALAST
         public static Repository FromFilename(string filename)
         {
             Repository instance = null;
-            try
+            XmlSerializer serializer = new XmlSerializer(typeof(Repository));
+            using (TextReader reader = new StreamReader(filename, System.Text.Encoding.Unicode))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Repository));
-                using (TextReader reader = new StreamReader(filename, System.Text.Encoding.Unicode))
-                {
-                    instance = serializer.Deserialize(reader) as Repository;
-                    reader.Close();
-                }
-
-                // Parent Referenzen aktualisieren:
-                if ((instance != null) && (instance.Addons != null))
-                    instance.Addons.UpdateParentReferences(null);
-
-                if (instance.Version > Repository.SUPPORTED_VERSION)
-                    throw new Exception("Downloaded repository version is to new. please update the software");
-
-                return instance;
+                instance = serializer.Deserialize(reader) as Repository;
+                reader.Close();
             }
-            catch (Exception ex)
-            {
-                LogList.Error(ex.Message);
-                return null;
-            }
+
+            // Parent Referenzen aktualisieren:
+            if ((instance != null) && (instance.Addons != null))
+                instance.Addons.UpdateParentReferences(null);
+
+            if (instance.Version > Repository.SUPPORTED_VERSION)
+                throw new Exception("Downloaded repository version is to new. please update the software");
+
+            return instance;
         }
         [Obsolete("unused")]
         public static Repository FromDirectory(string directoryname)

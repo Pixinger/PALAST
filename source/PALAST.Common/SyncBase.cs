@@ -328,7 +328,6 @@ namespace PALAST
 
                             if (!OnCopyFiles(sources, targets, dates))
                             {
-                                LogList.Error("copy file failed");
                                 return false;
                             }
                             break;
@@ -338,7 +337,6 @@ namespace PALAST
 
                             if (!OnDeleteTargetFiles(targets))
                             {
-                                LogList.Error("copy file failed");
                                 return false;
                             }
                             break;
@@ -348,7 +346,6 @@ namespace PALAST
 
                             if (!OnCreateTargetDirectorys(targets))
                             {
-                                LogList.Error("copy file failed");
                                 return false;
                             }
                             break;
@@ -358,7 +355,6 @@ namespace PALAST
 
                             if (!OnDeleteTargetDirectorys(targets))
                             {
-                                LogList.Error("copy file failed");
                                 return false;
                             }
                             break;

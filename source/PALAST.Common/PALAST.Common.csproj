@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="FtpManager.cs" />
     <Compile Include="HttpManager.cs" />
-    <Compile Include="LogList.cs" />
     <Compile Include="SyncBase.cs" />
     <Compile Include="SyncClient.cs" />
     <Compile Include="SyncClientHttpGz.cs" />

@@ -42,18 +42,9 @@ namespace PALAST
                 return repository;
             }
         }
-        protected override bool OnUpdateTargetRepositoryXml(Repository repository)
+        protected override void OnUpdateTargetRepositoryXml(Repository repository)
         {
-            try
-            {
-                repository.SaveGz(_TargetPath + "/yaast.xml");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                LogList.Error(ex.Message);
-                return false;
-            }
+            repository.SaveGz(_TargetPath + "/yaast.xml");
         }
 
         protected override string OnConvertSourcePath(string source)

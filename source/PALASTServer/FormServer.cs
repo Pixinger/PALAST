@@ -10,10 +10,8 @@ using System.Windows.Forms;
 
 namespace PALAST
 {
-    public partial class FormServer : Form, LogList.ILogWriter
+    public partial class FormServer : Form
     {
-        //string LocalDirectory = @"C:\Program Files (x86)\Steam\SteamApps\common\Arma 3";
-
         private ProjectXml _ProjectXml;
         private bool _BlockEvents = false;
         private bool _Modified = false;
@@ -21,8 +19,6 @@ namespace PALAST
         public FormServer()
         {
             InitializeComponent();
-
-            LogList.SetLogTarget(this);
 
             string[] args = Environment.GetCommandLineArgs();
 
@@ -162,45 +158,44 @@ namespace PALAST
 
             try
             {
-                LogList.Clear();
+                lstLog.Items.Clear();
 
                 // SyncExecutor erstellen
-                LogList.Info("Initialize updater");
+                lstLog.Items.Add("Initialize updater");
                 SyncServer syncServer = null;
                 if (_ProjectXml.FtpRepository != null)
                     syncServer = new SyncServerFtpGz(_ProjectXml.AddonDirectory, _ProjectXml.FtpRepository.Address, _ProjectXml.FtpRepository.Username, _ProjectXml.FtpRepository.Password, _ProjectXml.FtpRepository.Passive, _ProjectXml.FtpRepository.ConnectionLimit, _ProjectXml.SelectedAddons);
                 else
                     syncServer = new SyncServerLocalGz(_ProjectXml.AddonDirectory, _ProjectXml.LocalRepository.Directory, _ProjectXml.SelectedAddons);
 
-                LogList.Info("Load repositories");
+                lstLog.Items.Add("Load repositories");
                 syncServer.LoadRepositories();
 
-                LogList.Info("Compare addons");
+                lstLog.Items.Add("Compare addons");
                 SyncBase.CompareResult[] compareResults = syncServer.CompareRepositories(true);
                 System.Diagnostics.Debug.Assert(compareResults != null);
 
-                LogList.Info("------------------------------------------------------------------------");
+                lstLog.Items.Add("------------------------------------------------------------------------");
                 int modifications = 0;
                 for (int i = 0; i < compareResults.Length; i++)
                 {
                     modifications += compareResults[i].Count;
-                    LogList.Info(compareResults[i] + " - (" + compareResults[i].Count + " modifications)");
+                    lstLog.Items.Add(compareResults[i] + " - (" + compareResults[i].Count + " modifications)");
                 }
-                LogList.Info("------------------------------------------------------------------------");
-                LogList.Info("== Total modifications: " + modifications + " ==");
+                lstLog.Items.Add("------------------------------------------------------------------------");
+                lstLog.Items.Add("== Total modifications: " + modifications + " ==");
 
                 if (uploadData && (modifications > 0))
                 {
-                    LogList.Info("Synchronize addons");
+                    lstLog.Items.Add("Synchronize addons");
                     if (!syncServer.Synchronize(compareResults))
                         throw new Exception("Synchronize() failed.");
 
-                    LogList.Info("Update target repository xml");
-                    if (!syncServer.UpdateTargetRepositoryXml())
-                        throw new Exception("UpdateTargetRepositoryXml() failed.");
+                    lstLog.Items.Add("Update target repository xml");
+                    syncServer.UpdateTargetRepositoryXml();
 
-                    LogList.Info("------------------------------------------------------------------------");
-                    LogList.Info("Operation finished successfully !!!");
+                    lstLog.Items.Add("------------------------------------------------------------------------");
+                    lstLog.Items.Add("Operation finished successfully !!!");
                 }
             }
             catch (Exception ex)
@@ -463,18 +458,6 @@ namespace PALAST
         private void menInfo_Click(object sender, EventArgs e)
         {
             AboutDialog.ExecuteDialog();
-        }
-
-        public void WriteLog(string text)
-        {
-            lstLog.Items.Add(text);
-            lstLog.SelectedIndex = lstLog.Items.Count - 1;
-            Application.DoEvents();
-        }
-        public void ClearLog()
-        {
-            lstLog.Items.Clear();
-            Application.DoEvents();
         }
 
         private void cmenReSign_Click(object sender, EventArgs e)

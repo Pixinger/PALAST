@@ -65,18 +65,9 @@ namespace PALAST
                     throw ex;
             }
         }
-        protected override bool OnUpdateTargetRepositoryXml(Repository repository)
+        protected override void OnUpdateTargetRepositoryXml(Repository repository)
         {
-            try
-            {
-                _FtpManager.UploadGz(repository, _FtpPath + "/yaast.xml");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                LOG.Error("Exception: ", ex);
-                return false;
-            }
+            _FtpManager.UploadGz(repository, _FtpPath + "/yaast.xml");
         }
 
         protected override string OnConvertSourcePath(string source)

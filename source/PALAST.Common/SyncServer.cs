@@ -7,11 +7,11 @@ namespace PALAST
 {
     public abstract class SyncServer: SyncBase
     {
-        protected abstract bool OnUpdateTargetRepositoryXml(Repository repository);
+        protected abstract void OnUpdateTargetRepositoryXml(Repository repository);
 
-        public bool UpdateTargetRepositoryXml()
+        public void UpdateTargetRepositoryXml()
         {
-            return OnUpdateTargetRepositoryXml(_RepositorySource);
+            OnUpdateTargetRepositoryXml(_RepositorySource);
         }
     }
 }
