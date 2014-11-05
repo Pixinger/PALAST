@@ -81,13 +81,13 @@ namespace PALAST
         {
             try
             {
-                return HttpManager.DownloadGz(_HttpAddress + "/yaast.xml");
+                return HttpManager.DownloadGz(_HttpAddress + "/palast.xml");
             }
             catch (System.Net.WebException ex)
             {
                 System.Net.HttpWebResponse response = ex.Response as System.Net.HttpWebResponse;
                 if ((response != null) && (response.StatusCode == System.Net.HttpStatusCode.NotFound))
-                    throw new ApplicationException("No YAAST-Repository found at: " + _HttpAddress + "/yaast.xml");
+                    throw new ApplicationException("Kein Repository gefunden unter: " + _HttpAddress + "/palast.xml");
                 else
                     throw ex;
             }
@@ -95,7 +95,7 @@ namespace PALAST
         protected override Repository OnLoadTargetRepository()
         {
             if (!Directory.Exists(_AddonDirectory))
-                throw new ApplicationException("Addon directory not found: " + _AddonDirectory);
+                throw new ApplicationException("Addon Verzeichnis nicht gefunden: " + _AddonDirectory);
 
             return Repository.FromDirectory(_AddonDirectory, null);           
         }

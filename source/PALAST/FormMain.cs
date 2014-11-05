@@ -679,7 +679,7 @@ namespace PALAST
                             {
                                 DirectoryInfo source = new DirectoryInfo(pluginsSource);
                                 DirectoryInfo target = new DirectoryInfo(ts3Manager.PluginDirectory);
-                                CopyFilesRecursively(source, target);
+                                FileTools.CopyDirectoryRecursively(source, target);
                             }
                             else
                                 MessageBox.Show("Teamspeak scheint momentan zu laufen.\nBitte beenden Sie das Programm um die TFAR Plugins installieren zu können.");
@@ -693,12 +693,6 @@ namespace PALAST
             }
         }
 
-        public void CopyFilesRecursively(DirectoryInfo source, DirectoryInfo target)
-        {
-            foreach (DirectoryInfo dir in source.GetDirectories())
-                CopyFilesRecursively(dir, target.CreateSubdirectory(dir.Name));
-            foreach (FileInfo file in source.GetFiles())
-                file.CopyTo(Path.Combine(target.FullName, file.Name), true);
-        }
+     
     }
 }

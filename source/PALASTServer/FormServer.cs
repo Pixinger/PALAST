@@ -15,6 +15,9 @@ namespace PALAST
         private ProjectXml _ProjectXml;
         private bool _BlockEvents = false;
         private bool _Modified = false;
+
+        private SyncServer _SyncServer = null;
+        private SyncBase.CompareRepositoriesAsyncResult _CompareRepositoriesAsyncResult = null;
  
         public FormServer()
         {
@@ -33,7 +36,7 @@ namespace PALAST
             string[] args = Environment.GetCommandLineArgs();
             if ((args.Length > 2) && (args[2] == "upload"))
             {
-                menRepoUpload.PerformClick();
+                //menRepoUpload.PerformClick();
                 Close();
             }
         }
@@ -149,68 +152,7 @@ namespace PALAST
             else
                 return false;
         }
-        private void SynchronizeRepository(bool uploadData)
-        {
-            if (_ProjectXml == null)
-                return;
 
-            LockGui();
-
-            try
-            {
-                lstLog.Items.Clear();
-
-                // SyncExecutor erstellen
-                lstLog.Items.Add("Initialize updater");
-                SyncServer syncServer = null;
-                if (_ProjectXml.FtpRepository != null)
-                    syncServer = new SyncServerFtpGz(_ProjectXml.AddonDirectory, _ProjectXml.FtpRepository.Address, _ProjectXml.FtpRepository.Username, _ProjectXml.FtpRepository.Password, _ProjectXml.FtpRepository.Passive, _ProjectXml.FtpRepository.ConnectionLimit, _ProjectXml.SelectedAddons);
-                else
-                    syncServer = new SyncServerLocalGz(_ProjectXml.AddonDirectory, _ProjectXml.LocalRepository.Directory, _ProjectXml.SelectedAddons);
-
-                lstLog.Items.Add("Load repositories");
-                syncServer.LoadRepositories();
-
-                lstLog.Items.Add("Compare addons");
-                SyncBase.CompareResult[] compareResults = syncServer.CompareRepositories(true);
-                System.Diagnostics.Debug.Assert(compareResults != null);
-
-                lstLog.Items.Add("------------------------------------------------------------------------");
-                int modifications = 0;
-                for (int i = 0; i < compareResults.Length; i++)
-                {
-                    modifications += compareResults[i].Count;
-                    lstLog.Items.Add(compareResults[i] + " - (" + compareResults[i].Count + " modifications)");
-                }
-                lstLog.Items.Add("------------------------------------------------------------------------");
-                lstLog.Items.Add("== Total modifications: " + modifications + " ==");
-
-                if (uploadData && (modifications > 0))
-                {
-                    lstLog.Items.Add("Synchronize addons");
-                    if (!syncServer.Synchronize(compareResults))
-                        throw new Exception("Synchronize() failed.");
-
-                    lstLog.Items.Add("Update target repository xml");
-                    syncServer.UpdateTargetRepositoryXml();
-
-                    lstLog.Items.Add("------------------------------------------------------------------------");
-                    lstLog.Items.Add("Operation finished successfully !!!");
-                }
-            }
-            catch (Exception ex)
-            {
-#if(DEBUG)
-                MessageBox.Show(ex.Message + "\n\n---------------------------------\n" + ex.StackTrace.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-#else
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-#endif
-            }
-            finally
-            {
-                UnlockGui();
-            }
-        }
         private void RefreshAddonList()
         {
             clstAddons.Items.Clear();
@@ -447,14 +389,6 @@ namespace PALAST
         {
             Close();
         }
-        private void menRepoVerify_Click(object sender, EventArgs e)
-        {
-            SynchronizeRepository(false);
-        }
-        private void menRepoUpload_Click(object sender, EventArgs e)
-        {
-            SynchronizeRepository(true);
-        }
         private void menInfo_Click(object sender, EventArgs e)
         {
             AboutDialog.ExecuteDialog();
@@ -477,6 +411,135 @@ namespace PALAST
             cmenReSign.Enabled = clstAddons.SelectedItem != null;
         }
 
-     
+        private void btnCompareRepositories_Click(object sender, EventArgs e)
+        {
+            LockGui();
+
+            try
+            {
+                lstLog.Items.Clear();
+                lstLog.Items.Add("Analyse läuft... Bitte warten.");
+                lstLog.ForeColor = SystemColors.WindowText;
+
+                // SyncExecutor erstellen
+                if (_ProjectXml.FtpRepository != null)
+                    _SyncServer = new SyncServerFtpGz(_ProjectXml.AddonDirectory, _ProjectXml.FtpRepository.Address, _ProjectXml.FtpRepository.Username, _ProjectXml.FtpRepository.Password, _ProjectXml.FtpRepository.Passive, _ProjectXml.FtpRepository.ConnectionLimit, _ProjectXml.SelectedAddons);
+                else
+                    _SyncServer = new SyncServerLocalGz(_ProjectXml.AddonDirectory, _ProjectXml.LocalRepository.Directory, _ProjectXml.SelectedAddons);
+
+                // Vergleichen
+                _SyncServer.CompareRepositories(true, new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted));
+            }
+            catch (Exception ex)
+            {
+#if(DEBUG)
+                MessageBox.Show(ex.Message + "\n\n---------------------------------\n" + ex.StackTrace.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#else
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#endif
+            }
+        }
+        private void OnCompareRepositoriesCompleted(object sender, SyncBase.CompareRepositoriesAsyncResult e)
+        {
+            if (InvokeRequired)
+                BeginInvoke(new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted), new object[] { sender, e });
+            else
+            {
+                if (!e.IsFailed)
+                {
+                    int modifications = 0;
+                    for (int i = 0; i < e.CompareResults.Length; i++)
+                    {
+                        modifications += e.CompareResults[i].Count;
+                        lstLog.Items.Add(e.CompareResults[i].Count + " Änderung(en): " + e.CompareResults[i]);
+                    }
+
+                    if (modifications == 0)
+                    {
+                        _CompareRepositoriesAsyncResult = null;
+                        lstLog.Items.Add("------------------------------------------------------------------------");
+                        lstLog.Items.Add("== Alle gewählten Addons sind aktuell ==");
+                        btnCompareRepositories.BackColor = Color.Lime;
+                        lstLog.ForeColor = Color.Green;
+                        btnSynchronize.Enabled = false;
+                    }
+                    else
+                    {
+                        _CompareRepositoriesAsyncResult = e;
+                        lstLog.Items.Add("------------------------------------------------------------------------");
+                        lstLog.Items.Add("== Anzahl der Änderungen: " + modifications + " ==");
+                        btnCompareRepositories.BackColor = Color.Red;
+                        lstLog.ForeColor = Color.Red;
+                        btnSynchronize.Enabled = true;
+                    }
+                }
+                else
+                {
+                    _CompareRepositoriesAsyncResult = null;
+                    lstLog.Items.Add("------------------------------------------------------------------------");
+                    lstLog.Items.Add("== Der Vorgang wurde mit einem Fehler beendet ==");
+                    lstLog.Items.Add(e.Error);
+                    lstLog.Items.Add("------------------------------------------------------------------------");
+
+                    btnCompareRepositories.BackColor = SystemColors.Control;
+                    lstLog.ForeColor = Color.Black;
+                    btnSynchronize.Enabled = false;
+                }
+
+                UnlockGui();
+            }
+        }
+
+        private void btnSynchronize_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.Assert(_CompareRepositoriesAsyncResult != null);
+            System.Diagnostics.Debug.Assert(_SyncServer != null);
+
+            LockGui();
+
+            try
+            {
+                lstLog.Items.Clear();
+                lstLog.Items.Add("Datenaustausch läuft... Bitte warten.");
+                lstLog.ForeColor = SystemColors.WindowText;
+                btnCompareRepositories.BackColor = SystemColors.Control;
+                btnSynchronize.Enabled = false;
+
+                // Die übergebene Liste synchronisieren
+                _SyncServer.Synchronize(_CompareRepositoriesAsyncResult, new SyncBase.SynchronizeAsyncResultEventHandler(OnSynchronizeCompletedEventHandler));
+                _SyncServer = null;
+                _CompareRepositoriesAsyncResult = null;
+            }
+            catch (Exception ex)
+            {
+#if(DEBUG)
+                MessageBox.Show(ex.Message + "\n\n---------------------------------\n" + ex.StackTrace.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#else
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+#endif
+            }
+        }
+        private void OnSynchronizeCompletedEventHandler(object sender, SyncBase.SynchronizeAsyncResult e)
+        {
+            if (InvokeRequired)
+                BeginInvoke(new SyncBase.SynchronizeAsyncResultEventHandler(OnSynchronizeCompletedEventHandler), new object[] { sender, e });
+            else
+            {
+                if (!e.IsFailed)
+                {
+                    lstLog.Items.Add("------------------------------------------------------------------------");
+                    lstLog.Items.Add("== Der Vorgang wurde erfolgreich beendet ==");
+                }
+                else
+                {
+                    lstLog.Items.Add("------------------------------------------------------------------------");
+                    lstLog.Items.Add("== Der Vorgang wurde mit einem Fehler beendet ==");
+                    lstLog.Items.Add(e.Error);
+                    lstLog.Items.Add("------------------------------------------------------------------------");
+                }
+
+                UnlockGui();
+            }
+        }
     }
 }

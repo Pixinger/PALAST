@@ -33,7 +33,7 @@
             this.lstActions = new System.Windows.Forms.ListBox();
             this.btnSynchronize = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.btnValidate = new System.Windows.Forms.Button();
+            this.btnCompareRepositories = new System.Windows.Forms.Button();
             this.clstCompareResults = new System.Windows.Forms.CheckedListBox();
             this.lvwLog = new System.Windows.Forms.ListView();
             this.clhStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -101,15 +101,15 @@
             // 
             // btnValidate
             // 
-            this.btnValidate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnValidate.Enabled = false;
-            this.btnValidate.Location = new System.Drawing.Point(334, 672);
-            this.btnValidate.Name = "btnValidate";
-            this.btnValidate.Size = new System.Drawing.Size(100, 23);
-            this.btnValidate.TabIndex = 0;
-            this.btnValidate.Text = "Überprüfen";
-            this.btnValidate.UseVisualStyleBackColor = true;
-            this.btnValidate.Click += new System.EventHandler(this.btnValidate_Click);
+            this.btnCompareRepositories.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCompareRepositories.Enabled = false;
+            this.btnCompareRepositories.Location = new System.Drawing.Point(334, 672);
+            this.btnCompareRepositories.Name = "btnValidate";
+            this.btnCompareRepositories.Size = new System.Drawing.Size(100, 23);
+            this.btnCompareRepositories.TabIndex = 0;
+            this.btnCompareRepositories.Text = "Überprüfen";
+            this.btnCompareRepositories.UseVisualStyleBackColor = true;
+            this.btnCompareRepositories.Click += new System.EventHandler(this.btnCompareRepositories_Click);
             // 
             // clstCompareResults
             // 
@@ -197,13 +197,13 @@
             // 
             // AddonSyncDialog
             // 
-            this.AcceptButton = this.btnValidate;
+            this.AcceptButton = this.btnCompareRepositories;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(683, 703);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnValidate);
+            this.Controls.Add(this.btnCompareRepositories);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnSynchronize);
             this.Controls.Add(this.label1);
@@ -225,7 +225,7 @@
         private System.Windows.Forms.ListBox lstActions;
         private System.Windows.Forms.Button btnSynchronize;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.Button btnValidate;
+        private System.Windows.Forms.Button btnCompareRepositories;
         private System.Windows.Forms.CheckedListBox clstCompareResults;
         private System.Windows.Forms.ListView lvwLog;
         private System.Windows.Forms.ColumnHeader clhStatus;

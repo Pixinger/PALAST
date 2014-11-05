@@ -9,9 +9,11 @@ namespace PALAST
     {
         protected abstract void OnUpdateTargetRepositoryXml(Repository repository);
 
-        public void UpdateTargetRepositoryXml()
+        protected override void OnSynchronizeSuccessfull(SynchronizeUserState userState)
         {
-            OnUpdateTargetRepositoryXml(_RepositorySource);
+            base.OnSynchronizeSuccessfull(userState);
+
+            OnUpdateTargetRepositoryXml(userState.CompareRepositoriesAsyncResult.Repository);
         }
     }
 }

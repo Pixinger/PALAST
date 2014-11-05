@@ -15,7 +15,7 @@ namespace PALAST
         private FtpManager _FtpManager;
         private string[] _SelectedAddons;
 
-        public SyncServerFtpGz(string sourcePath, string address, string username, string password, bool passive,  int connectionLimit, string[] selectedAddons)
+        public SyncServerFtpGz(string sourcePath, string address, string username, string password, bool passive, int connectionLimit, string[] selectedAddons)
         {
             _SourcePath = sourcePath;
             if (_SourcePath.EndsWith("\\"))
@@ -35,7 +35,7 @@ namespace PALAST
         protected override Repository OnLoadSourceRepository()
         {
             if (!Directory.Exists(_SourcePath))
-                throw new ApplicationException("Addon directory not found: " + _SourcePath);
+                throw new ApplicationException("Addon Verzeichnis nicht gefunden: " + _SourcePath);
 
             return Repository.FromDirectory(_SourcePath, _SelectedAddons);
         }
@@ -43,7 +43,7 @@ namespace PALAST
         {
             try
             {
-                return _FtpManager.DownloadGz(_FtpPath + "/yaast.xml");
+                return _FtpManager.DownloadGz(_FtpPath + "/palast.xml");
             }
             catch (System.Net.WebException ex)
             {
@@ -51,9 +51,9 @@ namespace PALAST
                 if ((response != null) && (response.StatusCode == System.Net.FtpStatusCode.ActionNotTakenFileUnavailable))
                 {
                     // Fragen ob ein neues Repo erstellt werden soll, oder nicht.
-                    DialogResult result = MessageBox.Show("There is no repository at the specified address. Create a new repository?", "Warning", MessageBoxButtons.OKCancel);
+                    DialogResult result = MessageBox.Show("Unter der angegeben Adresse wurde kein Repository gefunden. Wollen Sie ein neues Repository erstellen?", "Achtung!", MessageBoxButtons.OKCancel);
                     if (result == System.Windows.Forms.DialogResult.Cancel)
-                        throw new ApplicationException("Operation aborted");
+                        throw new ApplicationException("Operation abgebrochen");
 
                     // Neues Repo erstellen
                     Repository repository = new Repository();
@@ -67,7 +67,7 @@ namespace PALAST
         }
         protected override void OnUpdateTargetRepositoryXml(Repository repository)
         {
-            _FtpManager.UploadGz(repository, _FtpPath + "/yaast.xml");
+            _FtpManager.UploadGz(repository, _FtpPath + "/palast.xml");
         }
 
         protected override string OnConvertSourcePath(string source)
@@ -83,9 +83,6 @@ namespace PALAST
         {
             try
             {
-                //for (int i = 0; i < sources.Length; i++)
-                //    _FtpManager.UploadGz(sources[i], targets[i]);
-
                 _FtpManager.UploadGz(sources, targets);
                 return true;
             }

@@ -78,7 +78,7 @@ namespace PALAST
                                 instance.Addons.UpdateParentReferences(null);
 
                             if (instance.Version > Repository.SUPPORTED_VERSION)
-                                throw new Exception("Downloaded repository version is to new. please update the software");
+                                throw new Exception("Die Version des Repositories wird nicht von dieser Version unterstützt. Aktualisieren Sie Ihre Software.");
 
                             return instance;
                         }

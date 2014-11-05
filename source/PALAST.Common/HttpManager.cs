@@ -102,13 +102,7 @@ namespace PALAST
             }
 
             for (int i = 0; i < trackedDownloads.Length; i++)
-            {
                 userStates[i].Finished.WaitOne();
-            }
-
-            for (int i = 0; i < trackedDownloads.Length; i++)
-            {
-            }
         }
         private static void DownloadGz_HttpWebRequest_OnBeginGetResponseCallback(IAsyncResult ar)
         {
@@ -134,6 +128,7 @@ namespace PALAST
             {
                 HttpWebRequestUserState userState = ar.AsyncState as HttpWebRequestUserState;
 
+                TimeSpan totalTime = DateTime.Now - userState.StartTime;
                 int bytesRead = userState.ResponseStream.EndRead(ar);
                 if (bytesRead > 0)
                 {
@@ -144,7 +139,6 @@ namespace PALAST
 
                     //    state.bytesRead += bytesRead;
                     double precent = ((double)userState.BytesRead / (double)userState.BytesTotal) * 100.0f;
-                    TimeSpan totalTime = DateTime.Now - userState.StartTime;
                     
                     // Note: bytesRead/totalMS is in bytes/ms.  Convert to kb/sec.
                     double kbPerSec = ((userState.BytesRead / totalTime.TotalSeconds) * 8.0f) / 1024.0f;
@@ -158,6 +152,7 @@ namespace PALAST
 
                     Decompress(new FileInfo(userState.TrackedDownload._Target + ".gz"));
                     File.SetLastWriteTimeUtc(userState.TrackedDownload._Target, userState.TrackedDownload._LastWriteTimeUtc);
+                    userState.TrackedDownload.DownloadProgressChanged(new DownloadProgress(100, 0, totalTime.TotalSeconds));
                 }
             }
             catch (Exception ex)
@@ -264,7 +259,7 @@ namespace PALAST
                         instance.Addons.UpdateParentReferences(null);
 
                     if (instance.Version > Repository.SUPPORTED_VERSION)
-                        throw new Exception("Downloaded repository version is to new. please update the software");
+                        throw new Exception("Die Version des Repositories wird nicht von dieser Version unterstützt. Aktualisieren Sie Ihre Software.");
 
                     return instance;
                 }

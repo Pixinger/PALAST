@@ -27,13 +27,13 @@ namespace PALAST
         }
         protected override Repository OnLoadTargetRepository()
         {
-            if (File.Exists(_TargetPath + "/yaast.xml.gz"))
-                return Repository.FromFilenameGz(_TargetPath + "/yaast.xml");
+            if (File.Exists(_TargetPath + "/palast.xml.gz"))
+                return Repository.FromFilenameGz(_TargetPath + "/palast.xml");
             else
             {
-                DialogResult result = MessageBox.Show("There is no repository at the specified address. Create a new repository?", "Warning", MessageBoxButtons.OKCancel);
+                DialogResult result = MessageBox.Show("Unter der angegeben Adresse wurde kein Repository gefunden. Wollen Sie ein neues Repository erstellen?", "Achtung!", MessageBoxButtons.OKCancel);
                 if (result != DialogResult.OK)
-                    throw new ApplicationException("Operation aborted");
+                    throw new ApplicationException("Operation abgebrochen");
 
                 // Neues Repo erstellen
                 Repository repository = new Repository();
@@ -44,7 +44,7 @@ namespace PALAST
         }
         protected override void OnUpdateTargetRepositoryXml(Repository repository)
         {
-            repository.SaveGz(_TargetPath + "/yaast.xml");
+            repository.SaveGz(_TargetPath + "/palast.xml");
         }
 
         protected override string OnConvertSourcePath(string source)

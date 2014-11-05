@@ -60,14 +60,13 @@
             this.menReloadAddons = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.menExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.repositoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menRepoVerify = new System.Windows.Forms.ToolStripMenuItem();
-            this.menRepoUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.menInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.openDlg = new System.Windows.Forms.OpenFileDialog();
             this.saveDlg = new System.Windows.Forms.SaveFileDialog();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.folderDlg = new System.Windows.Forms.FolderBrowserDialog();
+            this.btnCompareRepositories = new System.Windows.Forms.Button();
+            this.btnSynchronize = new System.Windows.Forms.Button();
             this.cmenMain.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabControlMode.SuspendLayout();
@@ -85,7 +84,7 @@
             this.clstAddons.IntegralHeight = false;
             this.clstAddons.Location = new System.Drawing.Point(421, 0);
             this.clstAddons.Name = "clstAddons";
-            this.clstAddons.Size = new System.Drawing.Size(205, 229);
+            this.clstAddons.Size = new System.Drawing.Size(205, 255);
             this.clstAddons.TabIndex = 5;
             this.clstAddons.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clstAddons_ItemCheck);
             // 
@@ -115,6 +114,8 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.btnSynchronize);
+            this.panel3.Controls.Add(this.btnCompareRepositories);
             this.panel3.Controls.Add(this.tabControlMode);
             this.panel3.Controls.Add(this.btnBrowseAddonDirectory);
             this.panel3.Controls.Add(this.txtAddonDirectory);
@@ -122,7 +123,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(421, 229);
+            this.panel3.Size = new System.Drawing.Size(421, 255);
             this.panel3.TabIndex = 15;
             // 
             // tabControlMode
@@ -294,16 +295,15 @@
             this.lstLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstLog.FormattingEnabled = true;
             this.lstLog.IntegralHeight = false;
-            this.lstLog.Location = new System.Drawing.Point(0, 253);
+            this.lstLog.Location = new System.Drawing.Point(0, 279);
             this.lstLog.Name = "lstLog";
-            this.lstLog.Size = new System.Drawing.Size(626, 147);
+            this.lstLog.Size = new System.Drawing.Size(626, 238);
             this.lstLog.TabIndex = 0;
             // 
             // mainMenu
             // 
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.projectToolStripMenuItem,
-            this.repositoryToolStripMenuItem,
             this.menInfo});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
@@ -329,14 +329,14 @@
             // menNew
             // 
             this.menNew.Name = "menNew";
-            this.menNew.Size = new System.Drawing.Size(149, 22);
+            this.menNew.Size = new System.Drawing.Size(152, 22);
             this.menNew.Text = "new";
             this.menNew.Click += new System.EventHandler(this.menNew_Click);
             // 
             // menOpen
             // 
             this.menOpen.Name = "menOpen";
-            this.menOpen.Size = new System.Drawing.Size(149, 22);
+            this.menOpen.Size = new System.Drawing.Size(152, 22);
             this.menOpen.Text = "open";
             this.menOpen.Click += new System.EventHandler(this.menOpen_Click);
             // 
@@ -344,7 +344,7 @@
             // 
             this.menSave.Enabled = false;
             this.menSave.Name = "menSave";
-            this.menSave.Size = new System.Drawing.Size(149, 22);
+            this.menSave.Size = new System.Drawing.Size(152, 22);
             this.menSave.Text = "save";
             this.menSave.Click += new System.EventHandler(this.menSave_Click);
             // 
@@ -352,56 +352,33 @@
             // 
             this.menSaveAs.Enabled = false;
             this.menSaveAs.Name = "menSaveAs";
-            this.menSaveAs.Size = new System.Drawing.Size(149, 22);
+            this.menSaveAs.Size = new System.Drawing.Size(152, 22);
             this.menSaveAs.Text = "save as";
             this.menSaveAs.Click += new System.EventHandler(this.menSaveAs_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // menReloadAddons
             // 
             this.menReloadAddons.Name = "menReloadAddons";
-            this.menReloadAddons.Size = new System.Drawing.Size(149, 22);
+            this.menReloadAddons.Size = new System.Drawing.Size(152, 22);
             this.menReloadAddons.Text = "reload addons";
             this.menReloadAddons.Click += new System.EventHandler(this.menReloadAddons_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(146, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
             // 
             // menExit
             // 
             this.menExit.Name = "menExit";
-            this.menExit.Size = new System.Drawing.Size(149, 22);
+            this.menExit.Size = new System.Drawing.Size(152, 22);
             this.menExit.Text = "exit";
             this.menExit.Click += new System.EventHandler(this.menExit_Click);
-            // 
-            // repositoryToolStripMenuItem
-            // 
-            this.repositoryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menRepoVerify,
-            this.menRepoUpload});
-            this.repositoryToolStripMenuItem.Name = "repositoryToolStripMenuItem";
-            this.repositoryToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
-            this.repositoryToolStripMenuItem.Text = "repository";
-            // 
-            // menRepoVerify
-            // 
-            this.menRepoVerify.Name = "menRepoVerify";
-            this.menRepoVerify.Size = new System.Drawing.Size(111, 22);
-            this.menRepoVerify.Text = "verify";
-            this.menRepoVerify.Click += new System.EventHandler(this.menRepoVerify_Click);
-            // 
-            // menRepoUpload
-            // 
-            this.menRepoUpload.Name = "menRepoUpload";
-            this.menRepoUpload.Size = new System.Drawing.Size(111, 22);
-            this.menRepoUpload.Text = "upload";
-            this.menRepoUpload.Click += new System.EventHandler(this.menRepoUpload_Click);
             // 
             // menInfo
             // 
@@ -430,18 +407,38 @@
             this.pnlTop.Enabled = false;
             this.pnlTop.Location = new System.Drawing.Point(0, 24);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(626, 229);
+            this.pnlTop.Size = new System.Drawing.Size(626, 255);
             this.pnlTop.TabIndex = 9;
             // 
             // folderDlg
             // 
             this.folderDlg.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
+            // btnCompareRepositories
+            // 
+            this.btnCompareRepositories.Location = new System.Drawing.Point(11, 222);
+            this.btnCompareRepositories.Name = "btnCompareRepositories";
+            this.btnCompareRepositories.Size = new System.Drawing.Size(182, 23);
+            this.btnCompareRepositories.TabIndex = 17;
+            this.btnCompareRepositories.Text = "Überprüfen";
+            this.btnCompareRepositories.UseVisualStyleBackColor = true;
+            this.btnCompareRepositories.Click += new System.EventHandler(this.btnCompareRepositories_Click);
+            // 
+            // btnSynchronize
+            // 
+            this.btnSynchronize.Location = new System.Drawing.Point(225, 222);
+            this.btnSynchronize.Name = "btnSynchronize";
+            this.btnSynchronize.Size = new System.Drawing.Size(182, 23);
+            this.btnSynchronize.TabIndex = 18;
+            this.btnSynchronize.Text = "Synchronisieren";
+            this.btnSynchronize.UseVisualStyleBackColor = true;
+            this.btnSynchronize.Click += new System.EventHandler(this.btnSynchronize_Click);
+            // 
             // FormServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 400);
+            this.ClientSize = new System.Drawing.Size(626, 517);
             this.Controls.Add(this.lstLog);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.mainMenu);
@@ -496,9 +493,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel pnlTop;
-        private System.Windows.Forms.ToolStripMenuItem repositoryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem menRepoVerify;
-        private System.Windows.Forms.ToolStripMenuItem menRepoUpload;
         private System.Windows.Forms.FolderBrowserDialog folderDlg;
         private System.Windows.Forms.ToolStripMenuItem menReloadAddons;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
@@ -506,6 +500,8 @@
         private System.Windows.Forms.ContextMenuStrip cmenMain;
         private System.Windows.Forms.ToolStripMenuItem cmenReSign;
         private System.Windows.Forms.ToolStripMenuItem cmenCopyKey;
+        private System.Windows.Forms.Button btnSynchronize;
+        private System.Windows.Forms.Button btnCompareRepositories;
     }
 }
 

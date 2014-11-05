@@ -7,15 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using PALAST;
+using System.IO;
 
 namespace PALAST
 {
     public partial class AddonSyncDialog : Form
     {
+        #region nLog instance (LOG)
+        protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
+        #endregion
+		
         private string _ArmaDirectory;
         private Configuration.Preset _Preset;
 
         private SyncClientHttpGz _SyncClient;
+        private SyncBase.CompareRepositoriesAsyncResult _CompareRepositoriesAsyncResult = null; 
+
 
         private AddonSyncDialog()
         {
@@ -45,52 +52,107 @@ namespace PALAST
             }
         }
 
+        private void LockGui()
+        {
+            txtUrl.Enabled = false;
+            clstCompareResults.Enabled = false;
+            btnExit.Enabled = false;
+            btnCompareRepositories.Enabled = false;
+        }
+        private void UnlockGui()
+        {
+            txtUrl.Enabled = true;
+            clstCompareResults.Enabled = true;
+            btnExit.Enabled = true;
+            btnCompareRepositories.Enabled = true;
+        }
+        private void UpdateUserConfigs()
+        {
+            // Zusammenstellen welche Ergebnisse zum Synchronisieren ausgewählt wurden.
+            List<SyncBase.CompareResult> compareResults = new List<SyncBase.CompareResult>();
+            for (int i = 0; i < clstCompareResults.CheckedItems.Count; i++)
+            {
+                SyncBase.CompareResult compareResult = clstCompareResults.CheckedItems[i] as SyncBase.CompareResult;
+                if ((compareResult != null) && (compareResult.Count > 0))
+                    compareResults.Add(compareResult);
+            }
+
+            // Jetzt durchsuchen nach UserConfig Verzeichnissen.
+            foreach (SyncBase.CompareResult compareResult in compareResults)
+            {
+                try
+                {
+                    string addonUserconfigDirectory = System.IO.Path.Combine(_ArmaDirectory, compareResult.Name);
+                    addonUserconfigDirectory = System.IO.Path.Combine(addonUserconfigDirectory, "userconfig");
+                    if (System.IO.Directory.Exists(addonUserconfigDirectory))
+                    {
+                        if (MessageBox.Show("Im Addon '" + compareResult.Name + "' wurde eine 'userconfig' gefunden.\n\nMöchten Sie diese nun in das Arma Verzeichnis kopieren?", "Frage", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            string armaUserconfigDirectory = Path.Combine(_ArmaDirectory, "userconfig");
+                            if (!Directory.Exists(armaUserconfigDirectory))
+                                Directory.CreateDirectory(armaUserconfigDirectory);
+                            DirectoryInfo armaUserconfigDirectoryInfo = new DirectoryInfo(armaUserconfigDirectory);
+
+                            DirectoryInfo addonUserconfigDirectoryInfo = new DirectoryInfo(addonUserconfigDirectory);
+                            DirectoryInfo[] directoryInfos = addonUserconfigDirectoryInfo.GetDirectories();
+                            foreach (DirectoryInfo directoryInfo in directoryInfos)
+                            {
+                                // Vorhandenes löschen
+                                DirectoryInfo[] obsoleteDirecties = armaUserconfigDirectoryInfo.GetDirectories(directoryInfo.Name);
+                                foreach (DirectoryInfo obsoleteDirecty in obsoleteDirecties)
+                                    obsoleteDirecty.Delete(true);
+                            }
+
+                            // Alles aus dem Addon hineinkopieren
+                            FileTools.CopyDirectoryRecursively(addonUserconfigDirectoryInfo, armaUserconfigDirectoryInfo);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LOG.Error(ex);
+                    lstActions.Items.Add("Fehler beim verarbeiten der 'userconfig' im Addon " + compareResult.Name);
+                    lstActions.Items.Add(ex.Message);
+                }
+            }
+        }
+
         private void txtUrl_TextChanged(object sender, EventArgs e)
         {
-            btnValidate.Enabled = !string.IsNullOrWhiteSpace(txtUrl.Text);
+            btnCompareRepositories.Enabled = !string.IsNullOrWhiteSpace(txtUrl.Text);
             btnSynchronize.Enabled = false;
             _Preset.AddonSyncUrl = txtUrl.Text;
 
-            if (!btnValidate.Enabled)
+            if (!btnCompareRepositories.Enabled)
                 txtUrl.BackColor = Color.Orange;
             else
                 txtUrl.BackColor = SystemColors.Window;
         }
-        private void btnValidate_Click(object sender, EventArgs e)
+        private void clstCompareResults_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lstActions.Items.Clear();
+
+            SyncBase.CompareResult compareResult = clstCompareResults.SelectedItem as SyncBase.CompareResult;
+            if (compareResult != null)
+            {
+                string[] details = compareResult.GetDetailStrings();
+                foreach (string detail in details)
+                    lstActions.Items.Add(detail);
+            }
+        }
+        
+        private void btnCompareRepositories_Click(object sender, EventArgs e)
         {
             LockGui();
 
             try
             {
-                btnSynchronize.Enabled = false;
-                clstCompareResults.Items.Clear();
-
                 lstActions.Items.Clear();
-                lstActions.Items.Add("Initializing updater");
+                lstActions.ForeColor = Color.Black;
+                lstActions.Items.Add("Analyse läuft... Bitte warten.");
+
                 _SyncClient = new SyncClientHttpGz(_Preset.AddonSyncUrl, _ArmaDirectory, lvwLog);
-
-                lstActions.Items.Add("Load repositories");
-                _SyncClient.LoadRepositories();
-
-                lstActions.Items.Add("Compare addons");
-                SyncBase.CompareResult[] compareResults = _SyncClient.CompareRepositories();
-                System.Diagnostics.Debug.Assert(compareResults != null);
-
-                lstActions.Items.Add("------------------------------------------------------------------------");
-                int modifications = 0;
-                for (int i = 0; i < compareResults.Length; i++)
-                {
-                    clstCompareResults.Items.Add(compareResults[i]);
-                    clstCompareResults.SetItemChecked(i, compareResults[i].Count > 0);
-                    modifications += compareResults[i].Count;
-                    lstActions.Items.Add(compareResults[i] + " - (" + compareResults[i].Count + " modifications)");
-                }
-                lstActions.Items.Add("------------------------------------------------------------------------");
-                lstActions.Items.Add("== Total modifications: " + modifications + " ==");
-
-                btnValidate.BackColor = modifications > 0 ? Color.Red : Color.Lime;
-                lstActions.ForeColor = modifications > 0 ? Color.Red : Color.Green;
-                btnSynchronize.Enabled = (modifications > 0);
+                _SyncClient.CompareRepositories(new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted));
             }
             catch (Exception ex)
             {
@@ -100,19 +162,77 @@ namespace PALAST
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 #endif
             }
-            finally
+        }
+        private void OnCompareRepositoriesCompleted(object sender, SyncBase.CompareRepositoriesAsyncResult e)
+        {
+            if (InvokeRequired)
+                BeginInvoke(new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted), new object[] { sender, e });
+            else
             {
+                if (!e.IsFailed)
+                {
+                    clstCompareResults.Items.Clear();
+
+                    int modifications = 0;
+                    for (int i = 0; i < e.CompareResults.Length; i++)
+                    {
+                        clstCompareResults.Items.Add(e.CompareResults[i]);
+                        clstCompareResults.SetItemChecked(i, e.CompareResults[i].Count > 0);
+                        modifications += e.CompareResults[i].Count;
+                        lstActions.Items.Add(e.CompareResults[i].Count + " Änderung(en): " + e.CompareResults[i]);
+                    }
+
+                    if (modifications == 0)
+                    {
+                        _CompareRepositoriesAsyncResult = null;
+                        lstActions.Items.Add("------------------------------------------------------------------------");
+                        lstActions.Items.Add("== Alle gewählten Addons sind aktuell ==");
+                        btnCompareRepositories.BackColor = Color.Lime;
+                        lstActions.ForeColor = Color.Green;
+                        btnSynchronize.Enabled = false;
+                    }
+                    else
+                    {
+                        _CompareRepositoriesAsyncResult = e;
+                        lstActions.Items.Add("------------------------------------------------------------------------");
+                        lstActions.Items.Add("Klicke auf das Addon um genauere Informationen zu erhalten.");
+                        lstActions.Items.Add("== Anzahl der Änderungen: " + modifications + " ==");
+                        btnCompareRepositories.BackColor = Color.Red;
+                        lstActions.ForeColor = Color.Red;
+                        btnSynchronize.Enabled = true;
+                    }
+                }
+                else
+                {
+                    _CompareRepositoriesAsyncResult = null;
+                    lstActions.Items.Add("------------------------------------------------------------------------");
+                    lstActions.Items.Add("== Der Vorgang wurde mit einem Fehler beendet ==");
+                    lstActions.Items.Add(e.Error);
+                    lstActions.Items.Add("------------------------------------------------------------------------");
+
+                    btnCompareRepositories.BackColor = SystemColors.Control;
+                    lstActions.ForeColor = Color.Black;
+                    btnSynchronize.Enabled = false;
+                }
+
                 UnlockGui();
             }
         }
+
         private void btnSynchronize_Click(object sender, EventArgs e)
         {
+            System.Diagnostics.Debug.Assert(_CompareRepositoriesAsyncResult != null);
+
             LockGui();
 
             try
             {
+                lstActions.Items.Clear();
+                lstActions.ForeColor = Color.Black;
+                lstActions.Items.Add("Datenaustausch läuft... Bitte warten.");
+
                 btnSynchronize.Enabled = false;
-                btnValidate.BackColor = SystemColors.Control;
+                btnCompareRepositories.BackColor = SystemColors.Control;
                 lstActions.ForeColor = SystemColors.WindowText;
 
                 // Zusammenstellen welche Ergebnisse zum Synchronisieren ausgewählt wurden.
@@ -125,8 +245,7 @@ namespace PALAST
                 }
 
                 // Die übergebene Liste synchronisieren
-                _SyncClient.SynchronizeAsync(compareResults.ToArray(), new SyncBase.SynchronizeCompletedEventHandler(OnSynchronizeCompletedEventHandler));
-
+                _SyncClient.Synchronize(_CompareRepositoriesAsyncResult, new SyncBase.SynchronizeAsyncResultEventHandler(OnSynchronizeCompletedEventHandler), compareResults.ToArray());
             }
             catch (Exception ex)
             {
@@ -137,51 +256,32 @@ namespace PALAST
 #endif
             }
         }
-        private void OnSynchronizeCompletedEventHandler(object sender, SyncBase.SynchronizeResultObject e)
+        private void OnSynchronizeCompletedEventHandler(object sender, SyncBase.SynchronizeAsyncResult e)
         {
             if (InvokeRequired)
-                Invoke(new SyncBase.SynchronizeCompletedEventHandler(OnSynchronizeCompletedEventHandler), new object[] { sender, e });
+                BeginInvoke(new SyncBase.SynchronizeAsyncResultEventHandler(OnSynchronizeCompletedEventHandler), new object[] { sender, e });
             else
             {
-                UnlockGui();
-                
-                lstActions.Items.Clear();
-                if (e.IsFailed)
+                if (!e.IsFailed)
                 {
-                    lstActions.Items.Add("Synchronisieren fehlgeschlagen!");
-                    lstActions.Items.Add(e.Error);
+                    lstActions.Items.Add("------------------------------------------------------------------------");
+                    lstActions.Items.Add("== Der Vorgang wurde erfolgreich beendet ==");
                 }
                 else
                 {
-                    lstActions.Items.Add("Synchronisieren erfolgreich");
+                    lstActions.Items.Add("------------------------------------------------------------------------");
+                    lstActions.Items.Add("== Der Vorgang wurde mit einem Fehler beendet ==");
+                    lstActions.Items.Add(e.Error);
+                    lstActions.Items.Add("------------------------------------------------------------------------");
                 }
-            }
-        }
 
-        private void LockGui()
-        {
-            txtUrl.Enabled = false;
-            clstCompareResults.Enabled = false;
-            btnExit.Enabled = false;
-            btnValidate.Enabled = false;
-        }
-        private void UnlockGui()
-        {
-            txtUrl.Enabled = true;
-            clstCompareResults.Enabled = true;
-            btnExit.Enabled = true;
-            btnValidate.Enabled = true;
-        }
-        private void clstCompareResults_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lstActions.Items.Clear();
-            
-            SyncBase.CompareResult compareResult = clstCompareResults.SelectedItem as SyncBase.CompareResult;
-            if (compareResult != null)
-            {
-                string[] details = compareResult.GetDetailStrings();
-                foreach(string detail in details)
-                    lstActions.Items.Add(detail);
+                btnCompareRepositories.BackColor = SystemColors.Control;
+                lstActions.ForeColor = Color.Black;
+                btnSynchronize.Enabled = false;
+
+                UnlockGui();
+
+                UpdateUserConfigs();
             }
         }
     }

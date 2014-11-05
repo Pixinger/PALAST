@@ -79,9 +79,9 @@ namespace PALAST
 
             public SyncStep this[int index]
             {
-                get 
+                get
                 {
-                    return _SyncSteps[index]; 
+                    return _SyncSteps[index];
                 }
             }
 
@@ -108,19 +108,19 @@ namespace PALAST
                     switch (_SyncSteps[i].StepType)
                     {
                         case CompareResult.SyncStepTypes.CopyFile:
-                            details[i] = "copy file: " + _SyncSteps[i].Path.Replace('|', '\\');
+                            details[i] = "Datei kopieren: " + _SyncSteps[i].Path.Replace('|', '\\');
                             break;
                         case CompareResult.SyncStepTypes.DeleteFile:
-                            details[i] = "delete file: " + _SyncSteps[i].Path.Replace('|','\\');;
+                            details[i] = "Datei löschen: " + _SyncSteps[i].Path.Replace('|', '\\'); ;
                             break;
                         case CompareResult.SyncStepTypes.CreateDirectory:
-                            details[i] = "create directory: " + _SyncSteps[i].Path.Replace('|', '\\'); ;
+                            details[i] = "Verzeichnis erstellen: " + _SyncSteps[i].Path.Replace('|', '\\'); ;
                             break;
                         case CompareResult.SyncStepTypes.DeleteDirectory:
-                            details[i] = "delete directory: " + _SyncSteps[i].Path.Replace('|','\\');;
+                            details[i] = "Verzeichnis löschen: " + _SyncSteps[i].Path.Replace('|', '\\'); ;
                             break;
                         default:
-                            details[i] = "Unknown: " + _SyncSteps[i].StepType.ToString();
+                            details[i] = "Unbekannt: " + _SyncSteps[i].StepType.ToString();
                             break;
                     }
                 }
@@ -135,9 +135,6 @@ namespace PALAST
         }
         #endregion
 
-        protected Repository _RepositorySource;
-        protected Repository _RepositoryTarget;
-
         public SyncBase()
         {
         }
@@ -151,7 +148,32 @@ namespace PALAST
         protected abstract bool OnDeleteTargetFiles(string[] filenames);
         protected abstract bool OnCreateTargetDirectorys(string[] directorynames);
         protected abstract bool OnDeleteTargetDirectorys(string[] directorynames);
+        protected virtual void OnSynchronizeSuccessfull(SynchronizeUserState userState)
+        {
+        }
 
+        private bool HasSameBaseDir(string path1, string path2)
+        {
+            int index1 = path1.LastIndexOf('|');
+            int index2 = path2.LastIndexOf('|');
+
+            string a1 = path1.Remove(index1, path1.Length - index1);
+            string a2 = path2.Remove(index2, path2.Length - index2);
+
+            return a1 == a2;
+        }
+        private int LastCombinedIndex(CompareResult compareResult, int index)
+        {
+            CompareResult.SyncStep syncStep = compareResult[index];
+            for (int i = index + 1; i < compareResult.Count; i++)
+            {
+                if ((syncStep.StepType != compareResult[i].StepType)
+                    || (!HasSameBaseDir(syncStep.Path, compareResult[i].Path)))
+                    return i - 1;
+            }
+
+            return compareResult.Count - 1;
+        }
         private void CompareDirectory(List<CompareResult.SyncStep> syncSteps, Repository.Directory source, Repository.Directory target)
         {
             // Dateien die gelöscht werden müssen (auf dem Remote)
@@ -227,170 +249,218 @@ namespace PALAST
                     CopyDirectory(syncSteps, subDirectory, target + "|" + subDirectory.Name);
         }
 
-        public void LoadRepositories()
+        #region public class CompareRepositoriesUserState
+        public class CompareRepositoriesUserState
         {
-            // Quellrepository laden
-            _RepositorySource = OnLoadSourceRepository();
-            if (_RepositorySource == null)
-            {
-                LOG.Error("OnLoadSourceRepository returned null");
-                throw new ApplicationException("Unable to load source repository");
-            }
+            public readonly bool DeleteObsoleteTargetAddons;
+            public readonly CompareRepositoriesAsyncResultEventHandler CompletedDeletegate;
 
-            // Zielrepository laden
-            _RepositoryTarget = OnLoadTargetRepository();
-            if (_RepositoryTarget == null)
+            public CompareRepositoriesUserState(bool deleteObsoleteTargetAddons, CompareRepositoriesAsyncResultEventHandler completedDeletegate)
             {
-                LOG.Error("OnLoadTargetRepository returned null");
-                throw new ApplicationException("Unable to load target repository");
+                DeleteObsoleteTargetAddons = deleteObsoleteTargetAddons;
+                CompletedDeletegate = completedDeletegate;
             }
         }
-        public CompareResult[] CompareRepositories()
+        #endregion
+        #region public class CompareRepositoriesAsyncResult
+        public class CompareRepositoriesAsyncResult
         {
-            return CompareRepositories(false);
-        }
-        public CompareResult[] CompareRepositories(bool deleteObsoleteTargetAddons)
-        {
-            // Source prüfen
-            if (_RepositorySource == null)
-                throw new ApplicationException("Source repository not loaded");
-            if (_RepositorySource.Addons == null)
-                throw new ApplicationException("Source repository.addons == null");
-            if ((_RepositorySource.Addons.Directories == null) || (_RepositorySource.Addons.Directories.Length == 0))
-                return new CompareResult[0]; // No addons in source repository. That's stupid, but it's not a problem!
+            /// <summary>
+            /// Gibt an ab der Vergleich erfolgreich war, oder nicht.
+            /// </summary>
+            public readonly bool IsFailed;
+            /// <summary>
+            /// Bei einem Fehler, die genaue Fehlerbeschreibung.
+            /// </summary>
+            public readonly string Error;
+            /// <summary>
+            /// Die Anweisungen die ausgeführt werden müssen, um das Zielrepository auf den aktuellen Stand zu bringen.
+            /// </summary>
+            public readonly CompareResult[] CompareResults;
+            /// <summary>
+            /// Das Quellrepository (oder nach ausführen der SyncSteps auch die Zielrepository)
+            /// </summary>
+            public readonly Repository Repository;
 
-            // Target prüfen
-            if (_RepositoryTarget == null)
-                throw new ApplicationException("Target repository not loaded");
-            if (_RepositoryTarget.Addons == null)
-                throw new ApplicationException("Target repository.addons == null");
-
-            // Jedes im Online-Repository enthaltene Addon wird nun separat geprüft und die Ergebnisse jeweils zwischen gespeichert.
-            List<CompareResult.SyncStep>[] syncSteps = new List<CompareResult.SyncStep>[_RepositorySource.Addons.Directories.Length];
-            for (int i = 0; i < _RepositorySource.Addons.Directories.Length; i++)
+            public CompareRepositoriesAsyncResult()
             {
-                syncSteps[i] = new List<CompareResult.SyncStep>();
-                Repository.Directory sourceDirectory = _RepositorySource.Addons.Directories[i];
-                Repository.Directory targetDirectory = _RepositoryTarget.Addons.GetDirectory(sourceDirectory.Name);
-                if (targetDirectory == null)
+                CompareResults = new CompareResult[0];
+                IsFailed = false;
+                Error = "";
+                Repository = null;
+            }
+            public CompareRepositoriesAsyncResult(string error)
+            {
+                CompareResults = new CompareResult[0];
+                IsFailed = true;
+                Error = error;
+                Repository = null;
+            }
+            public CompareRepositoriesAsyncResult(Repository repository, CompareResult[] compareResults)
+            {
+                CompareResults = compareResults;
+                IsFailed = false;
+                Error = "";
+                Repository = repository;
+            }
+        }
+        #endregion
+        #region public delegate void CompareRepositoriesAsyncResultEventHandler(object sender, CompareRepositoriesAsyncResult e);
+        public delegate void CompareRepositoriesAsyncResultEventHandler(object sender, CompareRepositoriesAsyncResult e);
+        #endregion
+        public void CompareRepositories(CompareRepositoriesAsyncResultEventHandler completedDeletegate)
+        {
+            CompareRepositories(false, completedDeletegate);
+        }
+        public void CompareRepositories(bool deleteObsoleteTargetAddons, CompareRepositoriesAsyncResultEventHandler completedDeletegate)
+        {
+            if (completedDeletegate == null)
+                throw new ArgumentNullException();
+
+            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(ThreadProc_CompareRepositories));
+            thread.Name = "PALAST-Compare";
+            thread.Start(new CompareRepositoriesUserState(deleteObsoleteTargetAddons, completedDeletegate));
+        }
+        private void ThreadProc_CompareRepositories(object data)
+        {
+            CompareRepositoriesUserState userState = data as CompareRepositoriesUserState;
+
+            try
+            {
+                #region LoadRepositories
+                // Quellrepository laden
+                Repository repositorySource = OnLoadSourceRepository();
+                if (repositorySource == null)
                 {
-                    targetDirectory = new Repository.Directory();
-                    targetDirectory.Name = sourceDirectory.Name;
-                    targetDirectory.UpdateParentReferences(_RepositoryTarget.Addons);
-                    CopyDirectory(syncSteps[i], sourceDirectory, targetDirectory.Fullname);
+                    LOG.Error("OnLoadSourceRepository returned null");
+                    throw new ApplicationException("Das Quell-Repository konnte nicht geladen werden.");
                 }
-                else
-                    CompareDirectory(syncSteps[i], sourceDirectory, targetDirectory);
-            }
-          
-            // Die Liste in die CompareResult Klasse verpacken. Dadurch ist sie schreibgeschützt.
-            List<CompareResult> compareResults = new List<CompareResult>(syncSteps.Length);
-            for (int i = 0; i < syncSteps.Length; i++)
-                compareResults.Add(new CompareResult(_RepositorySource.Addons.Directories[i].Name, syncSteps[i].ToArray()));
 
-            // Prüfen, ob nicht mehr benötigte Addons im Zielrepository gelöscht werden sollen.
-            if (deleteObsoleteTargetAddons)
-            {
-                // Nach solchen Addons suchen.
-                Repository.Directory[] obsoleteAddons = _RepositoryTarget.Addons.GetMissingDirectories(_RepositorySource.Addons);
-                if (obsoleteAddons != null)
-                    foreach (Repository.Directory obsoleteAddon in obsoleteAddons)
-                    {
-                        List<CompareResult.SyncStep> obsoleteSyncSteps = new List<CompareResult.SyncStep>();
-                        DeleteDirectory(obsoleteSyncSteps, obsoleteAddon);
-                        compareResults.Add(new CompareResult(obsoleteAddon.Name, obsoleteSyncSteps.ToArray()));
-                    }
-            }
-
-
-            // Fertig
-            return compareResults.ToArray();
-        }
-        public bool Synchronize(CompareResult[] selectedAddons)
-        {
-            foreach (CompareResult syncSteps in selectedAddons)
-            {
-                for (int i = 0; i < syncSteps.Count; i++)
+                // Zielrepository laden
+                Repository repositoryTarget = OnLoadTargetRepository();
+                if (repositoryTarget == null)
                 {
-                    int lastIndex = LastCombinedIndex(syncSteps, i);
-                    string[] sources = new string[lastIndex - i + 1];
-                    string[] targets = new string[lastIndex - i + 1];
-                    DateTime[] dates = new DateTime[lastIndex - i + 1];
-                    switch (syncSteps[i].StepType)
-                    {
-                        case CompareResult.SyncStepTypes.CopyFile:
-                            for (int o = 0; o < sources.Length; o++)
-                            {
-                                sources[o] = OnConvertSourcePath(syncSteps[i + o].Path);
-                                targets[o] = OnConvertTargetPath(syncSteps[i + o].Path);
-                                dates[o] = syncSteps[i + o].Date;
-                            }
-
-                            if (!OnCopyFiles(sources, targets, dates))
-                            {
-                                return false;
-                            }
-                            break;
-                        case CompareResult.SyncStepTypes.DeleteFile:
-                            for (int o = 0; o < sources.Length; o++)
-                                targets[o] = OnConvertTargetPath(syncSteps[i + o].Path);
-
-                            if (!OnDeleteTargetFiles(targets))
-                            {
-                                return false;
-                            }
-                            break;
-                        case CompareResult.SyncStepTypes.CreateDirectory:
-                            for (int o = 0; o < sources.Length; o++)
-                                targets[o] = OnConvertTargetPath(syncSteps[i + o].Path);
-
-                            if (!OnCreateTargetDirectorys(targets))
-                            {
-                                return false;
-                            }
-                            break;
-                        case CompareResult.SyncStepTypes.DeleteDirectory:
-                            for (int o = 0; o < sources.Length; o++)
-                                targets[o] = OnConvertTargetPath(syncSteps[i + o].Path);
-
-                            if (!OnDeleteTargetDirectorys(targets))
-                            {
-                                return false;
-                            }
-                            break;
-                        default:
-                            throw new NotImplementedException();
-                    }
-
-                    i = lastIndex;
+                    LOG.Error("OnLoadTargetRepository returned null");
+                    throw new ApplicationException("Das Ziel-Repository konnte nicht geladen werden.");
                 }
+
+                // Source prüfen
+                if (repositorySource == null)
+                    throw new ApplicationException("Das Quell-Repository wurde nicht geladen.");
+                if (repositorySource.Addons == null)
+                    throw new ApplicationException("Das Quell-Repository/Addons wurde nicht geladen.");
+                if ((repositorySource.Addons.Directories == null) || (repositorySource.Addons.Directories.Length == 0))
+                    userState.CompletedDeletegate(this, new CompareRepositoriesAsyncResult()); // No addons in source repository. That's stupid, but it's not a problem!
+
+                // Target prüfen
+                if (repositoryTarget == null)
+                    throw new ApplicationException("Das Ziel-Repository wurde nicht geladen.");
+                if (repositoryTarget.Addons == null)
+                    throw new ApplicationException("Das Ziel-Repository/Addons wurde nicht geladen.");
+                #endregion
+
+                // Jedes im Online-Repository enthaltene Addon wird nun separat geprüft und die Ergebnisse jeweils zwischen gespeichert.
+                List<CompareResult.SyncStep>[] syncSteps = new List<CompareResult.SyncStep>[repositorySource.Addons.Directories.Length];
+                for (int i = 0; i < repositorySource.Addons.Directories.Length; i++)
+                {
+                    syncSteps[i] = new List<CompareResult.SyncStep>();
+                    Repository.Directory sourceDirectory = repositorySource.Addons.Directories[i];
+                    Repository.Directory targetDirectory = repositoryTarget.Addons.GetDirectory(sourceDirectory.Name);
+                    if (targetDirectory == null)
+                    {
+                        targetDirectory = new Repository.Directory();
+                        targetDirectory.Name = sourceDirectory.Name;
+                        targetDirectory.UpdateParentReferences(repositoryTarget.Addons);
+                        CopyDirectory(syncSteps[i], sourceDirectory, targetDirectory.Fullname);
+                    }
+                    else
+                        CompareDirectory(syncSteps[i], sourceDirectory, targetDirectory);
+                }
+
+                // Die Liste in die CompareResult Klasse verpacken. Dadurch ist sie schreibgeschützt.
+                List<CompareResult> compareResults = new List<CompareResult>(syncSteps.Length);
+                for (int i = 0; i < syncSteps.Length; i++)
+                    compareResults.Add(new CompareResult(repositorySource.Addons.Directories[i].Name, syncSteps[i].ToArray()));
+
+                // Prüfen, ob nicht mehr benötigte Addons im Zielrepository gelöscht werden sollen.
+                if (userState.DeleteObsoleteTargetAddons)
+                {
+                    // Nach solchen Addons suchen.
+                    Repository.Directory[] obsoleteAddons = repositoryTarget.Addons.GetMissingDirectories(repositorySource.Addons);
+                    if (obsoleteAddons != null)
+                        foreach (Repository.Directory obsoleteAddon in obsoleteAddons)
+                        {
+                            List<CompareResult.SyncStep> obsoleteSyncSteps = new List<CompareResult.SyncStep>();
+                            DeleteDirectory(obsoleteSyncSteps, obsoleteAddon);
+                            compareResults.Add(new CompareResult(obsoleteAddon.Name, obsoleteSyncSteps.ToArray()));
+                        }
+                }
+
+                // Verpacken und verschicken                
+                userState.CompletedDeletegate(this, new CompareRepositoriesAsyncResult(repositorySource, compareResults.ToArray()));
             }
-
-            return true;
+            catch (Exception ex)
+            {
+                // Ups... something went wrong! Oh noooo...
+                LOG.Error(ex);
+                userState.CompletedDeletegate(this, new CompareRepositoriesAsyncResult(ex.Message));
+            }
         }
 
-
-        public class SyncStateObject
+        #region public class SynchronizeUserState
+        public class SynchronizeUserState
         {
-            public CompareResult[] SelectedAddons;
-            public SynchronizeCompletedEventHandler OnSynchronizeCompleted;
+            public readonly CompareResult[] SelectedAddons;
+            public readonly SynchronizeAsyncResultEventHandler OnSynchronizeCompleted;
+            public readonly CompareRepositoriesAsyncResult CompareRepositoriesAsyncResult;
+
+
+            public SynchronizeUserState(CompareRepositoriesAsyncResult compareRepositoriesAsyncResult, SynchronizeAsyncResultEventHandler completedDelegate, CompareResult[] selectedAddons)
+            {
+                SelectedAddons = selectedAddons;
+                OnSynchronizeCompleted = completedDelegate;
+                CompareRepositoriesAsyncResult = compareRepositoriesAsyncResult;
+            }
         }
-        public class SynchronizeResultObject
+        #endregion
+        #region public class SynchronizeAsyncResult
+        public class SynchronizeAsyncResult
         {
             public bool IsFailed = false;
             public string Error = "";
         }
-
-        public delegate void SynchronizeCompletedEventHandler(object sender, SynchronizeResultObject e);
-        
-        private void SynchronizeThreadProc(object data)
+        #endregion
+        #region public delegate void SynchronizeAsyncResultEventHandler(object sender, SynchronizeAsyncResult e);
+        public delegate void SynchronizeAsyncResultEventHandler(object sender, SynchronizeAsyncResult e);
+        #endregion
+        public void Synchronize(CompareRepositoriesAsyncResult compareRepositoriesAsyncResult, SynchronizeAsyncResultEventHandler completedDelegate)
         {
-            SyncStateObject state = data as SyncStateObject;
-            SynchronizeResultObject result = new SynchronizeResultObject();
+            Synchronize(compareRepositoriesAsyncResult, completedDelegate, null);
+        }
+        public void Synchronize(CompareRepositoriesAsyncResult compareRepositoriesAsyncResult, SynchronizeAsyncResultEventHandler completedDelegate, CompareResult[] selectedAddons)
+        {
+            if (compareRepositoriesAsyncResult == null)
+                throw new ArgumentNullException();
+            if (completedDelegate == null)
+                throw new ArgumentNullException();
+            if (selectedAddons != null)
+                foreach (CompareResult cc in selectedAddons)
+                    if (!compareRepositoriesAsyncResult.CompareResults.Contains(cc))
+                        throw new ArgumentException("selectedAddons");
+
+            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(ThreadProc_Synchronize));
+            thread.Name = "PALAST-synchronize";
+            thread.Start(new SynchronizeUserState(compareRepositoriesAsyncResult, completedDelegate, selectedAddons));
+        }
+        private void ThreadProc_Synchronize(object data)
+        {
+            SynchronizeUserState state = data as SynchronizeUserState;
+            SynchronizeAsyncResult result = new SynchronizeAsyncResult();
 
             try
             {
-                foreach (CompareResult syncSteps in state.SelectedAddons)
+                CompareResult[] compareResults = (state.SelectedAddons != null) ? state.SelectedAddons : state.CompareRepositoriesAsyncResult.CompareResults;
+                foreach (CompareResult syncSteps in compareResults)
                 {
                     for (int i = 0; i < syncSteps.Count; i++)
                     {
@@ -411,7 +481,7 @@ namespace PALAST
                                 if (!OnCopyFiles(sources, targets, dates))
                                 {
                                     result.IsFailed = true;
-                                    result.Error = "copy file failed";
+                                    result.Error = "Datei kopieren fehlgeschlagen";
                                 }
                                 break;
                             case CompareResult.SyncStepTypes.DeleteFile:
@@ -421,7 +491,7 @@ namespace PALAST
                                 if (!OnDeleteTargetFiles(targets))
                                 {
                                     result.IsFailed = true;
-                                    result.Error = "delete file failed";
+                                    result.Error = "Datei löschen fehlgeschlagen";
                                 }
                                 break;
                             case CompareResult.SyncStepTypes.CreateDirectory:
@@ -431,7 +501,7 @@ namespace PALAST
                                 if (!OnCreateTargetDirectorys(targets))
                                 {
                                     result.IsFailed = true;
-                                    result.Error = "create directory failed";
+                                    result.Error = "Verzeichnis erstellen fehlgeschlagen";
                                 }
                                 break;
                             case CompareResult.SyncStepTypes.DeleteDirectory:
@@ -441,7 +511,7 @@ namespace PALAST
                                 if (!OnDeleteTargetDirectorys(targets))
                                 {
                                     result.IsFailed = true;
-                                    result.Error = "delete directory failed";
+                                    result.Error = "Verzeichnis löschen fehlgeschlagen";
                                 }
                                 break;
                             default:
@@ -452,45 +522,18 @@ namespace PALAST
                     }
                 }
 
+                OnSynchronizeSuccessfull(state);
+            }
+            catch (Exception ex)
+            {
+                result.IsFailed = true;
+                result.Error = ex.Message;
+                LOG.Error(ex.Message);
             }
             finally
             {
                 state.OnSynchronizeCompleted(this, result);
             }
-        }
-
-
-        public void SynchronizeAsync(CompareResult[] selectedAddons, SynchronizeCompletedEventHandler onSynchronizeCompleted)
-        {
-            SyncStateObject state = new SyncStateObject();
-            state.SelectedAddons = selectedAddons;
-            state.OnSynchronizeCompleted = onSynchronizeCompleted;
- 
-            System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(SynchronizeThreadProc));
-            thread.Start(state);
-        }
-
-        private bool HasSameBaseDir(string path1, string path2)
-        {
-            int index1 = path1.LastIndexOf('|');
-            int index2 = path2.LastIndexOf('|');
-
-            string a1 = path1.Remove(index1, path1.Length - index1);
-            string a2 = path2.Remove(index2, path2.Length - index2);
-
-            return a1 == a2;
-        }
-        private int LastCombinedIndex(CompareResult compareResult, int index)
-        {
-            CompareResult.SyncStep syncStep = compareResult[index];
-            for (int i = index+1; i < compareResult.Count; i++)
-            {
-                if ((syncStep.StepType != compareResult[i].StepType)
-                    || (!HasSameBaseDir(syncStep.Path, compareResult[i].Path)))
-                    return i - 1;
-            }
-
-            return compareResult.Count - 1;
         }
     }
 }
