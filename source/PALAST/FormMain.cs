@@ -693,6 +693,34 @@ namespace PALAST
             }
         }
 
-     
+        private void cmenAddonDelete_Click(object sender, EventArgs e)
+        {
+            if (clstAddons.SelectedItem != null)
+            {
+                string addon = clstAddons.SelectedItem as string;
+                if (MessageBox.Show("Wollen Sie das gewählte Addon '" + addon + "' wirklich aus dem ArmA-Verzeichnis löschen.", "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (MessageBox.Show("Sind sie wirklich sicher?", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        if (MessageBox.Show("GAANZ sicher?", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            if (MessageBox.Show("OK. Dann lösche ich das Addon jetzt?", "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
+                            {
+                                string folder = Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon);
+                                if (MessageBox.Show("Ich werde nun folgendes Verzeichnis löschen:\n\n" + folder + "!", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                                {
+                                    Directory.Delete(folder, true);
+                                    RefreshAddons();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        private void cmenClstAddons_Opening(object sender, CancelEventArgs e)
+        {
+            cmenAddonDelete.Enabled = clstAddons.SelectedItem != null;
+        }
     }
 }

@@ -48,25 +48,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.grpAutoConnect = new System.Windows.Forms.GroupBox();
-            this.btnInfoAutoConnect = new System.Windows.Forms.Button();
             this.chbAutoConnectEnabled = new System.Windows.Forms.CheckBox();
             this.grpDeveloperOptions = new System.Windows.Forms.GroupBox();
-            this.btnInfoCheckSignatures = new System.Windows.Forms.Button();
-            this.btnInfoNoFilePatching = new System.Windows.Forms.Button();
-            this.btnInfoShowScriptErrors = new System.Windows.Forms.Button();
             this.chbCheckSignatures = new System.Windows.Forms.CheckBox();
-            this.btnInfoNoPause = new System.Windows.Forms.Button();
             this.grpProfileOptions = new System.Windows.Forms.GroupBox();
-            this.btnInfoName = new System.Windows.Forms.Button();
             this.cmbName = new System.Windows.Forms.ComboBox();
             this.grpPerformance = new System.Windows.Forms.GroupBox();
-            this.btnInfoNoLogs = new System.Windows.Forms.Button();
-            this.btnInfoExThreads = new System.Windows.Forms.Button();
-            this.btnInfoCpuCount = new System.Windows.Forms.Button();
-            this.btnInfoNoCB = new System.Windows.Forms.Button();
-            this.btnInfoWinXP = new System.Windows.Forms.Button();
-            this.btnInfoMaxVRAM = new System.Windows.Forms.Button();
-            this.btnInfoMaxMem = new System.Windows.Forms.Button();
             this.cmbExThreads = new System.Windows.Forms.ComboBox();
             this.cmbCpuCount = new System.Windows.Forms.ComboBox();
             this.numMaxMem = new System.Windows.Forms.NumericUpDown();
@@ -74,9 +61,6 @@
             this.chbWinXP = new System.Windows.Forms.CheckBox();
             this.chbNoCB = new System.Windows.Forms.CheckBox();
             this.grpGameLoadingSpeedup = new System.Windows.Forms.GroupBox();
-            this.btnInfoSkipIntro = new System.Windows.Forms.Button();
-            this.btnInfoWorldEmpty = new System.Windows.Forms.Button();
-            this.btnInfoNoSplash = new System.Windows.Forms.Button();
             this.chbWorldEmpty = new System.Windows.Forms.CheckBox();
             this.chbSkipIntro = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -86,18 +70,36 @@
             this.grpAdditionalParameters = new System.Windows.Forms.GroupBox();
             this.txtAdditionalParameter = new System.Windows.Forms.TextBox();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-            this.tbtnLaunch = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbtnUpdateAddons = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbtnTFAR = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmenClstAddons = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmenAddonDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnInfoAutoConnect = new System.Windows.Forms.Button();
+            this.btnInfoCheckSignatures = new System.Windows.Forms.Button();
+            this.btnInfoNoFilePatching = new System.Windows.Forms.Button();
+            this.btnInfoShowScriptErrors = new System.Windows.Forms.Button();
+            this.btnInfoNoPause = new System.Windows.Forms.Button();
+            this.btnInfoSkipIntro = new System.Windows.Forms.Button();
+            this.btnInfoWorldEmpty = new System.Windows.Forms.Button();
+            this.btnInfoNoSplash = new System.Windows.Forms.Button();
+            this.btnInfoName = new System.Windows.Forms.Button();
+            this.btnInfoNoLogs = new System.Windows.Forms.Button();
+            this.btnInfoExThreads = new System.Windows.Forms.Button();
+            this.btnInfoCpuCount = new System.Windows.Forms.Button();
+            this.btnInfoNoCB = new System.Windows.Forms.Button();
+            this.btnInfoWinXP = new System.Windows.Forms.Button();
+            this.btnInfoMaxVRAM = new System.Windows.Forms.Button();
+            this.btnInfoMaxMem = new System.Windows.Forms.Button();
+            this.tbtnLaunch = new System.Windows.Forms.ToolStripButton();
+            this.tbtnUpdateAddons = new System.Windows.Forms.ToolStripButton();
+            this.tbtnTFAR = new System.Windows.Forms.ToolStripButton();
             this.tbtnAddPreset = new System.Windows.Forms.ToolStripButton();
             this.tbtnEditPreset = new System.Windows.Forms.ToolStripButton();
             this.tbtnClonePreset = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnDeletePreset = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnInfo = new System.Windows.Forms.ToolStripButton();
             this.tbtnSettings = new System.Windows.Forms.ToolStripButton();
             this.grpAutoConnect.SuspendLayout();
@@ -115,11 +117,13 @@
             this.grpAdditionalParameters.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip2.SuspendLayout();
+            this.cmenClstAddons.SuspendLayout();
             this.SuspendLayout();
             // 
             // clstAddons
             // 
             this.clstAddons.CheckOnClick = true;
+            this.clstAddons.ContextMenuStrip = this.cmenClstAddons;
             this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clstAddons.FormattingEnabled = true;
             this.clstAddons.IntegralHeight = false;
@@ -325,19 +329,6 @@
             this.grpAutoConnect.TabStop = false;
             this.grpAutoConnect.Text = "Automatisch verbinden";
             // 
-            // btnInfoAutoConnect
-            // 
-            this.btnInfoAutoConnect.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoAutoConnect.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoAutoConnect.Location = new System.Drawing.Point(189, 13);
-            this.btnInfoAutoConnect.Name = "btnInfoAutoConnect";
-            this.btnInfoAutoConnect.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoAutoConnect.TabIndex = 42;
-            this.btnInfoAutoConnect.Tag = "-autoConnect";
-            this.toolTip1.SetToolTip(this.btnInfoAutoConnect, "Infos");
-            this.btnInfoAutoConnect.UseVisualStyleBackColor = true;
-            this.btnInfoAutoConnect.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
             // chbAutoConnectEnabled
             // 
             this.chbAutoConnectEnabled.AutoSize = true;
@@ -368,45 +359,6 @@
             this.grpDeveloperOptions.TabStop = false;
             this.grpDeveloperOptions.Text = "Entwickler Optionen";
             // 
-            // btnInfoCheckSignatures
-            // 
-            this.btnInfoCheckSignatures.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoCheckSignatures.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoCheckSignatures.Location = new System.Drawing.Point(189, 87);
-            this.btnInfoCheckSignatures.Name = "btnInfoCheckSignatures";
-            this.btnInfoCheckSignatures.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoCheckSignatures.TabIndex = 45;
-            this.btnInfoCheckSignatures.Tag = "-checkSignatures";
-            this.toolTip1.SetToolTip(this.btnInfoCheckSignatures, "Infos");
-            this.btnInfoCheckSignatures.UseVisualStyleBackColor = true;
-            this.btnInfoCheckSignatures.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoNoFilePatching
-            // 
-            this.btnInfoNoFilePatching.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoNoFilePatching.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoFilePatching.Location = new System.Drawing.Point(189, 64);
-            this.btnInfoNoFilePatching.Name = "btnInfoNoFilePatching";
-            this.btnInfoNoFilePatching.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoNoFilePatching.TabIndex = 44;
-            this.btnInfoNoFilePatching.Tag = "-noFilePatching";
-            this.toolTip1.SetToolTip(this.btnInfoNoFilePatching, "Infos");
-            this.btnInfoNoFilePatching.UseVisualStyleBackColor = true;
-            this.btnInfoNoFilePatching.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoShowScriptErrors
-            // 
-            this.btnInfoShowScriptErrors.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoShowScriptErrors.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoShowScriptErrors.Location = new System.Drawing.Point(189, 41);
-            this.btnInfoShowScriptErrors.Name = "btnInfoShowScriptErrors";
-            this.btnInfoShowScriptErrors.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoShowScriptErrors.TabIndex = 43;
-            this.btnInfoShowScriptErrors.Tag = "-showScriptErrors";
-            this.toolTip1.SetToolTip(this.btnInfoShowScriptErrors, "Infos");
-            this.btnInfoShowScriptErrors.UseVisualStyleBackColor = true;
-            this.btnInfoShowScriptErrors.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
             // chbCheckSignatures
             // 
             this.chbCheckSignatures.AutoSize = true;
@@ -418,19 +370,6 @@
             this.chbCheckSignatures.Text = "-checkSignatures";
             this.chbCheckSignatures.UseVisualStyleBackColor = true;
             this.chbCheckSignatures.CheckedChanged += new System.EventHandler(this.chbCheckSignatures_CheckedChanged);
-            // 
-            // btnInfoNoPause
-            // 
-            this.btnInfoNoPause.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoNoPause.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoPause.Location = new System.Drawing.Point(189, 18);
-            this.btnInfoNoPause.Name = "btnInfoNoPause";
-            this.btnInfoNoPause.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoNoPause.TabIndex = 42;
-            this.btnInfoNoPause.Tag = "-noPause";
-            this.toolTip1.SetToolTip(this.btnInfoNoPause, "Infos");
-            this.btnInfoNoPause.UseVisualStyleBackColor = true;
-            this.btnInfoNoPause.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
             // grpProfileOptions
             // 
@@ -444,19 +383,6 @@
             this.grpProfileOptions.TabIndex = 35;
             this.grpProfileOptions.TabStop = false;
             this.grpProfileOptions.Text = "Profil Optionen";
-            // 
-            // btnInfoName
-            // 
-            this.btnInfoName.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoName.Location = new System.Drawing.Point(189, 19);
-            this.btnInfoName.Name = "btnInfoName";
-            this.btnInfoName.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoName.TabIndex = 21;
-            this.btnInfoName.Tag = "-name";
-            this.toolTip1.SetToolTip(this.btnInfoName, "Infos");
-            this.btnInfoName.UseVisualStyleBackColor = true;
-            this.btnInfoName.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
             // cmbName
             // 
@@ -495,97 +421,6 @@
             this.grpPerformance.TabIndex = 34;
             this.grpPerformance.TabStop = false;
             this.grpPerformance.Text = "Leistung";
-            // 
-            // btnInfoNoLogs
-            // 
-            this.btnInfoNoLogs.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoNoLogs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoLogs.Location = new System.Drawing.Point(188, 156);
-            this.btnInfoNoLogs.Name = "btnInfoNoLogs";
-            this.btnInfoNoLogs.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoNoLogs.TabIndex = 41;
-            this.btnInfoNoLogs.Tag = "-noLogs";
-            this.toolTip1.SetToolTip(this.btnInfoNoLogs, "Infos");
-            this.btnInfoNoLogs.UseVisualStyleBackColor = true;
-            this.btnInfoNoLogs.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoExThreads
-            // 
-            this.btnInfoExThreads.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoExThreads.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoExThreads.Location = new System.Drawing.Point(188, 133);
-            this.btnInfoExThreads.Name = "btnInfoExThreads";
-            this.btnInfoExThreads.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoExThreads.TabIndex = 40;
-            this.btnInfoExThreads.Tag = "-exThreads";
-            this.toolTip1.SetToolTip(this.btnInfoExThreads, "Infos");
-            this.btnInfoExThreads.UseVisualStyleBackColor = true;
-            this.btnInfoExThreads.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoCpuCount
-            // 
-            this.btnInfoCpuCount.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoCpuCount.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoCpuCount.Location = new System.Drawing.Point(188, 110);
-            this.btnInfoCpuCount.Name = "btnInfoCpuCount";
-            this.btnInfoCpuCount.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoCpuCount.TabIndex = 39;
-            this.btnInfoCpuCount.Tag = "-cpuCount";
-            this.toolTip1.SetToolTip(this.btnInfoCpuCount, "Infos");
-            this.btnInfoCpuCount.UseVisualStyleBackColor = true;
-            this.btnInfoCpuCount.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoNoCB
-            // 
-            this.btnInfoNoCB.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoNoCB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoCB.Location = new System.Drawing.Point(188, 87);
-            this.btnInfoNoCB.Name = "btnInfoNoCB";
-            this.btnInfoNoCB.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoNoCB.TabIndex = 38;
-            this.btnInfoNoCB.Tag = "-noCB";
-            this.toolTip1.SetToolTip(this.btnInfoNoCB, "Infos");
-            this.btnInfoNoCB.UseVisualStyleBackColor = true;
-            this.btnInfoNoCB.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoWinXP
-            // 
-            this.btnInfoWinXP.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoWinXP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoWinXP.Location = new System.Drawing.Point(188, 64);
-            this.btnInfoWinXP.Name = "btnInfoWinXP";
-            this.btnInfoWinXP.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoWinXP.TabIndex = 28;
-            this.btnInfoWinXP.Tag = "-winXP";
-            this.toolTip1.SetToolTip(this.btnInfoWinXP, "Infos");
-            this.btnInfoWinXP.UseVisualStyleBackColor = true;
-            this.btnInfoWinXP.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoMaxVRAM
-            // 
-            this.btnInfoMaxVRAM.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoMaxVRAM.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoMaxVRAM.Location = new System.Drawing.Point(188, 41);
-            this.btnInfoMaxVRAM.Name = "btnInfoMaxVRAM";
-            this.btnInfoMaxVRAM.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoMaxVRAM.TabIndex = 27;
-            this.btnInfoMaxVRAM.Tag = "-maxVRAM";
-            this.toolTip1.SetToolTip(this.btnInfoMaxVRAM, "Infos");
-            this.btnInfoMaxVRAM.UseVisualStyleBackColor = true;
-            this.btnInfoMaxVRAM.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoMaxMem
-            // 
-            this.btnInfoMaxMem.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoMaxMem.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoMaxMem.Location = new System.Drawing.Point(188, 18);
-            this.btnInfoMaxMem.Name = "btnInfoMaxMem";
-            this.btnInfoMaxMem.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoMaxMem.TabIndex = 26;
-            this.btnInfoMaxMem.Tag = "-maxMem";
-            this.toolTip1.SetToolTip(this.btnInfoMaxMem, "Infos");
-            this.btnInfoMaxMem.UseVisualStyleBackColor = true;
-            this.btnInfoMaxMem.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
             // cmbExThreads
             // 
@@ -720,45 +555,6 @@
             this.grpGameLoadingSpeedup.TabStop = false;
             this.grpGameLoadingSpeedup.Text = "Spielstartbeschleunigung";
             // 
-            // btnInfoSkipIntro
-            // 
-            this.btnInfoSkipIntro.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoSkipIntro.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoSkipIntro.Location = new System.Drawing.Point(188, 64);
-            this.btnInfoSkipIntro.Name = "btnInfoSkipIntro";
-            this.btnInfoSkipIntro.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoSkipIntro.TabIndex = 22;
-            this.btnInfoSkipIntro.Tag = "-skipIntro";
-            this.toolTip1.SetToolTip(this.btnInfoSkipIntro, "Infos");
-            this.btnInfoSkipIntro.UseVisualStyleBackColor = true;
-            this.btnInfoSkipIntro.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoWorldEmpty
-            // 
-            this.btnInfoWorldEmpty.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoWorldEmpty.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoWorldEmpty.Location = new System.Drawing.Point(188, 41);
-            this.btnInfoWorldEmpty.Name = "btnInfoWorldEmpty";
-            this.btnInfoWorldEmpty.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoWorldEmpty.TabIndex = 21;
-            this.btnInfoWorldEmpty.Tag = "-worldEmtpy";
-            this.toolTip1.SetToolTip(this.btnInfoWorldEmpty, "Infos");
-            this.btnInfoWorldEmpty.UseVisualStyleBackColor = true;
-            this.btnInfoWorldEmpty.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
-            // btnInfoNoSplash
-            // 
-            this.btnInfoNoSplash.Image = global::PALAST.Properties.Resources.exclamation;
-            this.btnInfoNoSplash.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoSplash.Location = new System.Drawing.Point(188, 18);
-            this.btnInfoNoSplash.Name = "btnInfoNoSplash";
-            this.btnInfoNoSplash.Size = new System.Drawing.Size(16, 16);
-            this.btnInfoNoSplash.TabIndex = 20;
-            this.btnInfoNoSplash.Tag = "-noSplash";
-            this.toolTip1.SetToolTip(this.btnInfoNoSplash, "Infos");
-            this.btnInfoNoSplash.UseVisualStyleBackColor = true;
-            this.btnInfoNoSplash.Click += new System.EventHandler(this.btnInfoOptions_Click);
-            // 
             // chbWorldEmpty
             // 
             this.chbWorldEmpty.AutoSize = true;
@@ -864,48 +660,15 @@
             this.toolStrip3.TabIndex = 35;
             this.toolStrip3.Text = "toolStrip3";
             // 
-            // tbtnLaunch
-            // 
-            this.tbtnLaunch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnLaunch.Enabled = false;
-            this.tbtnLaunch.Image = global::PALAST.Properties.Resources.control_play_blue;
-            this.tbtnLaunch.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnLaunch.Name = "tbtnLaunch";
-            this.tbtnLaunch.Size = new System.Drawing.Size(23, 22);
-            this.tbtnLaunch.Text = "Spiel starten";
-            this.tbtnLaunch.Click += new System.EventHandler(this.tbtnLaunch_Click);
-            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
-            // tbtnUpdateAddons
-            // 
-            this.tbtnUpdateAddons.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnUpdateAddons.Enabled = false;
-            this.tbtnUpdateAddons.Image = global::PALAST.Properties.Resources.arrow_refresh_small;
-            this.tbtnUpdateAddons.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnUpdateAddons.Name = "tbtnUpdateAddons";
-            this.tbtnUpdateAddons.Size = new System.Drawing.Size(23, 22);
-            this.tbtnUpdateAddons.Text = "Addons synchronisieren";
-            this.tbtnUpdateAddons.Click += new System.EventHandler(this.tbtnUpdateAddons_Click);
-            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tbtnTFAR
-            // 
-            this.tbtnTFAR.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnTFAR.Enabled = false;
-            this.tbtnTFAR.Image = ((System.Drawing.Image)(resources.GetObject("tbtnTFAR.Image")));
-            this.tbtnTFAR.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnTFAR.Name = "tbtnTFAR";
-            this.tbtnTFAR.Size = new System.Drawing.Size(23, 22);
-            this.tbtnTFAR.Text = "TFAR Setup";
-            this.tbtnTFAR.Click += new System.EventHandler(this.tbtnTFAR_Click);
             // 
             // toolStrip2
             // 
@@ -925,10 +688,276 @@
             this.toolStrip2.TabIndex = 35;
             this.toolStrip2.Text = "toolStrip2";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // cmenClstAddons
+            // 
+            this.cmenClstAddons.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmenAddonDelete});
+            this.cmenClstAddons.Name = "cmenClstAddons";
+            this.cmenClstAddons.Size = new System.Drawing.Size(155, 26);
+            this.cmenClstAddons.Opening += new System.ComponentModel.CancelEventHandler(this.cmenClstAddons_Opening);
+            // 
+            // cmenAddonDelete
+            // 
+            this.cmenAddonDelete.Name = "cmenAddonDelete";
+            this.cmenAddonDelete.Size = new System.Drawing.Size(154, 22);
+            this.cmenAddonDelete.Text = "Addon löschen";
+            this.cmenAddonDelete.Click += new System.EventHandler(this.cmenAddonDelete_Click);
+            // 
+            // btnInfoAutoConnect
+            // 
+            this.btnInfoAutoConnect.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoAutoConnect.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoAutoConnect.Location = new System.Drawing.Point(189, 13);
+            this.btnInfoAutoConnect.Name = "btnInfoAutoConnect";
+            this.btnInfoAutoConnect.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoAutoConnect.TabIndex = 42;
+            this.btnInfoAutoConnect.Tag = "-autoConnect";
+            this.toolTip1.SetToolTip(this.btnInfoAutoConnect, "Infos");
+            this.btnInfoAutoConnect.UseVisualStyleBackColor = true;
+            this.btnInfoAutoConnect.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoCheckSignatures
+            // 
+            this.btnInfoCheckSignatures.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoCheckSignatures.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoCheckSignatures.Location = new System.Drawing.Point(189, 87);
+            this.btnInfoCheckSignatures.Name = "btnInfoCheckSignatures";
+            this.btnInfoCheckSignatures.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoCheckSignatures.TabIndex = 45;
+            this.btnInfoCheckSignatures.Tag = "-checkSignatures";
+            this.toolTip1.SetToolTip(this.btnInfoCheckSignatures, "Infos");
+            this.btnInfoCheckSignatures.UseVisualStyleBackColor = true;
+            this.btnInfoCheckSignatures.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoNoFilePatching
+            // 
+            this.btnInfoNoFilePatching.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoNoFilePatching.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoNoFilePatching.Location = new System.Drawing.Point(189, 64);
+            this.btnInfoNoFilePatching.Name = "btnInfoNoFilePatching";
+            this.btnInfoNoFilePatching.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoNoFilePatching.TabIndex = 44;
+            this.btnInfoNoFilePatching.Tag = "-noFilePatching";
+            this.toolTip1.SetToolTip(this.btnInfoNoFilePatching, "Infos");
+            this.btnInfoNoFilePatching.UseVisualStyleBackColor = true;
+            this.btnInfoNoFilePatching.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoShowScriptErrors
+            // 
+            this.btnInfoShowScriptErrors.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoShowScriptErrors.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoShowScriptErrors.Location = new System.Drawing.Point(189, 41);
+            this.btnInfoShowScriptErrors.Name = "btnInfoShowScriptErrors";
+            this.btnInfoShowScriptErrors.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoShowScriptErrors.TabIndex = 43;
+            this.btnInfoShowScriptErrors.Tag = "-showScriptErrors";
+            this.toolTip1.SetToolTip(this.btnInfoShowScriptErrors, "Infos");
+            this.btnInfoShowScriptErrors.UseVisualStyleBackColor = true;
+            this.btnInfoShowScriptErrors.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoNoPause
+            // 
+            this.btnInfoNoPause.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoNoPause.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoNoPause.Location = new System.Drawing.Point(189, 18);
+            this.btnInfoNoPause.Name = "btnInfoNoPause";
+            this.btnInfoNoPause.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoNoPause.TabIndex = 42;
+            this.btnInfoNoPause.Tag = "-noPause";
+            this.toolTip1.SetToolTip(this.btnInfoNoPause, "Infos");
+            this.btnInfoNoPause.UseVisualStyleBackColor = true;
+            this.btnInfoNoPause.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoSkipIntro
+            // 
+            this.btnInfoSkipIntro.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoSkipIntro.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoSkipIntro.Location = new System.Drawing.Point(188, 64);
+            this.btnInfoSkipIntro.Name = "btnInfoSkipIntro";
+            this.btnInfoSkipIntro.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoSkipIntro.TabIndex = 22;
+            this.btnInfoSkipIntro.Tag = "-skipIntro";
+            this.toolTip1.SetToolTip(this.btnInfoSkipIntro, "Infos");
+            this.btnInfoSkipIntro.UseVisualStyleBackColor = true;
+            this.btnInfoSkipIntro.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoWorldEmpty
+            // 
+            this.btnInfoWorldEmpty.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoWorldEmpty.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoWorldEmpty.Location = new System.Drawing.Point(188, 41);
+            this.btnInfoWorldEmpty.Name = "btnInfoWorldEmpty";
+            this.btnInfoWorldEmpty.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoWorldEmpty.TabIndex = 21;
+            this.btnInfoWorldEmpty.Tag = "-worldEmtpy";
+            this.toolTip1.SetToolTip(this.btnInfoWorldEmpty, "Infos");
+            this.btnInfoWorldEmpty.UseVisualStyleBackColor = true;
+            this.btnInfoWorldEmpty.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoNoSplash
+            // 
+            this.btnInfoNoSplash.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoNoSplash.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoNoSplash.Location = new System.Drawing.Point(188, 18);
+            this.btnInfoNoSplash.Name = "btnInfoNoSplash";
+            this.btnInfoNoSplash.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoNoSplash.TabIndex = 20;
+            this.btnInfoNoSplash.Tag = "-noSplash";
+            this.toolTip1.SetToolTip(this.btnInfoNoSplash, "Infos");
+            this.btnInfoNoSplash.UseVisualStyleBackColor = true;
+            this.btnInfoNoSplash.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoName
+            // 
+            this.btnInfoName.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoName.Location = new System.Drawing.Point(189, 19);
+            this.btnInfoName.Name = "btnInfoName";
+            this.btnInfoName.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoName.TabIndex = 21;
+            this.btnInfoName.Tag = "-name";
+            this.toolTip1.SetToolTip(this.btnInfoName, "Infos");
+            this.btnInfoName.UseVisualStyleBackColor = true;
+            this.btnInfoName.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoNoLogs
+            // 
+            this.btnInfoNoLogs.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoNoLogs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoNoLogs.Location = new System.Drawing.Point(188, 156);
+            this.btnInfoNoLogs.Name = "btnInfoNoLogs";
+            this.btnInfoNoLogs.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoNoLogs.TabIndex = 41;
+            this.btnInfoNoLogs.Tag = "-noLogs";
+            this.toolTip1.SetToolTip(this.btnInfoNoLogs, "Infos");
+            this.btnInfoNoLogs.UseVisualStyleBackColor = true;
+            this.btnInfoNoLogs.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoExThreads
+            // 
+            this.btnInfoExThreads.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoExThreads.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoExThreads.Location = new System.Drawing.Point(188, 133);
+            this.btnInfoExThreads.Name = "btnInfoExThreads";
+            this.btnInfoExThreads.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoExThreads.TabIndex = 40;
+            this.btnInfoExThreads.Tag = "-exThreads";
+            this.toolTip1.SetToolTip(this.btnInfoExThreads, "Infos");
+            this.btnInfoExThreads.UseVisualStyleBackColor = true;
+            this.btnInfoExThreads.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoCpuCount
+            // 
+            this.btnInfoCpuCount.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoCpuCount.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoCpuCount.Location = new System.Drawing.Point(188, 110);
+            this.btnInfoCpuCount.Name = "btnInfoCpuCount";
+            this.btnInfoCpuCount.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoCpuCount.TabIndex = 39;
+            this.btnInfoCpuCount.Tag = "-cpuCount";
+            this.toolTip1.SetToolTip(this.btnInfoCpuCount, "Infos");
+            this.btnInfoCpuCount.UseVisualStyleBackColor = true;
+            this.btnInfoCpuCount.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoNoCB
+            // 
+            this.btnInfoNoCB.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoNoCB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoNoCB.Location = new System.Drawing.Point(188, 87);
+            this.btnInfoNoCB.Name = "btnInfoNoCB";
+            this.btnInfoNoCB.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoNoCB.TabIndex = 38;
+            this.btnInfoNoCB.Tag = "-noCB";
+            this.toolTip1.SetToolTip(this.btnInfoNoCB, "Infos");
+            this.btnInfoNoCB.UseVisualStyleBackColor = true;
+            this.btnInfoNoCB.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoWinXP
+            // 
+            this.btnInfoWinXP.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoWinXP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoWinXP.Location = new System.Drawing.Point(188, 64);
+            this.btnInfoWinXP.Name = "btnInfoWinXP";
+            this.btnInfoWinXP.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoWinXP.TabIndex = 28;
+            this.btnInfoWinXP.Tag = "-winXP";
+            this.toolTip1.SetToolTip(this.btnInfoWinXP, "Infos");
+            this.btnInfoWinXP.UseVisualStyleBackColor = true;
+            this.btnInfoWinXP.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoMaxVRAM
+            // 
+            this.btnInfoMaxVRAM.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoMaxVRAM.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoMaxVRAM.Location = new System.Drawing.Point(188, 41);
+            this.btnInfoMaxVRAM.Name = "btnInfoMaxVRAM";
+            this.btnInfoMaxVRAM.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoMaxVRAM.TabIndex = 27;
+            this.btnInfoMaxVRAM.Tag = "-maxVRAM";
+            this.toolTip1.SetToolTip(this.btnInfoMaxVRAM, "Infos");
+            this.btnInfoMaxVRAM.UseVisualStyleBackColor = true;
+            this.btnInfoMaxVRAM.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // btnInfoMaxMem
+            // 
+            this.btnInfoMaxMem.Image = global::PALAST.Properties.Resources.exclamation;
+            this.btnInfoMaxMem.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoMaxMem.Location = new System.Drawing.Point(188, 18);
+            this.btnInfoMaxMem.Name = "btnInfoMaxMem";
+            this.btnInfoMaxMem.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoMaxMem.TabIndex = 26;
+            this.btnInfoMaxMem.Tag = "-maxMem";
+            this.toolTip1.SetToolTip(this.btnInfoMaxMem, "Infos");
+            this.btnInfoMaxMem.UseVisualStyleBackColor = true;
+            this.btnInfoMaxMem.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // tbtnLaunch
+            // 
+            this.tbtnLaunch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnLaunch.Enabled = false;
+            this.tbtnLaunch.Image = ((System.Drawing.Image)(resources.GetObject("tbtnLaunch.Image")));
+            this.tbtnLaunch.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnLaunch.Name = "tbtnLaunch";
+            this.tbtnLaunch.Size = new System.Drawing.Size(23, 22);
+            this.tbtnLaunch.Text = "Spiel starten";
+            this.tbtnLaunch.Click += new System.EventHandler(this.tbtnLaunch_Click);
+            // 
+            // tbtnUpdateAddons
+            // 
+            this.tbtnUpdateAddons.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnUpdateAddons.Enabled = false;
+            this.tbtnUpdateAddons.Image = ((System.Drawing.Image)(resources.GetObject("tbtnUpdateAddons.Image")));
+            this.tbtnUpdateAddons.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnUpdateAddons.Name = "tbtnUpdateAddons";
+            this.tbtnUpdateAddons.Size = new System.Drawing.Size(23, 22);
+            this.tbtnUpdateAddons.Text = "Addons synchronisieren";
+            this.tbtnUpdateAddons.Click += new System.EventHandler(this.tbtnUpdateAddons_Click);
+            // 
+            // tbtnTFAR
+            // 
+            this.tbtnTFAR.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnTFAR.Enabled = false;
+            this.tbtnTFAR.Image = ((System.Drawing.Image)(resources.GetObject("tbtnTFAR.Image")));
+            this.tbtnTFAR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnTFAR.Name = "tbtnTFAR";
+            this.tbtnTFAR.Size = new System.Drawing.Size(23, 22);
+            this.tbtnTFAR.Text = "TFAR Setup";
+            this.tbtnTFAR.Click += new System.EventHandler(this.tbtnTFAR_Click);
+            // 
             // tbtnAddPreset
             // 
             this.tbtnAddPreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnAddPreset.Image = global::PALAST.Properties.Resources.table_add;
+            this.tbtnAddPreset.Image = ((System.Drawing.Image)(resources.GetObject("tbtnAddPreset.Image")));
             this.tbtnAddPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnAddPreset.Name = "tbtnAddPreset";
             this.tbtnAddPreset.Size = new System.Drawing.Size(23, 22);
@@ -939,7 +968,7 @@
             // 
             this.tbtnEditPreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnEditPreset.Enabled = false;
-            this.tbtnEditPreset.Image = global::PALAST.Properties.Resources.table_edit;
+            this.tbtnEditPreset.Image = ((System.Drawing.Image)(resources.GetObject("tbtnEditPreset.Image")));
             this.tbtnEditPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnEditPreset.Name = "tbtnEditPreset";
             this.tbtnEditPreset.Size = new System.Drawing.Size(23, 22);
@@ -950,33 +979,23 @@
             // 
             this.tbtnClonePreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnClonePreset.Enabled = false;
-            this.tbtnClonePreset.Image = global::PALAST.Properties.Resources.table_go;
+            this.tbtnClonePreset.Image = ((System.Drawing.Image)(resources.GetObject("tbtnClonePreset.Image")));
             this.tbtnClonePreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnClonePreset.Name = "tbtnClonePreset";
             this.tbtnClonePreset.Size = new System.Drawing.Size(23, 22);
             this.tbtnClonePreset.Text = "Vorlage klonen";
             this.tbtnClonePreset.Click += new System.EventHandler(this.tbtnClonePreset_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
             // tbtnDeletePreset
             // 
             this.tbtnDeletePreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnDeletePreset.Enabled = false;
-            this.tbtnDeletePreset.Image = global::PALAST.Properties.Resources.table_delete;
+            this.tbtnDeletePreset.Image = ((System.Drawing.Image)(resources.GetObject("tbtnDeletePreset.Image")));
             this.tbtnDeletePreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnDeletePreset.Name = "tbtnDeletePreset";
             this.tbtnDeletePreset.Size = new System.Drawing.Size(23, 22);
             this.tbtnDeletePreset.Text = "Vorlage löschen";
             this.tbtnDeletePreset.Click += new System.EventHandler(this.tbtnDeletePreset_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // tbtnInfo
             // 
@@ -1037,6 +1056,7 @@
             this.toolStrip3.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
+            this.cmenClstAddons.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1114,6 +1134,8 @@
         private System.Windows.Forms.ToolStripButton tbtnInfo;
         private System.Windows.Forms.ToolStripButton tbtnSettings;
         private System.Windows.Forms.ToolStripButton tbtnTFAR;
+        private System.Windows.Forms.ContextMenuStrip cmenClstAddons;
+        private System.Windows.Forms.ToolStripMenuItem cmenAddonDelete;
     }
 }
 
