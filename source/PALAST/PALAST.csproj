@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>tklogo.ico</ApplicationIcon>
+    <ApplicationIcon>tklogo2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -137,6 +137,7 @@
     <None Include="Resources\help.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="tklogo2.ico" />
     <None Include="Resources\exclamation.png" />
     <None Include="Resources\control_play_blue.png" />
     <None Include="Resources\arrow_refresh_small.png" />

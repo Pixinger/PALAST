@@ -135,6 +135,8 @@ namespace PALAST
         }
         #endregion
 
+        private bool _CancelRequest = false;
+
         public SyncBase()
         {
         }
@@ -176,6 +178,9 @@ namespace PALAST
         }
         private void CompareDirectory(List<CompareResult.SyncStep> syncSteps, Repository.Directory source, Repository.Directory target)
         {
+            if (_CancelRequest)
+                throw new ApplicationException("Operation abortred");
+
             // Dateien die gelöscht werden müssen (auf dem Remote)
             Repository.File[] filesToDelete = target.GetMissingFiles(source);
             foreach (Repository.File remoteFile in filesToDelete)
@@ -226,6 +231,9 @@ namespace PALAST
         }
         private void DeleteDirectory(List<CompareResult.SyncStep> syncSteps, Repository.Directory target)
         {
+            if (_CancelRequest)
+                throw new ApplicationException("Operation abortred");
+
             if (target.Files != null)
                 foreach (Repository.File file in target.Files)
                     syncSteps.Add(CompareResult.SyncStep.DeleteFile(file.Fullname));
@@ -238,6 +246,9 @@ namespace PALAST
         }
         private void CopyDirectory(List<CompareResult.SyncStep> syncSteps, Repository.Directory source, string target)
         {
+            if (_CancelRequest)
+                throw new ApplicationException("Operation abortred");
+
             syncSteps.Add(CompareResult.SyncStep.CreateDirectory(target));
 
             if (source.Files != null)
@@ -247,6 +258,11 @@ namespace PALAST
             if (source.Directories != null)
                 foreach (Repository.Directory subDirectory in source.Directories)
                     CopyDirectory(syncSteps, subDirectory, target + "|" + subDirectory.Name);
+        }
+
+        public void RequestCancel()
+        {
+            _CancelRequest = true;
         }
 
         #region public class CompareRepositoriesUserState
@@ -317,6 +333,7 @@ namespace PALAST
             if (completedDeletegate == null)
                 throw new ArgumentNullException();
 
+            _CancelRequest = false;
             System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(ThreadProc_CompareRepositories));
             thread.Name = "PALAST-Compare";
             thread.Start(new CompareRepositoriesUserState(deleteObsoleteTargetAddons, completedDeletegate));
@@ -327,6 +344,9 @@ namespace PALAST
 
             try
             {
+                if (_CancelRequest)
+                    throw new ApplicationException("Operation abortred");
+                
                 #region LoadRepositories
                 // Quellrepository laden
                 Repository repositorySource = OnLoadSourceRepository();
@@ -363,6 +383,9 @@ namespace PALAST
                 List<CompareResult.SyncStep>[] syncSteps = new List<CompareResult.SyncStep>[repositorySource.Addons.Directories.Length];
                 for (int i = 0; i < repositorySource.Addons.Directories.Length; i++)
                 {
+                    if (_CancelRequest)
+                        throw new ApplicationException("Operation abortred");
+
                     syncSteps[i] = new List<CompareResult.SyncStep>();
                     Repository.Directory sourceDirectory = repositorySource.Addons.Directories[i];
                     Repository.Directory targetDirectory = repositoryTarget.Addons.GetDirectory(sourceDirectory.Name);
@@ -448,6 +471,7 @@ namespace PALAST
                     if (!compareRepositoriesAsyncResult.CompareResults.Contains(cc))
                         throw new ArgumentException("selectedAddons");
 
+            _CancelRequest = false;
             System.Threading.Thread thread = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(ThreadProc_Synchronize));
             thread.Name = "PALAST-synchronize";
             thread.Start(new SynchronizeUserState(compareRepositoriesAsyncResult, completedDelegate, selectedAddons));
@@ -462,6 +486,9 @@ namespace PALAST
                 CompareResult[] compareResults = (state.SelectedAddons != null) ? state.SelectedAddons : state.CompareRepositoriesAsyncResult.CompareResults;
                 foreach (CompareResult syncSteps in compareResults)
                 {
+                    if (_CancelRequest)
+                        throw new ApplicationException("Operation abortred");
+
                     for (int i = 0; i < syncSteps.Count; i++)
                     {
                         int lastIndex = LastCombinedIndex(syncSteps, i);

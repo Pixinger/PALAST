@@ -429,6 +429,7 @@ namespace PALAST
 
                 // Vergleichen
                 _SyncServer.CompareRepositories(true, new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted));
+                btnCancel.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -486,6 +487,7 @@ namespace PALAST
                     btnSynchronize.Enabled = false;
                 }
 
+                btnCancel.Enabled = false;
                 UnlockGui();
             }
         }
@@ -509,6 +511,7 @@ namespace PALAST
                 _SyncServer.Synchronize(_CompareRepositoriesAsyncResult, new SyncBase.SynchronizeAsyncResultEventHandler(OnSynchronizeCompletedEventHandler));
                 _SyncServer = null;
                 _CompareRepositoriesAsyncResult = null;
+                btnCancel.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -538,8 +541,15 @@ namespace PALAST
                     lstLog.Items.Add("------------------------------------------------------------------------");
                 }
 
+                btnCancel.Enabled = false;
                 UnlockGui();
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if (_SyncServer != null)
+                _SyncServer.RequestCancel();
         }
     }
 }

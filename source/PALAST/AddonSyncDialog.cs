@@ -153,6 +153,7 @@ namespace PALAST
 
                 _SyncClient = new SyncClientHttpGz(_Preset.AddonSyncUrl, _ArmaDirectory, lvwLog);
                 _SyncClient.CompareRepositories(new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted));
+                btnCancel.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -207,7 +208,7 @@ namespace PALAST
                     _CompareRepositoriesAsyncResult = null;
                     lstActions.Items.Add("------------------------------------------------------------------------");
                     lstActions.Items.Add("== Der Vorgang wurde mit einem Fehler beendet ==");
-                    lstActions.Items.Add(e.Error);
+                    lstActions.Items.Add("== Nachricht: " + e.Error);
                     lstActions.Items.Add("------------------------------------------------------------------------");
 
                     btnCompareRepositories.BackColor = SystemColors.Control;
@@ -215,6 +216,7 @@ namespace PALAST
                     btnSynchronize.Enabled = false;
                 }
 
+                btnCancel.Enabled = false;
                 UnlockGui();
             }
         }
@@ -246,6 +248,7 @@ namespace PALAST
 
                 // Die übergebene Liste synchronisieren
                 _SyncClient.Synchronize(_CompareRepositoriesAsyncResult, new SyncBase.SynchronizeAsyncResultEventHandler(OnSynchronizeCompletedEventHandler), compareResults.ToArray());
+                btnCancel.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -278,11 +281,18 @@ namespace PALAST
                 btnCompareRepositories.BackColor = SystemColors.Control;
                 lstActions.ForeColor = Color.Black;
                 btnSynchronize.Enabled = false;
+                btnCancel.Enabled = false;
 
                 UnlockGui();
 
                 UpdateUserConfigs();
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if (_SyncClient != null)
+                _SyncClient.RequestCancel();
         }
     }
 }

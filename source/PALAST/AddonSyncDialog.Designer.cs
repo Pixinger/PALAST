@@ -42,6 +42,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,12 +100,12 @@
             this.btnExit.Text = "Beenden";
             this.btnExit.UseVisualStyleBackColor = true;
             // 
-            // btnValidate
+            // btnCompareRepositories
             // 
             this.btnCompareRepositories.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCompareRepositories.Enabled = false;
             this.btnCompareRepositories.Location = new System.Drawing.Point(334, 672);
-            this.btnCompareRepositories.Name = "btnValidate";
+            this.btnCompareRepositories.Name = "btnCompareRepositories";
             this.btnCompareRepositories.Size = new System.Drawing.Size(100, 23);
             this.btnCompareRepositories.TabIndex = 0;
             this.btnCompareRepositories.Text = "Überprüfen";
@@ -195,6 +196,17 @@
             this.panel1.Size = new System.Drawing.Size(659, 612);
             this.panel1.TabIndex = 12;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Enabled = false;
+            this.btnCancel.Location = new System.Drawing.Point(12, 672);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 13;
+            this.btnCancel.Text = "Abbrechen";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // AddonSyncDialog
             // 
             this.AcceptButton = this.btnCompareRepositories;
@@ -202,6 +214,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(683, 703);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCompareRepositories);
             this.Controls.Add(this.btnExit);
@@ -234,6 +247,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnCancel;
 
     }
 }
