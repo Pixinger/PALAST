@@ -4,7 +4,7 @@
 #define MyAppName "PALAST"
 #define MyAppVersion "2.0"
 #define MyAppPublisher "Pixinger"
-#define MyAppURL "https://github.com/Pixinger/YetAnotherArmaLauncher/wiki"
+#define MyAppURL "https://github.com/Pixinger/PALAST/wiki"
 #define MyAppExeName "PALAST.exe"
 
 [Setup]
@@ -22,8 +22,8 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-LicenseFile=D:\_git_src\YetAnotherArmaLauncher\source\_iss\license.txt
-OutputDir=D:\_git_src\YetAnotherArmaLauncher\source
+LicenseFile=D:\_git_src\PALAST\source\_iss\license.txt
+OutputDir=D:\_git_src\PALAST\source
 OutputBaseFilename=setupPALAST
 Compression=lzma
 SolidCompression=yes
@@ -39,11 +39,11 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "D:\_git_src\YetAnotherArmaLauncher\source\_iss\PALAST.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\_git_src\YetAnotherArmaLauncher\source\_iss\NLog.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\_git_src\YetAnotherArmaLauncher\source\_iss\PALAST.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\_git_src\PALAST\source\_iss\PALAST.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\_git_src\PALAST\source\_iss\NLog.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\_git_src\PALAST\source\_iss\PALAST.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: "D:\_git_src\YetAnotherArmaLauncher\source\_iss\configuration.xml"; DestDir: "{app}"; Flags: ignoreversion; Permissions: everyone-full
+Source: "D:\_git_src\PALAST\source\_iss\configuration.xml"; DestDir: "{app}"; Flags: ignoreversion; Permissions: everyone-full
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

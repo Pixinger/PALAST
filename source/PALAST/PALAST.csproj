@@ -15,7 +15,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>tklogo2.ico</ApplicationIcon>
+    <ApplicationIcon>Rocket.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -128,31 +128,24 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\target.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\cog.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\help.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="tklogo2.ico" />
     <None Include="Resources\exclamation.png" />
-    <None Include="Resources\control_play_blue.png" />
-    <None Include="Resources\arrow_refresh_small.png" />
     <None Include="Resources\table_add.png" />
     <None Include="Resources\table_delete.png" />
     <None Include="Resources\table_edit.png" />
     <None Include="Resources\table_go.png" />
     <None Include="Resources\TFAR.png" />
-    <Content Include="tklogo.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PALAST.Common\PALAST.Common.csproj">
       <Project>{1B186679-FC05-4D80-86D4-8E297795541C}</Project>
       <Name>PALAST.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Rocket.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
