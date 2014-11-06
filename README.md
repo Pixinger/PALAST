@@ -1,4 +1,4 @@
-YetAnotherArmaLauncher
+PALAST
 ======================
 
-YAAL (yet another Arma launcher)
+PALAST (P-ixingers A-rma L-aunch A-nd S-ync T-ool)
