@@ -26,4 +26,11 @@
 /source/YAASTServer/bin
 /source/YAASTServer/obj
 /source/*.suo
-/source/_bin
+/source/YAAL/obj
+/source/YAAL/bin
+/source/PALASTServer/obj
+/source/PALASTServer/bin
+/source/PALAST.Common/obj
+/source/PALAST.Common/bin
+/source/PALAST/obj
+/source/PALAST/bin
