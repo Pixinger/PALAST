@@ -985,6 +985,7 @@
             // 
             this.tbtnInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tbtnInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnInfo.Image = ((System.Drawing.Image)(resources.GetObject("tbtnInfo.Image")));
             this.tbtnInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnInfo.Name = "tbtnInfo";
             this.tbtnInfo.Size = new System.Drawing.Size(23, 22);
@@ -995,6 +996,7 @@
             // 
             this.tbtnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tbtnSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnSettings.Image = ((System.Drawing.Image)(resources.GetObject("tbtnSettings.Image")));
             this.tbtnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnSettings.Name = "tbtnSettings";
             this.tbtnSettings.Size = new System.Drawing.Size(23, 22);

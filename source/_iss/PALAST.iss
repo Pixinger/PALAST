@@ -44,6 +44,7 @@ Source: "D:\_git_src\PALAST\source\_iss\NLog.dll"; DestDir: "{app}"; Flags: igno
 Source: "D:\_git_src\PALAST\source\_iss\PALAST.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: "D:\_git_src\PALAST\source\_iss\configuration.xml"; DestDir: "{app}"; Flags: ignoreversion; Permissions: everyone-full
+Source: "D:\_git_src\PALAST\source\_iss\license.txt"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
