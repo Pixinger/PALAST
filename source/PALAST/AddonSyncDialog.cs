@@ -31,6 +31,16 @@ namespace PALAST
 
         public static DialogResult ExecuteDialog(string armaDirectory, Configuration.Preset preset)
         {
+            if (!Directory.Exists(armaDirectory))
+            {
+                MessageBox.Show("Das angegebene Arma Verzeichnis konnte nicht gefunden werden1");
+                return DialogResult.Cancel;
+            }
+
+            if (!File.Exists(Path.Combine(armaDirectory, "arma3.exe")))
+                if (MessageBox.Show("In dem angegebenen Verzeichnis konnte keine Arma3.exe gefunden werden.\nSind sie sicher, dass es sich um das korrekte Verzeichnis handelt?\nEs könnten wichtige Daten gelöscht werden!\n\n" + armaDirectory, "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
+                    return DialogResult.Cancel;
+
             using (AddonSyncDialog dlg = new AddonSyncDialog())
             {
                 dlg._ArmaDirectory = armaDirectory;

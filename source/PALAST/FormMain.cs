@@ -24,6 +24,8 @@ namespace PALAST
             InitializeComponent();
 
             Text = Text + " - " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            //SerializationTools.Save<VersionSerializeable>("latestVersion.xml", VersionSerializeable.FromVersion(new Version(2,1,0,0)));
         }
 
         protected override void OnLoad(EventArgs e)
@@ -38,6 +40,8 @@ namespace PALAST
 
             RefreshMenu();
             RefreshNames();
+
+            HttpManager.Download_Version("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersion.xml", new HttpManager.VersionEventHandler(ehPalastVersionDownloaded));
         }
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -46,17 +50,25 @@ namespace PALAST
             _Configuration.Save();
         }
 
+        private void ehPalastVersionDownloaded(Version version)
+        {
+            if (version == null)
+                return;
+
+            if (InvokeRequired)
+                BeginInvoke(new HttpManager.VersionEventHandler(ehPalastVersionDownloaded), new object[] { version });
+            else
+            {
+                if (version > System.Reflection.Assembly.GetExecutingAssembly().GetName().Version)
+                    MessageBox.Show("Es ist ein Update für PALAST verfügbar (" + version.ToString() + ")");
+            }
+        }
+
         private Configuration.Preset SelectedPreset
         {
             get
             {
-                /*   if ((_Configuration.SelectedPreset != null) && (_Configuration.Presets != null))
-                       foreach (Configuration.Preset cfgPreset in _Configuration.Presets)
-                           if (cfgPreset.Name == _Configuration.SelectedPreset)
-                               return cfgPreset;*/
                 return lstPreset.SelectedItem as Configuration.Preset;
-
-                //return null;
             }
         }
         private void RefreshNames()
@@ -156,7 +168,7 @@ namespace PALAST
         {
             _BlockEventHandler = true;
 
-            clstAddons.Items.Clear();
+            clstAddons.Clear();
 
             Configuration.Preset preset = SelectedPreset;
             if ((preset != null) && (System.IO.File.Exists(_Configuration.Arma3Exe)))
@@ -167,13 +179,12 @@ namespace PALAST
                 {
                     string shortName = addon.Remove(0, armaFolder.Length + 1);
                     bool chk = ((SelectedPreset != null) && (SelectedPreset.SelectedAddons != null) && (SelectedPreset.SelectedAddons.Contains(shortName)));
-                    clstAddons.Items.Add(shortName, chk);
+                    clstAddons.Add(shortName, chk);
                 }
             }
 
             _BlockEventHandler = false;
         }
-
 
         private void chbNoSpalsh_CheckedChanged(object sender, EventArgs e)
         {
@@ -460,16 +471,17 @@ namespace PALAST
             }
         }
 
-        private void clstAddons_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void clstAddons_CheckedChanged(object sender, EventArgs e)
         {
             if (_BlockEventHandler)
                 return;
 
-            List<string> selectedAddons = (SelectedPreset.SelectedAddons) != null ? new List<string>(SelectedPreset.SelectedAddons) : new List<string>();
-            if (e.NewValue == CheckState.Checked)
-                selectedAddons.Add(clstAddons.Items[e.Index].ToString());
-            else
-                selectedAddons.Remove(clstAddons.Items[e.Index].ToString());
+            List<string> selectedAddons = new List<string>();
+            for (int i = 0; i < clstAddons.Count; i++)
+            {
+                if (clstAddons.GetItemCheckState(i))
+                    selectedAddons.Add(clstAddons[i] as string);
+            }
 
             SelectedPreset.SelectedAddons = selectedAddons.ToArray();
         }
@@ -477,12 +489,17 @@ namespace PALAST
         {
             tbtnTFAR.Enabled = false;
 
-            string addon = clstAddons.SelectedItem as string;
+            string addon = clstAddons.SelectedItem;
             if (addon != null)
             {
+                tbtnDeleteAddon.Enabled = true;
                 string pluginsSource = Path.Combine(Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon), "TeamSpeak 3 Client\\plugins");
                 if (Directory.Exists(pluginsSource))
                     tbtnTFAR.Enabled = true;
+            }
+            else
+            {
+                tbtnDeleteAddon.Enabled = false;
             }
         }
         private void btnInfoOptions_Click(object sender, EventArgs e)
@@ -662,6 +679,22 @@ namespace PALAST
 
             RefreshMenu();
         }
+        private void tbtnDeleteAddon_Click(object sender, EventArgs e)
+        {
+            if (clstAddons.SelectedItem != null)
+            {
+                string addon = clstAddons.SelectedItem as string;
+                if (MessageBox.Show("Wollen Sie das gewählte Addon '" + addon + "' wirklich aus dem ArmA-Verzeichnis löschen.", "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
+                {
+                    string folder = Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon);
+                    if (MessageBox.Show("Ich werde nun folgendes Verzeichnis löschen:\n\n" + folder + "!", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        Directory.Delete(folder, true);
+                        RefreshAddons();
+                    }
+                }
+            }
+        }
         private void tbtnTFAR_Click(object sender, EventArgs e)
         {
             string addon = clstAddons.SelectedItem as string;
@@ -691,36 +724,6 @@ namespace PALAST
                         MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
                 }
             }
-        }
-
-        private void cmenAddonDelete_Click(object sender, EventArgs e)
-        {
-            if (clstAddons.SelectedItem != null)
-            {
-                string addon = clstAddons.SelectedItem as string;
-                if (MessageBox.Show("Wollen Sie das gewählte Addon '" + addon + "' wirklich aus dem ArmA-Verzeichnis löschen.", "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
-                {
-                    if (MessageBox.Show("Sind sie wirklich sicher?", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
-                    {
-                        if (MessageBox.Show("GAANZ sicher?", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
-                        {
-                            if (MessageBox.Show("OK. Dann lösche ich das Addon jetzt?", "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
-                            {
-                                string folder = Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon);
-                                if (MessageBox.Show("Ich werde nun folgendes Verzeichnis löschen:\n\n" + folder + "!", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
-                                {
-                                    Directory.Delete(folder, true);
-                                    RefreshAddons();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        private void cmenClstAddons_Opening(object sender, CancelEventArgs e)
-        {
-            cmenAddonDelete.Enabled = clstAddons.SelectedItem != null;
-        }
+        }       
     }
 }

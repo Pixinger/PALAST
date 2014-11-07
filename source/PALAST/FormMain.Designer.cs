@@ -30,9 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            this.clstAddons = new System.Windows.Forms.CheckedListBox();
-            this.cmenClstAddons = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmenAddonDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.chbShowScriptErrors = new System.Windows.Forms.CheckBox();
             this.chbNoPause = new System.Windows.Forms.CheckBox();
             this.chbExThreads = new System.Windows.Forms.CheckBox();
@@ -102,7 +99,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnInfo = new System.Windows.Forms.ToolStripButton();
             this.tbtnSettings = new System.Windows.Forms.ToolStripButton();
-            this.cmenClstAddons.SuspendLayout();
+            this.tbtnDeleteAddon = new System.Windows.Forms.ToolStripButton();
+            this.clstAddons = new PALAST.AddonList();
             this.grpAutoConnect.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
@@ -119,35 +117,6 @@
             this.toolStrip3.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // clstAddons
-            // 
-            this.clstAddons.CheckOnClick = true;
-            this.clstAddons.ContextMenuStrip = this.cmenClstAddons;
-            this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clstAddons.FormattingEnabled = true;
-            this.clstAddons.IntegralHeight = false;
-            this.clstAddons.Location = new System.Drawing.Point(0, 25);
-            this.clstAddons.Name = "clstAddons";
-            this.clstAddons.Size = new System.Drawing.Size(219, 643);
-            this.clstAddons.TabIndex = 3;
-            this.clstAddons.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clstAddons_ItemCheck);
-            this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
-            // 
-            // cmenClstAddons
-            // 
-            this.cmenClstAddons.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmenAddonDelete});
-            this.cmenClstAddons.Name = "cmenClstAddons";
-            this.cmenClstAddons.Size = new System.Drawing.Size(155, 26);
-            this.cmenClstAddons.Opening += new System.ComponentModel.CancelEventHandler(this.cmenClstAddons_Opening);
-            // 
-            // cmenAddonDelete
-            // 
-            this.cmenAddonDelete.Name = "cmenAddonDelete";
-            this.cmenAddonDelete.Size = new System.Drawing.Size(154, 22);
-            this.cmenAddonDelete.Text = "Addon löschen";
-            this.cmenAddonDelete.Click += new System.EventHandler(this.cmenAddonDelete_Click);
             // 
             // chbShowScriptErrors
             // 
@@ -859,6 +828,7 @@
             this.tbtnLaunch,
             this.toolStripSeparator3,
             this.tbtnUpdateAddons,
+            this.tbtnDeleteAddon,
             this.toolStripSeparator4,
             this.tbtnTFAR});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
@@ -1003,6 +973,30 @@
             this.tbtnSettings.Text = "Einstellungen";
             this.tbtnSettings.Click += new System.EventHandler(this.tbtnSettings_Click);
             // 
+            // tbtnDeleteAddon
+            // 
+            this.tbtnDeleteAddon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnDeleteAddon.Enabled = false;
+            this.tbtnDeleteAddon.Image = ((System.Drawing.Image)(resources.GetObject("tbtnDeleteAddon.Image")));
+            this.tbtnDeleteAddon.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnDeleteAddon.Name = "tbtnDeleteAddon";
+            this.tbtnDeleteAddon.Size = new System.Drawing.Size(23, 22);
+            this.tbtnDeleteAddon.Text = "Addon löschen";
+            this.tbtnDeleteAddon.Click += new System.EventHandler(this.tbtnDeleteAddon_Click);
+            // 
+            // clstAddons
+            // 
+            this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clstAddons.ImageChecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageChecked")));
+            this.clstAddons.ImageUnchecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageUnchecked")));
+            this.clstAddons.Location = new System.Drawing.Point(0, 25);
+            this.clstAddons.Name = "clstAddons";
+            this.clstAddons.SelectedIndex = -1;
+            this.clstAddons.Size = new System.Drawing.Size(219, 643);
+            this.clstAddons.TabIndex = 37;
+            this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
+            this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1016,7 +1010,6 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PALAST (Pixingers Arma Launcher and Sync Tool)";
-            this.cmenClstAddons.ResumeLayout(false);
             this.grpAutoConnect.ResumeLayout(false);
             this.grpAutoConnect.PerformLayout();
             this.grpDeveloperOptions.ResumeLayout(false);
@@ -1048,7 +1041,6 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox clstAddons;
         private System.Windows.Forms.CheckBox chbShowScriptErrors;
         private System.Windows.Forms.CheckBox chbNoPause;
         private System.Windows.Forms.CheckBox chbExThreads;
@@ -1118,8 +1110,8 @@
         private System.Windows.Forms.ToolStripButton tbtnInfo;
         private System.Windows.Forms.ToolStripButton tbtnSettings;
         private System.Windows.Forms.ToolStripButton tbtnTFAR;
-        private System.Windows.Forms.ContextMenuStrip cmenClstAddons;
-        private System.Windows.Forms.ToolStripMenuItem cmenAddonDelete;
+        private AddonList clstAddons;
+        private System.Windows.Forms.ToolStripButton tbtnDeleteAddon;
     }
 }
 

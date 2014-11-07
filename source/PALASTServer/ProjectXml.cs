@@ -77,6 +77,12 @@ namespace PALAST
         {
             if ((FtpRepository == null) && (LocalRepository == null))
                 FtpRepository = new ProjectXml.FtpRepositoryXml();
+
+            List<string> addons = new List<string>();
+            foreach(string addon in SelectedAddons)
+                if (addon != null)
+                    addons.Add(addon);
+            SelectedAddons = addons.ToArray();
         }
         #endregion
 

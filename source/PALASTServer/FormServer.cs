@@ -155,7 +155,7 @@ namespace PALAST
 
         private void RefreshAddonList()
         {
-            clstAddons.Items.Clear();
+            clstAddons.Clear();
 
             if (_ProjectXml == null)
                 return;
@@ -173,9 +173,10 @@ namespace PALAST
 
             foreach (DirectoryInfo addon in addons)
             {
-                clstAddons.Items.Add(addon.Name);
                 if (_ProjectXml.SelectedAddons.Contains(addon.Name))
-                    clstAddons.SetItemChecked(clstAddons.Items.Count - 1, true);
+                    clstAddons.Add(addon.Name, true);
+                else
+                    clstAddons.Add(addon.Name, false);
             }
         }
         private void CopyKey(string addonName)
@@ -328,39 +329,21 @@ namespace PALAST
             }
             Modified = true;
         }
-        private void clstAddons_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void clstAddons_CheckedChanged(object sender, EventArgs e)
         {
             if (_BlockEvents)
                 return;
             if (_ProjectXml == null)
                 return;
 
-            if (_ProjectXml.SelectedAddons == null)
-                _ProjectXml.SelectedAddons = new string[0];
-
-            if (e.NewValue == CheckState.Checked)
+            List<string> selectedAddons = new List<string>();
+            for (int i = 0; i < clstAddons.Count; i++)
             {
-                string[] items = new string[_ProjectXml.SelectedAddons.Length + 1];
-                for (int i = 0; i < clstAddons.CheckedItems.Count; i++)
-                    items[i] = clstAddons.CheckedItems[i] as string;
-                items[items.Length - 1] = clstAddons.Items[e.Index] as string;
-                _ProjectXml.SelectedAddons = items;
-            }
-            else
-            {
-                int o = 0;
-                string[] items = new string[_ProjectXml.SelectedAddons.Length - 1];
-                for (int i = 0; i < clstAddons.CheckedItems.Count; i++)
-                {
-                    if (clstAddons.CheckedItems[i] != clstAddons.Items[e.Index])
-                    {
-                        items[o] = clstAddons.CheckedItems[i] as string;
-                        o++;
-                    }
-                }
-                _ProjectXml.SelectedAddons = items;
+                if (clstAddons.GetItemCheckState(i))
+                    selectedAddons.Add(clstAddons[i] as string);
             }
 
+            _ProjectXml.SelectedAddons = selectedAddons.ToArray();
             Modified = true;
         }
 
