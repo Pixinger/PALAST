@@ -146,16 +146,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\bin.png" />
+    <None Include="Resources\controller.png" />
     <Content Include="Rocket.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) D:\_Programme\PALAST
-copy $(TargetDir)nlog.dll D:\_Programme\PALAST
-copy $(TargetPath) $(SolutionDir)_bin
-copy $(TargetDir)nlog.dll $(SolutionDir)_bin
-copy $(TargetPath) $(SolutionDir)_iss
-copy $(TargetDir)nlog.dll $(SolutionDir)_iss</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_iss
+copy $(TargetDir)nlog.dll $(SolutionDir)_iss
+$(SolutionDir)_bin\PALAST.exe /saveversion:..\..\..\..\_releases\latestVersion.xml
+"D:\Program Files (x86)\Inno Setup 5\iscc.exe" "..\..\..\_iss\PALAST.iss"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -69,11 +69,15 @@
             this.grpAdditionalParameters = new System.Windows.Forms.GroupBox();
             this.txtAdditionalParameter = new System.Windows.Forms.TextBox();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.pnlToolbars = new System.Windows.Forms.Panel();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.clstAddons = new PALAST.AddonList();
             this.btnInfoAutoConnect = new System.Windows.Forms.Button();
             this.btnInfoCheckSignatures = new System.Windows.Forms.Button();
@@ -116,6 +120,7 @@
             this.grpAdditionalParameters.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip2.SuspendLayout();
+            this.pnlToolbars.SuspendLayout();
             this.SuspendLayout();
             // 
             // chbShowScriptErrors
@@ -240,28 +245,34 @@
             // 
             // txtServer
             // 
+            this.txtServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtServer.Enabled = false;
             this.txtServer.Location = new System.Drawing.Point(84, 33);
             this.txtServer.Name = "txtServer";
-            this.txtServer.Size = new System.Drawing.Size(95, 20);
+            this.txtServer.Size = new System.Drawing.Size(172, 20);
             this.txtServer.TabIndex = 20;
             this.txtServer.TextChanged += new System.EventHandler(this.txtServer_TextChanged);
             // 
             // txtPort
             // 
+            this.txtPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPort.Enabled = false;
             this.txtPort.Location = new System.Drawing.Point(84, 55);
             this.txtPort.Name = "txtPort";
-            this.txtPort.Size = new System.Drawing.Size(95, 20);
+            this.txtPort.Size = new System.Drawing.Size(172, 20);
             this.txtPort.TabIndex = 21;
             this.txtPort.TextChanged += new System.EventHandler(this.txtPort_TextChanged);
             // 
             // txtPasswort
             // 
+            this.txtPasswort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPasswort.Enabled = false;
             this.txtPasswort.Location = new System.Drawing.Point(84, 77);
             this.txtPasswort.Name = "txtPasswort";
-            this.txtPasswort.Size = new System.Drawing.Size(95, 20);
+            this.txtPasswort.Size = new System.Drawing.Size(172, 20);
             this.txtPasswort.TabIndex = 22;
             this.txtPasswort.TextChanged += new System.EventHandler(this.txtPasswort_TextChanged);
             // 
@@ -297,6 +308,8 @@
             // 
             // grpAutoConnect
             // 
+            this.grpAutoConnect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpAutoConnect.Controls.Add(this.btnInfoAutoConnect);
             this.grpAutoConnect.Controls.Add(this.chbAutoConnectEnabled);
             this.grpAutoConnect.Controls.Add(this.label1);
@@ -308,7 +321,7 @@
             this.grpAutoConnect.Location = new System.Drawing.Point(7, 5);
             this.grpAutoConnect.Margin = new System.Windows.Forms.Padding(5);
             this.grpAutoConnect.Name = "grpAutoConnect";
-            this.grpAutoConnect.Size = new System.Drawing.Size(211, 105);
+            this.grpAutoConnect.Size = new System.Drawing.Size(288, 105);
             this.grpAutoConnect.TabIndex = 30;
             this.grpAutoConnect.TabStop = false;
             this.grpAutoConnect.Text = "Automatisch verbinden";
@@ -327,6 +340,8 @@
             // 
             // grpDeveloperOptions
             // 
+            this.grpDeveloperOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpDeveloperOptions.Controls.Add(this.btnInfoCheckSignatures);
             this.grpDeveloperOptions.Controls.Add(this.chbNoPause);
             this.grpDeveloperOptions.Controls.Add(this.btnInfoNoFilePatching);
@@ -338,7 +353,7 @@
             this.grpDeveloperOptions.Location = new System.Drawing.Point(7, 462);
             this.grpDeveloperOptions.Margin = new System.Windows.Forms.Padding(5);
             this.grpDeveloperOptions.Name = "grpDeveloperOptions";
-            this.grpDeveloperOptions.Size = new System.Drawing.Size(211, 111);
+            this.grpDeveloperOptions.Size = new System.Drawing.Size(288, 111);
             this.grpDeveloperOptions.TabIndex = 36;
             this.grpDeveloperOptions.TabStop = false;
             this.grpDeveloperOptions.Text = "Entwickler Optionen";
@@ -357,29 +372,35 @@
             // 
             // grpProfileOptions
             // 
+            this.grpProfileOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpProfileOptions.Controls.Add(this.btnInfoName);
             this.grpProfileOptions.Controls.Add(this.cmbName);
             this.grpProfileOptions.Controls.Add(this.chbName);
             this.grpProfileOptions.Location = new System.Drawing.Point(7, 407);
             this.grpProfileOptions.Margin = new System.Windows.Forms.Padding(5);
             this.grpProfileOptions.Name = "grpProfileOptions";
-            this.grpProfileOptions.Size = new System.Drawing.Size(211, 45);
+            this.grpProfileOptions.Size = new System.Drawing.Size(288, 45);
             this.grpProfileOptions.TabIndex = 35;
             this.grpProfileOptions.TabStop = false;
             this.grpProfileOptions.Text = "Profil Optionen";
             // 
             // cmbName
             // 
+            this.cmbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbName.Enabled = false;
             this.cmbName.FormattingEnabled = true;
             this.cmbName.Location = new System.Drawing.Point(87, 17);
             this.cmbName.Name = "cmbName";
-            this.cmbName.Size = new System.Drawing.Size(95, 21);
+            this.cmbName.Size = new System.Drawing.Size(172, 21);
             this.cmbName.TabIndex = 17;
             this.cmbName.SelectedIndexChanged += new System.EventHandler(this.cmbName_SelectedIndexChanged);
             // 
             // grpPerformance
             // 
+            this.grpPerformance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpPerformance.Controls.Add(this.btnInfoNoLogs);
             this.grpPerformance.Controls.Add(this.btnInfoExThreads);
             this.grpPerformance.Controls.Add(this.btnInfoCpuCount);
@@ -401,13 +422,15 @@
             this.grpPerformance.Location = new System.Drawing.Point(7, 218);
             this.grpPerformance.Margin = new System.Windows.Forms.Padding(5);
             this.grpPerformance.Name = "grpPerformance";
-            this.grpPerformance.Size = new System.Drawing.Size(211, 179);
+            this.grpPerformance.Size = new System.Drawing.Size(288, 179);
             this.grpPerformance.TabIndex = 34;
             this.grpPerformance.TabStop = false;
             this.grpPerformance.Text = "Leistung";
             // 
             // cmbExThreads
             // 
+            this.cmbExThreads.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbExThreads.Enabled = false;
             this.cmbExThreads.FormattingEnabled = true;
             this.cmbExThreads.Items.AddRange(new object[] {
@@ -418,12 +441,14 @@
             "7"});
             this.cmbExThreads.Location = new System.Drawing.Point(87, 132);
             this.cmbExThreads.Name = "cmbExThreads";
-            this.cmbExThreads.Size = new System.Drawing.Size(95, 21);
+            this.cmbExThreads.Size = new System.Drawing.Size(172, 21);
             this.cmbExThreads.TabIndex = 25;
             this.cmbExThreads.SelectedIndexChanged += new System.EventHandler(this.cmbExThreads_SelectedIndexChanged);
             // 
             // cmbCpuCount
             // 
+            this.cmbCpuCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbCpuCount.Enabled = false;
             this.cmbCpuCount.FormattingEnabled = true;
             this.cmbCpuCount.Items.AddRange(new object[] {
@@ -445,12 +470,14 @@
             "16"});
             this.cmbCpuCount.Location = new System.Drawing.Point(87, 109);
             this.cmbCpuCount.Name = "cmbCpuCount";
-            this.cmbCpuCount.Size = new System.Drawing.Size(95, 21);
+            this.cmbCpuCount.Size = new System.Drawing.Size(172, 21);
             this.cmbCpuCount.TabIndex = 24;
             this.cmbCpuCount.SelectedIndexChanged += new System.EventHandler(this.cmbCpuCount_SelectedIndexChanged);
             // 
             // numMaxMem
             // 
+            this.numMaxMem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.numMaxMem.Enabled = false;
             this.numMaxMem.Location = new System.Drawing.Point(87, 18);
             this.numMaxMem.Maximum = new decimal(new int[] {
@@ -464,7 +491,7 @@
             0,
             0});
             this.numMaxMem.Name = "numMaxMem";
-            this.numMaxMem.Size = new System.Drawing.Size(95, 20);
+            this.numMaxMem.Size = new System.Drawing.Size(172, 20);
             this.numMaxMem.TabIndex = 22;
             this.numMaxMem.Value = new decimal(new int[] {
             3072,
@@ -475,6 +502,8 @@
             // 
             // numMaxVRAM
             // 
+            this.numMaxVRAM.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.numMaxVRAM.Enabled = false;
             this.numMaxVRAM.Location = new System.Drawing.Point(87, 41);
             this.numMaxVRAM.Maximum = new decimal(new int[] {
@@ -488,7 +517,7 @@
             0,
             0});
             this.numMaxVRAM.Name = "numMaxVRAM";
-            this.numMaxVRAM.Size = new System.Drawing.Size(95, 20);
+            this.numMaxVRAM.Size = new System.Drawing.Size(172, 20);
             this.numMaxVRAM.TabIndex = 23;
             this.numMaxVRAM.Value = new decimal(new int[] {
             2047,
@@ -523,6 +552,8 @@
             // 
             // grpGameLoadingSpeedup
             // 
+            this.grpGameLoadingSpeedup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpGameLoadingSpeedup.BackColor = System.Drawing.SystemColors.Control;
             this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoSkipIntro);
             this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoWorldEmpty);
@@ -534,7 +565,7 @@
             this.grpGameLoadingSpeedup.Location = new System.Drawing.Point(7, 120);
             this.grpGameLoadingSpeedup.Margin = new System.Windows.Forms.Padding(5);
             this.grpGameLoadingSpeedup.Name = "grpGameLoadingSpeedup";
-            this.grpGameLoadingSpeedup.Size = new System.Drawing.Size(211, 88);
+            this.grpGameLoadingSpeedup.Size = new System.Drawing.Size(288, 88);
             this.grpGameLoadingSpeedup.TabIndex = 24;
             this.grpGameLoadingSpeedup.TabStop = false;
             this.grpGameLoadingSpeedup.Text = "Spielstartbeschleunigung";
@@ -570,7 +601,7 @@
             this.lstPreset.IntegralHeight = false;
             this.lstPreset.Location = new System.Drawing.Point(0, 0);
             this.lstPreset.Name = "lstPreset";
-            this.lstPreset.Size = new System.Drawing.Size(204, 668);
+            this.lstPreset.Size = new System.Drawing.Size(180, 668);
             this.lstPreset.TabIndex = 33;
             this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
             // 
@@ -588,9 +619,9 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.clstAddons);
             this.splitContainer1.Panel2.Controls.Add(this.pnlParameter);
-            this.splitContainer1.Panel2.Controls.Add(this.toolStrip3);
-            this.splitContainer1.Size = new System.Drawing.Size(654, 668);
-            this.splitContainer1.SplitterDistance = 204;
+            this.splitContainer1.Panel2.Controls.Add(this.pnlToolbars);
+            this.splitContainer1.Size = new System.Drawing.Size(734, 668);
+            this.splitContainer1.SplitterDistance = 180;
             this.splitContainer1.TabIndex = 34;
             // 
             // pnlParameter
@@ -603,18 +634,20 @@
             this.pnlParameter.Controls.Add(this.grpProfileOptions);
             this.pnlParameter.Controls.Add(this.grpPerformance);
             this.pnlParameter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlParameter.Location = new System.Drawing.Point(219, 25);
+            this.pnlParameter.Location = new System.Drawing.Point(246, 27);
             this.pnlParameter.Name = "pnlParameter";
-            this.pnlParameter.Size = new System.Drawing.Size(227, 643);
+            this.pnlParameter.Size = new System.Drawing.Size(304, 641);
             this.pnlParameter.TabIndex = 36;
             // 
             // grpAdditionalParameters
             // 
+            this.grpAdditionalParameters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpAdditionalParameters.Controls.Add(this.txtAdditionalParameter);
             this.grpAdditionalParameters.Location = new System.Drawing.Point(7, 582);
             this.grpAdditionalParameters.Margin = new System.Windows.Forms.Padding(5);
             this.grpAdditionalParameters.Name = "grpAdditionalParameters";
-            this.grpAdditionalParameters.Size = new System.Drawing.Size(211, 46);
+            this.grpAdditionalParameters.Size = new System.Drawing.Size(288, 46);
             this.grpAdditionalParameters.TabIndex = 37;
             this.grpAdditionalParameters.TabStop = false;
             this.grpAdditionalParameters.Text = "Zusätzliche Parameter";
@@ -625,37 +658,41 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAdditionalParameter.Location = new System.Drawing.Point(6, 19);
             this.txtAdditionalParameter.Name = "txtAdditionalParameter";
-            this.txtAdditionalParameter.Size = new System.Drawing.Size(199, 20);
+            this.txtAdditionalParameter.Size = new System.Drawing.Size(276, 20);
             this.txtAdditionalParameter.TabIndex = 17;
             this.txtAdditionalParameter.TextChanged += new System.EventHandler(this.txtAdditionalParameter_TextChanged);
             // 
             // toolStrip3
             // 
+            this.toolStrip3.AutoSize = false;
+            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbtnLaunch,
             this.tbtnDeleteAddon,
-            this.toolStripSeparator4,
+            this.toolStripSeparator5,
             this.tbtnTFAR,
             this.toolStripSeparator3,
-            this.tbtnUpdateAddons});
+            this.tbtnUpdateAddons,
+            this.toolStripSeparator4,
+            this.toolStripSeparator6});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(446, 25);
+            this.toolStrip3.Size = new System.Drawing.Size(246, 27);
             this.toolStrip3.TabIndex = 35;
             this.toolStrip3.Text = "toolStrip3";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStrip2
             // 
@@ -671,7 +708,7 @@
             this.tbtnSettings});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(654, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(734, 25);
             this.toolStrip2.TabIndex = 35;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -685,24 +722,58 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // pnlToolbars
+            // 
+            this.pnlToolbars.Controls.Add(this.toolStrip3);
+            this.pnlToolbars.Controls.Add(this.toolStrip1);
+            this.pnlToolbars.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlToolbars.Location = new System.Drawing.Point(0, 0);
+            this.pnlToolbars.Name = "pnlToolbars";
+            this.pnlToolbars.Size = new System.Drawing.Size(550, 27);
+            this.pnlToolbars.TabIndex = 38;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.AutoSize = false;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.toolStrip1.Location = new System.Drawing.Point(246, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(304, 27);
+            this.toolStrip1.TabIndex = 36;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
+            // 
             // clstAddons
             // 
             this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clstAddons.ImageChecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageChecked")));
             this.clstAddons.ImageUnchecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageUnchecked")));
-            this.clstAddons.Location = new System.Drawing.Point(0, 25);
+            this.clstAddons.Location = new System.Drawing.Point(0, 27);
             this.clstAddons.Name = "clstAddons";
             this.clstAddons.SelectedIndex = -1;
-            this.clstAddons.Size = new System.Drawing.Size(219, 643);
+            this.clstAddons.Size = new System.Drawing.Size(246, 641);
             this.clstAddons.TabIndex = 37;
             this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
             this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
             // 
             // btnInfoAutoConnect
             // 
+            this.btnInfoAutoConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoAutoConnect.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoAutoConnect.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoAutoConnect.Location = new System.Drawing.Point(189, 13);
+            this.btnInfoAutoConnect.Location = new System.Drawing.Point(266, 13);
             this.btnInfoAutoConnect.Name = "btnInfoAutoConnect";
             this.btnInfoAutoConnect.Size = new System.Drawing.Size(16, 16);
             this.btnInfoAutoConnect.TabIndex = 42;
@@ -713,9 +784,10 @@
             // 
             // btnInfoCheckSignatures
             // 
+            this.btnInfoCheckSignatures.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoCheckSignatures.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoCheckSignatures.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoCheckSignatures.Location = new System.Drawing.Point(189, 87);
+            this.btnInfoCheckSignatures.Location = new System.Drawing.Point(266, 87);
             this.btnInfoCheckSignatures.Name = "btnInfoCheckSignatures";
             this.btnInfoCheckSignatures.Size = new System.Drawing.Size(16, 16);
             this.btnInfoCheckSignatures.TabIndex = 45;
@@ -726,9 +798,10 @@
             // 
             // btnInfoNoFilePatching
             // 
+            this.btnInfoNoFilePatching.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoNoFilePatching.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoNoFilePatching.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoFilePatching.Location = new System.Drawing.Point(189, 64);
+            this.btnInfoNoFilePatching.Location = new System.Drawing.Point(266, 64);
             this.btnInfoNoFilePatching.Name = "btnInfoNoFilePatching";
             this.btnInfoNoFilePatching.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoFilePatching.TabIndex = 44;
@@ -739,9 +812,10 @@
             // 
             // btnInfoShowScriptErrors
             // 
+            this.btnInfoShowScriptErrors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoShowScriptErrors.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoShowScriptErrors.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoShowScriptErrors.Location = new System.Drawing.Point(189, 41);
+            this.btnInfoShowScriptErrors.Location = new System.Drawing.Point(266, 41);
             this.btnInfoShowScriptErrors.Name = "btnInfoShowScriptErrors";
             this.btnInfoShowScriptErrors.Size = new System.Drawing.Size(16, 16);
             this.btnInfoShowScriptErrors.TabIndex = 43;
@@ -752,9 +826,10 @@
             // 
             // btnInfoNoPause
             // 
+            this.btnInfoNoPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoNoPause.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoNoPause.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoPause.Location = new System.Drawing.Point(189, 18);
+            this.btnInfoNoPause.Location = new System.Drawing.Point(266, 18);
             this.btnInfoNoPause.Name = "btnInfoNoPause";
             this.btnInfoNoPause.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoPause.TabIndex = 42;
@@ -765,9 +840,10 @@
             // 
             // btnInfoSkipIntro
             // 
+            this.btnInfoSkipIntro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoSkipIntro.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoSkipIntro.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoSkipIntro.Location = new System.Drawing.Point(188, 64);
+            this.btnInfoSkipIntro.Location = new System.Drawing.Point(265, 64);
             this.btnInfoSkipIntro.Name = "btnInfoSkipIntro";
             this.btnInfoSkipIntro.Size = new System.Drawing.Size(16, 16);
             this.btnInfoSkipIntro.TabIndex = 22;
@@ -778,9 +854,10 @@
             // 
             // btnInfoWorldEmpty
             // 
+            this.btnInfoWorldEmpty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoWorldEmpty.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoWorldEmpty.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoWorldEmpty.Location = new System.Drawing.Point(188, 41);
+            this.btnInfoWorldEmpty.Location = new System.Drawing.Point(265, 41);
             this.btnInfoWorldEmpty.Name = "btnInfoWorldEmpty";
             this.btnInfoWorldEmpty.Size = new System.Drawing.Size(16, 16);
             this.btnInfoWorldEmpty.TabIndex = 21;
@@ -791,9 +868,10 @@
             // 
             // btnInfoNoSplash
             // 
+            this.btnInfoNoSplash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoNoSplash.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoNoSplash.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoSplash.Location = new System.Drawing.Point(188, 18);
+            this.btnInfoNoSplash.Location = new System.Drawing.Point(265, 18);
             this.btnInfoNoSplash.Name = "btnInfoNoSplash";
             this.btnInfoNoSplash.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoSplash.TabIndex = 20;
@@ -804,9 +882,10 @@
             // 
             // btnInfoName
             // 
+            this.btnInfoName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoName.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoName.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoName.Location = new System.Drawing.Point(189, 19);
+            this.btnInfoName.Location = new System.Drawing.Point(266, 19);
             this.btnInfoName.Name = "btnInfoName";
             this.btnInfoName.Size = new System.Drawing.Size(16, 16);
             this.btnInfoName.TabIndex = 21;
@@ -817,9 +896,10 @@
             // 
             // btnInfoNoLogs
             // 
+            this.btnInfoNoLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoNoLogs.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoNoLogs.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoLogs.Location = new System.Drawing.Point(188, 156);
+            this.btnInfoNoLogs.Location = new System.Drawing.Point(265, 156);
             this.btnInfoNoLogs.Name = "btnInfoNoLogs";
             this.btnInfoNoLogs.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoLogs.TabIndex = 41;
@@ -830,9 +910,10 @@
             // 
             // btnInfoExThreads
             // 
+            this.btnInfoExThreads.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoExThreads.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoExThreads.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoExThreads.Location = new System.Drawing.Point(188, 133);
+            this.btnInfoExThreads.Location = new System.Drawing.Point(265, 133);
             this.btnInfoExThreads.Name = "btnInfoExThreads";
             this.btnInfoExThreads.Size = new System.Drawing.Size(16, 16);
             this.btnInfoExThreads.TabIndex = 40;
@@ -843,9 +924,10 @@
             // 
             // btnInfoCpuCount
             // 
+            this.btnInfoCpuCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoCpuCount.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoCpuCount.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoCpuCount.Location = new System.Drawing.Point(188, 110);
+            this.btnInfoCpuCount.Location = new System.Drawing.Point(265, 110);
             this.btnInfoCpuCount.Name = "btnInfoCpuCount";
             this.btnInfoCpuCount.Size = new System.Drawing.Size(16, 16);
             this.btnInfoCpuCount.TabIndex = 39;
@@ -856,9 +938,10 @@
             // 
             // btnInfoNoCB
             // 
+            this.btnInfoNoCB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoNoCB.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoNoCB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoNoCB.Location = new System.Drawing.Point(188, 87);
+            this.btnInfoNoCB.Location = new System.Drawing.Point(265, 87);
             this.btnInfoNoCB.Name = "btnInfoNoCB";
             this.btnInfoNoCB.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoCB.TabIndex = 38;
@@ -869,9 +952,10 @@
             // 
             // btnInfoWinXP
             // 
+            this.btnInfoWinXP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoWinXP.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoWinXP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoWinXP.Location = new System.Drawing.Point(188, 64);
+            this.btnInfoWinXP.Location = new System.Drawing.Point(265, 64);
             this.btnInfoWinXP.Name = "btnInfoWinXP";
             this.btnInfoWinXP.Size = new System.Drawing.Size(16, 16);
             this.btnInfoWinXP.TabIndex = 28;
@@ -882,9 +966,10 @@
             // 
             // btnInfoMaxVRAM
             // 
+            this.btnInfoMaxVRAM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoMaxVRAM.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoMaxVRAM.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoMaxVRAM.Location = new System.Drawing.Point(188, 41);
+            this.btnInfoMaxVRAM.Location = new System.Drawing.Point(265, 41);
             this.btnInfoMaxVRAM.Name = "btnInfoMaxVRAM";
             this.btnInfoMaxVRAM.Size = new System.Drawing.Size(16, 16);
             this.btnInfoMaxVRAM.TabIndex = 27;
@@ -895,9 +980,10 @@
             // 
             // btnInfoMaxMem
             // 
+            this.btnInfoMaxMem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnInfoMaxMem.Image = global::PALAST.Properties.Resources.exclamation;
             this.btnInfoMaxMem.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnInfoMaxMem.Location = new System.Drawing.Point(188, 18);
+            this.btnInfoMaxMem.Location = new System.Drawing.Point(265, 18);
             this.btnInfoMaxMem.Name = "btnInfoMaxMem";
             this.btnInfoMaxMem.Size = new System.Drawing.Size(16, 16);
             this.btnInfoMaxMem.TabIndex = 26;
@@ -910,10 +996,10 @@
             // 
             this.tbtnLaunch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnLaunch.Enabled = false;
-            this.tbtnLaunch.Image = ((System.Drawing.Image)(resources.GetObject("tbtnLaunch.Image")));
+            this.tbtnLaunch.Image = global::PALAST.Properties.Resources.controller;
             this.tbtnLaunch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnLaunch.Name = "tbtnLaunch";
-            this.tbtnLaunch.Size = new System.Drawing.Size(23, 22);
+            this.tbtnLaunch.Size = new System.Drawing.Size(23, 24);
             this.tbtnLaunch.Text = "Spiel starten";
             this.tbtnLaunch.Click += new System.EventHandler(this.tbtnLaunch_Click);
             // 
@@ -922,10 +1008,10 @@
             this.tbtnDeleteAddon.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tbtnDeleteAddon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnDeleteAddon.Enabled = false;
-            this.tbtnDeleteAddon.Image = ((System.Drawing.Image)(resources.GetObject("tbtnDeleteAddon.Image")));
+            this.tbtnDeleteAddon.Image = global::PALAST.Properties.Resources.bin;
             this.tbtnDeleteAddon.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnDeleteAddon.Name = "tbtnDeleteAddon";
-            this.tbtnDeleteAddon.Size = new System.Drawing.Size(23, 22);
+            this.tbtnDeleteAddon.Size = new System.Drawing.Size(23, 24);
             this.tbtnDeleteAddon.Text = "Addon löschen";
             this.tbtnDeleteAddon.Click += new System.EventHandler(this.tbtnDeleteAddon_Click);
             // 
@@ -937,7 +1023,7 @@
             this.tbtnTFAR.Image = ((System.Drawing.Image)(resources.GetObject("tbtnTFAR.Image")));
             this.tbtnTFAR.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnTFAR.Name = "tbtnTFAR";
-            this.tbtnTFAR.Size = new System.Drawing.Size(23, 22);
+            this.tbtnTFAR.Size = new System.Drawing.Size(23, 24);
             this.tbtnTFAR.Text = "TFAR Setup";
             this.tbtnTFAR.Click += new System.EventHandler(this.tbtnTFAR_Click);
             // 
@@ -949,7 +1035,7 @@
             this.tbtnUpdateAddons.Image = ((System.Drawing.Image)(resources.GetObject("tbtnUpdateAddons.Image")));
             this.tbtnUpdateAddons.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnUpdateAddons.Name = "tbtnUpdateAddons";
-            this.tbtnUpdateAddons.Size = new System.Drawing.Size(23, 22);
+            this.tbtnUpdateAddons.Size = new System.Drawing.Size(23, 24);
             this.tbtnUpdateAddons.Text = "Addons synchronisieren";
             this.tbtnUpdateAddons.Click += new System.EventHandler(this.tbtnUpdateAddons_Click);
             // 
@@ -1022,7 +1108,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(654, 693);
+            this.ClientSize = new System.Drawing.Size(734, 693);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1045,7 +1131,6 @@
             this.grpGameLoadingSpeedup.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.pnlParameter.ResumeLayout(false);
@@ -1055,6 +1140,7 @@
             this.toolStrip3.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
+            this.pnlToolbars.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1133,6 +1219,10 @@
         private System.Windows.Forms.ToolStripButton tbtnTFAR;
         private AddonList clstAddons;
         private System.Windows.Forms.ToolStripButton tbtnDeleteAddon;
+        private System.Windows.Forms.Panel pnlToolbars;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStrip toolStrip1;
     }
 }
 

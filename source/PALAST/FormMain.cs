@@ -32,6 +32,17 @@ namespace PALAST
         {
             base.OnLoad(e);
 
+            string[] args = Environment.GetCommandLineArgs();
+            if ((args != null) && (args.Length == 2))
+            {
+                if (args[1].StartsWith("/saveversion:"))
+                {
+                    string filename = args[1].Remove(0, 13);
+                    SerializationTools.Save<VersionSerializeable>(filename, VersionSerializeable.FromVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
+                    Application.Exit();   
+                }
+            }                 
+
             if (!System.IO.File.Exists(_Configuration.Arma3Exe))
             {
                 ArmaManager armaManager = new ArmaManager();
