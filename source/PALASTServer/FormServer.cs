@@ -29,6 +29,12 @@ namespace PALAST
                 LoadProject(args[1]);
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            HttpManager.Download_Version("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersionPALASTServer.xml", new HttpManager.VersionEventHandler(ehPalastVersionDownloaded));
+        }
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
@@ -40,7 +46,6 @@ namespace PALAST
                 Close();
             }
         }
-
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
@@ -57,6 +62,21 @@ namespace PALAST
                     e.Cancel = true;
             }
         }
+
+        private void ehPalastVersionDownloaded(Version version)
+        {
+            if (version == null)
+                return;
+
+            if (InvokeRequired)
+                BeginInvoke(new HttpManager.VersionEventHandler(ehPalastVersionDownloaded), new object[] { version });
+            else
+            {
+                if (version > System.Reflection.Assembly.GetExecutingAssembly().GetName().Version)
+                    MessageBox.Show("Es ist ein Update für PALASTServer verfügbar (" + version.ToString() + ")");
+            }
+        }
+
 
         private void LoadProject(string filename)
         {
@@ -259,6 +279,7 @@ namespace PALAST
 
             if (_ProjectXml.FtpRepository != null)
                 _ProjectXml.FtpRepository.Address = txtFtpAddress.Text;
+
             Modified = true;
         }
         private void txtFtpUsername_TextChanged(object sender, EventArgs e)
@@ -268,6 +289,8 @@ namespace PALAST
 
             if (_ProjectXml.FtpRepository != null)
                 _ProjectXml.FtpRepository.Username = txtFtpUsername.Text;
+
+            Modified = true;
         }
         private void txtFtpPassword_TextChanged(object sender, EventArgs e)
         {
@@ -276,6 +299,7 @@ namespace PALAST
 
             if (_ProjectXml.FtpRepository != null)
                 _ProjectXml.FtpRepository.Password = txtFtpPassword.Text;
+
             Modified = true;
         }
         private void txtLocalRepositoryDirectory_TextChanged(object sender, EventArgs e)
@@ -290,6 +314,7 @@ namespace PALAST
 
             if (_ProjectXml.LocalRepository != null)
                 _ProjectXml.LocalRepository.Directory = txtLocalRepositoryDirectory.Text;
+
             Modified = true;
         }
         private void btnBrowseAddonDirectory_Click(object sender, EventArgs e)
@@ -298,6 +323,7 @@ namespace PALAST
                 return;
             if (folderDlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 txtAddonDirectory.Text = folderDlg.SelectedPath;
+
             Modified = true;
         }
         private void btnBrowseLocalRepositoryDirectory_Click(object sender, EventArgs e)
@@ -327,6 +353,7 @@ namespace PALAST
                 }
                 LoadProject(_ProjectXml);
             }
+
             Modified = true;
         }
         private void clstAddons_CheckedChanged(object sender, EventArgs e)
@@ -344,6 +371,7 @@ namespace PALAST
             }
 
             _ProjectXml.SelectedAddons = selectedAddons.ToArray();
+
             Modified = true;
         }
 
