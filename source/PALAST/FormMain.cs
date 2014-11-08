@@ -34,6 +34,9 @@ namespace PALAST
 
             if (!System.IO.File.Exists(_Configuration.Arma3Exe))
             {
+                ArmaManager armaManager = new ArmaManager();
+                if (armaManager.Arma3Exe != null)
+                    _Configuration.Arma3Exe = armaManager.Arma3Exe;
                 if (!SettingsDialog.ExecuteDialog(_Configuration))
                     Close();
             }
