@@ -41,6 +41,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "D:\_git_src\PALAST\source\_iss\PALAST.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\_git_src\PALAST\source\_iss\PALASTServer.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\_git_src\PALAST\source\_iss\NLog.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\_git_src\PALAST\source\_iss\PALAST.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files

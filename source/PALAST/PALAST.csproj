@@ -153,8 +153,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_iss
-copy $(TargetDir)nlog.dll $(SolutionDir)_iss
-$(SolutionDir)_bin\PALAST.exe /saveversion:..\..\..\..\_releases\latestVersion.xml
+$(SolutionDir)_iss\PALAST.exe /saveversion:..\..\..\..\_releases\latestVersion.xml
 "D:\Program Files (x86)\Inno Setup 5\iscc.exe" "..\..\..\_iss\PALAST.iss"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

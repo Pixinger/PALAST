@@ -23,15 +23,6 @@ namespace PALAST
         {
             InitializeComponent();
 
-            Text = Text + " - " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-            //SerializationTools.Save<VersionSerializeable>("latestVersion.xml", VersionSerializeable.FromVersion(new Version(2,1,0,0)));
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
             string[] args = Environment.GetCommandLineArgs();
             if ((args != null) && (args.Length == 2))
             {
@@ -39,15 +30,25 @@ namespace PALAST
                 {
                     string filename = args[1].Remove(0, 13);
                     SerializationTools.Save<VersionSerializeable>(filename, VersionSerializeable.FromVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
-                    Application.Exit();   
+                    throw new ApplicationException("'/saveversion:' found. App is now closing.");
                 }
-            }                 
+            }
+            
+            Text = Text + " - " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
 
-            if (!System.IO.File.Exists(_Configuration.Arma3Exe))
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (!IsArmaFolderValid)
             {
                 ArmaManager armaManager = new ArmaManager();
                 if (armaManager.Arma3Exe != null)
                     _Configuration.Arma3Exe = armaManager.Arma3Exe;
+
+                MessageBox.Show("Bitte überprüfen Sie die korrekte Angabe des Arma-Verzeichnisses (arma3.exe).\nEine falsche Angabe kann sonst später zu Datenverlust führen.");
+
                 if (!SettingsDialog.ExecuteDialog(_Configuration))
                     Close();
             }
@@ -55,7 +56,8 @@ namespace PALAST
             RefreshMenu();
             RefreshNames();
 
-            HttpManager.Download_Version("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersion.xml", new HttpManager.VersionEventHandler(ehPalastVersionDownloaded));
+            if ((_Configuration != null) && (_Configuration.CheckForUpdates))
+                HttpManager.Download_Version("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersion.xml", new HttpManager.VersionEventHandler(ehPalastVersionDownloaded));
         }
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -198,6 +200,19 @@ namespace PALAST
             }
 
             _BlockEventHandler = false;
+        }
+        private bool IsArmaFolderValid
+        {
+            get
+            {
+                if (_Configuration == null)
+                    return false;
+
+                if (string.IsNullOrWhiteSpace(_Configuration.Arma3Exe))
+                    return false;
+
+                return File.Exists(_Configuration.Arma3Exe);
+            }
         }
 
         private void chbNoSpalsh_CheckedChanged(object sender, EventArgs e)
@@ -689,12 +704,18 @@ namespace PALAST
         }
         private void tbtnUpdateAddons_Click(object sender, EventArgs e)
         {
+            if (!IsArmaFolderValid)
+                return;
+
             AddonSyncDialog.ExecuteDialog(System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe), SelectedPreset);
 
             RefreshMenu();
         }
         private void tbtnDeleteAddon_Click(object sender, EventArgs e)
         {
+            if (!IsArmaFolderValid)
+                return;
+
             if (clstAddons.SelectedItem != null)
             {
                 string addon = clstAddons.SelectedItem as string;
@@ -711,6 +732,9 @@ namespace PALAST
         }
         private void tbtnTFAR_Click(object sender, EventArgs e)
         {
+            if (!IsArmaFolderValid)
+                return;
+            
             string addon = clstAddons.SelectedItem as string;
             if (addon != null)
             {

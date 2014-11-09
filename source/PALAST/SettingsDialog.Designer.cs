@@ -36,6 +36,7 @@
             this.chbCloseAfterLaunch = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.chbCheckForUpdates = new System.Windows.Forms.CheckBox();
             this.grpOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             this.txtArmaExe.Location = new System.Drawing.Point(12, 25);
             this.txtArmaExe.Name = "txtArmaExe";
             this.txtArmaExe.ReadOnly = true;
-            this.txtArmaExe.Size = new System.Drawing.Size(570, 20);
+            this.txtArmaExe.Size = new System.Drawing.Size(508, 20);
             this.txtArmaExe.TabIndex = 1;
             // 
             // label1
@@ -61,7 +62,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowse.Location = new System.Drawing.Point(588, 23);
+            this.btnBrowse.Location = new System.Drawing.Point(526, 23);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(31, 23);
             this.btnBrowse.TabIndex = 2;
@@ -71,11 +72,14 @@
             // 
             // grpOptions
             // 
-            this.grpOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpOptions.Controls.Add(this.chbCheckForUpdates);
             this.grpOptions.Controls.Add(this.chbCloseAfterLaunch);
             this.grpOptions.Location = new System.Drawing.Point(12, 51);
             this.grpOptions.Name = "grpOptions";
-            this.grpOptions.Size = new System.Drawing.Size(607, 47);
+            this.grpOptions.Size = new System.Drawing.Size(545, 71);
             this.grpOptions.TabIndex = 3;
             this.grpOptions.TabStop = false;
             this.grpOptions.Text = "Optionen";
@@ -85,7 +89,7 @@
             this.chbCloseAfterLaunch.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.chbCloseAfterLaunch.Location = new System.Drawing.Point(6, 19);
             this.chbCloseAfterLaunch.Name = "chbCloseAfterLaunch";
-            this.chbCloseAfterLaunch.Size = new System.Drawing.Size(595, 22);
+            this.chbCloseAfterLaunch.Size = new System.Drawing.Size(595, 20);
             this.chbCloseAfterLaunch.TabIndex = 0;
             this.chbCloseAfterLaunch.Text = "Das Programm beenden, nachdem Arma gestartet wurde.";
             this.chbCloseAfterLaunch.TextAlign = System.Drawing.ContentAlignment.TopLeft;
@@ -93,8 +97,9 @@
             // 
             // btnOK
             // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(463, 104);
+            this.btnOK.Location = new System.Drawing.Point(401, 128);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
@@ -103,13 +108,25 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(544, 104);
+            this.btnCancel.Location = new System.Drawing.Point(482, 128);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Abbrechen";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // chbCheckForUpdates
+            // 
+            this.chbCheckForUpdates.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chbCheckForUpdates.Location = new System.Drawing.Point(6, 45);
+            this.chbCheckForUpdates.Name = "chbCheckForUpdates";
+            this.chbCheckForUpdates.Size = new System.Drawing.Size(595, 20);
+            this.chbCheckForUpdates.TabIndex = 1;
+            this.chbCheckForUpdates.Text = "Automatisch nach Updates suchen";
+            this.chbCheckForUpdates.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.chbCheckForUpdates.UseVisualStyleBackColor = true;
             // 
             // SettingsDialog
             // 
@@ -117,7 +134,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(631, 135);
+            this.ClientSize = new System.Drawing.Size(569, 165);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.grpOptions);
@@ -143,5 +160,6 @@
         private System.Windows.Forms.CheckBox chbCloseAfterLaunch;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.CheckBox chbCheckForUpdates;
     }
 }

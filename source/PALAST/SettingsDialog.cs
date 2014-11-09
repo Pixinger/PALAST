@@ -25,9 +25,11 @@ namespace PALAST
                 dlg._Configuration = configuration;
                 dlg.txtArmaExe.Text = configuration.Arma3Exe;
                 dlg.chbCloseAfterLaunch.Checked = configuration.CloseAfterStart;
+                dlg.chbCheckForUpdates.Checked = configuration.CheckForUpdates;
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     dlg._Configuration.CloseAfterStart = dlg.chbCloseAfterLaunch.Checked;
+                    dlg._Configuration.CheckForUpdates= dlg.chbCheckForUpdates.Checked;
                     dlg._Configuration.Arma3Exe = dlg.txtArmaExe.Text;
                     return true;
                 }

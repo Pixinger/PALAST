@@ -20,19 +20,29 @@ namespace PALAST
         private SyncBase.CompareRepositoriesAsyncResult _CompareRepositoriesAsyncResult = null;
  
         public FormServer()
-        {
+        {            
             InitializeComponent();
 
             string[] args = Environment.GetCommandLineArgs();
-
-            if (args.Length > 1)
-                LoadProject(args[1]);
+            if ((args != null) && (args.Length == 2))
+            {
+                if (args[1].StartsWith("/saveversion:"))
+                {
+                    string filename = args[1].Remove(0, 13);
+                    SerializationTools.Save<VersionSerializeable>(filename, VersionSerializeable.FromVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
+                    throw new ApplicationException("'/saveversion:' found. App is now closing.");
+                }
+            }
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
+            string[] args = Environment.GetCommandLineArgs();
+            if (args.Length > 1)
+                LoadProject(args[1]);
+         
             HttpManager.Download_Version("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersionPALASTServer.xml", new HttpManager.VersionEventHandler(ehPalastVersionDownloaded));
         }
         protected override void OnShown(EventArgs e)

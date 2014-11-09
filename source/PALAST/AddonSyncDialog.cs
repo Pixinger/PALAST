@@ -38,7 +38,7 @@ namespace PALAST
             }
 
             if (!File.Exists(Path.Combine(armaDirectory, "arma3.exe")))
-                if (MessageBox.Show("In dem angegebenen Verzeichnis konnte keine Arma3.exe gefunden werden.\nSind sie sicher, dass es sich um das korrekte Verzeichnis handelt?\nEs könnten wichtige Daten gelöscht werden!\n\n" + armaDirectory, "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
+                if (MessageBox.Show("In dem angegebenen Verzeichnis konnte keine Arma3.exe gefunden werden.\n\nSind sie sicher, dass es sich um das korrekte Verzeichnis handelt?\nEs könnten wichtige Daten gelöscht werden!\n\n" + armaDirectory, "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.Cancel)
                     return DialogResult.Cancel;
 
             using (AddonSyncDialog dlg = new AddonSyncDialog())

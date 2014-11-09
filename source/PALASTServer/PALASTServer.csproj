@@ -109,7 +109,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_iss</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetDir)nlog.dll $(SolutionDir)_iss
+copy $(TargetPath) $(SolutionDir)_iss
+$(SolutionDir)_iss\PALASTServer.exe /saveversion:..\..\..\..\_releases\latestVersionPALASTServer.xml</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

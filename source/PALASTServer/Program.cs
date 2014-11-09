@@ -67,10 +67,15 @@ namespace PALAST
             }
             #endregion
 		
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormServer());
+            try
+            {
+                Application.Run(new FormServer());
+            }
+            catch (ApplicationException)
+            {
+            }
         }
     }
 }
