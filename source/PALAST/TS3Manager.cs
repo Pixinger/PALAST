@@ -182,6 +182,7 @@ namespace PALAST
                     throw new ApplicationException("Das Plugin Verzeichnis konnte nicht bestimmt werden");
 
                 _PluginDirectory = pluginDirectory;
+                _Successfull = true;
             }
             catch (ApplicationException ex)
             {
@@ -191,8 +192,6 @@ namespace PALAST
                 _InstallMode = InstallModes.Unknown;
                 _ConfigLocation = ConfigLocations.Unknown;
             }
-
-            _Successfull = true;
 
             LOG.Info("_Successfull: {0}", _Successfull);
             LOG.Info("_InstallMode: {0}", _InstallMode);
