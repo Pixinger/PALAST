@@ -12,6 +12,10 @@ namespace PALAST
 {
     public partial class FormServer : Form
     {
+        #region nLog instance (LOG)
+        protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
+        #endregion
+		
         private ProjectXml _ProjectXml;
         private bool _BlockEvents = false;
         private bool _Modified = false;
@@ -20,7 +24,7 @@ namespace PALAST
         private SyncBase.CompareRepositoriesAsyncResult _CompareRepositoriesAsyncResult = null;
  
         public FormServer()
-        {            
+        {
             InitializeComponent();
 
             string[] args = Environment.GetCommandLineArgs();
@@ -83,7 +87,7 @@ namespace PALAST
             else
             {
                 if (version > System.Reflection.Assembly.GetExecutingAssembly().GetName().Version)
-                    MessageBox.Show("Es ist ein Update für PALASTServer verfügbar (" + version.ToString() + ")");
+                    UpdateNotificationDialog.ExecuteDialog(version, "https://github.com/Pixinger/PALAST/wiki");
             }
         }
 

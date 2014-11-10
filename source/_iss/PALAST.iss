@@ -44,9 +44,12 @@ Source: "D:\_git_src\PALAST\source\_iss\PALAST.exe"; DestDir: "{app}"; Flags: ig
 Source: "D:\_git_src\PALAST\source\_iss\PALASTServer.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\_git_src\PALAST\source\_iss\NLog.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\_git_src\PALAST\source\_iss\PALAST.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: "D:\_git_src\PALAST\source\_iss\configuration.xml"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist; Permissions: everyone-full
+Source: "D:\_git_src\PALAST\source\_iss\NLog.config"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist; Permissions: everyone-modify
+Source: "D:\_git_src\PALAST\source\_iss\configuration.xml"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist; Permissions: everyone-modify
 Source: "D:\_git_src\PALAST\source\_iss\license.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
+Source: "D:\_git_src\PALAST\source\_iss\_log_PALAST.txt"; DestDir: "{app}"; Flags: ignoreversion; Permissions: everyone-modify
+Source: "D:\_git_src\PALAST\source\_iss\_log_PALASTServer.txt"; DestDir: "{app}"; Flags: ignoreversion; Permissions: everyone-modify
+; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

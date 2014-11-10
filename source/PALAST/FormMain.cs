@@ -33,7 +33,7 @@ namespace PALAST
                     throw new ApplicationException("'/saveversion:' found. App is now closing.");
                 }
             }
-            
+
             Text = Text + " - " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
@@ -76,7 +76,7 @@ namespace PALAST
             else
             {
                 if (version > System.Reflection.Assembly.GetExecutingAssembly().GetName().Version)
-                    MessageBox.Show("Es ist ein Update für PALAST verfügbar (" + version.ToString() + ")");
+                    UpdateNotificationDialog.ExecuteDialog(version, "https://github.com/Pixinger/PALAST/wiki");
             }
         }
 
@@ -734,7 +734,7 @@ namespace PALAST
         {
             if (!IsArmaFolderValid)
                 return;
-            
+
             string addon = clstAddons.SelectedItem as string;
             if (addon != null)
             {
@@ -742,26 +742,34 @@ namespace PALAST
                 if (Directory.Exists(pluginsSource))
                 {
                     TS3Manager ts3Manager = new TS3Manager();
-                    if (ts3Manager.IsElevatedRight)
+                    if (ts3Manager.Successfull)
                     {
-                        if (ts3Manager.PluginDirectoryValid)
+                        if (ts3Manager.IsPluginDirectoryWriteable)
                         {
                             if (!ts3Manager.IsRunning)
                             {
+                                // Es kann sein, dass das Plugin Verzeichnis noch nicht existiert
+                                if (!Directory.Exists(ts3Manager.PluginDirectory))
+                                    Directory.CreateDirectory(ts3Manager.PluginDirectory);
+
+                                // Kopieren
                                 DirectoryInfo source = new DirectoryInfo(pluginsSource);
                                 DirectoryInfo target = new DirectoryInfo(ts3Manager.PluginDirectory);
                                 FileTools.CopyDirectoryRecursively(source, target);
+
+                                //Fertig
+                                MessageBox.Show("Die Installation war erfolgreich.");
                             }
                             else
                                 MessageBox.Show("Teamspeak scheint momentan zu laufen.\nBitte beenden Sie das Programm um die TFAR Plugins installieren zu können.");
                         }
                         else
-                            MessageBox.Show("TS3 konnte nicht zuverlässig erkannt werden. Das Setup kann deshalb nicht ausgeführt werden.");
+                            MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
                     }
                     else
-                        MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
+                        MessageBox.Show("TS3 konnte nicht zuverlässig erkannt werden. Das Setup kann deshalb nicht ausgeführt werden.");
                 }
             }
-        }       
+        }
     }
 }
