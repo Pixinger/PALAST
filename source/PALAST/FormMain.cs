@@ -26,19 +26,39 @@ namespace PALAST
             string[] args = Environment.GetCommandLineArgs();
             if ((args != null) && (args.Length == 2))
             {
-                try
+                #region /saveversion
+                if (args[1].StartsWith("/saveversion:"))
                 {
-                    if (args[1].StartsWith("/saveversion:"))
+                    try
                     {
                         string filename = args[1].Remove(0, 13);
                         SerializationTools.Save<VersionSerializeable>(filename, VersionSerializeable.FromVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
-                        throw new ApplicationException("'/saveversion:' found. App is now closing.");
                     }
+                    catch (Exception ex)
+                    {
+                        LOG.Error(ex);
+                    }
+                    throw new ApplicationException("'/saveversion:' found. App is now closing.");
                 }
-                catch (Exception ex)
+                #endregion
+
+                #region /updated
+                if (args[1].StartsWith("/updated"))
                 {
-                    LOG.Error(ex);
+                    try
+                    {
+                        string filename = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PALAST", "setupPALAST.exe");
+                        if (File.Exists(filename))
+                            File.Delete(filename);
+                    }
+                    catch (Exception ex)
+                    {
+                        LOG.Error(ex);
+                    }
+
+                    MessageBox.Show("Update erfolgreich");
                 }
+                #endregion
             }
 
             Text = Text + " - " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();

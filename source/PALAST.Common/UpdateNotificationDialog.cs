@@ -52,25 +52,38 @@ namespace PALAST
             btnOK.Enabled = false;
             btnUpdateNow.Visible = false;
             progressBar1.Visible = true;
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = 100;
 
-            _Filename = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PALAST", "setupUpdate.exe");
+            _Filename = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PALAST", "setupPALAST.exe");
 
             System.Net.WebClient webClient = new System.Net.WebClient();
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(webClient_DownloadFileCompleted);
             webClient.DownloadProgressChanged += new System.Net.DownloadProgressChangedEventHandler(webClient_DownloadProgressChanged);
-            webClient.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersion.xml"), _Filename);
+            webClient.DownloadFileAsync(new Uri("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/setupPALAST.exe"), _Filename);
         }
 
         private void webClient_DownloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
         {
-            progressBar1.Value = e.ProgressPercentage;
+            if (InvokeRequired)
+                Invoke(new System.Net.DownloadProgressChangedEventHandler(webClient_DownloadProgressChanged), new object[] { sender, e });
+            else
+                progressBar1.Value = e.ProgressPercentage;
         }
         private void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            _CanClose = true;
-            btnOK.Enabled = true;
-            System.Diagnostics.Process.Start(_Filename + " / ", "/SP- /silent /noicons \"/dir=expand:{pf}\\PALAST\"");
-            Application.Exit();
+            if (InvokeRequired)
+                Invoke(new AsyncCompletedEventHandler(webClient_DownloadFileCompleted), new object[] { sender, e });
+            else
+            {
+                _CanClose = true;
+                btnOK.Enabled = true;
+
+                if (e.Error == null)
+                    System.Diagnostics.Process.Start(_Filename, "/SP- /silent /noicons /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS \"/dir=expand:{pf}\\PALAST\"");
+                else
+                    MessageBox.Show("Das update konnte nicht heruntergeladen werden.\n\n" + e.Error.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

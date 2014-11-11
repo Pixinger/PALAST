@@ -58,17 +58,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 32);
+            this.label1.Location = new System.Drawing.Point(12, 40);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(262, 13);
+            this.label1.Size = new System.Drawing.Size(301, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Sie können diese unter folgendem Link herunterladen.";
+            this.label1.Text = "Sie können diese unter folgendem Link manuell herunterladen.";
             // 
             // linkLabel
             // 
             this.linkLabel.AutoSize = true;
-            this.linkLabel.Location = new System.Drawing.Point(12, 50);
+            this.linkLabel.Location = new System.Drawing.Point(12, 58);
             this.linkLabel.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.linkLabel.Name = "linkLabel";
             this.linkLabel.Size = new System.Drawing.Size(47, 13);
@@ -81,16 +81,18 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(269, 72);
+            this.btnOK.Location = new System.Drawing.Point(269, 92);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 5;
-            this.btnOK.Text = "OK";
+            this.btnOK.Text = "Später";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(15, 72);
+            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar1.Location = new System.Drawing.Point(15, 92);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(236, 23);
             this.progressBar1.TabIndex = 6;
@@ -98,7 +100,8 @@
             // 
             // btnUpdateNow
             // 
-            this.btnUpdateNow.Location = new System.Drawing.Point(12, 72);
+            this.btnUpdateNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUpdateNow.Location = new System.Drawing.Point(12, 92);
             this.btnUpdateNow.Name = "btnUpdateNow";
             this.btnUpdateNow.Size = new System.Drawing.Size(132, 23);
             this.btnUpdateNow.TabIndex = 7;
@@ -112,7 +115,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(356, 107);
+            this.ClientSize = new System.Drawing.Size(356, 127);
             this.Controls.Add(this.btnUpdateNow);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnOK);

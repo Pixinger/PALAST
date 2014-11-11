@@ -31,6 +31,7 @@ SolidCompression=yes
 ShowLanguageDialog=no
 LanguageDetectionMethod=none
 AppComments=Pixingers Arma Launch And Sync Tool
+RestartIfNeededByRun=False
 
 [Languages]
 Name: "german"; MessagesFile: "compiler:Languages\German.isl"
@@ -44,11 +45,12 @@ Source: "D:\_git_src\PALAST\source\_iss\PALAST.exe"; DestDir: "{app}"; Flags: ig
 Source: "D:\_git_src\PALAST\source\_iss\PALASTServer.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\_git_src\PALAST\source\_iss\NLog.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\_git_src\PALAST\source\_iss\PALAST.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\_git_src\PALAST\source\_iss\NLog.config"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist; Permissions: everyone-modify
 Source: "D:\_git_src\PALAST\source\_iss\configuration.xml"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist; Permissions: everyone-modify
 Source: "D:\_git_src\PALAST\source\_iss\license.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
-Source: "D:\_git_src\PALAST\source\_iss\_log_PALAST.txt"; DestDir: "{app}"; Flags: ignoreversion; Permissions: everyone-modify
-Source: "D:\_git_src\PALAST\source\_iss\_log_PALASTServer.txt"; DestDir: "{app}"; Flags: ignoreversion; Permissions: everyone-modify
+Source: "D:\_git_src\PALAST\source\_iss\NLog.PALAST.config"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist
+Source: "D:\_git_src\PALAST\source\_iss\NLog.PALASTServer.config"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist
+Source: "D:\_git_src\PALAST\source\_iss\_log_PALAST.txt"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist
+Source: "D:\_git_src\PALAST\source\_iss\_log_PALASTServer.txt"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist            
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -58,4 +60,8 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
+Filename: "{app}\{#MyAppExeName}"; Parameters: "/updated"; Flags: nowait postinstall skipifnotsilent; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
+
+[Dirs]
+Name: "{localappdata}\PALAST"
