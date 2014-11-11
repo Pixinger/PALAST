@@ -33,6 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabel = new System.Windows.Forms.LinkLabel();
             this.btnOK = new System.Windows.Forms.Button();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.btnUpdateNow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblText
@@ -86,6 +88,24 @@
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(15, 72);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(236, 23);
+            this.progressBar1.TabIndex = 6;
+            this.progressBar1.Visible = false;
+            // 
+            // btnUpdateNow
+            // 
+            this.btnUpdateNow.Location = new System.Drawing.Point(12, 72);
+            this.btnUpdateNow.Name = "btnUpdateNow";
+            this.btnUpdateNow.Size = new System.Drawing.Size(132, 23);
+            this.btnUpdateNow.TabIndex = 7;
+            this.btnUpdateNow.Text = "Jetzt aktualisieren";
+            this.btnUpdateNow.UseVisualStyleBackColor = true;
+            this.btnUpdateNow.Click += new System.EventHandler(this.btnUpdateNow_Click);
+            // 
             // UpdateNotificationDialog
             // 
             this.AcceptButton = this.btnOK;
@@ -93,6 +113,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOK;
             this.ClientSize = new System.Drawing.Size(356, 107);
+            this.Controls.Add(this.btnUpdateNow);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.linkLabel);
             this.Controls.Add(this.label1);
@@ -114,5 +136,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabel;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button btnUpdateNow;
     }
 }

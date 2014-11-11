@@ -26,11 +26,18 @@ namespace PALAST
             string[] args = Environment.GetCommandLineArgs();
             if ((args != null) && (args.Length == 2))
             {
-                if (args[1].StartsWith("/saveversion:"))
+                try
                 {
-                    string filename = args[1].Remove(0, 13);
-                    SerializationTools.Save<VersionSerializeable>(filename, VersionSerializeable.FromVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
-                    throw new ApplicationException("'/saveversion:' found. App is now closing.");
+                    if (args[1].StartsWith("/saveversion:"))
+                    {
+                        string filename = args[1].Remove(0, 13);
+                        SerializationTools.Save<VersionSerializeable>(filename, VersionSerializeable.FromVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
+                        throw new ApplicationException("'/saveversion:' found. App is now closing.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LOG.Error(ex);
                 }
             }
 
@@ -738,36 +745,44 @@ namespace PALAST
             string addon = clstAddons.SelectedItem as string;
             if (addon != null)
             {
-                string pluginsSource = Path.Combine(Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon), "TeamSpeak 3 Client\\plugins");
-                if (Directory.Exists(pluginsSource))
+                try
                 {
-                    TS3Manager ts3Manager = new TS3Manager();
-                    if (ts3Manager.Successfull)
+                    string pluginsSource = Path.Combine(Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon), "TeamSpeak 3 Client\\plugins");
+                    if (Directory.Exists(pluginsSource))
                     {
-                        if (ts3Manager.IsPluginDirectoryWriteable)
+                        TS3Manager ts3Manager = new TS3Manager();
+                        if (ts3Manager.Successfull)
                         {
-                            if (!ts3Manager.IsRunning)
+                            if (ts3Manager.IsPluginDirectoryWriteable)
                             {
-                                // Es kann sein, dass das Plugin Verzeichnis noch nicht existiert
-                                if (!Directory.Exists(ts3Manager.PluginDirectory))
-                                    Directory.CreateDirectory(ts3Manager.PluginDirectory);
+                                if (!ts3Manager.IsRunning)
+                                {
+                                    // Es kann sein, dass das Plugin Verzeichnis noch nicht existiert
+                                    if (!Directory.Exists(ts3Manager.PluginDirectory))
+                                        Directory.CreateDirectory(ts3Manager.PluginDirectory);
 
-                                // Kopieren
-                                DirectoryInfo source = new DirectoryInfo(pluginsSource);
-                                DirectoryInfo target = new DirectoryInfo(ts3Manager.PluginDirectory);
-                                FileTools.CopyDirectoryRecursively(source, target);
+                                    // Kopieren
+                                    DirectoryInfo source = new DirectoryInfo(pluginsSource);
+                                    DirectoryInfo target = new DirectoryInfo(ts3Manager.PluginDirectory);
+                                    FileTools.CopyDirectoryRecursively(source, target);
 
-                                //Fertig
-                                MessageBox.Show("Die Installation war erfolgreich.");
+                                    //Fertig
+                                    MessageBox.Show("Die Installation war erfolgreich.");
+                                }
+                                else
+                                    MessageBox.Show("Teamspeak scheint momentan zu laufen.\nBitte beenden Sie das Programm um die TFAR Plugins installieren zu können.");
                             }
                             else
-                                MessageBox.Show("Teamspeak scheint momentan zu laufen.\nBitte beenden Sie das Programm um die TFAR Plugins installieren zu können.");
+                                MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
                         }
                         else
-                            MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
+                            MessageBox.Show("TS3 konnte nicht zuverlässig erkannt werden. Das Setup kann deshalb nicht ausgeführt werden.");
                     }
-                    else
-                        MessageBox.Show("TS3 konnte nicht zuverlässig erkannt werden. Das Setup kann deshalb nicht ausgeführt werden.");
+                }
+                catch (Exception ex)
+                {
+                    LOG.Error(ex);
+                    MessageBox.Show(ex.Message);
                 }
             }
         }

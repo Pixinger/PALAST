@@ -13,31 +13,13 @@ namespace PALAST
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
 
-        #region public enum ConfigLocations: int
-        public enum ConfigLocations : int
-        {
-            Unknown,
-            OwnFiles,
-            InstallationFolder,
-        }
-        #endregion
-        #region public enum InstallModes : int
-        public enum InstallModes : int
-        {
-            Unknown,
-            AllUsers,
-            CurrentUser,
-        }
-        #endregion
-
         private bool _Successfull = false;
         private string _PluginDirectory;
-        private InstallModes _InstallMode = InstallModes.Unknown;
-        private ConfigLocations _ConfigLocation = ConfigLocations.Unknown;
         private string _InstallLocation = null;
 
         public TS3Manager()
         {
+            #region Infos
             /* 
              * Variante A:
              * HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client
@@ -69,117 +51,37 @@ namespace PALAST
              * - InstallMode : AllUsers
              * 
              */
+            #endregion
 
             try
             {
-                // InstallMode bestimmen
-                #region HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client\InstallMode lesen
-                string installModeAllUsers = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client", "InstallMode", null) as string;
-                if (!string.IsNullOrWhiteSpace(installModeAllUsers))
+                // InstallLocation suchen
+                string allUsers = GetKey(RegistryHive.LocalMachine, @"SOFTWARE\TeamSpeak 3 Client", "");
+                string currentUser = GetKey(RegistryHive.LocalMachine, @"SOFTWARE\TeamSpeak 3 Client", "");
+
+                if ((allUsers == null) && (currentUser != null))
                 {
-                    LOG.Info(@"HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client\InstallMode = " + installModeAllUsers);
-                }
-                else
-                {
-                    LOG.Info(@"HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client\InstallMode not found");
-                    installModeAllUsers = null;
-                }
-                #endregion
-
-                #region HKEY_CURRENT_USER\SOFTWARE\TeamSpeak 3 Client\InstallMode lesen
-                string installModeCurrentUser = Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\TeamSpeak 3 Client", "InstallMode", null) as string;
-                if (!string.IsNullOrWhiteSpace(installModeCurrentUser))
-                {
-                    LOG.Info(@"HKEY_CURRENT_USER\SOFTWARE\TeamSpeak 3 Client\InstallMode = " + installModeCurrentUser);
-                }
-                else
-                {
-                    LOG.Info(@"HKEY_CURRENT_USER\SOFTWARE\TeamSpeak 3 Client\InstallMode not found");
-                    installModeCurrentUser = null;
-                }
-                #endregion
-
-                if ((installModeAllUsers != null) && (installModeAllUsers == "AllUsers") && (installModeCurrentUser == null))
-                {
-                    _InstallMode = InstallModes.AllUsers;
-
-                    // ConfigLocation bestimmen
-                    #region HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client\ConfigLocation lesen
-                    string configLocation = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client", "ConfigLocation", null) as string;
-                    if (string.IsNullOrWhiteSpace(configLocation))
-                    {
-                        LOG.Info(@"HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client\ConfigLocation not found");
-                        throw new ApplicationException("Die Teamspeak ConfigLocation konnte nicht bestimmt werden.");
-                    }
-
-                    LOG.Info(@"HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client\ConfigLocation (0:EigeneDateien/1:Installationsordner) = " + configLocation);
-
-                    if (configLocation == "0")
-                        _ConfigLocation = ConfigLocations.OwnFiles;
-                    else if (configLocation == "1")
-                        _ConfigLocation = ConfigLocations.InstallationFolder;
-                    else
-                        throw new ApplicationException("ConfigLocation ist weder 0 noch 1.");
-                    #endregion
-
-                    // InstallLocation bestimmen
-                    #region HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Windows/CurrentVersion/Uninstall/TeamSpeak 3 Client/InstallLocation lesen
-                    string installLocation = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client", "InstallLocation", null) as string;
-                    if (string.IsNullOrWhiteSpace(installLocation))
-                        throw new ApplicationException("Die Teamspeak InstallLocation konnte nicht bestimmt werden.");
-
-                    LOG.Info(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client\InstallLocation = " + installLocation);
-
-                    if (!System.IO.Directory.Exists(installLocation))
+                    if (!System.IO.Directory.Exists(currentUser))
                         throw new ApplicationException("Die InstallLocation konnte bestimmt werden, es existiert aber an dieser Stelle kein Verzeichnis.");
 
-                    _InstallLocation = installLocation;
-                    #endregion
+                    _InstallLocation = currentUser;
                 }
-                else if ((installModeAllUsers == null) && (installModeCurrentUser != null) && (installModeCurrentUser == "CurrentUser"))
+                else if ((allUsers != null) && (currentUser == null))
                 {
-                    _InstallMode = InstallModes.CurrentUser;
-
-                    // ConfigLocation bestimmen
-                    #region HKEY_CURRENT_USER\SOFTWARE\TeamSpeak 3 Client\ConfigLocation lesen
-                    string result = Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\TeamSpeak 3 Client", "ConfigLocation", null) as string;
-                    if (string.IsNullOrWhiteSpace(result))
-                    {
-                        LOG.Info(@"HKEY_CURRENT_USER\SOFTWARE\TeamSpeak 3 Client\ConfigLocation not found");
-                        throw new ApplicationException("Die Teamspeak ConfigLocation konnte nicht bestimmt werden.");
-                    }
-
-                    LOG.Info(@"HKEY_CURRENT_USER\SOFTWARE\TeamSpeak 3 Client\ConfigLocation (0:EigeneDateien/1:Installationsordner) = " + result);
-
-                    if (result == "0")
-                        _ConfigLocation = ConfigLocations.OwnFiles;
-                    else if (result == "1")
-                        _ConfigLocation = ConfigLocations.InstallationFolder;
-                    else
-                        throw new ApplicationException("ConfigLocation ist weder 0 noch 1.");
-                    #endregion
-
-                    // InstallLocation bestimmen
-                    #region HKEY_CURRENT_USER/SOFTWARE/Microsoft/Windows/CurrentVersion/Uninstall/TeamSpeak 3 Client/InstallLocation lesen
-                    string installLocation = Registry.GetValue(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client", "InstallLocation", null) as string;
-                    if (string.IsNullOrWhiteSpace(installLocation))
-                        throw new ApplicationException("Die Teamspeak InstallLocation konnte nicht bestimmt werden.");
-
-                    LOG.Info(@"HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client\InstallLocation = " + installLocation);
-
-                    if (!System.IO.Directory.Exists(installLocation))
+                    if (!System.IO.Directory.Exists(currentUser))
                         throw new ApplicationException("Die InstallLocation konnte bestimmt werden, es existiert aber an dieser Stelle kein Verzeichnis.");
 
-                    _InstallLocation = installLocation;
-                    #endregion
+                    _InstallLocation = currentUser;
                 }
+                else if ((allUsers != null) && (currentUser != null))
+                    throw new ApplicationException("Der Teamspeak Installmode konnte nicht eindeutig bestimmt werden.");
                 else
-                    throw new ApplicationException("Der Teamspeak Installmode konnte nicht, oder nicht eindeutig bestimmt werden.");
+                    throw new ApplicationException("Der Teamspeak Installmode konnte nicht bestimmt werden.");
 
 
                 string pluginDirectory = System.IO.Path.Combine(_InstallLocation, "Plugins");
                 if (!System.IO.Directory.Exists(pluginDirectory))
-                    throw new ApplicationException("Das Plugin Verzeichnis konnte nicht bestimmt werden");
+                    throw new ApplicationException("Das Plugin Verzeichnis existiert nicht.");
 
                 _PluginDirectory = pluginDirectory;
                 _Successfull = true;
@@ -189,15 +91,48 @@ namespace PALAST
                 LOG.Info(ex.Message);
                 _Successfull = false;
                 _InstallLocation = null;
-                _InstallMode = InstallModes.Unknown;
-                _ConfigLocation = ConfigLocations.Unknown;
             }
 
             LOG.Info("_Successfull: {0}", _Successfull);
-            LOG.Info("_InstallMode: {0}", _InstallMode);
-            LOG.Info("_ConfigLocation: {0}", _ConfigLocation);
             LOG.Info("_InstallLocation: {0}", _InstallLocation);
             LOG.Info("_PluginDirectory: {0}", _PluginDirectory);
+        }
+
+        private string GetKey(RegistryHive registryHive, RegistryView registryView, string subKeyName, string value)
+        {
+            using (RegistryKey baseKey = RegistryKey.OpenBaseKey(registryHive, registryView))
+            {
+                if (baseKey == null)
+                {
+                    LOG.Info("{0}\\{1}\\{2} ({3}): baseKey is null", registryHive, subKeyName, value, registryView);
+                    return null;
+                }
+
+                using (RegistryKey subKey = baseKey.OpenSubKey(subKeyName))
+                {
+                    if (subKey == null)
+                    {
+                        LOG.Info("{0}\\{1}\\{2} ({3}): subKey is null", registryHive, subKeyName, value, registryView);
+                        return null;
+                    }
+
+                    string result = subKey.GetValue(value) as string;
+                    if (result != null)
+                        LOG.Info("{0}\\{1}\\{2} ({3}): {4}", registryHive, subKeyName, value, registryView, result);
+                    else
+                        LOG.Info("{0}\\{1}\\{2} ({3}): null", registryHive, subKeyName, value, registryView);
+
+                    return result;
+                }
+            }
+        }
+        private string GetKey(RegistryHive registryHive, string subKeyName, string value)
+        {
+            string result = GetKey(registryHive, RegistryView.Registry32, subKeyName, value);
+            if (result != null)
+                return result;
+
+            return GetKey(registryHive, RegistryView.Registry64, subKeyName, value);
         }
 
         public bool Successfull
@@ -219,20 +154,6 @@ namespace PALAST
             get
             {
                 return _InstallLocation;
-            }
-        }
-        public InstallModes InstallMode
-        {
-            get
-            {
-                return _InstallMode;
-            }
-        }
-        public ConfigLocations ConfigLocation
-        {
-            get
-            {
-                return _ConfigLocation;
             }
         }
         public bool IsRunning
