@@ -15,27 +15,183 @@ namespace PALAST
         #region nLog instance (LOG)
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
-		
+
+        #region private class SilentUpdate
+        private class SilentUpdate
+        {
+            #region public enum Errors
+            public enum Errors
+            {
+                Successfull,
+                ProjectXmlNull,
+                SyncServerNotNull,
+                RunException,
+                OnCompareRepositoriesCompletedException,
+                SynchronizeException,
+                OnSynchronizeCompletedException,
+            }
+            #endregion
+
+            private Errors _ExitCode = 0;
+            private System.Threading.ManualResetEvent _Finished = null;
+            private ProjectXml _ProjectXml;
+            private SyncServer _SyncServer = null;
+            private SyncBase.CompareRepositoriesAsyncResult _CompareRepositoriesAsyncResult = null;
+
+            public SilentUpdate(ProjectXml projectXml)
+            {
+                _ProjectXml = projectXml;
+            }
+
+            public Errors Run()
+            {
+                try
+                {
+                    if (_ProjectXml == null)
+                        return Errors.ProjectXmlNull;
+                    if (_SyncServer != null)
+                        return Errors.SyncServerNotNull;
+
+                    _Finished = new System.Threading.ManualResetEvent(false);
+
+                    // SyncExecutor erstellen
+                    if (_ProjectXml.FtpRepository != null)
+                        _SyncServer = new SyncServerFtpGz(_ProjectXml.AddonDirectory, _ProjectXml.FtpRepository.Address, _ProjectXml.FtpRepository.Username, _ProjectXml.FtpRepository.Password, _ProjectXml.FtpRepository.Passive, _ProjectXml.FtpRepository.ConnectionLimit, _ProjectXml.SelectedAddons);
+                    else
+                        _SyncServer = new SyncServerLocalGz(_ProjectXml.AddonDirectory, _ProjectXml.LocalRepository.Directory, _ProjectXml.SelectedAddons);
+
+                    // Vergleichen
+                    _SyncServer.CompareRepositories(true, new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted));
+
+                    // Warten bis fertig
+                    _Finished.WaitOne();
+                    _Finished = null;
+
+                    return _ExitCode;
+                }
+                catch
+                {
+                    _Finished = null;
+                    _SyncServer = null;
+                    _CompareRepositoriesAsyncResult = null;
+                    return Errors.RunException;
+                }
+            }
+            private void OnCompareRepositoriesCompleted(object sender, SyncBase.CompareRepositoriesAsyncResult e)
+            {
+                try
+                {
+                    if (e.IsFailed)
+                        throw new ApplicationException();
+
+                    int modifications = 0;
+                    for (int i = 0; i < e.CompareResults.Length; i++)
+                        modifications += e.CompareResults[i].Count;
+
+                    if (modifications > 0)
+                    {
+                        _CompareRepositoriesAsyncResult = e;
+                        Synchronize();
+                    }
+                    else
+                    {
+                        _SyncServer = null;
+                        _ExitCode = Errors.Successfull;
+                        _Finished.Set();
+                    }
+                }
+                catch
+                {
+                    _ExitCode = Errors.OnCompareRepositoriesCompletedException;
+                    _SyncServer = null;
+                    _CompareRepositoriesAsyncResult = null;
+                    _Finished.Set();
+                }
+            }
+            private void Synchronize()
+            {
+                System.Diagnostics.Debug.Assert(_CompareRepositoriesAsyncResult != null);
+                System.Diagnostics.Debug.Assert(_SyncServer != null);
+
+                try
+                {
+                    _SyncServer.Synchronize(_CompareRepositoriesAsyncResult, new SyncBase.SynchronizeAsyncResultEventHandler(OnSynchronizeCompletedEventHandler));
+                    _SyncServer = null;
+                    _CompareRepositoriesAsyncResult = null;
+                }
+                catch (Exception)
+                {
+                    _ExitCode = Errors.SynchronizeException;
+                    _Finished.Set();
+                }
+            }
+            private void OnSynchronizeCompletedEventHandler(object sender, SyncBase.SynchronizeAsyncResult e)
+            {
+                try
+                {
+                    if (e.IsFailed)
+                        throw new ApplicationException();
+
+                    _ExitCode = Errors.Successfull;
+                    _Finished.Set();
+                }
+                catch
+                {
+                    _ExitCode = Errors.OnSynchronizeCompletedException;
+                    _Finished.Set();
+                }
+            }
+        }
+        #endregion
+
         private ProjectXml _ProjectXml;
         private bool _BlockEvents = false;
         private bool _Modified = false;
 
         private SyncServer _SyncServer = null;
         private SyncBase.CompareRepositoriesAsyncResult _CompareRepositoriesAsyncResult = null;
- 
+
         public FormServer()
         {
             InitializeComponent();
 
             string[] args = Environment.GetCommandLineArgs();
-            if ((args != null) && (args.Length == 2))
+            if ((args != null) && (args.Length == 2) && (args[1].StartsWith("/saveversion:")))
             {
-                if (args[1].StartsWith("/saveversion:"))
+                try
                 {
                     string filename = args[1].Remove(0, 13);
                     SerializationTools.Save<VersionSerializeable>(filename, VersionSerializeable.FromVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
-                    throw new ApplicationException("'/saveversion:' found. App is now closing.");
                 }
+                catch (Exception ex)
+                {
+                    LOG.Error(ex);
+                }
+
+                throw new ApplicationException("'/saveversion:' found. App is now closing.");
+            }
+
+            if ((args != null) && (args.Length == 3) && (args[2] == "/run"))
+            {
+                try
+                {
+                    if (File.Exists(args[1]))
+                    {
+                        ProjectXml projectXml = ProjectXml.Load(args[1]);
+                        if (projectXml != null)
+                        {
+                            SilentUpdate silentUpdate = new SilentUpdate(projectXml);
+                            SilentUpdate.Errors result = silentUpdate.Run();
+                            LOG.Warn("INFO ONLY: silentUpdate.Run(): " + result.ToString());
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LOG.Error(ex);
+                }
+
+                throw new ApplicationException("'/run:' found. App is now closing.");
             }
         }
 
@@ -45,8 +201,8 @@ namespace PALAST
 
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length > 1)
-                LoadProject(args[1]);
-         
+                LoadProject(args[1]);        
+
             HttpManager.Download_Version("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersionPALASTServer.xml", new HttpManager.VersionEventHandler(ehPalastVersionDownloaded));
         }
         protected override void OnShown(EventArgs e)
@@ -90,8 +246,7 @@ namespace PALAST
                     UpdateNotificationDialog.ExecuteDialog(version, "https://github.com/Pixinger/PALAST/wiki");
             }
         }
-
-
+        
         private void LoadProject(string filename)
         {
             if (File.Exists(filename))
