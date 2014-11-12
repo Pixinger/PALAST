@@ -67,3 +67,9 @@ Filename: "{app}\{#MyAppExeName}"; Parameters: "/updated"; Flags: nowait postins
 
 [Dirs]
 Name: "{localappdata}\PALAST"
+
+[UninstallDelete]
+Type: files; Name: "{localappdata}\PALAST\NLog.PALAST.config"
+Type: files; Name: "{localappdata}\PALAST\NLog.PALASTServer.config"
+Type: files; Name: "{localappdata}\PALAST\_log_PALAST.txt"
+Type: files; Name: "{localappdata}\PALAST\_log_PALASTServer.txt"

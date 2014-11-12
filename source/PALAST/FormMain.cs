@@ -773,27 +773,30 @@ namespace PALAST
                         TS3Manager ts3Manager = new TS3Manager();
                         if (ts3Manager.Successfull)
                         {
-                            if (ts3Manager.IsPluginDirectoryWriteable)
+                            if (MessageBox.Show("Wollen sie den Teamspeak-Plugin aus dem Addon Ordner nun in den Teamspeak Anwendungsordner kopieren?\n\nVon:\n"+pluginsSource+"\n\nNach:\n"+ ts3Manager.PluginDirectory, "Frage", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.OK)
                             {
-                                if (!ts3Manager.IsRunning)
+                                if (ts3Manager.IsPluginDirectoryWriteable)
                                 {
-                                    // Es kann sein, dass das Plugin Verzeichnis noch nicht existiert
-                                    if (!Directory.Exists(ts3Manager.PluginDirectory))
-                                        Directory.CreateDirectory(ts3Manager.PluginDirectory);
+                                    if (!ts3Manager.IsRunning)
+                                    {
+                                        // Es kann sein, dass das Plugin Verzeichnis noch nicht existiert
+                                        if (!Directory.Exists(ts3Manager.PluginDirectory))
+                                            Directory.CreateDirectory(ts3Manager.PluginDirectory);
 
-                                    // Kopieren
-                                    DirectoryInfo source = new DirectoryInfo(pluginsSource);
-                                    DirectoryInfo target = new DirectoryInfo(ts3Manager.PluginDirectory);
-                                    FileTools.CopyDirectoryRecursively(source, target);
+                                        // Kopieren
+                                        DirectoryInfo source = new DirectoryInfo(pluginsSource);
+                                        DirectoryInfo target = new DirectoryInfo(ts3Manager.PluginDirectory);
+                                        FileTools.CopyDirectoryRecursively(source, target);
 
-                                    //Fertig
-                                    MessageBox.Show("Die Installation war erfolgreich.");
+                                        //Fertig
+                                        MessageBox.Show("Die Installation war erfolgreich.");
+                                    }
+                                    else
+                                        MessageBox.Show("Teamspeak scheint momentan zu laufen.\nBitte beenden Sie das Programm um die TFAR Plugins installieren zu können.");
                                 }
                                 else
-                                    MessageBox.Show("Teamspeak scheint momentan zu laufen.\nBitte beenden Sie das Programm um die TFAR Plugins installieren zu können.");
+                                    MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
                             }
-                            else
-                                MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
                         }
                         else
                             MessageBox.Show("TS3 konnte nicht zuverlässig erkannt werden. Das Setup kann deshalb nicht ausgeführt werden.");
