@@ -57,23 +57,23 @@ namespace PALAST
             {
                 // InstallLocation suchen
                 string allUsers = GetKey(RegistryHive.LocalMachine, @"SOFTWARE\TeamSpeak 3 Client", "");
-                string currentUser = GetKey(RegistryHive.LocalMachine, @"SOFTWARE\TeamSpeak 3 Client", "");
+                string currentUser = GetKey(RegistryHive.CurrentUser, @"SOFTWARE\TeamSpeak 3 Client", "");
 
-                if ((allUsers == null) && (currentUser != null))
+                if ((string.IsNullOrWhiteSpace(allUsers)) && (!string.IsNullOrWhiteSpace(currentUser)))
                 {
                     if (!System.IO.Directory.Exists(currentUser))
                         throw new ApplicationException("Die InstallLocation konnte bestimmt werden, es existiert aber an dieser Stelle kein Verzeichnis.");
 
                     _InstallLocation = currentUser;
                 }
-                else if ((allUsers != null) && (currentUser == null))
+                else if ((!string.IsNullOrWhiteSpace(allUsers)) && (string.IsNullOrWhiteSpace(currentUser)))
                 {
-                    if (!System.IO.Directory.Exists(currentUser))
+                    if (!System.IO.Directory.Exists(allUsers))
                         throw new ApplicationException("Die InstallLocation konnte bestimmt werden, es existiert aber an dieser Stelle kein Verzeichnis.");
 
-                    _InstallLocation = currentUser;
+                    _InstallLocation = allUsers;
                 }
-                else if ((allUsers != null) && (currentUser != null))
+                else if ((!string.IsNullOrWhiteSpace(allUsers)) && (!string.IsNullOrWhiteSpace(currentUser)))
                     throw new ApplicationException("Der Teamspeak Installmode konnte nicht eindeutig bestimmt werden.");
                 else
                     throw new ApplicationException("Der Teamspeak Installmode konnte nicht bestimmt werden.");
