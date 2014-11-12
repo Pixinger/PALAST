@@ -1,1 +1,1 @@
-Dieser Ordner ist nur ein Platzhalter
+Dieser Ordner ist nur ein Platzhalter 
