@@ -49,8 +49,10 @@ Source: "D:\_git_src\PALAST\source\_iss\configuration.xml"; DestDir: "{app}"; Fl
 Source: "D:\_git_src\PALAST\source\_iss\license.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
 Source: "D:\_git_src\PALAST\source\_iss\NLog.PALAST.config"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist
 Source: "D:\_git_src\PALAST\source\_iss\NLog.PALASTServer.config"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist
+Source: "D:\_git_src\PALAST\source\_iss\_log_PALAST.txt"; DestDir: "{app}"; Flags: ignoreversion deleteafterinstall
+Source: "D:\_git_src\PALAST\source\_iss\_log_PALASTServer.txt"; DestDir: "{app}"; Flags: ignoreversion deleteafterinstall
 Source: "D:\_git_src\PALAST\source\_iss\_log_PALAST.txt"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist
-Source: "D:\_git_src\PALAST\source\_iss\_log_PALASTServer.txt"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist            
+Source: "D:\_git_src\PALAST\source\_iss\_log_PALASTServer.txt"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
