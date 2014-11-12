@@ -1,3 +1,30 @@
+-----------------------------------
+Deutsch (frei uebersetzt)
+-----------------------------------
+Die MIT Lizenz (MIT)
+
+Copyright (c) 2014 Pixinger
+
+Hiermit wird unentgeltlich jeder Person, die eine Kopie der Software und der 
+zugehoerigen Dokumentationen (die "Software") erhaelt, die Erlaubnis erteilt, 
+sie uneingeschraenkt zu benutzen, inklusive und ohne Ausnahme dem Recht, sie zu verwenden, 
+kopieren, aendern, fusionieren, verlegen, verbreiten, unterlizenzieren und/oder zu verkaufen, 
+und Personen, die diese Software erhalten, diese Rechte zu geben, unter den folgenden Bedingungen:
+
+Der obige Urheberrechtsvermerk und dieser Erlaubnisvermerk sind in allen 
+Kopien oder Teilkopien der Software beizulegen.
+
+DIE SOFTWARE WIRD OHNE JEDE AUSDRUECKLICHE ODER IMPLIZIERTE GARANTIE BEREITGESTELLT, 
+EINSCHLIESSLICH DER GARANTIE ZUR BENUTZUNG FÜR DEN VORGESEHENEN ODER EINEM BESTIMMTEN 
+ZWECK SOWIE JEGLICHER RECHTSVERLETZUNG, JEDOCH NICHT DARAUF BESCHRAENKT. IN KEINEM FALL 
+SIND DIE AUTOREN ODER COPYRIGHTINHABER FUER JEGLICHEN SCHADEN ODER SONSTIGE ANSPRUECHE 
+HAFTBAR ZU MACHEN, OB INFOLGE DER ERFUELLUNG EINES VERTRAGES, EINES DELIKTES ODER ANDERS 
+IM ZUSAMMENHANG MIT DER SOFTWARE ODER SONSTIGER VERWENDUNG DER SOFTWARE ENTSTANDEN.
+
+
+-----------------------------------
+Englisch
+-----------------------------------
 The MIT License (MIT)
 
 Copyright (c) 2014 Pixinger
@@ -19,3 +46,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+-----------------------------------
+ICONS:
+-----------------------------------
+Most of the icons can be found at:
+http://www.famfamfam.com/lab/icons/

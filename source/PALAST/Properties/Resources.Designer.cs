@@ -63,9 +63,9 @@ namespace PALAST.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrow_refresh_small {
+        internal static System.Drawing.Bitmap bin {
             get {
-                object obj = ResourceManager.GetObject("arrow_refresh_small", resourceCulture);
+                object obj = ResourceManager.GetObject("bin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,19 +73,9 @@ namespace PALAST.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cog {
+        internal static System.Drawing.Bitmap controller {
             get {
-                object obj = ResourceManager.GetObject("cog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap control_play_blue {
-            get {
-                object obj = ResourceManager.GetObject("control_play_blue", resourceCulture);
+                object obj = ResourceManager.GetObject("controller", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,6 +86,16 @@ namespace PALAST.Properties {
         internal static System.Drawing.Bitmap exclamation {
             get {
                 object obj = ResourceManager.GetObject("exclamation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap exclamation1 {
+            get {
+                object obj = ResourceManager.GetObject("exclamation1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -146,16 +146,6 @@ namespace PALAST.Properties {
         internal static System.Drawing.Bitmap table_go {
             get {
                 object obj = ResourceManager.GetObject("table_go", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap target {
-            get {
-                object obj = ResourceManager.GetObject("target", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

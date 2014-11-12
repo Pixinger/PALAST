@@ -23,6 +23,44 @@ namespace PALAST
         {
             InitializeComponent();
 
+            string[] args = Environment.GetCommandLineArgs();
+            if ((args != null) && (args.Length == 2))
+            {
+                #region /saveversion
+                if (args[1].StartsWith("/saveversion:"))
+                {
+                    try
+                    {
+                        string filename = args[1].Remove(0, 13);
+                        SerializationTools.Save<VersionSerializeable>(filename, VersionSerializeable.FromVersion(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version));
+                    }
+                    catch (Exception ex)
+                    {
+                        LOG.Error(ex);
+                    }
+                    throw new ApplicationException("'/saveversion:' found. App is now closing.");
+                }
+                #endregion
+
+                #region /updated
+                if (args[1].StartsWith("/updated"))
+                {
+                    try
+                    {
+                        string filename = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PALAST", "setupPALAST.exe");
+                        if (File.Exists(filename))
+                            File.Delete(filename);
+                    }
+                    catch (Exception ex)
+                    {
+                        LOG.Error(ex);
+                    }
+
+                    MessageBox.Show("Update erfolgreich");
+                }
+                #endregion
+            }
+
             Text = Text + " - " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
@@ -30,14 +68,23 @@ namespace PALAST
         {
             base.OnLoad(e);
 
-            if (!System.IO.File.Exists(_Configuration.Arma3Exe))
+            if (!IsArmaFolderValid)
             {
+                ArmaManager armaManager = new ArmaManager();
+                if (armaManager.Arma3Exe != null)
+                    _Configuration.Arma3Exe = armaManager.Arma3Exe;
+
+                MessageBox.Show("Bitte überprüfen Sie die korrekte Angabe des Arma-Verzeichnisses (arma3.exe).\nEine falsche Angabe kann sonst später zu Datenverlust führen.");
+
                 if (!SettingsDialog.ExecuteDialog(_Configuration))
                     Close();
             }
 
             RefreshMenu();
             RefreshNames();
+
+            if ((_Configuration != null) && (_Configuration.CheckForUpdates))
+                HttpManager.Download_Version("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersion.xml", new HttpManager.VersionEventHandler(ehPalastVersionDownloaded));
         }
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -46,17 +93,25 @@ namespace PALAST
             _Configuration.Save();
         }
 
+        private void ehPalastVersionDownloaded(Version version)
+        {
+            if (version == null)
+                return;
+
+            if (InvokeRequired)
+                BeginInvoke(new HttpManager.VersionEventHandler(ehPalastVersionDownloaded), new object[] { version });
+            else
+            {
+                if (version > System.Reflection.Assembly.GetExecutingAssembly().GetName().Version)
+                    UpdateNotificationDialog.ExecuteDialog(version, "https://github.com/Pixinger/PALAST/wiki");
+            }
+        }
+
         private Configuration.Preset SelectedPreset
         {
             get
             {
-                /*   if ((_Configuration.SelectedPreset != null) && (_Configuration.Presets != null))
-                       foreach (Configuration.Preset cfgPreset in _Configuration.Presets)
-                           if (cfgPreset.Name == _Configuration.SelectedPreset)
-                               return cfgPreset;*/
                 return lstPreset.SelectedItem as Configuration.Preset;
-
-                //return null;
             }
         }
         private void RefreshNames()
@@ -156,7 +211,7 @@ namespace PALAST
         {
             _BlockEventHandler = true;
 
-            clstAddons.Items.Clear();
+            clstAddons.Clear();
 
             Configuration.Preset preset = SelectedPreset;
             if ((preset != null) && (System.IO.File.Exists(_Configuration.Arma3Exe)))
@@ -167,13 +222,25 @@ namespace PALAST
                 {
                     string shortName = addon.Remove(0, armaFolder.Length + 1);
                     bool chk = ((SelectedPreset != null) && (SelectedPreset.SelectedAddons != null) && (SelectedPreset.SelectedAddons.Contains(shortName)));
-                    clstAddons.Items.Add(shortName, chk);
+                    clstAddons.Add(shortName, chk);
                 }
             }
 
             _BlockEventHandler = false;
         }
+        private bool IsArmaFolderValid
+        {
+            get
+            {
+                if (_Configuration == null)
+                    return false;
 
+                if (string.IsNullOrWhiteSpace(_Configuration.Arma3Exe))
+                    return false;
+
+                return File.Exists(_Configuration.Arma3Exe);
+            }
+        }
 
         private void chbNoSpalsh_CheckedChanged(object sender, EventArgs e)
         {
@@ -460,16 +527,17 @@ namespace PALAST
             }
         }
 
-        private void clstAddons_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void clstAddons_CheckedChanged(object sender, EventArgs e)
         {
             if (_BlockEventHandler)
                 return;
 
-            List<string> selectedAddons = (SelectedPreset.SelectedAddons) != null ? new List<string>(SelectedPreset.SelectedAddons) : new List<string>();
-            if (e.NewValue == CheckState.Checked)
-                selectedAddons.Add(clstAddons.Items[e.Index].ToString());
-            else
-                selectedAddons.Remove(clstAddons.Items[e.Index].ToString());
+            List<string> selectedAddons = new List<string>();
+            for (int i = 0; i < clstAddons.Count; i++)
+            {
+                if (clstAddons.GetItemCheckState(i))
+                    selectedAddons.Add(clstAddons[i] as string);
+            }
 
             SelectedPreset.SelectedAddons = selectedAddons.ToArray();
         }
@@ -477,12 +545,17 @@ namespace PALAST
         {
             tbtnTFAR.Enabled = false;
 
-            string addon = clstAddons.SelectedItem as string;
+            string addon = clstAddons.SelectedItem;
             if (addon != null)
             {
+                tbtnDeleteAddon.Enabled = true;
                 string pluginsSource = Path.Combine(Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon), "TeamSpeak 3 Client\\plugins");
                 if (Directory.Exists(pluginsSource))
                     tbtnTFAR.Enabled = true;
+            }
+            else
+            {
+                tbtnDeleteAddon.Enabled = false;
             }
         }
         private void btnInfoOptions_Click(object sender, EventArgs e)
@@ -658,69 +731,83 @@ namespace PALAST
         }
         private void tbtnUpdateAddons_Click(object sender, EventArgs e)
         {
+            if (!IsArmaFolderValid)
+                return;
+
             AddonSyncDialog.ExecuteDialog(System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe), SelectedPreset);
 
             RefreshMenu();
         }
-        private void tbtnTFAR_Click(object sender, EventArgs e)
+        private void tbtnDeleteAddon_Click(object sender, EventArgs e)
         {
-            string addon = clstAddons.SelectedItem as string;
-            if (addon != null)
-            {
-                string pluginsSource = Path.Combine(Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon), "TeamSpeak 3 Client\\plugins");
-                if (Directory.Exists(pluginsSource))
-                {
-                    TS3Manager ts3Manager = new TS3Manager();
-                    if (ts3Manager.IsElevatedRight)
-                    {
-                        if (ts3Manager.PluginDirectoryValid)
-                        {
-                            if (!ts3Manager.IsRunning)
-                            {
-                                DirectoryInfo source = new DirectoryInfo(pluginsSource);
-                                DirectoryInfo target = new DirectoryInfo(ts3Manager.PluginDirectory);
-                                FileTools.CopyDirectoryRecursively(source, target);
-                            }
-                            else
-                                MessageBox.Show("Teamspeak scheint momentan zu laufen.\nBitte beenden Sie das Programm um die TFAR Plugins installieren zu können.");
-                        }
-                        else
-                            MessageBox.Show("TS3 konnte nicht zuverlässig erkannt werden. Das Setup kann deshalb nicht ausgeführt werden.");
-                    }
-                    else
-                        MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
-                }
-            }
-        }
+            if (!IsArmaFolderValid)
+                return;
 
-        private void cmenAddonDelete_Click(object sender, EventArgs e)
-        {
             if (clstAddons.SelectedItem != null)
             {
                 string addon = clstAddons.SelectedItem as string;
                 if (MessageBox.Show("Wollen Sie das gewählte Addon '" + addon + "' wirklich aus dem ArmA-Verzeichnis löschen.", "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
                 {
-                    if (MessageBox.Show("Sind sie wirklich sicher?", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                    string folder = Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon);
+                    if (MessageBox.Show("Ich werde nun folgendes Verzeichnis löschen:\n\n" + folder + "!", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        if (MessageBox.Show("GAANZ sicher?", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
-                        {
-                            if (MessageBox.Show("OK. Dann lösche ich das Addon jetzt?", "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
-                            {
-                                string folder = Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon);
-                                if (MessageBox.Show("Ich werde nun folgendes Verzeichnis löschen:\n\n" + folder + "!", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
-                                {
-                                    Directory.Delete(folder, true);
-                                    RefreshAddons();
-                                }
-                            }
-                        }
+                        Directory.Delete(folder, true);
+                        RefreshAddons();
                     }
                 }
             }
         }
-        private void cmenClstAddons_Opening(object sender, CancelEventArgs e)
+        private void tbtnTFAR_Click(object sender, EventArgs e)
         {
-            cmenAddonDelete.Enabled = clstAddons.SelectedItem != null;
+            if (!IsArmaFolderValid)
+                return;
+
+            string addon = clstAddons.SelectedItem as string;
+            if (addon != null)
+            {
+                try
+                {
+                    string pluginsSource = Path.Combine(Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon), "TeamSpeak 3 Client\\plugins");
+                    if (Directory.Exists(pluginsSource))
+                    {
+                        TS3Manager ts3Manager = new TS3Manager();
+                        if (ts3Manager.Successfull)
+                        {
+                            if (MessageBox.Show("Wollen sie den Teamspeak-Plugin aus dem Addon Ordner nun in den Teamspeak Anwendungsordner kopieren?\n\nVon:\n"+pluginsSource+"\n\nNach:\n"+ ts3Manager.PluginDirectory, "Frage", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.OK)
+                            {
+                                if (ts3Manager.IsPluginDirectoryWriteable)
+                                {
+                                    if (!ts3Manager.IsRunning)
+                                    {
+                                        // Es kann sein, dass das Plugin Verzeichnis noch nicht existiert
+                                        if (!Directory.Exists(ts3Manager.PluginDirectory))
+                                            Directory.CreateDirectory(ts3Manager.PluginDirectory);
+
+                                        // Kopieren
+                                        DirectoryInfo source = new DirectoryInfo(pluginsSource);
+                                        DirectoryInfo target = new DirectoryInfo(ts3Manager.PluginDirectory);
+                                        FileTools.CopyDirectoryRecursively(source, target);
+
+                                        //Fertig
+                                        MessageBox.Show("Die Installation war erfolgreich.");
+                                    }
+                                    else
+                                        MessageBox.Show("Teamspeak scheint momentan zu laufen.\nBitte beenden Sie das Programm um die TFAR Plugins installieren zu können.");
+                                }
+                                else
+                                    MessageBox.Show("Um TFAR installieren zu können, muss PALAST mit Administratorrechten gestartet werden.");
+                            }
+                        }
+                        else
+                            MessageBox.Show("TS3 konnte nicht zuverlässig erkannt werden. Das Setup kann deshalb nicht ausgeführt werden.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LOG.Error(ex);
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

@@ -137,6 +137,7 @@ namespace PALAST
         public string Arma3Exe = "";
         public string SelectedPreset = "";
         public bool CloseAfterStart = true;
+        public bool CheckForUpdates = true;
         public Preset[] Presets = null;
     }
 }

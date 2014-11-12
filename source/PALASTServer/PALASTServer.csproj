@@ -35,6 +35,9 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Rocket.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog">
       <HintPath>..\..\..\NLog-3.0\net40\NLog.dll</HintPath>
@@ -101,10 +104,18 @@
       <Name>PALAST.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Rocket.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_bin
-copy $(TargetPath) $(SolutionDir)_iss</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetDir)nlog.dll $(SolutionDir)_iss
+copy $(TargetPath) $(SolutionDir)_iss
+$(SolutionDir)_iss\PALASTServer.exe /saveversion:..\..\..\..\_releases\latestVersionPALASTServer.xml</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

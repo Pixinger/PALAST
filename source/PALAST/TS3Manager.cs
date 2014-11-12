@@ -13,49 +13,133 @@ namespace PALAST
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
 
-        private bool _PluginDirectoryValid;
+        private bool _Successfull = false;
         private string _PluginDirectory;
-        private string _InstallMode;
+        private string _InstallLocation = null;
 
         public TS3Manager()
         {
-            string installMode = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client", "InstallMode", null) as string;
-            if (!string.IsNullOrWhiteSpace(installMode))
-            {
-                LOG.Info("InstallMode: " + installMode);
-                _InstallMode = installMode;
-            }
-            else
-                LOG.Info("RegistryKey InstallMode not found");
+            #region Infos
+            /* 
+             * Variante A:
+             * HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client
+             * - InstallLocation : C:\Users\SST\AppData\Local\TeamSpeak 3 Client             *
+             * HKEY_CURRENT_USER\Software\TeamSpeak 3 Client
+             * - (Standard) : path folder
+             * - ConfigLocation : 0
+             * - InstallMode : CurrentUser
+             * 
+             * Variante B:
+             * HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client
+             * - InstallLocation : C:\Users\SST\AppData\Local\TeamSpeak 3 Client
+             * HKEY_CURRENT_USER\Software\TeamSpeak 3 Client
+             * - ConfigLocation : 1
+             * - InstallMode : CurrentUser
+             * 
+             * Variante C:
+             * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client
+             * - InstallLocation : C:\Users\SST\AppData\Local\TeamSpeak 3 Client
+             * HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client
+             * - ConfigLocation : 0
+             * - InstallMode : AllUsers
+             * 
+             * Variante D:
+             * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client
+             * - InstallLocation : C:\Users\SST\AppData\Local\TeamSpeak 3 Client
+             * HKEY_LOCAL_MACHINE\SOFTWARE\TeamSpeak 3 Client
+             * - ConfigLocation : 1
+             * - InstallMode : AllUsers
+             * 
+             */
+            #endregion
 
-            _PluginDirectoryValid = false;
-            string installLocation = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\TeamSpeak 3 Client", "InstallLocation", null) as string;
-            if (!string.IsNullOrWhiteSpace(installLocation))
+            try
             {
-                LOG.Info("InstallLocation: " + installLocation);
-                if (System.IO.Directory.Exists(installLocation))
+                // InstallLocation suchen
+                string allUsers = GetKey(RegistryHive.LocalMachine, @"SOFTWARE\TeamSpeak 3 Client", "");
+                string currentUser = GetKey(RegistryHive.CurrentUser, @"SOFTWARE\TeamSpeak 3 Client", "");
+
+                if ((string.IsNullOrWhiteSpace(allUsers)) && (!string.IsNullOrWhiteSpace(currentUser)))
                 {
-                    _PluginDirectory = System.IO.Path.Combine(installLocation, "Plugins");
-                    if (System.IO.Directory.Exists(_PluginDirectory))
-                    {
-                        if (_InstallMode == "AllUsers")
-                            _PluginDirectoryValid = true;
-                    }
-                    else
-                        LOG.Error("PluginDirectory not found");
+                    if (!System.IO.Directory.Exists(currentUser))
+                        throw new ApplicationException("Die InstallLocation konnte bestimmt werden, es existiert aber an dieser Stelle kein Verzeichnis.");
+
+                    _InstallLocation = currentUser;
                 }
+                else if ((!string.IsNullOrWhiteSpace(allUsers)) && (string.IsNullOrWhiteSpace(currentUser)))
+                {
+                    if (!System.IO.Directory.Exists(allUsers))
+                        throw new ApplicationException("Die InstallLocation konnte bestimmt werden, es existiert aber an dieser Stelle kein Verzeichnis.");
+
+                    _InstallLocation = allUsers;
+                }
+                else if ((!string.IsNullOrWhiteSpace(allUsers)) && (!string.IsNullOrWhiteSpace(currentUser)))
+                    throw new ApplicationException("Der Teamspeak Installmode konnte nicht eindeutig bestimmt werden.");
                 else
-                    LOG.Error("Directory InstallLocation not found");
+                    throw new ApplicationException("Der Teamspeak Installmode konnte nicht bestimmt werden.");
+
+
+                string pluginDirectory = System.IO.Path.Combine(_InstallLocation, "Plugins");
+                if (!System.IO.Directory.Exists(pluginDirectory))
+                    throw new ApplicationException("Das Plugin Verzeichnis existiert nicht.");
+
+                _PluginDirectory = pluginDirectory;
+                _Successfull = true;
             }
-            else
-                LOG.Info("RegistryKey InstallLocation not found");
+            catch (ApplicationException ex)
+            {
+                LOG.Info(ex.Message);
+                _Successfull = false;
+                _InstallLocation = null;
+            }
+
+            LOG.Info("_Successfull: {0}", _Successfull);
+            LOG.Info("_InstallLocation: {0}", _InstallLocation);
+            LOG.Info("_PluginDirectory: {0}", _PluginDirectory);
         }
 
-        public bool PluginDirectoryValid
+        private string GetKey(RegistryHive registryHive, RegistryView registryView, string subKeyName, string value)
+        {
+            using (RegistryKey baseKey = RegistryKey.OpenBaseKey(registryHive, registryView))
+            {
+                if (baseKey == null)
+                {
+                    LOG.Info("{0}\\{1}\\{2} ({3}): baseKey is null", registryHive, subKeyName, value, registryView);
+                    return null;
+                }
+
+                using (RegistryKey subKey = baseKey.OpenSubKey(subKeyName))
+                {
+                    if (subKey == null)
+                    {
+                        LOG.Info("{0}\\{1}\\{2} ({3}): subKey is null", registryHive, subKeyName, value, registryView);
+                        return null;
+                    }
+
+                    string result = subKey.GetValue(value) as string;
+                    if (result != null)
+                        LOG.Info("{0}\\{1}\\{2} ({3}): {4}", registryHive, subKeyName, value, registryView, result);
+                    else
+                        LOG.Info("{0}\\{1}\\{2} ({3}): null", registryHive, subKeyName, value, registryView);
+
+                    return result;
+                }
+            }
+        }
+        private string GetKey(RegistryHive registryHive, string subKeyName, string value)
+        {
+            string result = GetKey(registryHive, RegistryView.Registry32, subKeyName, value);
+            if (result != null)
+                return result;
+
+            return GetKey(registryHive, RegistryView.Registry64, subKeyName, value);
+        }
+
+        public bool Successfull
         {
             get
             {
-                return _PluginDirectoryValid;
+                return _Successfull;
             }
         }
         public string PluginDirectory
@@ -65,14 +149,13 @@ namespace PALAST
                 return _PluginDirectory;
             }
         }
-        public string InstallMode
+        public string InstallLocation
         {
             get
             {
-                return _InstallMode;
+                return _InstallLocation;
             }
         }
-
         public bool IsRunning
         {
             get
@@ -92,8 +175,7 @@ namespace PALAST
                 return false;
             }
         }
-
-        public bool IsElevatedRight
+        public bool IsPluginDirectoryWriteable
         {
             get
             {

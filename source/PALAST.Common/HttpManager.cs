@@ -14,39 +14,6 @@ namespace PALAST
         private static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion       
 
-        #region private class WebClientUserState
-        private class WebClientUserState
-        {
-            public TrackedDownload TrackedDownload;
-            public System.Threading.ManualResetEvent Finished;
-        }
-        #endregion
-        public static void DownloadGz_WebClient(TrackedDownload trackedDownload)
-        {
-            WebClientUserState userState = new WebClientUserState();
-            userState.Finished = new System.Threading.ManualResetEvent(false);
-            userState.TrackedDownload = trackedDownload;
-            WebClient webClient = new WebClient();
-            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadGz_WebClient_DownloadProgressChanged);
-            webClient.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(DownloadGz_WebClient_DownloadFileCompleted);
-            webClient.DownloadFileAsync(new Uri(trackedDownload._Source + ".gz"), trackedDownload._Target + ".gz", userState);
-            userState.Finished.WaitOne();
-
-            Decompress(new FileInfo(trackedDownload._Target + ".gz"));
-
-            File.SetLastWriteTimeUtc(trackedDownload._Target, trackedDownload._LastWriteTimeUtc);
-        }
-        private static void DownloadGz_WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            WebClientUserState state = e.UserState as WebClientUserState;
-            state.Finished.Set();
-        }
-        private static void DownloadGz_WebClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            WebClientUserState state = e.UserState as WebClientUserState;
-            state.TrackedDownload.DownloadProgressChanged(new DownloadProgress(e.ProgressPercentage, 0, 0));
-        }
-
         #region private class HttpWebRequestUserState
         private class HttpWebRequestUserState
         {
@@ -161,84 +128,6 @@ namespace PALAST
             }
         }
 
-        public static void DownloadGzF(string[] urls, string[] localFilenames, DateTime[] lastWriteTimesUtc)
-        {
-            if ((urls == null) || (localFilenames == null) || (lastWriteTimesUtc == null) || (urls.Length == 0) || (localFilenames.Length != urls.Length) || (lastWriteTimesUtc.Length != urls.Length))
-                throw new ArgumentException();
-
-            DownloadAsyncState[] downloadAsyncState = new DownloadAsyncState[localFilenames.Length];
-            for (int i = 0; i < localFilenames.Length; i++)
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urls[i] + ".gz");
-                request.Credentials = CredentialCache.DefaultCredentials;
-
-                downloadAsyncState[i] = new DownloadAsyncState(request, localFilenames[i]);
-
-                request.BeginGetResponse(new AsyncCallback(DownloadGz_HttpWebRequest_OnBeginGetResponseCallback), downloadAsyncState[i]);
-            }
-
-            for (int i = 0; i < localFilenames.Length; i++)
-                downloadAsyncState[i].Event.WaitOne();
-
-            for (int i = 0; i < localFilenames.Length; i++)
-                File.SetLastWriteTimeUtc(localFilenames[i], lastWriteTimesUtc[i]);
-        }
-        private static void DownloadGz_EndGetResponseCallbackF(IAsyncResult ar)
-        {
-            DownloadAsyncState state = ar.AsyncState as DownloadAsyncState;
-
-            try
-            {
-                using (HttpWebResponse response = (HttpWebResponse)state.HttpWebRequest.EndGetResponse(ar))
-                {
-                    using (Stream responseStream = response.GetResponseStream())
-                    {
-                        using (GZipStream decompressedStream = new GZipStream(responseStream, CompressionMode.Decompress))
-                        {
-                            using (FileStream fileStream = File.Create(state.Filename))
-                            {
-                                decompressedStream.CopyTo(fileStream);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LOG.Error(ex);
-            }
-            finally
-            {
-                state.Event.Set();
-            }
-        }
-
-        #region private class DownloadAsyncState
-        private class DownloadAsyncState
-        {
-            public const int SIZE = 8 * 1024 * 50;
-
-            public string Filename;
-            public HttpWebRequest HttpWebRequest;
-            public DateTime TransferStart;
-            public int BufferSize;
-            public byte[] Buffer;
-            public System.Threading.ManualResetEvent Event;
-
-            public long TotalBytes = 0;
-            public int bytesRead = 0;
-
-            public DownloadAsyncState(HttpWebRequest httpWebRequest, string filename)
-            {
-                this.Filename = filename;
-                this.HttpWebRequest = httpWebRequest;
-                this.BufferSize = SIZE;
-                this.Buffer = new byte[SIZE];
-                this.TransferStart = DateTime.Now;
-                this.Event = new System.Threading.ManualResetEvent(false);
-            }
-        }
-        #endregion
         public static Repository DownloadGz(string address)
         {
             WebRequest request = WebRequest.Create(address + ".gz");
@@ -265,6 +154,53 @@ namespace PALAST
                 }
             }
         }
+
+        #region public class VersionUserState
+        public class VersionUserState
+        {
+            public HttpWebRequest HttpWebRequest;
+            public VersionEventHandler Callback;
+
+            public VersionUserState(HttpWebRequest httpWebRequest, VersionEventHandler callback)
+            {
+                this.HttpWebRequest = httpWebRequest;
+                this.Callback = callback;
+            }
+        }
+        public delegate void VersionEventHandler(Version version);
+        #endregion
+        public static void Download_Version(string url, VersionEventHandler callback)
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.Proxy = null;
+            request.ServicePoint.ConnectionLimit = 2;
+            request.ServicePoint.Expect100Continue = false;
+            request.Credentials = CredentialCache.DefaultCredentials;
+            request.ConnectionGroupName = "MyConnectionGroupnamePalastVersion";
+
+            VersionUserState userState = new VersionUserState(request, callback);
+            request.BeginGetResponse(new AsyncCallback(Download_Version_OnBeginGetResponseCallback), userState);
+        }
+        private static void Download_Version_OnBeginGetResponseCallback(IAsyncResult ar)
+        {
+            VersionUserState userState = ar.AsyncState as VersionUserState;
+
+            try
+            {
+                HttpWebResponse httpWebResponse = (HttpWebResponse)userState.HttpWebRequest.EndGetResponse(ar);
+                using (Stream responseStream = httpWebResponse.GetResponseStream())
+                {
+                    VersionSerializeable instance = new System.Xml.Serialization.XmlSerializer(typeof(VersionSerializeable)).Deserialize(responseStream) as VersionSerializeable;
+                    userState.Callback(instance.ToVersion());                    
+                }
+            }
+            catch (Exception ex)
+            {
+                userState.Callback(null);
+                LOG.Error(ex);
+            }
+        }
+
         private static void Decompress(FileInfo fileToDecompress)
         {
             using (FileStream originalFileStream = fileToDecompress.OpenRead())

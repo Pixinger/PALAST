@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.clstAddons = new System.Windows.Forms.CheckedListBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormServer));
             this.cmenMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmenReSign = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenCopyKey = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.btnSynchronize = new System.Windows.Forms.Button();
             this.btnCompareRepositories = new System.Windows.Forms.Button();
             this.tabControlMode = new System.Windows.Forms.TabControl();
@@ -67,7 +68,7 @@
             this.saveDlg = new System.Windows.Forms.SaveFileDialog();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.folderDlg = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.clstAddons = new PALAST.AddonList();
             this.cmenMain.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabControlMode.SuspendLayout();
@@ -76,18 +77,6 @@
             this.mainMenu.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // clstAddons
-            // 
-            this.clstAddons.ContextMenuStrip = this.cmenMain;
-            this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clstAddons.FormattingEnabled = true;
-            this.clstAddons.IntegralHeight = false;
-            this.clstAddons.Location = new System.Drawing.Point(421, 0);
-            this.clstAddons.Name = "clstAddons";
-            this.clstAddons.Size = new System.Drawing.Size(205, 255);
-            this.clstAddons.TabIndex = 5;
-            this.clstAddons.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clstAddons_ItemCheck);
             // 
             // cmenMain
             // 
@@ -127,6 +116,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(421, 255);
             this.panel3.TabIndex = 15;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Enabled = false;
+            this.btnCancel.Location = new System.Drawing.Point(11, 222);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(124, 23);
+            this.btnCancel.TabIndex = 19;
+            this.btnCancel.Text = "Abbrechen";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSynchronize
             // 
@@ -436,16 +436,17 @@
             // 
             this.folderDlg.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
-            // btnCancel
+            // clstAddons
             // 
-            this.btnCancel.Enabled = false;
-            this.btnCancel.Location = new System.Drawing.Point(11, 222);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(124, 23);
-            this.btnCancel.TabIndex = 19;
-            this.btnCancel.Text = "Abbrechen";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clstAddons.ImageChecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageChecked")));
+            this.clstAddons.ImageUnchecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageUnchecked")));
+            this.clstAddons.Location = new System.Drawing.Point(421, 0);
+            this.clstAddons.Name = "clstAddons";
+            this.clstAddons.SelectedIndex = -1;
+            this.clstAddons.Size = new System.Drawing.Size(205, 255);
+            this.clstAddons.TabIndex = 16;
+            this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
             // 
             // FormServer
             // 
@@ -455,6 +456,7 @@
             this.Controls.Add(this.lstLog);
             this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.mainMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
             this.Name = "FormServer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -477,7 +479,6 @@
 
         #endregion
 
-        private System.Windows.Forms.CheckedListBox clstAddons;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtAddonDirectory;
         private System.Windows.Forms.MenuStrip mainMenu;
@@ -516,6 +517,7 @@
         private System.Windows.Forms.Button btnSynchronize;
         private System.Windows.Forms.Button btnCompareRepositories;
         private System.Windows.Forms.Button btnCancel;
+        private AddonList clstAddons;
     }
 }
 
