@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PALAST
+namespace PALAST.RepoManager
 {
     static class Program
     {
+        public static int ExitCode = 0;
+
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            #region NLog konfigurieren PALAST
+            #region NLog konfigurieren PALASTServer
             {
                 NLog.Config.LoggingConfiguration configuration;
-                string configFile = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PALAST", "NLog.PALAST.config");
+
+                string configFile = System.IO.Path.Combine(Environment.CurrentDirectory, "NLog.PALAST.RepoManager.config");
                 if (System.IO.File.Exists(configFile))
                     configuration = new NLog.Config.XmlLoggingConfiguration(configFile);
                 else
@@ -32,7 +35,7 @@ namespace PALAST
                 NLog.LogManager.Configuration = configuration;
             }
             #endregion
-
+		
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             try
@@ -42,6 +45,8 @@ namespace PALAST
             catch (ApplicationException)
             {
             }
+
+            Environment.ExitCode = Program.ExitCode;
         }
     }
 }

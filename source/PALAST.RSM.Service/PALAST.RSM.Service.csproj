@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{011E80A4-0C67-4B5F-890E-8E0BF4DE487C}</ProjectGuid>
+    <ProjectGuid>{25656BD5-8539-4837-B152-EE171EDBC255}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PALAST</RootNamespace>
-    <AssemblyName>PALAST</AssemblyName>
+    <RootNamespace>PALAST.RSM.Service</RootNamespace>
+    <AssemblyName>PALAST.RSM.Service</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -24,6 +24,9 @@
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -32,9 +35,13 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLog">
+    <Reference Include="NLog, Version=3.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\NLog-3.0\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -49,102 +56,88 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutDialog.Designer.cs">
-      <DependentUpon>AboutDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AddonSyncDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddonSyncDialog.Designer.cs">
-      <DependentUpon>AddonSyncDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ArmaManager.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="ConfigurationXml.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="OptionInfoDialog.cs">
+    <Compile Include="GameServerManager.cs" />
+    <Compile Include="GameServerProcess.cs" />
+    <Compile Include="GameServerXml.cs" />
+    <Compile Include="IpDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OptionInfoDialog.Designer.cs">
-      <DependentUpon>OptionInfoDialog.cs</DependentUpon>
+    <Compile Include="IpDialog.Designer.cs">
+      <DependentUpon>IpDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Include="ProcessXmlControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RSM\ManagerDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RSM\ManagerDialog.Designer.cs">
-      <DependentUpon>ManagerDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RSM\TokenDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RSM\TokenDialog.Designer.cs">
-      <DependentUpon>TokenDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SettingsDialog.Designer.cs">
-      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    <Compile Include="ProcessXmlControl.Designer.cs">
+      <DependentUpon>ProcessXmlControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenamePresetDialog.cs">
+    <Compile Include="SerializationTools.cs" />
+    <Compile Include="ServerHttp.cs" />
+    <Compile Include="StringDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RenamePresetDialog.Designer.cs">
-      <DependentUpon>RenamePresetDialog.cs</DependentUpon>
+    <Compile Include="StringDialog.Designer.cs">
+      <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="TS3Manager.cs" />
+    <Compile Include="SetupDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetupDialog.Designer.cs">
+      <DependentUpon>SetupDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TokenDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TokenDialog.Designer.cs">
+      <DependentUpon>TokenDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UpdateNotificationDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UpdateNotificationDialog.Designer.cs">
       <DependentUpon>UpdateNotificationDialog.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutDialog.resx">
-      <DependentUpon>AboutDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AddonSyncDialog.resx">
-      <DependentUpon>AddonSyncDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OptionInfoDialog.resx">
-      <DependentUpon>OptionInfoDialog.cs</DependentUpon>
+    <EmbeddedResource Include="IpDialog.resx">
+      <DependentUpon>IpDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSM\ManagerDialog.resx">
-      <DependentUpon>ManagerDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RenamePresetDialog.resx">
-      <DependentUpon>RenamePresetDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RSM\TokenDialog.resx">
-      <DependentUpon>TokenDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SettingsDialog.resx">
-      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    <EmbeddedResource Include="ProcessXmlControl.resx">
+      <DependentUpon>ProcessXmlControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="StringDialog.resx">
+      <DependentUpon>StringDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetupDialog.resx">
+      <DependentUpon>SetupDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TokenDialog.resx">
+      <DependentUpon>TokenDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UpdateNotificationDialog.resx">
       <DependentUpon>UpdateNotificationDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -156,15 +149,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\exclamation.png" />
-    <None Include="Resources\table_add.png" />
-    <None Include="Resources\table_delete.png" />
-    <None Include="Resources\table_edit.png" />
-    <None Include="Resources\table_go.png" />
-    <None Include="Resources\TFAR.png" />
+    <None Include="Resources\disconnect.png" />
+    <None Include="Resources\connect.png" />
+    <Content Include="Rocket.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PALAST.Common\PALAST.Common.csproj">
@@ -176,17 +163,13 @@
       <Name>PALAST.RSM</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\bin.png" />
-    <None Include="Resources\controller.png" />
-    <Content Include="Rocket.ico" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_bin
-copy $(TargetPath) $(SolutionDir)_setup
-$(SolutionDir)_setup\PALAST.exe /saveversion:..\..\..\..\_releases\latestVersion.xml
-"D:\Program Files (x86)\Inno Setup 5\iscc.exe" "..\..\..\_setup\PALAST.iss"</PostBuildEvent>
+copy $(TargetPath) $(SolutionDir)_setupRSM
+$(SolutionDir)_setupRSM\PALAST.RSM.Service.exe /saveversion:..\..\..\..\_releases\latestVersion_PALAST_RSM.xml
+del /Q ..\..\..\..\_releases\PALAST_RSM.7z
+"C:\Program Files\7-Zip\7z.exe" a -t7z ..\..\..\..\_releases\PALAST_RSM.7z $(SolutionDir)_setupRSM\*.*</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

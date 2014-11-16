@@ -88,14 +88,14 @@
             this.pnlToolbars = new System.Windows.Forms.Panel();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.tbtnLaunch = new System.Windows.Forms.ToolStripButton();
-            this.tbtnDeleteAddon = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnTFAR = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbtnDeleteAddon = new System.Windows.Forms.ToolStripButton();
             this.tbtnUpdateAddons = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tbtnRSM = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tbtnAddPreset = new System.Windows.Forms.ToolStripButton();
             this.tbtnEditPreset = new System.Windows.Forms.ToolStripButton();
@@ -105,6 +105,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnInfo = new System.Windows.Forms.ToolStripButton();
             this.tbtnSettings = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.grpAutoConnect.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
@@ -120,6 +121,7 @@
             this.grpAdditionalParameters.SuspendLayout();
             this.pnlToolbars.SuspendLayout();
             this.toolStrip3.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -825,7 +827,7 @@
             this.lstPreset.IntegralHeight = false;
             this.lstPreset.Location = new System.Drawing.Point(0, 0);
             this.lstPreset.Name = "lstPreset";
-            this.lstPreset.Size = new System.Drawing.Size(180, 668);
+            this.lstPreset.Size = new System.Drawing.Size(180, 664);
             this.lstPreset.TabIndex = 33;
             this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
             // 
@@ -844,7 +846,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.clstAddons);
             this.splitContainer1.Panel2.Controls.Add(this.pnlParameter);
             this.splitContainer1.Panel2.Controls.Add(this.pnlToolbars);
-            this.splitContainer1.Size = new System.Drawing.Size(734, 668);
+            this.splitContainer1.Size = new System.Drawing.Size(734, 664);
             this.splitContainer1.SplitterDistance = 180;
             this.splitContainer1.TabIndex = 34;
             // 
@@ -856,7 +858,7 @@
             this.clstAddons.Location = new System.Drawing.Point(0, 27);
             this.clstAddons.Name = "clstAddons";
             this.clstAddons.SelectedIndex = -1;
-            this.clstAddons.Size = new System.Drawing.Size(246, 641);
+            this.clstAddons.Size = new System.Drawing.Size(246, 637);
             this.clstAddons.TabIndex = 37;
             this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
             this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
@@ -873,7 +875,7 @@
             this.pnlParameter.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlParameter.Location = new System.Drawing.Point(246, 27);
             this.pnlParameter.Name = "pnlParameter";
-            this.pnlParameter.Size = new System.Drawing.Size(304, 641);
+            this.pnlParameter.Size = new System.Drawing.Size(304, 637);
             this.pnlParameter.TabIndex = 36;
             // 
             // grpAdditionalParameters
@@ -916,10 +918,9 @@
             this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbtnLaunch,
-            this.tbtnDeleteAddon,
-            this.toolStripSeparator5,
             this.tbtnTFAR,
             this.toolStripSeparator3,
+            this.tbtnDeleteAddon,
             this.tbtnUpdateAddons,
             this.toolStripSeparator4,
             this.toolStripSeparator6});
@@ -940,24 +941,6 @@
             this.tbtnLaunch.Text = "Spiel starten";
             this.tbtnLaunch.Click += new System.EventHandler(this.tbtnLaunch_Click);
             // 
-            // tbtnDeleteAddon
-            // 
-            this.tbtnDeleteAddon.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbtnDeleteAddon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnDeleteAddon.Enabled = false;
-            this.tbtnDeleteAddon.Image = global::PALAST.Properties.Resources.bin;
-            this.tbtnDeleteAddon.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnDeleteAddon.Name = "tbtnDeleteAddon";
-            this.tbtnDeleteAddon.Size = new System.Drawing.Size(23, 24);
-            this.tbtnDeleteAddon.Text = "Addon löschen";
-            this.tbtnDeleteAddon.Click += new System.EventHandler(this.tbtnDeleteAddon_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
-            // 
             // tbtnTFAR
             // 
             this.tbtnTFAR.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -967,7 +950,7 @@
             this.tbtnTFAR.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnTFAR.Name = "tbtnTFAR";
             this.tbtnTFAR.Size = new System.Drawing.Size(23, 24);
-            this.tbtnTFAR.Text = "TFAR Setup (zum aktivieren, das TFAR-Addon markieren)";
+            this.tbtnTFAR.Text = "TFAR Setup - zum Aktivieren, das TFAR-Addon auswählen";
             this.tbtnTFAR.Click += new System.EventHandler(this.tbtnTFAR_Click);
             // 
             // toolStripSeparator3
@@ -975,6 +958,18 @@
             this.toolStripSeparator3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tbtnDeleteAddon
+            // 
+            this.tbtnDeleteAddon.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tbtnDeleteAddon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnDeleteAddon.Enabled = false;
+            this.tbtnDeleteAddon.Image = ((System.Drawing.Image)(resources.GetObject("tbtnDeleteAddon.Image")));
+            this.tbtnDeleteAddon.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnDeleteAddon.Name = "tbtnDeleteAddon";
+            this.tbtnDeleteAddon.Size = new System.Drawing.Size(23, 24);
+            this.tbtnDeleteAddon.Text = "Addon löschen";
+            this.tbtnDeleteAddon.Click += new System.EventHandler(this.tbtnDeleteAddon_Click);
             // 
             // tbtnUpdateAddons
             // 
@@ -1004,12 +999,25 @@
             this.toolStrip1.AutoSize = false;
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Right;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbtnRSM});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(246, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(304, 27);
             this.toolStrip1.TabIndex = 36;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // tbtnRSM
+            // 
+            this.tbtnRSM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnRSM.Enabled = false;
+            this.tbtnRSM.Image = ((System.Drawing.Image)(resources.GetObject("tbtnRSM.Image")));
+            this.tbtnRSM.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnRSM.Name = "tbtnRSM";
+            this.tbtnRSM.Size = new System.Drawing.Size(23, 24);
+            this.tbtnRSM.Text = "Remote Server Manager";
+            this.tbtnRSM.Click += new System.EventHandler(this.tbtnRSM_Click);
             // 
             // toolStrip2
             // 
@@ -1104,13 +1112,22 @@
             this.tbtnSettings.Text = "Einstellungen";
             this.tbtnSettings.Click += new System.EventHandler(this.tbtnSettings_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 689);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(734, 22);
+            this.statusStrip1.TabIndex = 36;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 693);
+            this.ClientSize = new System.Drawing.Size(734, 711);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip2);
+            this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -1139,6 +1156,8 @@
             this.pnlToolbars.ResumeLayout(false);
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
@@ -1220,9 +1239,10 @@
         private AddonList clstAddons;
         private System.Windows.Forms.ToolStripButton tbtnDeleteAddon;
         private System.Windows.Forms.Panel pnlToolbars;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripButton tbtnRSM;
     }
 }
 

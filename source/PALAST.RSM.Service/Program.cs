@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace PALAST
+namespace PALAST.RSM.Service
 {
     static class Program
     {
@@ -13,10 +13,10 @@ namespace PALAST
         [STAThread]
         static void Main()
         {
-            #region NLog konfigurieren PALAST
+            #region NLog konfigurieren PALASTServer
             {
                 NLog.Config.LoggingConfiguration configuration;
-                string configFile = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PALAST", "NLog.PALAST.config");
+                string configFile = System.IO.Path.Combine(Environment.CurrentDirectory, "NLog.PALAST.RSM.Service.config");
                 if (System.IO.File.Exists(configFile))
                     configuration = new NLog.Config.XmlLoggingConfiguration(configFile);
                 else
@@ -35,6 +35,7 @@ namespace PALAST
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
             try
             {
                 Application.Run(new FormMain());

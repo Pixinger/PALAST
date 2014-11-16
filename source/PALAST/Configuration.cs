@@ -10,8 +10,6 @@ namespace PALAST
 {
     public class Configuration
     {
-        public const string filename = "configuration.xml";
-
         #region Load/Save
         public static Configuration Load()
         {
@@ -19,7 +17,7 @@ namespace PALAST
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(Configuration));
-                using (TextReader reader = new StreamReader(filename, System.Text.Encoding.Unicode))
+                using (TextReader reader = new StreamReader(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PALAST", "configuration.xml"), System.Text.Encoding.Unicode))
                 {
                     cfg = serializer.Deserialize(reader) as Configuration;
                     reader.Close();
@@ -44,7 +42,7 @@ namespace PALAST
         public void Save()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Configuration));
-            using (StreamWriter streamWriter = new StreamWriter(filename, false, System.Text.Encoding.Unicode))
+            using (StreamWriter streamWriter = new StreamWriter(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PALAST", "configuration.xml"), false, System.Text.Encoding.Unicode))
             {
                 serializer.Serialize(streamWriter, this, null);
                 streamWriter.Close();
@@ -57,7 +55,8 @@ namespace PALAST
             public string Name;
             public string[] SelectedAddons;
             public string AddonSyncUrl = "http://www.teamkommando.net/arma3sync/public/palast.xml";
-            public int AddonSyncRevision = 0;
+
+            public string RsmServerToken = "";
 
             public bool ParamNoSplash = true;
             public bool ParamWorldEmpty = true;

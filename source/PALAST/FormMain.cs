@@ -62,6 +62,8 @@ namespace PALAST
             }
 
             Text = Text + " - " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            statusStrip1.Items.Add(new ToolStripButton("kkk"));
         }
 
         protected override void OnLoad(EventArgs e)
@@ -512,6 +514,7 @@ namespace PALAST
                 tbtnEditPreset.Enabled = true;
                 tbtnLaunch.Enabled = true;
                 tbtnUpdateAddons.Enabled = true;
+                tbtnRSM.Enabled = true;
 
                 _Configuration.SelectedPreset = lstPreset.SelectedItem.ToString();
 
@@ -524,6 +527,7 @@ namespace PALAST
                 tbtnEditPreset.Enabled = false;
                 tbtnLaunch.Enabled = false;
                 tbtnUpdateAddons.Enabled = false;
+                tbtnRSM.Enabled = false;
             }
         }
 
@@ -808,6 +812,11 @@ namespace PALAST
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void tbtnRSM_Click(object sender, EventArgs e)
+        {
+            RSM.ManagerDialog.ExecuteDialog(SelectedPreset);
         }
     }
 }
