@@ -33,7 +33,8 @@ namespace PALAST.RSM.Service
             _Configuration = configuration;
             _IGameServerManager = iGameServerManager;
 
-            string prefix = "http://" + configuration.ServerIP + ":" + configuration.ServerPort + "/";
+            //string prefix = "http://" + configuration.ServerIP + ":" + configuration.ServerPort + "/";
+            string prefix = "http://*:" + configuration.ServerPort + "/";
             _HttpListener = new HttpListener();
             _HttpListener.Prefixes.Add(prefix);
 
@@ -156,7 +157,11 @@ namespace PALAST.RSM.Service
                                     else if (subCommands[0] == "Start")
                                     {
                                         LOG.Info("Start: " + httpListenerContext.Request.RemoteEndPoint.ToString());
-                                        if (!_IGameServerManager.Start(commands[0]))
+                                        List<string> addons = new List<string>(subCommands.Length - 1);
+                                        for (int i = 1; i < subCommands.Length ; i++)
+                                            addons.Add(subCommands[i]);
+
+                                        if (!_IGameServerManager.Start(commands[0], addons.ToArray()))
                                             streamWriter.Write("UNABLE");
                                         else
                                             streamWriter.Write("OK");

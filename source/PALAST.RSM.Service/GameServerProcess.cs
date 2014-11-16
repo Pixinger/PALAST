@@ -137,7 +137,7 @@ namespace PALAST.RSM.Service
                         preProcess.StartInfo.CreateNoWindow = false;
 
                         // PreProcess starten
-                        LOG.Debug("Start preprocess: " + preProcess.StartInfo.FileName + " " + preProcess.StartInfo.Arguments);
+                        LOG.Info("Start preprocess: " + preProcess.StartInfo.FileName + " " + preProcess.StartInfo.Arguments);
                         preProcess.Start();
 
                         // Warten bis der PreProcess beendet wurde
@@ -178,7 +178,7 @@ namespace PALAST.RSM.Service
                     }
 
                     // GamerServerProcess starten
-                    LOG.Debug("Start gameserver: " + _GameServerProcess.StartInfo.FileName + " " + _GameServerProcess.StartInfo.Arguments);
+                    LOG.Info("Start gameserver: " + _GameServerProcess.StartInfo.FileName + " " + _GameServerProcess.StartInfo.Arguments);
                     _GameServerProcess.Start();
 
                     #region Den initialen Titel der Serverkonsole auslesen.
@@ -197,6 +197,7 @@ namespace PALAST.RSM.Service
                         Thread.Sleep(500);
                         _GameServerProcess.Refresh();
                     }
+                    LOG.Info("Started gameserver");
                     #endregion
 
                     #region PostProcess ausführen
@@ -217,7 +218,7 @@ namespace PALAST.RSM.Service
                                 postProcess.StartInfo.CreateNoWindow = false;
 
                                 // PreProcess starten
-                                LOG.Debug("Start postprocess: " + postProcess.StartInfo.FileName + " " + postProcess.StartInfo.Arguments);
+                                LOG.Info("Start postprocess: " + postProcess.StartInfo.FileName + " " + postProcess.StartInfo.Arguments);
                                 postProcess.Start();
 
                                 // Warten bis der PreProcess beendet wurde
@@ -332,7 +333,9 @@ namespace PALAST.RSM.Service
                         LOG.Warn("PreProcess.WorkingDirectory existiert nicht.");
                         return false;
                     }
-
+                }
+                if (_Configuration.GamerServerProcess != null)
+                {
                     if (!File.Exists(_Configuration.GamerServerProcess.FileName))
                     {
                         LOG.Warn("GamerServerProcess.FileName existiert nicht.");
@@ -343,7 +346,9 @@ namespace PALAST.RSM.Service
                         LOG.Warn("GamerServerProcess.WorkingDirectory existiert nicht.");
                         return false;
                     }
-
+                }
+                if (_Configuration.PostProcess != null)
+                {
                     if (!File.Exists(_Configuration.PostProcess.FileName))
                     {
                         LOG.Warn("PostProcess.FileName existiert nicht.");
@@ -355,7 +360,7 @@ namespace PALAST.RSM.Service
                         return false;
                     }
                 }
-
+                
                 _Status = ServerStates.Starting;
                 Thread thread = new Thread(new ParameterizedThreadStart(OnStartThread));
                 thread.Name = "OnStartThread: " + _Configuration.GUID;

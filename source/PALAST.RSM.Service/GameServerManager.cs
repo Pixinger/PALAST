@@ -9,7 +9,7 @@ namespace PALAST.RSM.Service
     {
         ServerStates GetServerState(string serverGuid);
         GameServerDetails GetServerDetails(string serverGuid);
-        bool Start(string serverGuid);
+        bool Start(string serverGuid, string[] addons);
         bool Stop(string serverGuid);
     }
 
@@ -119,14 +119,14 @@ namespace PALAST.RSM.Service
             else
                 return null;
         }
-        public bool Start(string gameServerGuid)
+        public bool Start(string gameServerGuid, string[] addons)
         {
             if (_Disposed)
                 return false;
 
             GameServerProcess gameServerProcess = GetProcess(gameServerGuid);
             if (gameServerProcess != null)
-                return gameServerProcess.Start(null);
+                return gameServerProcess.Start(addons);
             else
                 return false;
         }
