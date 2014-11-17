@@ -137,30 +137,30 @@ namespace PALAST.RSM
             return false;
         }
 
-      
 
-        public static string HttpPost(string URI, string Parameters)
+
+        public static string HttpPost(string URI, string data)
         {
-            System.Net.WebRequest req = System.Net.WebRequest.Create(URI);
-            req.Proxy = null;// new System.Net.WebProxy(ProxyString, true);
-            //Add these, as we're doing a POST
-            req.ContentType = "application/x-www-form-urlencoded";
-            req.Method = "POST";
-            //We need to count how many bytes we're sending. Post'ed Faked Forms should be name=value&
-            byte[] bytes = System.Text.Encoding.ASCII.GetBytes(Parameters);
-            req.ContentLength = bytes.Length;
-            System.IO.Stream os = req.GetRequestStream();
-            os.Write(bytes, 0, bytes.Length); //Push it out there
-            os.Close();
-            System.Net.WebResponse resp = req.GetResponse();
-            if (resp == null) return null;
-            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-            string s = sr.ReadToEnd().Trim();
+            System.Net.WebRequest webRequest = System.Net.WebRequest.Create(URI);
+            webRequest.Timeout = 2000;
+            webRequest.Proxy = null;
+            webRequest.ContentType = "application/x-www-form-urlencoded";//Add these, as we're doing a POST
+            webRequest.Method = "POST";
+            //We need to count how many bytes we're sending. 
+            byte[] bytes = System.Text.Encoding.ASCII.GetBytes(data);
+            webRequest.ContentLength = bytes.Length;
+            System.IO.Stream requestStream = webRequest.GetRequestStream();
+            requestStream.Write(bytes, 0, bytes.Length);
+            requestStream.Close();
 
-            LOG.Debug("Received: " + s);
-            return s;
+            System.Net.WebResponse webResponse = webRequest.GetResponse();
+            if (webResponse == null)
+                return null;
+
+            using (System.IO.StreamReader streamReader = new System.IO.StreamReader(webResponse.GetResponseStream()))
+            {
+                return streamReader.ReadToEnd().Trim();
+            }
         }
-
-      
     }
 }

@@ -45,16 +45,17 @@ namespace PALAST.RSM
             }
         }
 
-        protected override void OnLoad(EventArgs e)
+        protected override void OnShown(EventArgs e)
         {
-            base.OnLoad(e);
+            base.OnShown(e);
 
             _ClientHttp = new ClientHttp(_Preset.RsmServerToken);
 
-            tbtnRefresh.PerformClick();
+            RequestServerStatus();
+            tbtnRefresh.Enabled = true;
         }
 
-        private void RefreshServerStatus(ServerStates state)
+        private void RefreshServerStatusControls(ServerStates state)
         {
             slblStatus.Text = state.ToString();
 
@@ -99,7 +100,7 @@ namespace PALAST.RSM
             }
         }
 
-        private void tbtnRefresh_Click(object sender, EventArgs e)
+        private void RequestServerStatus()
         {
             _AddonList.Clear();
 
@@ -110,14 +111,19 @@ namespace PALAST.RSM
                 foreach (GameServerDetails.AddonInfo addonInfo in serverInfo.Addons)
                     _AddonList.Add(addonInfo.Name, addonInfo.Enabled);
 
-                RefreshServerStatus(serverInfo.Status);
+                RefreshServerStatusControls(serverInfo.Status);
             }
             else
             {
                 tbtnStop.Enabled = false;
                 tbtnStart.Enabled = false;
-                slblStatus.Text = "keine Rückmeldung vom RSM-Service";
+                slblStatus.Text = "Server nicht erreichbar";
             }
+        }
+
+        private void tbtnRefresh_Click(object sender, EventArgs e)
+        {
+            RequestServerStatus();
         }
         private void tbtnSetup_Click(object sender, EventArgs e)
         {
@@ -187,7 +193,7 @@ namespace PALAST.RSM
                 else
                     spgbStatus.Value = 1;
 
-                RefreshServerStatus(state);
+                RefreshServerStatusControls(state);
             }
         }
         private void OnStartFinished(ServerStates state)
@@ -199,7 +205,7 @@ namespace PALAST.RSM
                 tbtnSetup.Enabled = true;
                 tbtnRefresh.Enabled = true;
                 spgbStatus.Value = 0;
-                RefreshServerStatus(state);
+                RefreshServerStatusControls(state);
             }
         }
 
@@ -255,7 +261,7 @@ namespace PALAST.RSM
                 else
                     spgbStatus.Value = 1;
 
-                RefreshServerStatus(state);
+                RefreshServerStatusControls(state);
             }
         }
         private void OnStopFinished(ServerStates state)
@@ -267,7 +273,7 @@ namespace PALAST.RSM
                 tbtnSetup.Enabled = true;
                 tbtnRefresh.Enabled = true;
                 spgbStatus.Value = 0;
-                RefreshServerStatus(state);
+                RefreshServerStatusControls(state);
             }
         }
     }

@@ -61,11 +61,12 @@
             // tbtnRefresh
             // 
             this.tbtnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnRefresh.Enabled = false;
             this.tbtnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("tbtnRefresh.Image")));
             this.tbtnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnRefresh.Name = "tbtnRefresh";
             this.tbtnRefresh.Size = new System.Drawing.Size(23, 22);
-            this.tbtnRefresh.Text = "toolStripButton4";
+            this.tbtnRefresh.Text = "Aktualisieren";
             this.tbtnRefresh.Click += new System.EventHandler(this.tbtnRefresh_Click);
             // 
             // toolStripSeparator2
@@ -81,7 +82,7 @@
             this.tbtnStart.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnStart.Name = "tbtnStart";
             this.tbtnStart.Size = new System.Drawing.Size(23, 22);
-            this.tbtnStart.Text = "toolStripButton1";
+            this.tbtnStart.Text = "Starten";
             this.tbtnStart.Click += new System.EventHandler(this.tbtnStart_Click);
             // 
             // tbtnSetup
@@ -92,7 +93,7 @@
             this.tbtnSetup.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnSetup.Name = "tbtnSetup";
             this.tbtnSetup.Size = new System.Drawing.Size(23, 22);
-            this.tbtnSetup.Text = "toolStripButton5";
+            this.tbtnSetup.Text = "Einstellungen";
             this.tbtnSetup.Click += new System.EventHandler(this.tbtnSetup_Click);
             // 
             // tbtnStop
@@ -103,7 +104,7 @@
             this.tbtnStop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnStop.Name = "tbtnStop";
             this.tbtnStop.Size = new System.Drawing.Size(23, 22);
-            this.tbtnStop.Text = "toolStripButton2";
+            this.tbtnStop.Text = "Stoppen";
             this.tbtnStop.Click += new System.EventHandler(this.tbtnStop_Click);
             // 
             // _AddonList
@@ -136,8 +137,9 @@
             // 
             // slblStatus
             // 
+            this.slblStatus.AutoSize = false;
             this.slblStatus.Name = "slblStatus";
-            this.slblStatus.Size = new System.Drawing.Size(16, 17);
+            this.slblStatus.Size = new System.Drawing.Size(200, 17);
             this.slblStatus.Text = "...";
             // 
             // ManagerDialog
