@@ -137,6 +137,7 @@ namespace PALAST
                         using (FileStream originalFileStream = fileToCompress.OpenRead())
                         {
                             originalFileStream.CopyTo(compressionStream);
+                            requestStream.Flush();
                         }
                     }
                 }
@@ -318,7 +319,7 @@ namespace PALAST
             }
         }
 
-        [Obsolete("unused")]
+ /*       [Obsolete("unused")]
         public void UploadGz(string localFilename, string ftpFilename)
         {
             LOG.Info(ftpFilename);
@@ -368,5 +369,6 @@ namespace PALAST
             {
             }
         }
+  */
     }
 }

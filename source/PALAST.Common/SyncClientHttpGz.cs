@@ -126,7 +126,8 @@ namespace PALAST
                 AddListViewItem(items);
                 
                 // Herunterladen
-                HttpManager.DownloadGz_HttpWebRequest(trackedDownloads);
+                if (!HttpManager.DownloadGz_HttpWebRequest(trackedDownloads))
+                    return false;
 
                 return true;
             }

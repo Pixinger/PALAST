@@ -62,8 +62,6 @@ namespace PALAST
             }
 
             Text = Text + " - " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-            statusStrip1.Items.Add(new ToolStripButton("kkk"));
         }
 
         protected override void OnLoad(EventArgs e)
@@ -243,7 +241,7 @@ namespace PALAST
                 return File.Exists(_Configuration.Arma3Exe);
             }
         }
-
+       
         private void chbNoSpalsh_CheckedChanged(object sender, EventArgs e)
         {
             if (_BlockEventHandler)
@@ -514,7 +512,7 @@ namespace PALAST
                 tbtnEditPreset.Enabled = true;
                 tbtnLaunch.Enabled = true;
                 tbtnUpdateAddons.Enabled = true;
-                tbtnRSM.Enabled = true;
+                menRemoteServerManager.Enabled = true;
 
                 _Configuration.SelectedPreset = lstPreset.SelectedItem.ToString();
 
@@ -527,7 +525,7 @@ namespace PALAST
                 tbtnEditPreset.Enabled = false;
                 tbtnLaunch.Enabled = false;
                 tbtnUpdateAddons.Enabled = false;
-                tbtnRSM.Enabled = false;
+                menRemoteServerManager.Enabled = false;
             }
         }
 
@@ -814,9 +812,21 @@ namespace PALAST
             }
         }
 
-        private void tbtnRSM_Click(object sender, EventArgs e)
+        private void menRemoteServerManager_Click(object sender, EventArgs e)
         {
             RSM.ManagerDialog.ExecuteDialog(SelectedPreset);
+        }
+
+        private void menLogfile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("notepad.exe", System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PALAST", "_log_PALAST.txt"));//, "/SP- /silent /noicons /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS \"/dir=expand:{pf}\\PALAST\"");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

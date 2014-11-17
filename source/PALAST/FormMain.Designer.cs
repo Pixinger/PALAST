@@ -95,7 +95,6 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tbtnRSM = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.tbtnAddPreset = new System.Windows.Forms.ToolStripButton();
             this.tbtnEditPreset = new System.Windows.Forms.ToolStripButton();
@@ -103,9 +102,13 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnDeletePreset = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.menRemoteServerManager = new System.Windows.Forms.ToolStripMenuItem();
+            this.menLogfile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnInfo = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnSettings = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.grpAutoConnect.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
@@ -121,7 +124,6 @@
             this.grpAdditionalParameters.SuspendLayout();
             this.pnlToolbars.SuspendLayout();
             this.toolStrip3.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -827,7 +829,7 @@
             this.lstPreset.IntegralHeight = false;
             this.lstPreset.Location = new System.Drawing.Point(0, 0);
             this.lstPreset.Name = "lstPreset";
-            this.lstPreset.Size = new System.Drawing.Size(180, 664);
+            this.lstPreset.Size = new System.Drawing.Size(203, 664);
             this.lstPreset.TabIndex = 33;
             this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
             // 
@@ -847,7 +849,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.pnlParameter);
             this.splitContainer1.Panel2.Controls.Add(this.pnlToolbars);
             this.splitContainer1.Size = new System.Drawing.Size(734, 664);
-            this.splitContainer1.SplitterDistance = 180;
+            this.splitContainer1.SplitterDistance = 203;
             this.splitContainer1.TabIndex = 34;
             // 
             // clstAddons
@@ -858,7 +860,7 @@
             this.clstAddons.Location = new System.Drawing.Point(0, 27);
             this.clstAddons.Name = "clstAddons";
             this.clstAddons.SelectedIndex = -1;
-            this.clstAddons.Size = new System.Drawing.Size(246, 637);
+            this.clstAddons.Size = new System.Drawing.Size(223, 637);
             this.clstAddons.TabIndex = 37;
             this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
             this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
@@ -873,7 +875,7 @@
             this.pnlParameter.Controls.Add(this.grpProfileOptions);
             this.pnlParameter.Controls.Add(this.grpPerformance);
             this.pnlParameter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlParameter.Location = new System.Drawing.Point(246, 27);
+            this.pnlParameter.Location = new System.Drawing.Point(223, 27);
             this.pnlParameter.Name = "pnlParameter";
             this.pnlParameter.Size = new System.Drawing.Size(304, 637);
             this.pnlParameter.TabIndex = 36;
@@ -908,7 +910,7 @@
             this.pnlToolbars.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlToolbars.Location = new System.Drawing.Point(0, 0);
             this.pnlToolbars.Name = "pnlToolbars";
-            this.pnlToolbars.Size = new System.Drawing.Size(550, 27);
+            this.pnlToolbars.Size = new System.Drawing.Size(527, 27);
             this.pnlToolbars.TabIndex = 38;
             // 
             // toolStrip3
@@ -926,7 +928,7 @@
             this.toolStripSeparator6});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(246, 27);
+            this.toolStrip3.Size = new System.Drawing.Size(223, 27);
             this.toolStrip3.TabIndex = 35;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -999,25 +1001,12 @@
             this.toolStrip1.AutoSize = false;
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Right;
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbtnRSM});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip1.Location = new System.Drawing.Point(246, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(223, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(304, 27);
             this.toolStrip1.TabIndex = 36;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // tbtnRSM
-            // 
-            this.tbtnRSM.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnRSM.Enabled = false;
-            this.tbtnRSM.Image = ((System.Drawing.Image)(resources.GetObject("tbtnRSM.Image")));
-            this.tbtnRSM.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnRSM.Name = "tbtnRSM";
-            this.tbtnRSM.Size = new System.Drawing.Size(23, 24);
-            this.tbtnRSM.Text = "Remote Server Manager";
-            this.tbtnRSM.Click += new System.EventHandler(this.tbtnRSM_Click);
             // 
             // toolStrip2
             // 
@@ -1029,7 +1018,10 @@
             this.toolStripSeparator1,
             this.tbtnDeletePreset,
             this.toolStripSeparator2,
+            this.toolStripDropDownButton1,
+            this.toolStripSeparator7,
             this.tbtnInfo,
+            this.toolStripSeparator5,
             this.tbtnSettings});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
@@ -1090,6 +1082,40 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menRemoteServerManager,
+            this.menLogfile});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
+            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
+            // 
+            // menRemoteServerManager
+            // 
+            this.menRemoteServerManager.Enabled = false;
+            this.menRemoteServerManager.Name = "menRemoteServerManager";
+            this.menRemoteServerManager.Size = new System.Drawing.Size(200, 22);
+            this.menRemoteServerManager.Text = "Remote Server Manager";
+            this.menRemoteServerManager.Click += new System.EventHandler(this.menRemoteServerManager_Click);
+            // 
+            // menLogfile
+            // 
+            this.menLogfile.Name = "menLogfile";
+            this.menLogfile.Size = new System.Drawing.Size(200, 22);
+            this.menLogfile.Text = "Logfile";
+            this.menLogfile.Click += new System.EventHandler(this.menLogfile_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
             // tbtnInfo
             // 
             this.tbtnInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -1100,6 +1126,12 @@
             this.tbtnInfo.Size = new System.Drawing.Size(23, 22);
             this.tbtnInfo.Text = "Informationen";
             this.tbtnInfo.Click += new System.EventHandler(this.tbtnInfo_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
             // tbtnSettings
             // 
@@ -1112,25 +1144,17 @@
             this.tbtnSettings.Text = "Einstellungen";
             this.tbtnSettings.Click += new System.EventHandler(this.tbtnSettings_Click);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 689);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(734, 22);
-            this.statusStrip1.TabIndex = 36;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 711);
+            this.ClientSize = new System.Drawing.Size(734, 689);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip2);
-            this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(750, 727);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PALAST (Pixingers Arma Launcher and Sync Tool)";
@@ -1156,8 +1180,6 @@
             this.pnlToolbars.ResumeLayout(false);
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
@@ -1241,8 +1263,11 @@
         private System.Windows.Forms.Panel pnlToolbars;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripButton tbtnRSM;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem menRemoteServerManager;
+        private System.Windows.Forms.ToolStripMenuItem menLogfile;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }
 

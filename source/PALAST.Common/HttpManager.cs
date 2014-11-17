@@ -28,6 +28,7 @@ namespace PALAST
             public long BytesTotal;
             public long BytesRead;
             public DateTime StartTime;
+            public bool Successfull = false;
 
             public HttpWebRequestUserState(HttpWebRequest httpWebRequest, TrackedDownload trackedDownload)
             {
@@ -52,17 +53,17 @@ namespace PALAST
 
             userState.Finished.WaitOne();
         }
-        public static void DownloadGz_HttpWebRequest(TrackedDownload[] trackedDownloads)
+        public static bool DownloadGz_HttpWebRequest(TrackedDownload[] trackedDownloads)
         {
             HttpWebRequestUserState[] userStates = new HttpWebRequestUserState[trackedDownloads.Length];
             for (int i = 0; i < trackedDownloads.Length; i++)
             {
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(trackedDownloads[i]._Source + ".gz");
                 request.Proxy = null;
-                request.ServicePoint.ConnectionLimit = 2;
+                request.ServicePoint.ConnectionLimit = 4;
                 request.ServicePoint.Expect100Continue = false;
                 request.Credentials = CredentialCache.DefaultCredentials;
-                request.ConnectionGroupName = "MyConnectionGroupname";
+                request.ConnectionGroupName = "DownloadGz_HttpWebRequestArray";
 
                 userStates[i] = new HttpWebRequestUserState(request, trackedDownloads[i]);
                 request.BeginGetResponse(new AsyncCallback(DownloadGz_HttpWebRequest_OnBeginGetResponseCallback), userStates[i]);
@@ -70,6 +71,12 @@ namespace PALAST
 
             for (int i = 0; i < trackedDownloads.Length; i++)
                 userStates[i].Finished.WaitOne();
+
+            for (int i = 0; i < trackedDownloads.Length; i++)
+                if (!userStates[i].Successfull)
+                    return false;
+
+            return true;
         }
         private static void DownloadGz_HttpWebRequest_OnBeginGetResponseCallback(IAsyncResult ar)
         {
@@ -87,13 +94,45 @@ namespace PALAST
             catch (Exception ex)
             {
                 LOG.Error(ex);
+                #region userState.FileStream.Close();
+                try
+                {
+
+                    if (userState.FileStream != null)
+                        userState.FileStream.Close();
+                }
+                catch
+                {
+                }
+                #endregion
+                #region userState.ResponseStream.Close();
+                try
+                {
+                    if (userState.ResponseStream != null)
+                        userState.ResponseStream.Close();
+                }
+                catch
+                {
+                }
+                #endregion
+                #region File.Delete(userState.TrackedDownload._Target + ".gz");
+                try
+                {
+                    File.Delete(userState.TrackedDownload._Target + ".gz");
+                }
+                catch
+                {
+                }
+                #endregion
+                userState.Successfull = false;
+                userState.Finished.Set();
             }
         }
         private static void DownloadGz_HttpWebRequest_OnBeginReadCallback(IAsyncResult ar)
         {
+            HttpWebRequestUserState userState = ar.AsyncState as HttpWebRequestUserState;
             try
             {
-                HttpWebRequestUserState userState = ar.AsyncState as HttpWebRequestUserState;
 
                 TimeSpan totalTime = DateTime.Now - userState.StartTime;
                 int bytesRead = userState.ResponseStream.EndRead(ar);
@@ -115,16 +154,47 @@ namespace PALAST
                 {
                     userState.FileStream.Close();
                     userState.ResponseStream.Close();
-                    userState.Finished.Set();
 
                     Decompress(new FileInfo(userState.TrackedDownload._Target + ".gz"));
                     File.SetLastWriteTimeUtc(userState.TrackedDownload._Target, userState.TrackedDownload._LastWriteTimeUtc);
                     userState.TrackedDownload.DownloadProgressChanged(new DownloadProgress(100, 0, totalTime.TotalSeconds));
+                    userState.Successfull = true;
+                    userState.Finished.Set();
                 }
             }
             catch (Exception ex)
             {
                 LOG.Error(ex);
+                #region userState.FileStream.Close();
+                try
+                {
+                    userState.FileStream.Close();
+                }
+                catch
+                {
+                }
+                #endregion
+                #region userState.ResponseStream.Close();
+                try
+                {
+                    userState.ResponseStream.Close();
+                }
+                catch
+                {
+                }
+                #endregion
+                #region File.Delete(userState.TrackedDownload._Target + ".gz");
+                try
+                {
+                    File.Delete(userState.TrackedDownload._Target + ".gz");
+                }
+                catch
+                {
+                }
+                #endregion
+                userState.Successfull = false;
+                userState.TrackedDownload.DownloadProgressChanged(new DownloadProgress(100, 0, 0));
+                userState.Finished.Set();
             }
         }
 

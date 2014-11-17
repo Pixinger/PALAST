@@ -295,7 +295,8 @@ namespace PALAST
 
                 UnlockGui();
 
-                UpdateUserConfigs();
+                if (!e.IsFailed)
+                    UpdateUserConfigs();
             }
         }
 
