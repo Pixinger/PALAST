@@ -122,7 +122,7 @@ namespace PALAST.RSM.Service
             #region PreProcess ausführen
             if (_Configuration.PreProcess != null)
             {
-                Status = ServerStates.StartingPreLaunch;
+                Status = ServerStates.Starting_Prelaunch;
 
                 try
                 {
@@ -165,7 +165,7 @@ namespace PALAST.RSM.Service
                 {
                     lock (_SyncObject)
                     {
-                        _Status = ServerStates.StartingGamerServer;
+                        _Status = ServerStates.Starting_Gameserver;
 
                         // GamerServerProcess erstellen
                         _GameServerProcess = new Process();
@@ -206,7 +206,7 @@ namespace PALAST.RSM.Service
                     {
                         if (_Configuration.PostProcess != null)
                         {
-                            Status = ServerStates.StartingPostLaunch;
+                            Status = ServerStates.Starting_Postlaunch;
 
                             using (Process postProcess = new Process())
                             {
@@ -240,7 +240,7 @@ namespace PALAST.RSM.Service
 
                     // Status aktualisieren
                     if (!postProcessSuccessfull || !postProcessSuccessfull)
-                        Status = ServerStates.StartedWithErrors;
+                        Status = ServerStates.Started_WithErrors;
                     else
                         Status = ServerStates.Started;
 
@@ -376,7 +376,7 @@ namespace PALAST.RSM.Service
 
             lock (_SyncObject)
             {
-                if ((_Status == ServerStates.Started) || (_Status == ServerStates.StartedWithErrors))
+                if ((_Status == ServerStates.Started) || (_Status == ServerStates.Started_WithErrors))
                 {
                     _Status = ServerStates.Stopping;
                     _GameServerProcess.CloseMainWindow();

@@ -26,7 +26,7 @@ namespace PALAST.RSM
             InitializeComponent();
         }
 
-        public static DialogResult ExecuteDialog(Configuration.Preset preset)
+        public static DialogResult ExecuteDialog(Configuration.Preset preset, int timeout)
         {
             using (ManagerDialog dlg = new ManagerDialog())
             {
@@ -36,6 +36,7 @@ namespace PALAST.RSM
                 if (TokenTools.IsValid(preset.RsmServerToken))
                 {
                     dlg._Preset = preset;
+                    dlg._ClientHttp = new ClientHttp(preset.RsmServerToken, timeout);
                     DialogResult result = dlg.ShowDialog();
                     dlg._ExitThreads = true;
                     return result;
@@ -49,65 +50,73 @@ namespace PALAST.RSM
         {
             base.OnShown(e);
 
-            _ClientHttp = new ClientHttp(_Preset.RsmServerToken);
-
             RequestServerStatus();
             tbtnRefresh.Enabled = true;
         }
 
         private void RefreshServerStatusControls(ServerStates state)
         {
-            slblStatus.Text = state.ToString();
-
             switch (state)
             {
                 case ServerStates.Unknown:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    slblStatusData.Text = "Unbekannt";
                     break;
                 case ServerStates.Starting:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    slblStatusData.Text = "Starte Server...";
                     break;
-                case ServerStates.StartingPreLaunch:
+                case ServerStates.Starting_Prelaunch:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    slblStatusData.Text = "Starte PRE-Prozesse...";
                     break;
-                case ServerStates.StartingGamerServer:
+                case ServerStates.Starting_Gameserver:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    slblStatusData.Text = "Starte Gameserver...";
                     break;
-                case ServerStates.StartingPostLaunch:
+                case ServerStates.Starting_Postlaunch:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    slblStatusData.Text = "Starte POST-Prozesse...";
                     break;
                 case ServerStates.Started:
                     tbtnStop.Enabled = true;
                     tbtnStart.Enabled = false;
+                    slblStatusData.Text = "Gestartet";
                     break;
-                case ServerStates.StartedWithErrors:
+                case ServerStates.Started_WithErrors:
                     tbtnStop.Enabled = true;
                     tbtnStart.Enabled = false;
+                    slblStatusData.Text = "Gestartet (mit Fehlern)";
                     break;
                 case ServerStates.Stopping:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    slblStatusData.Text = "Beende Server...";
                     break;
                 case ServerStates.Stopped:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = true;
+                    slblStatusData.Text = "Beendet";
                     break;
             }
         }
 
         private void RequestServerStatus()
         {
+            slblStatusData.Text = "Verbindungsaufbau...";
             _AddonList.Clear();
+            Application.DoEvents();
 
+            spgbStatus.Visible = true;
             GameServerDetails serverInfo;
             if ((_ClientHttp.GetServerDetails(out serverInfo)) && (serverInfo != null))
             {
-                slblStatus.Text = serverInfo.Status.ToString();
+                slblStatusData.Text = serverInfo.Status.ToString();
                 foreach (GameServerDetails.AddonInfo addonInfo in serverInfo.Addons)
                     _AddonList.Add(addonInfo.Name, addonInfo.Enabled);
 
@@ -117,7 +126,8 @@ namespace PALAST.RSM
             {
                 tbtnStop.Enabled = false;
                 tbtnStart.Enabled = false;
-                slblStatus.Text = "Server nicht erreichbar";
+                slblStatusData.Text = "Server nicht erreichbar";
+                spgbStatus.Visible = false;
             }
         }
 
@@ -141,7 +151,10 @@ namespace PALAST.RSM
 
             if (!_ClientHttp.Start(addonsEnabled.ToArray()))
                 MessageBox.Show("Der Befehl konnte nicht ausgeführt werden. Entweder ist der Server offline, oder der Token ungültig.");
+            else
             {
+                spgbStatus.Value = 1;
+                spgbStatus.Visible = true;
                 tbtnSetup.Enabled = false;
                 tbtnRefresh.Enabled = false;
                 new System.Threading.Tasks.Task(() => WatchStartThread()).Start();
@@ -167,9 +180,9 @@ namespace PALAST.RSM
                         throw new ApplicationException("GetServerState() failed");
                  
                     if ((state != ServerStates.Starting) &&
-                        (state != ServerStates.StartingPreLaunch) &&
-                        (state != ServerStates.StartingGamerServer) &&
-                        (state != ServerStates.StartingPostLaunch))
+                        (state != ServerStates.Starting_Prelaunch) &&
+                        (state != ServerStates.Starting_Gameserver) &&
+                        (state != ServerStates.Starting_Postlaunch))
                         throw new ApplicationException("Start completed");
 
                     OnStartInProgress(state);
@@ -202,21 +215,31 @@ namespace PALAST.RSM
                 Invoke(new ServerStateDelegate(OnStartFinished), new object[] { state });
             else
             {
+                spgbStatus.Visible = false;
+                spgbStatus.Value = 0;
                 tbtnSetup.Enabled = true;
                 tbtnRefresh.Enabled = true;
-                spgbStatus.Value = 0;
                 RefreshServerStatusControls(state);
             }
         }
 
         private void tbtnStop_Click(object sender, EventArgs e)
         {
+            spgbStatus.Visible = true;
             tbtnSetup.Enabled = false;
             tbtnRefresh.Enabled = false;
             if (!_ClientHttp.Stop())
+            {
                 MessageBox.Show("Der Befehl konnte nicht ausgeführt werden. Entweder ist der Server offline, oder der Token ungültig.");
+            }
             else
+            {
+                spgbStatus.Value = 1;
+                spgbStatus.Visible = true;
+                tbtnSetup.Enabled = false;
+                tbtnRefresh.Enabled = false;
                 new System.Threading.Tasks.Task(() => WatchStopThread()).Start();
+            }
         }
         private void WatchStopThread()
         {
@@ -270,9 +293,10 @@ namespace PALAST.RSM
                 Invoke(new ServerStateDelegate(OnStopFinished), new object[] { state });
             else
             {
+                spgbStatus.Value = 0;
+                spgbStatus.Visible = false;
                 tbtnSetup.Enabled = true;
                 tbtnRefresh.Enabled = true;
-                spgbStatus.Value = 0;
                 RefreshServerStatusControls(state);
             }
         }

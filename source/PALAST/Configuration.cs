@@ -138,5 +138,6 @@ namespace PALAST
         public bool CloseAfterStart = true;
         public bool CheckForUpdates = true;
         public Preset[] Presets = null;
+        public int RsmTimeout = 1000;
     }
 }

@@ -78,7 +78,7 @@
             this.btnInfoNoSplash = new System.Windows.Forms.Button();
             this.chbWorldEmpty = new System.Windows.Forms.CheckBox();
             this.chbSkipIntro = new System.Windows.Forms.CheckBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this._ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lstPreset = new System.Windows.Forms.ListBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.clstAddons = new PALAST.AddonList();
@@ -86,7 +86,7 @@
             this.grpAdditionalParameters = new System.Windows.Forms.GroupBox();
             this.txtAdditionalParameter = new System.Windows.Forms.TextBox();
             this.pnlToolbars = new System.Windows.Forms.Panel();
-            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this._ToolStripAddons = new System.Windows.Forms.ToolStrip();
             this.tbtnLaunch = new System.Windows.Forms.ToolStripButton();
             this.tbtnTFAR = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -94,21 +94,20 @@
             this.tbtnUpdateAddons = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this._ToolStripParameter = new System.Windows.Forms.ToolStrip();
+            this._ToolStripMain = new System.Windows.Forms.ToolStrip();
             this.tbtnAddPreset = new System.Windows.Forms.ToolStripButton();
             this.tbtnEditPreset = new System.Windows.Forms.ToolStripButton();
             this.tbtnClonePreset = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnDeletePreset = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.menRemoteServerManager = new System.Windows.Forms.ToolStripMenuItem();
-            this.menLogfile = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnInfo = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnSettings = new System.Windows.Forms.ToolStripButton();
+            this.tbtnExtended = new System.Windows.Forms.ToolStripDropDownButton();
+            this.menRemoteServerManager = new System.Windows.Forms.ToolStripMenuItem();
+            this.menLogfile = new System.Windows.Forms.ToolStripMenuItem();
             this.grpAutoConnect.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
@@ -123,8 +122,8 @@
             this.pnlParameter.SuspendLayout();
             this.grpAdditionalParameters.SuspendLayout();
             this.pnlToolbars.SuspendLayout();
-            this.toolStrip3.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
+            this._ToolStripAddons.SuspendLayout();
+            this._ToolStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // chbShowScriptErrors
@@ -340,7 +339,7 @@
             this.btnInfoAutoConnect.Size = new System.Drawing.Size(16, 16);
             this.btnInfoAutoConnect.TabIndex = 42;
             this.btnInfoAutoConnect.Tag = "-autoConnect";
-            this.toolTip1.SetToolTip(this.btnInfoAutoConnect, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoAutoConnect, "Infos");
             this.btnInfoAutoConnect.UseVisualStyleBackColor = true;
             this.btnInfoAutoConnect.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -386,7 +385,7 @@
             this.btnInfoCheckSignatures.Size = new System.Drawing.Size(16, 16);
             this.btnInfoCheckSignatures.TabIndex = 45;
             this.btnInfoCheckSignatures.Tag = "-checkSignatures";
-            this.toolTip1.SetToolTip(this.btnInfoCheckSignatures, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoCheckSignatures, "Infos");
             this.btnInfoCheckSignatures.UseVisualStyleBackColor = true;
             this.btnInfoCheckSignatures.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -400,7 +399,7 @@
             this.btnInfoNoFilePatching.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoFilePatching.TabIndex = 44;
             this.btnInfoNoFilePatching.Tag = "-noFilePatching";
-            this.toolTip1.SetToolTip(this.btnInfoNoFilePatching, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoNoFilePatching, "Infos");
             this.btnInfoNoFilePatching.UseVisualStyleBackColor = true;
             this.btnInfoNoFilePatching.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -414,7 +413,7 @@
             this.btnInfoShowScriptErrors.Size = new System.Drawing.Size(16, 16);
             this.btnInfoShowScriptErrors.TabIndex = 43;
             this.btnInfoShowScriptErrors.Tag = "-showScriptErrors";
-            this.toolTip1.SetToolTip(this.btnInfoShowScriptErrors, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoShowScriptErrors, "Infos");
             this.btnInfoShowScriptErrors.UseVisualStyleBackColor = true;
             this.btnInfoShowScriptErrors.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -440,7 +439,7 @@
             this.btnInfoNoPause.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoPause.TabIndex = 42;
             this.btnInfoNoPause.Tag = "-noPause";
-            this.toolTip1.SetToolTip(this.btnInfoNoPause, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoNoPause, "Infos");
             this.btnInfoNoPause.UseVisualStyleBackColor = true;
             this.btnInfoNoPause.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -469,7 +468,7 @@
             this.btnInfoName.Size = new System.Drawing.Size(16, 16);
             this.btnInfoName.TabIndex = 21;
             this.btnInfoName.Tag = "-name";
-            this.toolTip1.SetToolTip(this.btnInfoName, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoName, "Infos");
             this.btnInfoName.UseVisualStyleBackColor = true;
             this.btnInfoName.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -525,7 +524,7 @@
             this.btnInfoNoLogs.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoLogs.TabIndex = 41;
             this.btnInfoNoLogs.Tag = "-noLogs";
-            this.toolTip1.SetToolTip(this.btnInfoNoLogs, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoNoLogs, "Infos");
             this.btnInfoNoLogs.UseVisualStyleBackColor = true;
             this.btnInfoNoLogs.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -539,7 +538,7 @@
             this.btnInfoExThreads.Size = new System.Drawing.Size(16, 16);
             this.btnInfoExThreads.TabIndex = 40;
             this.btnInfoExThreads.Tag = "-exThreads";
-            this.toolTip1.SetToolTip(this.btnInfoExThreads, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoExThreads, "Infos");
             this.btnInfoExThreads.UseVisualStyleBackColor = true;
             this.btnInfoExThreads.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -553,7 +552,7 @@
             this.btnInfoCpuCount.Size = new System.Drawing.Size(16, 16);
             this.btnInfoCpuCount.TabIndex = 39;
             this.btnInfoCpuCount.Tag = "-cpuCount";
-            this.toolTip1.SetToolTip(this.btnInfoCpuCount, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoCpuCount, "Infos");
             this.btnInfoCpuCount.UseVisualStyleBackColor = true;
             this.btnInfoCpuCount.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -567,7 +566,7 @@
             this.btnInfoNoCB.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoCB.TabIndex = 38;
             this.btnInfoNoCB.Tag = "-noCB";
-            this.toolTip1.SetToolTip(this.btnInfoNoCB, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoNoCB, "Infos");
             this.btnInfoNoCB.UseVisualStyleBackColor = true;
             this.btnInfoNoCB.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -581,7 +580,7 @@
             this.btnInfoWinXP.Size = new System.Drawing.Size(16, 16);
             this.btnInfoWinXP.TabIndex = 28;
             this.btnInfoWinXP.Tag = "-winXP";
-            this.toolTip1.SetToolTip(this.btnInfoWinXP, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoWinXP, "Infos");
             this.btnInfoWinXP.UseVisualStyleBackColor = true;
             this.btnInfoWinXP.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -595,7 +594,7 @@
             this.btnInfoMaxVRAM.Size = new System.Drawing.Size(16, 16);
             this.btnInfoMaxVRAM.TabIndex = 27;
             this.btnInfoMaxVRAM.Tag = "-maxVRAM";
-            this.toolTip1.SetToolTip(this.btnInfoMaxVRAM, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoMaxVRAM, "Infos");
             this.btnInfoMaxVRAM.UseVisualStyleBackColor = true;
             this.btnInfoMaxVRAM.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -609,7 +608,7 @@
             this.btnInfoMaxMem.Size = new System.Drawing.Size(16, 16);
             this.btnInfoMaxMem.TabIndex = 26;
             this.btnInfoMaxMem.Tag = "-maxMem";
-            this.toolTip1.SetToolTip(this.btnInfoMaxMem, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoMaxMem, "Infos");
             this.btnInfoMaxMem.UseVisualStyleBackColor = true;
             this.btnInfoMaxMem.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -766,7 +765,7 @@
             this.btnInfoSkipIntro.Size = new System.Drawing.Size(16, 16);
             this.btnInfoSkipIntro.TabIndex = 22;
             this.btnInfoSkipIntro.Tag = "-skipIntro";
-            this.toolTip1.SetToolTip(this.btnInfoSkipIntro, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoSkipIntro, "Infos");
             this.btnInfoSkipIntro.UseVisualStyleBackColor = true;
             this.btnInfoSkipIntro.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -780,7 +779,7 @@
             this.btnInfoWorldEmpty.Size = new System.Drawing.Size(16, 16);
             this.btnInfoWorldEmpty.TabIndex = 21;
             this.btnInfoWorldEmpty.Tag = "-worldEmtpy";
-            this.toolTip1.SetToolTip(this.btnInfoWorldEmpty, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoWorldEmpty, "Infos");
             this.btnInfoWorldEmpty.UseVisualStyleBackColor = true;
             this.btnInfoWorldEmpty.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -794,7 +793,7 @@
             this.btnInfoNoSplash.Size = new System.Drawing.Size(16, 16);
             this.btnInfoNoSplash.TabIndex = 20;
             this.btnInfoNoSplash.Tag = "-noSplash";
-            this.toolTip1.SetToolTip(this.btnInfoNoSplash, "Infos");
+            this._ToolTip.SetToolTip(this.btnInfoNoSplash, "Infos");
             this.btnInfoNoSplash.UseVisualStyleBackColor = true;
             this.btnInfoNoSplash.Click += new System.EventHandler(this.btnInfoOptions_Click);
             // 
@@ -905,20 +904,20 @@
             // 
             // pnlToolbars
             // 
-            this.pnlToolbars.Controls.Add(this.toolStrip3);
-            this.pnlToolbars.Controls.Add(this.toolStrip1);
+            this.pnlToolbars.Controls.Add(this._ToolStripAddons);
+            this.pnlToolbars.Controls.Add(this._ToolStripParameter);
             this.pnlToolbars.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlToolbars.Location = new System.Drawing.Point(0, 0);
             this.pnlToolbars.Name = "pnlToolbars";
             this.pnlToolbars.Size = new System.Drawing.Size(527, 27);
             this.pnlToolbars.TabIndex = 38;
             // 
-            // toolStrip3
+            // _ToolStripAddons
             // 
-            this.toolStrip3.AutoSize = false;
-            this.toolStrip3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.toolStrip3.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._ToolStripAddons.AutoSize = false;
+            this._ToolStripAddons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._ToolStripAddons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this._ToolStripAddons.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbtnLaunch,
             this.tbtnTFAR,
             this.toolStripSeparator3,
@@ -926,20 +925,20 @@
             this.tbtnUpdateAddons,
             this.toolStripSeparator4,
             this.toolStripSeparator6});
-            this.toolStrip3.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(223, 27);
-            this.toolStrip3.TabIndex = 35;
-            this.toolStrip3.Text = "toolStrip3";
+            this._ToolStripAddons.Location = new System.Drawing.Point(0, 0);
+            this._ToolStripAddons.Name = "_ToolStripAddons";
+            this._ToolStripAddons.Size = new System.Drawing.Size(223, 27);
+            this._ToolStripAddons.TabIndex = 35;
+            this._ToolStripAddons.Text = "toolStrip3";
             // 
             // tbtnLaunch
             // 
-            this.tbtnLaunch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnLaunch.BackColor = System.Drawing.SystemColors.Control;
             this.tbtnLaunch.Enabled = false;
             this.tbtnLaunch.Image = global::PALAST.Properties.Resources.controller;
             this.tbtnLaunch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnLaunch.Name = "tbtnLaunch";
-            this.tbtnLaunch.Size = new System.Drawing.Size(23, 24);
+            this.tbtnLaunch.Size = new System.Drawing.Size(91, 24);
             this.tbtnLaunch.Text = "Spiel starten";
             this.tbtnLaunch.Click += new System.EventHandler(this.tbtnLaunch_Click);
             // 
@@ -996,38 +995,37 @@
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 27);
             // 
-            // toolStrip1
+            // _ToolStripParameter
             // 
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip1.Location = new System.Drawing.Point(223, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(304, 27);
-            this.toolStrip1.TabIndex = 36;
-            this.toolStrip1.Text = "toolStrip1";
+            this._ToolStripParameter.AutoSize = false;
+            this._ToolStripParameter.Dock = System.Windows.Forms.DockStyle.Right;
+            this._ToolStripParameter.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this._ToolStripParameter.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this._ToolStripParameter.Location = new System.Drawing.Point(223, 0);
+            this._ToolStripParameter.Name = "_ToolStripParameter";
+            this._ToolStripParameter.Size = new System.Drawing.Size(304, 27);
+            this._ToolStripParameter.TabIndex = 36;
+            this._ToolStripParameter.Text = "toolStrip1";
             // 
-            // toolStrip2
+            // _ToolStripMain
             // 
-            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._ToolStripMain.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this._ToolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbtnAddPreset,
             this.tbtnEditPreset,
             this.tbtnClonePreset,
             this.toolStripSeparator1,
             this.tbtnDeletePreset,
             this.toolStripSeparator2,
-            this.toolStripDropDownButton1,
-            this.toolStripSeparator7,
             this.tbtnInfo,
             this.toolStripSeparator5,
-            this.tbtnSettings});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(734, 25);
-            this.toolStrip2.TabIndex = 35;
-            this.toolStrip2.Text = "toolStrip2";
+            this.tbtnSettings,
+            this.tbtnExtended});
+            this._ToolStripMain.Location = new System.Drawing.Point(0, 0);
+            this._ToolStripMain.Name = "_ToolStripMain";
+            this._ToolStripMain.Size = new System.Drawing.Size(734, 25);
+            this._ToolStripMain.TabIndex = 35;
+            this._ToolStripMain.Text = "toolStrip2";
             // 
             // tbtnAddPreset
             // 
@@ -1082,40 +1080,6 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menRemoteServerManager,
-            this.menLogfile});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 22);
-            this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
-            // 
-            // menRemoteServerManager
-            // 
-            this.menRemoteServerManager.Enabled = false;
-            this.menRemoteServerManager.Name = "menRemoteServerManager";
-            this.menRemoteServerManager.Size = new System.Drawing.Size(200, 22);
-            this.menRemoteServerManager.Text = "Remote Server Manager";
-            this.menRemoteServerManager.Click += new System.EventHandler(this.menRemoteServerManager_Click);
-            // 
-            // menLogfile
-            // 
-            this.menLogfile.Name = "menLogfile";
-            this.menLogfile.Size = new System.Drawing.Size(200, 22);
-            this.menLogfile.Text = "Logfile";
-            this.menLogfile.Click += new System.EventHandler(this.menLogfile_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
-            // 
             // tbtnInfo
             // 
             this.tbtnInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -1136,13 +1100,39 @@
             // tbtnSettings
             // 
             this.tbtnSettings.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbtnSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnSettings.Image = ((System.Drawing.Image)(resources.GetObject("tbtnSettings.Image")));
             this.tbtnSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnSettings.Name = "tbtnSettings";
-            this.tbtnSettings.Size = new System.Drawing.Size(23, 22);
+            this.tbtnSettings.Size = new System.Drawing.Size(98, 22);
             this.tbtnSettings.Text = "Einstellungen";
+            this.tbtnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.tbtnSettings.Click += new System.EventHandler(this.tbtnSettings_Click);
+            // 
+            // tbtnExtended
+            // 
+            this.tbtnExtended.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnExtended.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menRemoteServerManager,
+            this.menLogfile});
+            this.tbtnExtended.Image = ((System.Drawing.Image)(resources.GetObject("tbtnExtended.Image")));
+            this.tbtnExtended.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnExtended.Name = "tbtnExtended";
+            this.tbtnExtended.Size = new System.Drawing.Size(29, 22);
+            this.tbtnExtended.Text = "Fortgeschrittene Funktionen";
+            // 
+            // menRemoteServerManager
+            // 
+            this.menRemoteServerManager.Name = "menRemoteServerManager";
+            this.menRemoteServerManager.Size = new System.Drawing.Size(235, 22);
+            this.menRemoteServerManager.Text = "RSM (Remote Server Manager)";
+            this.menRemoteServerManager.Click += new System.EventHandler(this.menRemoteServerManager_Click);
+            // 
+            // menLogfile
+            // 
+            this.menLogfile.Name = "menLogfile";
+            this.menLogfile.Size = new System.Drawing.Size(235, 22);
+            this.menLogfile.Text = "Logdatei anzeigen";
+            this.menLogfile.Click += new System.EventHandler(this.menLogfile_Click);
             // 
             // FormMain
             // 
@@ -1150,7 +1140,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(734, 689);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.toolStrip2);
+            this.Controls.Add(this._ToolStripMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -1178,10 +1168,10 @@
             this.grpAdditionalParameters.ResumeLayout(false);
             this.grpAdditionalParameters.PerformLayout();
             this.pnlToolbars.ResumeLayout(false);
-            this.toolStrip3.ResumeLayout(false);
-            this.toolStrip3.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
+            this._ToolStripAddons.ResumeLayout(false);
+            this._ToolStripAddons.PerformLayout();
+            this._ToolStripMain.ResumeLayout(false);
+            this._ToolStripMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1221,7 +1211,7 @@
         private System.Windows.Forms.ComboBox cmbCpuCount;
         private System.Windows.Forms.ComboBox cmbName;
         private System.Windows.Forms.CheckBox chbAutoConnectEnabled;
-        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip _ToolTip;
         private System.Windows.Forms.Button btnInfoNoSplash;
         private System.Windows.Forms.Button btnInfoSkipIntro;
         private System.Windows.Forms.Button btnInfoWorldEmpty;
@@ -1243,12 +1233,12 @@
         private System.Windows.Forms.Panel pnlParameter;
         private System.Windows.Forms.GroupBox grpAdditionalParameters;
         private System.Windows.Forms.TextBox txtAdditionalParameter;
-        private System.Windows.Forms.ToolStrip toolStrip3;
+        private System.Windows.Forms.ToolStrip _ToolStripAddons;
         private System.Windows.Forms.ToolStripButton tbtnLaunch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton tbtnUpdateAddons;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStrip _ToolStripMain;
         private System.Windows.Forms.ToolStripButton tbtnAddPreset;
         private System.Windows.Forms.ToolStripButton tbtnEditPreset;
         private System.Windows.Forms.ToolStripButton tbtnClonePreset;
@@ -1262,12 +1252,11 @@
         private System.Windows.Forms.ToolStripButton tbtnDeleteAddon;
         private System.Windows.Forms.Panel pnlToolbars;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStrip _ToolStripParameter;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripDropDownButton tbtnExtended;
         private System.Windows.Forms.ToolStripMenuItem menRemoteServerManager;
         private System.Windows.Forms.ToolStripMenuItem menLogfile;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }
 

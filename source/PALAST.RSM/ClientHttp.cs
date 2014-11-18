@@ -18,8 +18,9 @@ namespace PALAST.RSM
         private string _UserGUID;
         private string _ServerGUID;
         private string _ConcatenatedUrl;
+        private int _Timeout;
 
-        public ClientHttp(string serverToken)
+        public ClientHttp(string serverToken, int timeout)
         {
             string[] texts = serverToken.Split(URL_SEPERATOR, StringSplitOptions.RemoveEmptyEntries);
             if (texts.Length != 3)
@@ -29,6 +30,7 @@ namespace PALAST.RSM
             _ServerGUID = texts[1];
             _UserGUID = texts[2];
             _ConcatenatedUrl=_Url + "/" + _ServerGUID + "/" + _UserGUID;
+            _Timeout = timeout;
         }
 
         public bool GetServerDetails(out GameServerDetails gameServerDetails)
@@ -139,10 +141,10 @@ namespace PALAST.RSM
 
 
 
-        public static string HttpPost(string URI, string data)
+        public string HttpPost(string URI, string data)
         {
             System.Net.WebRequest webRequest = System.Net.WebRequest.Create(URI);
-            webRequest.Timeout = 2000;
+            webRequest.Timeout = _Timeout;
             webRequest.Proxy = null;
             webRequest.ContentType = "application/x-www-form-urlencoded";//Add these, as we're doing a POST
             webRequest.Method = "POST";

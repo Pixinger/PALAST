@@ -38,6 +38,7 @@
             this._AddonList = new PALAST.AddonList();
             this._StatusStrip = new System.Windows.Forms.StatusStrip();
             this.spgbStatus = new System.Windows.Forms.ToolStripProgressBar();
+            this.slblStatusData = new System.Windows.Forms.ToolStripStatusLabel();
             this.slblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this._ToolStrip.SuspendLayout();
             this._StatusStrip.SuspendLayout();
@@ -121,8 +122,9 @@
             // _StatusStrip
             // 
             this._StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.spgbStatus,
-            this.slblStatus});
+            this.slblStatus,
+            this.slblStatusData,
+            this.spgbStatus});
             this._StatusStrip.Location = new System.Drawing.Point(0, 228);
             this._StatusStrip.Name = "_StatusStrip";
             this._StatusStrip.Size = new System.Drawing.Size(319, 22);
@@ -134,13 +136,22 @@
             this.spgbStatus.Maximum = 10;
             this.spgbStatus.Name = "spgbStatus";
             this.spgbStatus.Size = new System.Drawing.Size(100, 16);
+            this.spgbStatus.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.spgbStatus.Visible = false;
+            // 
+            // slblStatusData
+            // 
+            this.slblStatusData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.slblStatusData.Name = "slblStatusData";
+            this.slblStatusData.Size = new System.Drawing.Size(120, 17);
+            this.slblStatusData.Text = "Verbindungsaufbau...";
+            this.slblStatusData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // slblStatus
             // 
-            this.slblStatus.AutoSize = false;
             this.slblStatus.Name = "slblStatus";
-            this.slblStatus.Size = new System.Drawing.Size(200, 17);
-            this.slblStatus.Text = "...";
+            this.slblStatus.Size = new System.Drawing.Size(42, 17);
+            this.slblStatus.Text = "Status:";
             // 
             // ManagerDialog
             // 
@@ -173,6 +184,7 @@
         private System.Windows.Forms.ToolStripButton tbtnStop;
         private System.Windows.Forms.ToolStripButton tbtnSetup;
         private System.Windows.Forms.ToolStripProgressBar spgbStatus;
+        private System.Windows.Forms.ToolStripStatusLabel slblStatusData;
         private System.Windows.Forms.ToolStripStatusLabel slblStatus;
     }
 }

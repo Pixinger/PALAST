@@ -9,11 +9,11 @@ namespace PALAST.RSM
     {
         Unknown,
         Starting,
-        StartingPreLaunch,
-        StartingGamerServer,
-        StartingPostLaunch,
+        Starting_Prelaunch,
+        Starting_Gameserver,
+        Starting_Postlaunch,
         Started,
-        StartedWithErrors,
+        Started_WithErrors,
         Stopping,
         Stopped,
     }

@@ -814,7 +814,8 @@ namespace PALAST
 
         private void menRemoteServerManager_Click(object sender, EventArgs e)
         {
-            RSM.ManagerDialog.ExecuteDialog(SelectedPreset);
+            if (_Configuration != null)
+                RSM.ManagerDialog.ExecuteDialog(SelectedPreset, _Configuration.RsmTimeout);
         }
 
         private void menLogfile_Click(object sender, EventArgs e)
