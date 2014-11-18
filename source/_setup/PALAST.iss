@@ -44,11 +44,11 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 Source: "D:\_git_src\PALAST\source\_setup\PALAST.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\_git_src\PALAST\source\_setup\NLog.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\_git_src\PALAST\source\_setup\PALAST.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\_git_src\PALAST\source\_setup\PALAST.RSM.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\_git_src\PALAST\source\_setup\configuration.xml"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist; Permissions: everyone-modify
 Source: "D:\_git_src\PALAST\source\_setup\license.txt"; DestDir: "{app}"; Flags: ignoreversion isreadme
 Source: "D:\_git_src\PALAST\source\_setup\NLog.PALAST.config"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist
 Source: "D:\_git_src\PALAST\source\_setup\_log_PALAST.txt"; DestDir: "{localappdata}\PALAST\"; Flags: ignoreversion onlyifdoesntexist
-Source: "D:\_git_src\PALAST\source\_setup\PALAST.RSM.dll"; DestDir: "{app}"
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
