@@ -112,7 +112,7 @@ namespace PALAST.RSM
             _AddonList.Clear();
             Application.DoEvents();
 
-            spgbStatus.Visible = true;
+            spgbStatus.Visible = false;
             GameServerDetails serverInfo;
             if ((_ClientHttp.GetServerDetails(out serverInfo)) && (serverInfo != null))
             {
@@ -127,8 +127,8 @@ namespace PALAST.RSM
                 tbtnStop.Enabled = false;
                 tbtnStart.Enabled = false;
                 slblStatusData.Text = "Server nicht erreichbar";
-                spgbStatus.Visible = false;
             }
+            spgbStatus.Visible = false;
         }
 
         private void tbtnRefresh_Click(object sender, EventArgs e)

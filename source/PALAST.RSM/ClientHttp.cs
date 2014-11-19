@@ -37,7 +37,7 @@ namespace PALAST.RSM
         {
             try
             {
-                string result = HttpPost(_ConcatenatedUrl, "GetServerDetails");
+                string result = HttpPost(_ConcatenatedUrl, "GetServerDetails", _Timeout);
                 string[] commands = result.Split(URL_SEPERATOR, StringSplitOptions.RemoveEmptyEntries);
                 if ((commands.Length >= 2) && (commands[0] == "OK"))
                 {
@@ -77,7 +77,7 @@ namespace PALAST.RSM
         {
             try
             {
-                string result = HttpPost(_ConcatenatedUrl, "GetServerState");
+                string result = HttpPost(_ConcatenatedUrl, "GetServerState", _Timeout);
                 string[] commands = result.Split(URL_SEPERATOR, StringSplitOptions.RemoveEmptyEntries);
                 if ((commands.Length == 2) && (commands[0] == "OK"))
                 {
@@ -106,7 +106,7 @@ namespace PALAST.RSM
                 foreach(string addon in addonsEnabled)
                     command += addon + "/";
 
-                string result = HttpPost(_ConcatenatedUrl, command);
+                string result = HttpPost(_ConcatenatedUrl, command, _Timeout);
                 string[] commands = result.Split(URL_SEPERATOR, StringSplitOptions.RemoveEmptyEntries);
                 if ((commands.Length == 1) && (commands[0] == "OK"))
                     return true;
@@ -124,7 +124,7 @@ namespace PALAST.RSM
         {
             try
             {
-                string result = HttpPost(_ConcatenatedUrl, "Stop");
+                string result = HttpPost(_ConcatenatedUrl, "Stop", _Timeout);
                 string[] commands = result.Split(URL_SEPERATOR, StringSplitOptions.RemoveEmptyEntries);
                 if ((commands.Length == 1) && (commands[0] == "OK"))
                     return true;
@@ -141,10 +141,11 @@ namespace PALAST.RSM
 
 
 
-        public string HttpPost(string URI, string data)
+        public string HttpPost(string URI, string data, int timeout)
         {
             System.Net.WebRequest webRequest = System.Net.WebRequest.Create(URI);
-            webRequest.Timeout = _Timeout;
+            if (timeout > 0)
+                webRequest.Timeout = timeout;
             webRequest.Proxy = null;
             webRequest.ContentType = "application/x-www-form-urlencoded";//Add these, as we're doing a POST
             webRequest.Method = "POST";
