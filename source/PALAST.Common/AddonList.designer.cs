@@ -35,6 +35,7 @@
             // _Listbox
             // 
             this._Listbox.BackColor = System.Drawing.SystemColors.Window;
+            this._Listbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this._Listbox, "_Listbox");
             this._Listbox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this._Listbox.FormattingEnabled = true;

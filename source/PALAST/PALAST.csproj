@@ -80,6 +80,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Query\QueryDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\QueryDialog.Designer.cs">
+      <DependentUpon>QueryDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Query\SteamQuery.cs" />
     <Compile Include="RSM\ManagerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OptionInfoDialog.resx">
       <DependentUpon>OptionInfoDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\QueryDialog.resx">
+      <DependentUpon>QueryDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSM\ManagerDialog.resx">
       <DependentUpon>ManagerDialog.cs</DependentUpon>

@@ -16,6 +16,9 @@ namespace PALAST
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
 
+        private readonly Size MINSIZE = new Size(469, 700);
+        private readonly Size MAXSIZE = new Size(776, 700);
+
         private bool _BlockEventHandler = true;
         private Configuration _Configuration = Configuration.Load();
 
@@ -82,6 +85,8 @@ namespace PALAST
 
             RefreshMenu();
             RefreshNames();
+
+            SetCommandLineParametersVisible(_Configuration.CommandLineParametersVisible);
 
             if ((_Configuration != null) && (_Configuration.CheckForUpdates))
                 HttpManager.Download_Version("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersion.xml", new HttpManager.VersionEventHandler(ehPalastVersionDownloaded));
@@ -239,6 +244,25 @@ namespace PALAST
                     return false;
 
                 return File.Exists(_Configuration.Arma3Exe);
+            }
+        }
+        private void SetCommandLineParametersVisible(bool visible)
+        {
+            if (_Configuration != null)
+                _Configuration.CommandLineParametersVisible = visible;
+
+            tbtnParameter.Checked = visible;
+            if (visible)
+            {
+                MaximumSize = MAXSIZE;
+                Size = MAXSIZE;
+                MinimumSize = MAXSIZE;
+            }
+            else
+            {
+                MinimumSize = MINSIZE;
+                Size = MINSIZE;
+                MaximumSize = MINSIZE;
             }
         }
        
@@ -827,6 +851,32 @@ namespace PALAST
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void tbtnParameter_Click(object sender, EventArgs e)
+        {
+            SetCommandLineParametersVisible(!tbtnParameter.Checked);
+        }
+
+        private void menServerInfo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int port = Convert.ToInt32(SelectedPreset.ParamPort) + 1;            
+                if (port <= 0)
+                    throw new ApplicationException("Ungültiger Port");
+
+                if (string.IsNullOrWhiteSpace(SelectedPreset.ParamServer))
+                    throw new ApplicationException("Ungültige IP");
+
+                System.Net.IPAddress ip = System.Net.IPAddress.Parse(SelectedPreset.ParamServer);
+                                
+                Query.QueryDialog.ExecuteDialog(new System.Net.IPEndPoint(ip, port));
+            }
+            catch
+            {
+                MessageBox.Show("Zum Abfragen der Serverinformationen wird die Adresse verwendet, die bei den Parametern unter 'Automatisch verbinden' angegeben ist. Bitte überprüfen sie diese Adresse.");
             }
         }
     }

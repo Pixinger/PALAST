@@ -137,6 +137,7 @@ namespace PALAST
         public string SelectedPreset = "";
         public bool CloseAfterStart = true;
         public bool CheckForUpdates = true;
+        public bool CommandLineParametersVisible = false;
         public Preset[] Presets = null;
         public int RsmTimeout = 1000;
     }
