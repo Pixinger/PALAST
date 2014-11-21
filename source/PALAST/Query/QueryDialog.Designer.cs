@@ -133,7 +133,7 @@
             this.Controls.Add(this.lblNameData);
             this.Name = "QueryDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "QueryDialog";
+            this.Text = "Serverinformationen";
             this.ResumeLayout(false);
             this.PerformLayout();
 
