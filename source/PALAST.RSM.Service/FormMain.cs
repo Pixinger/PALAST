@@ -199,10 +199,6 @@ namespace PALAST.RSM.Service
         {
             if (_Configuration != null)
             {
-                bool online = cmenOnline.Checked;
-
-                Offline();
-
                 SetupDialog.ExecuteDialog(_Configuration);
 
                 if (_Configuration != null)
@@ -210,9 +206,6 @@ namespace PALAST.RSM.Service
 
                 if(_GameServerManager != null)
                     _GameServerManager.ReloadGameServerProcesses();
-
-                if (online)
-                    Online();
             }
         }
         private void cmenPrefixSetup_Click(object sender, EventArgs e)

@@ -45,7 +45,7 @@ namespace PALAST.RSM.Service
 
             if (SelectedGameServer != null)
             {
-                if (SelectedGameServer.Users!= null)
+                if (SelectedGameServer.Users != null)
                     foreach (GameServerXml.UserXml user in SelectedGameServer.Users)
                         lstUsers.Items.Add(user);
             }
@@ -64,7 +64,7 @@ namespace PALAST.RSM.Service
             {
                 pnlRight.Enabled = true;
                 _PreProcessControl.SetProcessXml(gameServer.PreProcess);
-                _GameserverProcessControl.SetProcessXml(gameServer.GamerServerProcess);
+                _GameserverProcessControl.SetProcessXml(gameServer.GameServerProcess);
                 _PostProcessControl.SetProcessXml(gameServer.PostProcess);
             }
         }
@@ -81,7 +81,7 @@ namespace PALAST.RSM.Service
             GameServerXml selectedGameServer = SelectedGameServer;
 
             if (selectedGameServer != null)
-                selectedGameServer.GamerServerProcess = _GameserverProcessControl.GetProcessXml();
+                selectedGameServer.GameServerProcess = _GameserverProcessControl.GetProcessXml();
         }
         private void _PostProcessControl_ConfigurationChanged(object sender, EventArgs e)
         {
@@ -128,7 +128,7 @@ namespace PALAST.RSM.Service
             GameServerXml gameServer = SelectedGameServer;
             if (gameServer != null)
             {
-                 if (MessageBox.Show("Wollen Sie den Gameserver '" + gameServer.Description+ "' wirklich löschen?", "Frage", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                if (MessageBox.Show("Wollen Sie den Gameserver '" + gameServer.Description + "' wirklich löschen?", "Frage", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
                     List<GameServerXml> list = new List<GameServerXml>(_ConfigurationXml.GameServers);
                     list.Remove(gameServer);
@@ -196,8 +196,53 @@ namespace PALAST.RSM.Service
         }
         private void lstUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            tbtnDeleteUser.Enabled = lstUsers.SelectedIndex != -1;
-            tbtnToken.Enabled = lstUsers.SelectedIndex != -1;
+            GameServerXml.UserXml user = SelectedUser;
+            if (user != null)
+            {
+                tbtnToken.Enabled = true;
+                tbtnDeleteUser.Enabled = true;
+                tddRechte.Enabled = true;
+
+                menAllowServerStop.Checked = user.AllowServerStop;
+                menAllowServerStart.Checked = user.AllowServerStart;
+                menAllowMissionUpload.Checked = user.AllowMissionUpload;
+            }
+            else
+            {
+                tbtnToken.Enabled = false;
+                tbtnDeleteUser.Enabled = false;
+                tddRechte.Enabled = false;
+            }
+        }
+
+        private void menAllowServerStart_Click(object sender, EventArgs e)
+        {
+            GameServerXml.UserXml user = SelectedUser;
+            if (user != null)
+            {
+                menAllowServerStart.Checked = !menAllowServerStart.Checked;
+                user.AllowServerStart = menAllowServerStart.Checked;
+            }
+        }
+
+        private void menAllowServerStop_Click(object sender, EventArgs e)
+        {
+            GameServerXml.UserXml user = SelectedUser;
+            if (user != null)
+            {
+                menAllowServerStop.Checked = !menAllowServerStop.Checked;
+                user.AllowServerStop = menAllowServerStop.Checked;
+            }
+        }
+
+        private void menAllowMissionUpload_Click(object sender, EventArgs e)
+        {
+            GameServerXml.UserXml user = SelectedUser;
+            if (user != null)
+            {
+                menAllowMissionUpload.Checked = !menAllowMissionUpload.Checked;
+                user.AllowMissionUpload = menAllowMissionUpload.Checked;
+            }
         }
     }
 }

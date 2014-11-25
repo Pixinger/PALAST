@@ -43,6 +43,10 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnAddUser = new System.Windows.Forms.ToolStripButton();
             this.tbtnDeleteUser = new System.Windows.Forms.ToolStripButton();
+            this.tddRechte = new System.Windows.Forms.ToolStripDropDownButton();
+            this.menAllowServerStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.menAllowServerStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.menAllowMissionUpload = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnToken = new System.Windows.Forms.ToolStripButton();
             this.pnlProcesses = new System.Windows.Forms.Panel();
@@ -52,6 +56,7 @@
             this.pnlRight = new System.Windows.Forms.Panel();
             this._ToolStripProcesses = new System.Windows.Forms.ToolStrip();
             this.tlblProcess = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.pnlGameServers.SuspendLayout();
             this._ToolStripGameServers.SuspendLayout();
             this.pnlCenter.SuspendLayout();
@@ -153,6 +158,8 @@
             this.toolStripSeparator2,
             this.tbtnAddUser,
             this.tbtnDeleteUser,
+            this.toolStripSeparator4,
+            this.tddRechte,
             this.toolStripSeparator3,
             this.tbtnToken});
             this._ToolStripUsers.Location = new System.Drawing.Point(0, 0);
@@ -191,6 +198,45 @@
             this.tbtnDeleteUser.Size = new System.Drawing.Size(23, 22);
             this.tbtnDeleteUser.Text = "Benutzer entfernen";
             this.tbtnDeleteUser.Click += new System.EventHandler(this.tbtnDeleteUser_Click);
+            // 
+            // tddRechte
+            // 
+            this.tddRechte.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menAllowServerStart,
+            this.menAllowServerStop,
+            this.menAllowMissionUpload});
+            this.tddRechte.Image = ((System.Drawing.Image)(resources.GetObject("tddRechte.Image")));
+            this.tddRechte.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tddRechte.Name = "tddRechte";
+            this.tddRechte.Size = new System.Drawing.Size(72, 22);
+            this.tddRechte.Text = "Rechte";
+            // 
+            // menAllowServerStart
+            // 
+            this.menAllowServerStart.Checked = true;
+            this.menAllowServerStart.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.menAllowServerStart.Name = "menAllowServerStart";
+            this.menAllowServerStart.Size = new System.Drawing.Size(187, 22);
+            this.menAllowServerStart.Text = "Server starten";
+            this.menAllowServerStart.Click += new System.EventHandler(this.menAllowServerStart_Click);
+            // 
+            // menAllowServerStop
+            // 
+            this.menAllowServerStop.Checked = true;
+            this.menAllowServerStop.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.menAllowServerStop.Name = "menAllowServerStop";
+            this.menAllowServerStop.Size = new System.Drawing.Size(187, 22);
+            this.menAllowServerStop.Text = "Server beenden";
+            this.menAllowServerStop.Click += new System.EventHandler(this.menAllowServerStop_Click);
+            // 
+            // menAllowMissionUpload
+            // 
+            this.menAllowMissionUpload.Checked = true;
+            this.menAllowMissionUpload.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.menAllowMissionUpload.Name = "menAllowMissionUpload";
+            this.menAllowMissionUpload.Size = new System.Drawing.Size(187, 22);
+            this.menAllowMissionUpload.Text = "Missionen hochladen";
+            this.menAllowMissionUpload.Click += new System.EventHandler(this.menAllowMissionUpload_Click);
             // 
             // toolStripSeparator3
             // 
@@ -279,6 +325,11 @@
             this.tlblProcess.Size = new System.Drawing.Size(52, 22);
             this.tlblProcess.Text = "Prozesse";
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
             // SetupDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,6 +338,7 @@
             this.Controls.Add(this.pnlCenter);
             this.Controls.Add(this.pnlRight);
             this.Controls.Add(this.pnlGameServers);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(957, 512);
             this.Name = "SetupDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -333,6 +385,11 @@
         private System.Windows.Forms.ListBox lstUsers;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton tbtnToken;
+        private System.Windows.Forms.ToolStripDropDownButton tddRechte;
+        private System.Windows.Forms.ToolStripMenuItem menAllowMissionUpload;
+        private System.Windows.Forms.ToolStripMenuItem menAllowServerStart;
+        private System.Windows.Forms.ToolStripMenuItem menAllowServerStop;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
 
     }
 }

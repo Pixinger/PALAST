@@ -74,7 +74,7 @@
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
-            // RenamePresetDialog
+            // StringDialog
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -86,7 +86,7 @@
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.txtName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "RenamePresetDialog";
+            this.Name = "StringDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Gameserver";
             this.ResumeLayout(false);

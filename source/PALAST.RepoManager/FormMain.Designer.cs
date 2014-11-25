@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            this.cmenMain = new System.Windows.Forms.ContextMenuStrip();
+            this.cmenMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmenReSign = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenCopyKey = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();

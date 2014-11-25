@@ -112,9 +112,9 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnExtended = new System.Windows.Forms.ToolStripDropDownButton();
             this.menServerInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.menRemoteServerManager = new System.Windows.Forms.ToolStripMenuItem();
             this.menLogfile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menRemoteServerManager = new System.Windows.Forms.ToolStripMenuItem();
             this.grpAutoConnect.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
@@ -1178,14 +1178,6 @@
             this.menServerInfo.Text = "Server Informationen";
             this.menServerInfo.Click += new System.EventHandler(this.menServerInfo_Click);
             // 
-            // menRemoteServerManager
-            // 
-            this.menRemoteServerManager.Image = ((System.Drawing.Image)(resources.GetObject("menRemoteServerManager.Image")));
-            this.menRemoteServerManager.Name = "menRemoteServerManager";
-            this.menRemoteServerManager.Size = new System.Drawing.Size(235, 22);
-            this.menRemoteServerManager.Text = "RSM (Remote Server Manager)";
-            this.menRemoteServerManager.Click += new System.EventHandler(this.menRemoteServerManager_Click);
-            // 
             // menLogfile
             // 
             this.menLogfile.Image = ((System.Drawing.Image)(resources.GetObject("menLogfile.Image")));
@@ -1198,6 +1190,14 @@
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(232, 6);
+            // 
+            // menRemoteServerManager
+            // 
+            this.menRemoteServerManager.Image = ((System.Drawing.Image)(resources.GetObject("menRemoteServerManager.Image")));
+            this.menRemoteServerManager.Name = "menRemoteServerManager";
+            this.menRemoteServerManager.Size = new System.Drawing.Size(235, 22);
+            this.menRemoteServerManager.Text = "RSM (Remote Server Manager)";
+            this.menRemoteServerManager.Click += new System.EventHandler(this.menRemoteServerManager_Click);
             // 
             // FormMain
             // 

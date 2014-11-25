@@ -36,9 +36,9 @@
             this.cmenCloseGameServers = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.cmenSetup = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmenPrefixSetup = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.cmenClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmenPrefixSetup = new System.Windows.Forms.ToolStripMenuItem();
             this._ContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +60,7 @@
             this.toolStripMenuItem1,
             this.cmenClose});
             this._ContextMenuStrip.Name = "_ContextMenuStrip";
-            this._ContextMenuStrip.Size = new System.Drawing.Size(209, 148);
+            this._ContextMenuStrip.Size = new System.Drawing.Size(209, 126);
             // 
             // cmenOnline
             // 
@@ -89,6 +89,13 @@
             this.cmenSetup.Text = "Einstellungen";
             this.cmenSetup.Click += new System.EventHandler(this.cmenSetup_Click);
             // 
+            // cmenPrefixSetup
+            // 
+            this.cmenPrefixSetup.Name = "cmenPrefixSetup";
+            this.cmenPrefixSetup.Size = new System.Drawing.Size(208, 22);
+            this.cmenPrefixSetup.Text = "Prefix festlegen";
+            this.cmenPrefixSetup.Click += new System.EventHandler(this.cmenPrefixSetup_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
@@ -100,13 +107,6 @@
             this.cmenClose.Size = new System.Drawing.Size(208, 22);
             this.cmenClose.Text = "Beenden";
             this.cmenClose.Click += new System.EventHandler(this.cmenClose_Click);
-            // 
-            // cmenPrefixSetup
-            // 
-            this.cmenPrefixSetup.Name = "cmenPrefixSetup";
-            this.cmenPrefixSetup.Size = new System.Drawing.Size(208, 22);
-            this.cmenPrefixSetup.Text = "Prefix festlegen";
-            this.cmenPrefixSetup.Click += new System.EventHandler(this.cmenPrefixSetup_Click);
             // 
             // FormMain
             // 

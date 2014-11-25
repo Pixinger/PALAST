@@ -103,8 +103,17 @@ namespace PALAST.RSM.Service
 
                 _HttpListener.BeginGetContext(new AsyncCallback(OnBeginGetContext), null);
 
-                if (httpListenerContext.Request.ContentLength64 <= MAX_LENGTH)
+                if (httpListenerContext.Request.ContentLength64 <= _Configuration.MaxAllowedSizeMB * 1024 * 1024)
+                {
                     new System.Threading.Tasks.Task(() => OnProcessContext(httpListenerContext)).Start();
+                }
+                else
+                {
+                    using (System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(httpListenerContext.Response.OutputStream))
+                    {
+                        streamWriter.Write("ErrorMaximumSize");
+                    }
+                }
             }
             catch (ObjectDisposedException)
             {
@@ -119,71 +128,105 @@ namespace PALAST.RSM.Service
         {
             try
             {
-                string[] commands = httpListenerContext.Request.RawUrl.Split(URL_SEPERATOR, StringSplitOptions.RemoveEmptyEntries);
-
-                if (commands.Length == 2)
+                string[] rawUrlSplits = httpListenerContext.Request.RawUrl.Split(URL_SEPERATOR, StringSplitOptions.RemoveEmptyEntries);
+                if (rawUrlSplits.Length >= 3) 
                 {
+                    string serverGuid = rawUrlSplits[0];
+                    string userGuid = rawUrlSplits[1];
+                    string command = rawUrlSplits[2];
+
                     using (System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(httpListenerContext.Response.OutputStream))
                     {
-                        GameServerXml.UserXml user = GetUserConfiguration(commands[0], commands[1]);
+                        GameServerXml.UserXml user = GetUserConfiguration(serverGuid, userGuid);
                         if (user != null)
                         {
-                            using (System.IO.StreamReader streamReader = new System.IO.StreamReader(httpListenerContext.Request.InputStream))
+                            if ((command == "Mission") && (rawUrlSplits.Length == 5))
                             {
-                                string concatenatedData = streamReader.ReadToEnd();
-                                string[] subCommands = concatenatedData.Split(URL_SEPERATOR, StringSplitOptions.RemoveEmptyEntries);
-                                if (commands.Length > 0)
+                                bool overwrite = (rawUrlSplits[3] == bool.TrueString);
+                                string filename = rawUrlSplits[4];
+                                LOG.Info("MissionUpload von Benutzer: " + user.UserName + " IP:" + httpListenerContext.Request.RemoteEndPoint.ToString() + " filename: " + filename + " overwrite: " + overwrite.ToString());
+                                if (user.AllowMissionUpload)
                                 {
-                                    if (subCommands[0] == "GetServerState")
-                                    {
-                                        LOG.Info("GetServerState: " + httpListenerContext.Request.RemoteEndPoint.ToString());
-                                        ServerStates status = _IGameServerManager.GetServerState(commands[0]);
-                                        streamWriter.Write("OK/" + status.ToString());
-                                    }
-                                    else if (subCommands[0] == "GetServerDetails")
-                                    {
-                                        LOG.Info("GetServerDetails: " + httpListenerContext.Request.RemoteEndPoint.ToString());
-                                        GameServerDetails gameServerDetails = _IGameServerManager.GetServerDetails(commands[0]);
-                                        if (gameServerDetails != null)
-                                        {
-                                            streamWriter.Write("OK/" + gameServerDetails.Status.ToString() + "/");
-                                            if (gameServerDetails.Addons != null)
-                                                foreach (GameServerDetails.AddonInfo addon in gameServerDetails.Addons)
-                                                    streamWriter.Write(addon.Name + "|" + addon.Enabled + "/");
-                                        }
-                                        else
-                                            streamWriter.Write("ERROR");
-                                    }
-                                    else if (subCommands[0] == "Start")
-                                    {
-                                        LOG.Info("Start: " + httpListenerContext.Request.RemoteEndPoint.ToString());
-                                        List<string> addons = new List<string>(subCommands.Length - 1);
-                                        for (int i = 1; i < subCommands.Length ; i++)
-                                            addons.Add(subCommands[i]);
-
-                                        if (!_IGameServerManager.Start(commands[0], addons.ToArray()))
-                                            streamWriter.Write("UNABLE");
-                                        else
-                                            streamWriter.Write("OK");
-                                    }
-                                    else if (subCommands[0] == "Stop")
-                                    {
-                                        LOG.Info("Stop: " + httpListenerContext.Request.RemoteEndPoint.ToString());
-                                        if (!_IGameServerManager.Stop(commands[0]))
-                                            streamWriter.Write("UNABLE");
-                                        else
-                                            streamWriter.Write("OK");
-                                    }
-                                    else
-                                        streamWriter.Write("ERROR");
+                                    MissionResults result = _IGameServerManager.MissionUpload(serverGuid, overwrite, filename, httpListenerContext.Request.InputStream);
+                                    streamWriter.Write(result.ToString());
                                 }
                                 else
-                                    streamWriter.Write("INVALID_CMD");
+                                {
+                                    LOG.Warn("NOT ALLOWED: MissionUpload von Benutzer: " + user.UserName + " IP:" + httpListenerContext.Request.RemoteEndPoint.ToString() + " filename: " + filename + " overwrite: " + overwrite.ToString());
+                                    streamWriter.Write(MissionResults.ErrorNotAllowed.ToString());
+                                }
                             }
+                            else if ((command == "GetServerState") && (rawUrlSplits.Length == 3))
+                            {
+                                LOG.Debug("GetServerState: " + httpListenerContext.Request.RemoteEndPoint.ToString());
+                                ServerStates status = _IGameServerManager.GetServerState(serverGuid);
+                                streamWriter.Write("OK/" + status.ToString());
+                            }
+                            else if ((command == "GetServerDetails") && (rawUrlSplits.Length == 3))
+                            {
+                                LOG.Debug("GetServerDetails: " + httpListenerContext.Request.RemoteEndPoint.ToString());
+                                GameServerDetails gameServerDetails = _IGameServerManager.GetServerDetails(serverGuid);
+                                if (gameServerDetails != null)
+                                {
+                                    streamWriter.Write("OK/" + gameServerDetails.Status.ToString() + "/");
+                                    if (gameServerDetails.Addons != null)
+                                        foreach (GameServerDetails.AddonInfo addon in gameServerDetails.Addons)
+                                            streamWriter.Write(addon.Name + "|" + addon.Enabled + "/");
+                                }
+                                else
+                                    streamWriter.Write("ErrorNoDetails");
+                            }
+                            else if ((command == "Start") && (rawUrlSplits.Length == 3))
+                            {
+                                if (user.AllowServerStart)
+                                {
+                                    using (System.IO.StreamReader streamReader = new System.IO.StreamReader(httpListenerContext.Request.InputStream))
+                                    {
+                                        LOG.Info("Start von Benutzer: " + user.UserName + " IP:" + httpListenerContext.Request.RemoteEndPoint.ToString());
+                                        List<string> addons = new List<string>();
+                                        string data = streamReader.ReadToEnd();
+                                        if ((!string.IsNullOrWhiteSpace(data)) && (data.Contains("@")))
+                                        {
+                                            string[] addonSplit = data.Split(URL_SEPERATOR, StringSplitOptions.RemoveEmptyEntries);
+                                            for (int i = 0; i < addonSplit.Length; i++)
+                                                if (addonSplit[i].StartsWith("@"))
+                                                    addons.Add(addonSplit[i]);
+                                        }
+
+                                        if (!_IGameServerManager.Start(serverGuid, addons.ToArray()))
+                                            streamWriter.Write("ErrorUnable");
+                                        else
+                                            streamWriter.Write("OK");
+                                    }
+                                }
+                                else
+                                {
+                                    LOG.Warn("NOT ALLOWED: Start von Benutzer: " + user.UserName + " IP:" + httpListenerContext.Request.RemoteEndPoint.ToString());
+                                    streamWriter.Write("ErrorNotAllowed");
+                                }
+                            }
+                            else if ((command == "Stop") && (rawUrlSplits.Length == 3))
+                            {
+                                if (user.AllowServerStop)
+                                {
+                                    LOG.Info("Stop von Benutzer: " + user.UserName + " IP: " + httpListenerContext.Request.RemoteEndPoint.ToString());
+                                    if (!_IGameServerManager.Stop(serverGuid))
+                                        streamWriter.Write("ErrorUnable");
+                                    else
+                                        streamWriter.Write("OK");
+                                }
+                                else
+                                {
+                                    LOG.Warn("NOT ALLOWED: Stop von Benutzer: " + user.UserName + " IP: " + httpListenerContext.Request.RemoteEndPoint.ToString());
+                                    streamWriter.Write("ErrorNotAllowed");
+                                }
+                            }
+                            else
+                                streamWriter.Write("ErrorInvalidCommand");
                         }
                         else
-                            streamWriter.Write("INVALID_USR");
-                    }
+                            streamWriter.Write("ErrorInvalidUser");
+                    } // using (StreamWriter...
                 }
             }
             catch (Exception ex)

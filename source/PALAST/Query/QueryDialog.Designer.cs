@@ -131,6 +131,7 @@
             this.Controls.Add(this.lvwPlayers);
             this.Controls.Add(this.lblMissionData);
             this.Controls.Add(this.lblNameData);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "QueryDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Serverinformationen";

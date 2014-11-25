@@ -1,4 +1,4 @@
------------------------------------
+﻿-----------------------------------
 Deutsch (frei uebersetzt)
 -----------------------------------
 Die MIT Lizenz (MIT)
@@ -52,3 +52,9 @@ ICONS:
 -----------------------------------
 Most of the icons can be found at:
 http://www.famfamfam.com/lab/icons/
+
+-----------------------------------
+"Tulliana 2.0" iconset for Pardus GNU/Linux. Artist / M.Umut Pulat. Tulliana iconset has some inspirations from the iconsets Nuvola and Crystal.
+Link to M.Umut Pulat (http://12m3.deviantart.com/) go see more of he´s work plz 
+Convertede to Ico by GFXman with permission. 
+(Well you got all the permissions on Tulliana)

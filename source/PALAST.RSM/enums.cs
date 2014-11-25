@@ -17,4 +17,14 @@ namespace PALAST.RSM
         Stopping,
         Stopped,
     }
+    public enum MissionResults
+    {
+        OK,
+        ErrorUnknown,
+        ErrorNotAllowed,
+        ErrorNoMissionFolder,
+        ErrorFileExists,
+        ErrorFileExistsServerOnline,
+        ErrorMaximumSize,
+    }
 }

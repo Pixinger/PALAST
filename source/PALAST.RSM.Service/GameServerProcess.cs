@@ -68,12 +68,12 @@ namespace PALAST.RSM.Service
         {
             lock (_SyncObject)
             {
-                if (_Configuration.GamerServerProcess == null)
+                if (_Configuration.GameServerProcess == null)
                     _AddonsAvailable = new string[0];
                 else
                 {
                     // Verzeichnisliste holen
-                    DirectoryInfo[] addOnDirectories = new DirectoryInfo(_Configuration.GamerServerProcess.WorkingDirectory).GetDirectories("@*");
+                    DirectoryInfo[] addOnDirectories = new DirectoryInfo(_Configuration.GameServerProcess.WorkingDirectory).GetDirectories("@*");
 
                     // Addons überschreiben
                     _AddonsAvailable = new string[addOnDirectories.Length];
@@ -158,7 +158,7 @@ namespace PALAST.RSM.Service
             #endregion
 
             // GamerServer starten 
-            if ((_Configuration.GamerServerProcess != null) && ((preProcessSuccessfull) || (!preProcessSuccessfull && _Configuration.ForceGameServerStart)))
+            if ((_Configuration.GameServerProcess != null) && ((preProcessSuccessfull) || (!preProcessSuccessfull && _Configuration.ForceGameServerStart)))
             {
 
                 try
@@ -169,10 +169,10 @@ namespace PALAST.RSM.Service
 
                         // GamerServerProcess erstellen
                         _GameServerProcess = new Process();
-                        _GameServerProcess.StartInfo.FileName = Path.Combine(_Configuration.GamerServerProcess.WorkingDirectory, _Configuration.GamerServerProcess.FileName);
-                        _GameServerProcess.StartInfo.WorkingDirectory = _Configuration.GamerServerProcess.WorkingDirectory;
+                        _GameServerProcess.StartInfo.FileName = Path.Combine(_Configuration.GameServerProcess.WorkingDirectory, _Configuration.GameServerProcess.FileName);
+                        _GameServerProcess.StartInfo.WorkingDirectory = _Configuration.GameServerProcess.WorkingDirectory;
                         _GameServerProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                        _GameServerProcess.StartInfo.Arguments = _Configuration.GamerServerProcess.Arguments + GetAddonArguments();
+                        _GameServerProcess.StartInfo.Arguments = _Configuration.GameServerProcess.Arguments + GetAddonArguments();
                         _GameServerProcess.StartInfo.UseShellExecute = false;
                         _GameServerProcess.StartInfo.CreateNoWindow = false;
                     }
@@ -309,7 +309,53 @@ namespace PALAST.RSM.Service
                 }
             }
         }
+        public MissionResults MissionUpload(bool overwrite, string pboName, System.IO.Stream requestStream)
+        {
+            try
+            {
+                if (!pboName.EndsWith(".pbo"))
+                    throw new ApplicationException("pboname without pbo extension");
+                if (pboName.Contains("\\") || pboName.Contains(".."))
+                    throw new ApplicationException("pboname contains invalid characters");
 
+                if (_Configuration.GameServerProcess == null)
+                    return MissionResults.ErrorNoMissionFolder;
+
+                if (string.IsNullOrWhiteSpace(_Configuration.GameServerProcess.WorkingDirectory))
+                    return MissionResults.ErrorNoMissionFolder;
+
+                if (!Directory.Exists(_Configuration.GameServerProcess.WorkingDirectory))
+                    return MissionResults.ErrorNoMissionFolder;
+
+                string mpmissionsDirectory = Path.Combine(_Configuration.GameServerProcess.WorkingDirectory, "mpmissions");
+                if (!Directory.Exists(mpmissionsDirectory))
+                    return MissionResults.ErrorNoMissionFolder;
+
+                string filename = Path.Combine(mpmissionsDirectory, pboName);
+                if ((!overwrite) && (File.Exists(filename)))
+                    return MissionResults.ErrorFileExists;
+
+                if ((overwrite) && (File.Exists(filename)) && (Status != ServerStates.Stopped))
+                    return MissionResults.ErrorFileExistsServerOnline;
+
+                // Datei runterladen
+                using (System.IO.Compression.GZipStream decompressedStream = new System.IO.Compression.GZipStream(requestStream, System.IO.Compression.CompressionMode.Decompress))
+                {
+                    using (System.IO.FileStream fileStream = System.IO.File.Create(filename))
+                    {
+                        decompressedStream.CopyTo(fileStream);
+                    }
+                }
+
+                return MissionResults.OK;
+            }
+            catch (Exception ex)
+            {
+                LOG.Error(ex);
+                return MissionResults.ErrorUnknown;
+            }
+        }
+      
         public bool Start(string[] addons)
         {
             if (_Disposed)
@@ -334,14 +380,14 @@ namespace PALAST.RSM.Service
                         return false;
                     }
                 }
-                if (_Configuration.GamerServerProcess != null)
+                if (_Configuration.GameServerProcess != null)
                 {
-                    if (!File.Exists(_Configuration.GamerServerProcess.FileName))
+                    if (!File.Exists(_Configuration.GameServerProcess.FileName))
                     {
                         LOG.Warn("GamerServerProcess.FileName existiert nicht.");
                         return false;
                     }
-                    if (!Directory.Exists(_Configuration.GamerServerProcess.WorkingDirectory))
+                    if (!Directory.Exists(_Configuration.GameServerProcess.WorkingDirectory))
                     {
                         LOG.Warn("GamerServerProcess.WorkingDirectory existiert nicht.");
                         return false;

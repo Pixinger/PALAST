@@ -38,7 +38,6 @@ namespace PALAST.RSM
                     dlg._Preset = preset;
                     dlg._ClientHttp = new ClientHttp(preset.RsmServerToken, timeout);
                     DialogResult result = dlg.ShowDialog();
-                    dlg._ExitThreads = true;
                     return result;
                 }
                 else
@@ -53,7 +52,11 @@ namespace PALAST.RSM
             RequestServerStatus();
             tbtnRefresh.Enabled = true;
         }
-
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            _ExitThreads = true;
+            base.OnClosing(e);
+        }
         private void RefreshServerStatusControls(ServerStates state)
         {
             switch (state)
@@ -61,46 +64,55 @@ namespace PALAST.RSM
                 case ServerStates.Unknown:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    tbtnMissionUpload.Enabled = false;
                     slblStatusData.Text = "Unbekannt";
                     break;
                 case ServerStates.Starting:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    tbtnMissionUpload.Enabled = false;
                     slblStatusData.Text = "Starte Server...";
                     break;
                 case ServerStates.Starting_Prelaunch:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    tbtnMissionUpload.Enabled = false;
                     slblStatusData.Text = "Starte PRE-Prozesse...";
                     break;
                 case ServerStates.Starting_Gameserver:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    tbtnMissionUpload.Enabled = false;
                     slblStatusData.Text = "Starte Gameserver...";
                     break;
                 case ServerStates.Starting_Postlaunch:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    tbtnMissionUpload.Enabled = false;
                     slblStatusData.Text = "Starte POST-Prozesse...";
                     break;
                 case ServerStates.Started:
                     tbtnStop.Enabled = true;
                     tbtnStart.Enabled = false;
+                    tbtnMissionUpload.Enabled = true;
                     slblStatusData.Text = "Gestartet";
                     break;
                 case ServerStates.Started_WithErrors:
                     tbtnStop.Enabled = true;
                     tbtnStart.Enabled = false;
+                    tbtnMissionUpload.Enabled = true;
                     slblStatusData.Text = "Gestartet (mit Fehlern)";
                     break;
                 case ServerStates.Stopping:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = false;
+                    tbtnMissionUpload.Enabled = false;
                     slblStatusData.Text = "Beende Server...";
                     break;
                 case ServerStates.Stopped:
                     tbtnStop.Enabled = false;
                     tbtnStart.Enabled = true;
+                    tbtnMissionUpload.Enabled = true;
                     slblStatusData.Text = "Beendet";
                     break;
             }
@@ -112,7 +124,6 @@ namespace PALAST.RSM
             _AddonList.Clear();
             Application.DoEvents();
 
-            spgbStatus.Visible = false;
             GameServerDetails serverInfo;
             if ((_ClientHttp.GetServerDetails(out serverInfo)) && (serverInfo != null))
             {
@@ -126,9 +137,9 @@ namespace PALAST.RSM
             {
                 tbtnStop.Enabled = false;
                 tbtnStart.Enabled = false;
+                tbtnMissionUpload.Enabled = false;
                 slblStatusData.Text = "Server nicht erreichbar";
             }
-            spgbStatus.Visible = false;
         }
 
         private void tbtnRefresh_Click(object sender, EventArgs e)
@@ -150,11 +161,9 @@ namespace PALAST.RSM
                     addonsEnabled.Add(_AddonList[i]);
 
             if (!_ClientHttp.Start(addonsEnabled.ToArray()))
-                MessageBox.Show("Der Befehl konnte nicht ausgeführt werden. Entweder ist der Server offline, oder der Token ungültig.");
+                MessageBox.Show("Der Befehl konnte nicht ausgeführt werden. Entweder ist der Server offline, der Token ungültig oder sie haben keine Rechte.");
             else
             {
-                spgbStatus.Value = 1;
-                spgbStatus.Visible = true;
                 tbtnSetup.Enabled = false;
                 tbtnRefresh.Enabled = false;
                 new System.Threading.Tasks.Task(() => WatchStartThread()).Start();
@@ -201,22 +210,18 @@ namespace PALAST.RSM
                 Invoke(new ServerStateDelegate(OnStartInProgress), new object[] { state });
             else
             {
-                if (spgbStatus.Value < 10)
-                    spgbStatus.Value++;
-                else
-                    spgbStatus.Value = 1;
-
                 RefreshServerStatusControls(state);
             }
         }
         private void OnStartFinished(ServerStates state)
         {
+            if (_ExitThreads)
+                return;
+
             if (InvokeRequired)
                 Invoke(new ServerStateDelegate(OnStartFinished), new object[] { state });
             else
             {
-                spgbStatus.Visible = false;
-                spgbStatus.Value = 0;
                 tbtnSetup.Enabled = true;
                 tbtnRefresh.Enabled = true;
                 RefreshServerStatusControls(state);
@@ -225,17 +230,14 @@ namespace PALAST.RSM
 
         private void tbtnStop_Click(object sender, EventArgs e)
         {
-            spgbStatus.Visible = true;
             tbtnSetup.Enabled = false;
             tbtnRefresh.Enabled = false;
             if (!_ClientHttp.Stop())
             {
-                MessageBox.Show("Der Befehl konnte nicht ausgeführt werden. Entweder ist der Server offline, oder der Token ungültig.");
+                MessageBox.Show("Der Befehl konnte nicht ausgeführt werden. Entweder ist der Server offline, der Token ungültig oder sie haben keine Rechte.");
             }
             else
             {
-                spgbStatus.Value = 1;
-                spgbStatus.Visible = true;
                 tbtnSetup.Enabled = false;
                 tbtnRefresh.Enabled = false;
                 new System.Threading.Tasks.Task(() => WatchStopThread()).Start();
@@ -279,25 +281,72 @@ namespace PALAST.RSM
                 Invoke(new ServerStateDelegate(OnStopInProgress), new object[] { state });
             else
             {
-                if (spgbStatus.Value < 10)
-                    spgbStatus.Value++;
-                else
-                    spgbStatus.Value = 1;
-
                 RefreshServerStatusControls(state);
             }
         }
         private void OnStopFinished(ServerStates state)
         {
+            if (_ExitThreads)
+                return;
+
             if (InvokeRequired)
                 Invoke(new ServerStateDelegate(OnStopFinished), new object[] { state });
             else
             {
-                spgbStatus.Value = 0;
-                spgbStatus.Visible = false;
                 tbtnSetup.Enabled = true;
                 tbtnRefresh.Enabled = true;
                 RefreshServerStatusControls(state);
+            }
+        }
+
+        private void OnMissionUploadCompleted(MissionResults missionResult)
+        {
+            if (InvokeRequired)
+                BeginInvoke(new ClientHttp.MissionUploadCompletedEventHandler(OnMissionUploadCompleted), new object[] { missionResult });
+            else
+            {
+                switch (missionResult)
+                {
+                    case MissionResults.OK:
+                        MessageBox.Show(this, "Die Mission wurde erfolgreich hochgeladen.", "Mission hochgeladen", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                    case MissionResults.ErrorUnknown:
+                        MessageBox.Show(this, "Ein unbekannter Fehler trat beim Hochladen der Mission auf.", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case MissionResults.ErrorNoMissionFolder:
+                        MessageBox.Show(this, "Auf dem Server konnte das Missionsverzeichnis nicht korrekt identifiziert werden.", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case MissionResults.ErrorFileExists:
+                        MessageBox.Show(this, "Die Mission existiert bereits auf dem Server, darf mit den aktuellen Einstellungen aber nicht überschrieben werden.", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    case MissionResults.ErrorFileExistsServerOnline:
+                        MessageBox.Show(this, "Missionen können nur überschrieben werden, wenn der Server offline ist.", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    case MissionResults.ErrorMaximumSize:
+                        MessageBox.Show(this, "Die zulässige maximal Größe einer Mission wurde überschritten.", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                    case MissionResults.ErrorNotAllowed:
+                        MessageBox.Show(this, "Diese Funktion ist auf dem Server abgeschaltet oder sie haben keine Rechte.", "Hinweis", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                }
+            }
+        }
+        private void tbtnMissionUpload_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.DefaultExt = "*.pbo";
+                dlg.Filter = "Arma Mission|*.pbo";
+                dlg.RestoreDirectory = true;
+                if (!string.IsNullOrWhiteSpace(_Preset.RsmLastUploadDirectory) && (System.IO.Directory.Exists(_Preset.RsmLastUploadDirectory)))
+                    dlg.InitialDirectory = _Preset.RsmLastUploadDirectory;
+
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    bool overwrite = MessageBox.Show(this, "Darf die Mission (bei Bedarf) überschrieben werden?", "Überschreiben?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes;
+                    _Preset.RsmLastUploadDirectory = System.IO.Path.GetDirectoryName(dlg.FileName);
+                    _ClientHttp.MissionUploadAsync(overwrite, dlg.FileName, new ClientHttp.MissionUploadCompletedEventHandler(OnMissionUploadCompleted));
+                }
             }
         }
     }

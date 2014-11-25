@@ -32,6 +32,10 @@ namespace PALAST.RSM.Service
         {
             public string UserName;
             public string UserGuid;
+            
+            public bool AllowServerStart = true;
+            public bool AllowServerStop = true;
+            public bool AllowMissionUpload = true;
 
             public string UserPublicKey;
             public string UserPrivateKey;
@@ -53,7 +57,7 @@ namespace PALAST.RSM.Service
         public UserXml[] Users;
 
         public ProcessXml PreProcess;
-        public ProcessXml GamerServerProcess;
+        public ProcessXml GameServerProcess;
         public ProcessXml PostProcess;
 
         public override string ToString()

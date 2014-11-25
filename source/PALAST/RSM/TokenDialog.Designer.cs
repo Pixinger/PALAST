@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TokenDialog));
             this.txtClientToken = new System.Windows.Forms.TextBox();
             this.lblClientToken = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -93,6 +94,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.lblClientToken);
             this.Controls.Add(this.txtClientToken);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TokenDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Remote Server Setup";

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IpDialog));
             this.lblIP = new System.Windows.Forms.Label();
             this.txtIP = new System.Windows.Forms.TextBox();
             this.numPort = new System.Windows.Forms.NumericUpDown();
@@ -109,6 +110,7 @@
             this.Controls.Add(this.numPort);
             this.Controls.Add(this.txtIP);
             this.Controls.Add(this.lblIP);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "IpDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Server Prefix";

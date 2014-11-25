@@ -57,6 +57,7 @@ namespace PALAST
             public string AddonSyncUrl = "http://www.teamkommando.net/arma3sync/public/palast.xml";
 
             public string RsmServerToken = "";
+            public string RsmLastUploadDirectory = "";
 
             public bool ParamNoSplash = true;
             public bool ParamWorldEmpty = true;

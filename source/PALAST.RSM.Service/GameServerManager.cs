@@ -7,10 +7,11 @@ namespace PALAST.RSM.Service
 {
     public interface IGameServerManager
     {
-        ServerStates GetServerState(string serverGuid);
-        GameServerDetails GetServerDetails(string serverGuid);
-        bool Start(string serverGuid, string[] addons);
-        bool Stop(string serverGuid);
+        ServerStates GetServerState(string gameServerGuid);
+        GameServerDetails GetServerDetails(string gameServerGuid);
+        bool Start(string gameServerGuid, string[] addons);
+        bool Stop(string gameServerGuid);
+        MissionResults MissionUpload(string gameServerGuid, bool overwrite, string filename, System.IO.Stream requestStream);
     }
 
     public class GameServerManager : IGameServerManager, IDisposable
@@ -118,6 +119,14 @@ namespace PALAST.RSM.Service
                 return gameServerProcess.Details;
             else
                 return null;
+        }
+        public MissionResults MissionUpload(string gameServerGuid, bool overwrite, string filename, System.IO.Stream requestStream)
+        {
+            GameServerProcess gameServerProcess = GetProcess(gameServerGuid);
+            if (gameServerProcess != null)
+                return gameServerProcess.MissionUpload(overwrite, filename, requestStream);
+            else
+                return MissionResults.ErrorUnknown;
         }
         public bool Start(string gameServerGuid, string[] addons)
         {

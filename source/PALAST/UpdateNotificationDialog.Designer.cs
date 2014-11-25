@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateNotificationDialog));
             this.lblText = new System.Windows.Forms.Label();
             this.lblVersion2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -124,6 +125,7 @@
             this.Controls.Add(this.lblVersion2);
             this.Controls.Add(this.lblText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UpdateNotificationDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Aktualisierung verfügbar";

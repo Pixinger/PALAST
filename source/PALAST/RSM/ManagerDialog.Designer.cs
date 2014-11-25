@@ -35,11 +35,11 @@
             this.tbtnStart = new System.Windows.Forms.ToolStripButton();
             this.tbtnSetup = new System.Windows.Forms.ToolStripButton();
             this.tbtnStop = new System.Windows.Forms.ToolStripButton();
-            this._AddonList = new PALAST.AddonList();
             this._StatusStrip = new System.Windows.Forms.StatusStrip();
-            this.spgbStatus = new System.Windows.Forms.ToolStripProgressBar();
-            this.slblStatusData = new System.Windows.Forms.ToolStripStatusLabel();
             this.slblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.slblStatusData = new System.Windows.Forms.ToolStripStatusLabel();
+            this._AddonList = new PALAST.AddonList();
+            this.tbtnMissionUpload = new System.Windows.Forms.ToolStripButton();
             this._ToolStrip.SuspendLayout();
             this._StatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +52,8 @@
             this.toolStripSeparator2,
             this.tbtnStart,
             this.tbtnSetup,
-            this.tbtnStop});
+            this.tbtnStop,
+            this.tbtnMissionUpload});
             this._ToolStrip.Location = new System.Drawing.Point(0, 0);
             this._ToolStrip.Name = "_ToolStrip";
             this._ToolStrip.Size = new System.Drawing.Size(319, 25);
@@ -108,6 +109,31 @@
             this.tbtnStop.Text = "Stoppen";
             this.tbtnStop.Click += new System.EventHandler(this.tbtnStop_Click);
             // 
+            // _StatusStrip
+            // 
+            this._StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.slblStatus,
+            this.slblStatusData});
+            this._StatusStrip.Location = new System.Drawing.Point(0, 228);
+            this._StatusStrip.Name = "_StatusStrip";
+            this._StatusStrip.Size = new System.Drawing.Size(319, 22);
+            this._StatusStrip.TabIndex = 2;
+            this._StatusStrip.Text = "statusStrip1";
+            // 
+            // slblStatus
+            // 
+            this.slblStatus.Name = "slblStatus";
+            this.slblStatus.Size = new System.Drawing.Size(42, 17);
+            this.slblStatus.Text = "Status:";
+            // 
+            // slblStatusData
+            // 
+            this.slblStatusData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.slblStatusData.Name = "slblStatusData";
+            this.slblStatusData.Size = new System.Drawing.Size(120, 17);
+            this.slblStatusData.Text = "Verbindungsaufbau...";
+            this.slblStatusData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // _AddonList
             // 
             this._AddonList.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -119,39 +145,16 @@
             this._AddonList.Size = new System.Drawing.Size(319, 203);
             this._AddonList.TabIndex = 1;
             // 
-            // _StatusStrip
+            // tbtnMissionUpload
             // 
-            this._StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.slblStatus,
-            this.slblStatusData,
-            this.spgbStatus});
-            this._StatusStrip.Location = new System.Drawing.Point(0, 228);
-            this._StatusStrip.Name = "_StatusStrip";
-            this._StatusStrip.Size = new System.Drawing.Size(319, 22);
-            this._StatusStrip.TabIndex = 2;
-            this._StatusStrip.Text = "statusStrip1";
-            // 
-            // spgbStatus
-            // 
-            this.spgbStatus.Maximum = 10;
-            this.spgbStatus.Name = "spgbStatus";
-            this.spgbStatus.Size = new System.Drawing.Size(100, 16);
-            this.spgbStatus.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.spgbStatus.Visible = false;
-            // 
-            // slblStatusData
-            // 
-            this.slblStatusData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.slblStatusData.Name = "slblStatusData";
-            this.slblStatusData.Size = new System.Drawing.Size(120, 17);
-            this.slblStatusData.Text = "Verbindungsaufbau...";
-            this.slblStatusData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // slblStatus
-            // 
-            this.slblStatus.Name = "slblStatus";
-            this.slblStatus.Size = new System.Drawing.Size(42, 17);
-            this.slblStatus.Text = "Status:";
+            this.tbtnMissionUpload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbtnMissionUpload.Enabled = false;
+            this.tbtnMissionUpload.Image = ((System.Drawing.Image)(resources.GetObject("tbtnMissionUpload.Image")));
+            this.tbtnMissionUpload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnMissionUpload.Name = "tbtnMissionUpload";
+            this.tbtnMissionUpload.Size = new System.Drawing.Size(23, 22);
+            this.tbtnMissionUpload.Text = "Mission hochladen";
+            this.tbtnMissionUpload.Click += new System.EventHandler(this.tbtnMissionUpload_Click);
             // 
             // ManagerDialog
             // 
@@ -161,6 +164,7 @@
             this.Controls.Add(this._AddonList);
             this.Controls.Add(this._StatusStrip);
             this.Controls.Add(this._ToolStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ManagerDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Remote Server Manager";
@@ -183,8 +187,8 @@
         private System.Windows.Forms.ToolStripButton tbtnStart;
         private System.Windows.Forms.ToolStripButton tbtnStop;
         private System.Windows.Forms.ToolStripButton tbtnSetup;
-        private System.Windows.Forms.ToolStripProgressBar spgbStatus;
         private System.Windows.Forms.ToolStripStatusLabel slblStatusData;
         private System.Windows.Forms.ToolStripStatusLabel slblStatus;
+        private System.Windows.Forms.ToolStripButton tbtnMissionUpload;
     }
 }

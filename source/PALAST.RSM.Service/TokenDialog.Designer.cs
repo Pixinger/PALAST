@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TokenDialog));
             this.lblToken = new System.Windows.Forms.Label();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
@@ -68,6 +69,7 @@
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.txtToken);
             this.Controls.Add(this.lblToken);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(2000, 95);
             this.MinimizeBox = false;

@@ -34,10 +34,10 @@ namespace PALAST.RSM.Service
             instance.GameServers[0].PreProcess.Arguments = "";
             instance.GameServers[0].PreProcess = null;
 
-            instance.GameServers[0].GamerServerProcess = new GameServerXml.ProcessXml();
-            instance.GameServers[0].GamerServerProcess.WorkingDirectory = @"C:\Program Files (x86)\Steam\SteamApps\common\Arma 3";
-            instance.GameServers[0].GamerServerProcess.FileName = @"C:\Program Files (x86)\Steam\SteamApps\common\Arma 3\arma3server.exe";
-            instance.GameServers[0].GamerServerProcess.Arguments = "";
+            instance.GameServers[0].GameServerProcess = new GameServerXml.ProcessXml();
+            instance.GameServers[0].GameServerProcess.WorkingDirectory = @"C:\Program Files (x86)\Steam\SteamApps\common\Arma 3";
+            instance.GameServers[0].GameServerProcess.FileName = @"C:\Program Files (x86)\Steam\SteamApps\common\Arma 3\arma3server.exe";
+            instance.GameServers[0].GameServerProcess.Arguments = "";
 
             instance.GameServers[0].PostProcess = new GameServerXml.ProcessXml();
             instance.GameServers[0].PostProcess.WorkingDirectory = @"D:\";
@@ -183,8 +183,10 @@ namespace PALAST.RSM.Service
         public string ServerIP = "127.0.0.1";
         [XmlElement]
         public int ServerPort = 12000;
+        [XmlElement]
+        public int MaxAllowedSizeMB = 10;
 
-        [XmlElement("GamerServer")]
+        [XmlElement("GameServer")]
         public GameServerXml[] GameServers;
 	}
 }
