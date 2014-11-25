@@ -37,9 +37,9 @@
             this.lblVersion = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -114,15 +114,6 @@
             this.label11.TabIndex = 6;
             this.label11.Text = "Pixinger";
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(104, 46);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(124, 13);
-            this.label12.TabIndex = 7;
-            this.label12.Text = "www.teamkommando.de";
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -146,14 +137,25 @@
             this.richTextBox1.TabIndex = 10;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(104, 45);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(206, 13);
+            this.linkLabel1.TabIndex = 11;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "https://github.com/Pixinger/PALAST/wiki";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // AboutDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(558, 398);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label2);
@@ -184,8 +186,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
