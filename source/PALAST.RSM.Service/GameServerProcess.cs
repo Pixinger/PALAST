@@ -296,6 +296,7 @@ namespace PALAST.RSM.Service
             {
                 lock (_SyncObject)
                 {
+                    UpdateAddonsAvailable();
                     GameServerDetails gameServerDetails = new GameServerDetails();
                     gameServerDetails.Status = _Status;
                     gameServerDetails.Addons = new GameServerDetails.AddonInfo[_AddonsAvailable.Length];
