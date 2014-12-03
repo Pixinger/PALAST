@@ -29,6 +29,8 @@ namespace PALAST.RSM.Service
                 throw new ArgumentNullException();
 
             _Configuration = configuration;
+
+            _AddonsEnabled = new string[0];
             UpdateAddonsAvailable();
         }
         #region IDisposable Member
@@ -79,8 +81,6 @@ namespace PALAST.RSM.Service
                     _AddonsAvailable = new string[addOnDirectories.Length];
                     for (int i = 0; i < addOnDirectories.Length; i++)
                         _AddonsAvailable[i] = addOnDirectories[i].Name;
-
-                    _AddonsEnabled = new string[0];
                 }
             }
         }
@@ -296,6 +296,8 @@ namespace PALAST.RSM.Service
             {
                 lock (_SyncObject)
                 {
+                    UpdateAddonsAvailable();
+
                     GameServerDetails gameServerDetails = new GameServerDetails();
                     gameServerDetails.Status = _Status;
                     gameServerDetails.Addons = new GameServerDetails.AddonInfo[_AddonsAvailable.Length];

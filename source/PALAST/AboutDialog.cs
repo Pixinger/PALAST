@@ -26,5 +26,12 @@ namespace PALAST
                 return result;
             }
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (System.Diagnostics.Process.Start(linkLabel1.Text))
+            {
+            }
+        }
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="AddonSyncDialog.Designer.cs">
       <DependentUpon>AddonSyncDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ArmaCfgManager.cs" />
     <Compile Include="ArmaManager.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="FormMain.cs">
@@ -166,17 +167,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\exclamation.png" />
-    <None Include="Resources\table_add.png" />
-    <None Include="Resources\table_delete.png" />
-    <None Include="Resources\table_edit.png" />
-    <None Include="Resources\table_go.png" />
-    <None Include="Resources\TFAR.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\PALAST.Common\PALAST.Common.csproj">
       <Project>{1B186679-FC05-4D80-86D4-8E297795541C}</Project>
       <Name>PALAST.Common</Name>
@@ -187,9 +177,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bin.png" />
-    <None Include="Resources\controller.png" />
     <Content Include="Rocket.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
