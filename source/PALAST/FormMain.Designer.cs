@@ -113,6 +113,13 @@
             this.tbtnExtended = new System.Windows.Forms.ToolStripDropDownButton();
             this.menServerInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.menLogfile = new System.Windows.Forms.ToolStripMenuItem();
+            this.menArmaCfg = new System.Windows.Forms.ToolStripMenuItem();
+            this.menArmaCfgForceAdapterId = new System.Windows.Forms.ToolStripMenuItem();
+            this.menArmaCfgForceAdapterIdDefault = new System.Windows.Forms.ToolStripMenuItem();
+            this.menArmaCfgForceAdapterId0 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menArmaCfgForceAdapterId1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menArmaCfgForceAdapterId2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menArmaCfgForceAdapterId3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.menRemoteServerManager = new System.Windows.Forms.ToolStripMenuItem();
             this.grpAutoConnect.SuspendLayout();
@@ -1161,6 +1168,7 @@
             this.tbtnExtended.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menServerInfo,
             this.menLogfile,
+            this.menArmaCfg,
             this.toolStripMenuItem1,
             this.menRemoteServerManager});
             this.tbtnExtended.Image = ((System.Drawing.Image)(resources.GetObject("tbtnExtended.Image")));
@@ -1173,7 +1181,7 @@
             // 
             this.menServerInfo.Image = ((System.Drawing.Image)(resources.GetObject("menServerInfo.Image")));
             this.menServerInfo.Name = "menServerInfo";
-            this.menServerInfo.Size = new System.Drawing.Size(235, 22);
+            this.menServerInfo.Size = new System.Drawing.Size(263, 22);
             this.menServerInfo.Text = "Server Informationen";
             this.menServerInfo.Click += new System.EventHandler(this.menServerInfo_Click);
             // 
@@ -1181,20 +1189,75 @@
             // 
             this.menLogfile.Image = ((System.Drawing.Image)(resources.GetObject("menLogfile.Image")));
             this.menLogfile.Name = "menLogfile";
-            this.menLogfile.Size = new System.Drawing.Size(235, 22);
+            this.menLogfile.Size = new System.Drawing.Size(263, 22);
             this.menLogfile.Text = "Logdatei anzeigen";
             this.menLogfile.Click += new System.EventHandler(this.menLogfile_Click);
+            // 
+            // menArmaCfg
+            // 
+            this.menArmaCfg.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menArmaCfgForceAdapterId});
+            this.menArmaCfg.Name = "menArmaCfg";
+            this.menArmaCfg.Size = new System.Drawing.Size(263, 22);
+            this.menArmaCfg.Text = "Konfiguration anpassen (arma3.cfg)";
+            // 
+            // menArmaCfgForceAdapterId
+            // 
+            this.menArmaCfgForceAdapterId.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menArmaCfgForceAdapterIdDefault,
+            this.menArmaCfgForceAdapterId0,
+            this.menArmaCfgForceAdapterId1,
+            this.menArmaCfgForceAdapterId2,
+            this.menArmaCfgForceAdapterId3});
+            this.menArmaCfgForceAdapterId.Name = "menArmaCfgForceAdapterId";
+            this.menArmaCfgForceAdapterId.Size = new System.Drawing.Size(279, 22);
+            this.menArmaCfgForceAdapterId.Text = "Grafikkarte festlegen (forcedAdapterId)";
+            // 
+            // menArmaCfgForceAdapterIdDefault
+            // 
+            this.menArmaCfgForceAdapterIdDefault.Name = "menArmaCfgForceAdapterIdDefault";
+            this.menArmaCfgForceAdapterIdDefault.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterIdDefault.Text = "-1 (Standard)";
+            this.menArmaCfgForceAdapterIdDefault.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
+            // 
+            // menArmaCfgForceAdapterId0
+            // 
+            this.menArmaCfgForceAdapterId0.Name = "menArmaCfgForceAdapterId0";
+            this.menArmaCfgForceAdapterId0.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterId0.Text = "0";
+            this.menArmaCfgForceAdapterId0.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
+            // 
+            // menArmaCfgForceAdapterId1
+            // 
+            this.menArmaCfgForceAdapterId1.Name = "menArmaCfgForceAdapterId1";
+            this.menArmaCfgForceAdapterId1.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterId1.Text = "1";
+            this.menArmaCfgForceAdapterId1.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
+            // 
+            // menArmaCfgForceAdapterId2
+            // 
+            this.menArmaCfgForceAdapterId2.Name = "menArmaCfgForceAdapterId2";
+            this.menArmaCfgForceAdapterId2.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterId2.Text = "2";
+            this.menArmaCfgForceAdapterId2.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
+            // 
+            // menArmaCfgForceAdapterId3
+            // 
+            this.menArmaCfgForceAdapterId3.Name = "menArmaCfgForceAdapterId3";
+            this.menArmaCfgForceAdapterId3.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterId3.Text = "3";
+            this.menArmaCfgForceAdapterId3.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(232, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(260, 6);
             // 
             // menRemoteServerManager
             // 
             this.menRemoteServerManager.Image = ((System.Drawing.Image)(resources.GetObject("menRemoteServerManager.Image")));
             this.menRemoteServerManager.Name = "menRemoteServerManager";
-            this.menRemoteServerManager.Size = new System.Drawing.Size(235, 22);
+            this.menRemoteServerManager.Size = new System.Drawing.Size(263, 22);
             this.menRemoteServerManager.Text = "RSM (Remote Server Manager)";
             this.menRemoteServerManager.Click += new System.EventHandler(this.menRemoteServerManager_Click);
             // 
@@ -1331,6 +1394,13 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem menServerInfo;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem menArmaCfg;
+        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId;
+        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterIdDefault;
+        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId0;
+        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId1;
+        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId2;
+        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId3;
     }
 }
 

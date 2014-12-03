@@ -19,6 +19,7 @@ namespace PALAST
         private readonly Size MINSIZE = new Size(469, 700);
         private readonly Size MAXSIZE = new Size(776, 700);
 
+        private ArmaCfgManager _ArmaCfgManager; 
         private bool _BlockEventHandler = true;
         private Configuration _Configuration = Configuration.Load();
 
@@ -84,12 +85,16 @@ namespace PALAST
             }
 
             RefreshMenu();
-            RefreshNames();
+            RefreshProfileNames();
 
             SetCommandLineParametersVisible(_Configuration.CommandLineParametersVisible);
 
             if ((_Configuration != null) && (_Configuration.CheckForUpdates))
                 HttpManager.Download_Version("https://raw.githubusercontent.com/Pixinger/PALAST/master/_releases/latestVersion.xml", new HttpManager.VersionEventHandler(ehPalastVersionDownloaded));
+
+            //arma3.cfg
+            _ArmaCfgManager = new ArmaCfgManager();
+            RefreshArma3Cfg();
         }
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -119,7 +124,7 @@ namespace PALAST
                 return lstPreset.SelectedItem as Configuration.Preset;
             }
         }
-        private void RefreshNames()
+        private void RefreshProfileNames()
         {
             cmbName.Items.Clear();
 
@@ -232,6 +237,51 @@ namespace PALAST
             }
 
             _BlockEventHandler = false;
+        }
+        private void RefreshArma3Cfg()
+        {
+            menArmaCfg.Enabled = _ArmaCfgManager.FoundArma3Cfg;
+
+            #region _ArmaCfgManager.GetForceAdapterId
+            int id;
+            if (_ArmaCfgManager.GetForceAdapterId(out id))
+            {
+                menArmaCfgForceAdapterIdDefault.Checked = false;
+                menArmaCfgForceAdapterId0.Checked = false;
+                menArmaCfgForceAdapterId1.Checked = false;
+                menArmaCfgForceAdapterId2.Checked = false;
+                menArmaCfgForceAdapterId3.Checked = false;
+                switch (id)
+                {
+                    case -1:
+                        menArmaCfgForceAdapterId.Enabled = true;
+                        menArmaCfgForceAdapterIdDefault.Checked = true;
+                        break;
+                    case 0:
+                        menArmaCfgForceAdapterId.Enabled = true;
+                        menArmaCfgForceAdapterId0.Checked = true;
+                        break;
+                    case 1:
+                        menArmaCfgForceAdapterId.Enabled = true;
+                        menArmaCfgForceAdapterId1.Checked = true;
+                        break;
+                    case 2:
+                        menArmaCfgForceAdapterId.Enabled = true;
+                        menArmaCfgForceAdapterId2.Checked = true;
+                        break;
+                    case 3:
+                        menArmaCfgForceAdapterId.Enabled = true;
+                        menArmaCfgForceAdapterId3.Checked = true;
+                        break;
+                    default:
+                        menArmaCfgForceAdapterId.Enabled = false;
+                        break;
+                }
+            }
+            else
+                menArmaCfgForceAdapterId.Enabled = false;
+
+            #endregion
         }
         private bool IsArmaFolderValid
         {
@@ -877,6 +927,32 @@ namespace PALAST
             catch
             {
                 MessageBox.Show("Zum Abfragen der Serverinformationen wird die Adresse verwendet, die bei den Parametern unter 'Automatisch verbinden' angegeben ist. Bitte überprüfen sie diese Adresse.");
+            }
+        }
+
+        private void menArmaCfgForceAdapterIdX_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(this, "Achtung! Wenn dieser Fehler falsch eingestellt ist, kann es sein, dass Arma nicht mehr starten kann. Wollen Sie fortfahren?", "Warnung", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
+            {
+                int id = -1;
+                if (sender == menArmaCfgForceAdapterId0)
+                    id = 0;
+                else if (sender == menArmaCfgForceAdapterId1)
+                    id = 1;
+                else if (sender == menArmaCfgForceAdapterId2)
+                    id = 2;
+                else if (sender == menArmaCfgForceAdapterId3)
+                    id = 3;
+
+                if (_ArmaCfgManager.SetForceAdapterId(id))
+                {
+                    RefreshArma3Cfg();
+                    MessageBox.Show(this, "Der Parameter wurde erfolgreich geändert.", "Erfolgreich", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(this, "Der Parameter konnte nicht geändert werden. Bitte stellen Sie sicher das Arma nicht gestartet ist.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
     }

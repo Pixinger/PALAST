@@ -61,6 +61,7 @@
     <Compile Include="AddonSyncDialog.Designer.cs">
       <DependentUpon>AddonSyncDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="ArmaCfgManager.cs" />
     <Compile Include="ArmaManager.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="FormMain.cs">

@@ -134,6 +134,8 @@ namespace PALAST.RSM.Service
                     string serverGuid = rawUrlSplits[0];
                     string userGuid = rawUrlSplits[1];
                     string command = rawUrlSplits[2];
+                    for (int i = 3; i < rawUrlSplits.Length; i++)
+                        rawUrlSplits[i] = Uri.UnescapeDataString(rawUrlSplits[i]);
 
                     using (System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(httpListenerContext.Response.OutputStream))
                     {
@@ -142,6 +144,7 @@ namespace PALAST.RSM.Service
                         {
                             if ((command == "Mission") && (rawUrlSplits.Length == 5))
                             {
+                                //"%5BTK%5DPersistentCampaign.Altis.pbo"
                                 bool overwrite = (rawUrlSplits[3] == bool.TrueString);
                                 string filename = rawUrlSplits[4];
                                 LOG.Info("MissionUpload von Benutzer: " + user.UserName + " IP:" + httpListenerContext.Request.RemoteEndPoint.ToString() + " filename: " + filename + " overwrite: " + overwrite.ToString());
