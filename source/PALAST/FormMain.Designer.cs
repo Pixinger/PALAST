@@ -919,9 +919,10 @@
             // 
             this.tbtnLaunch.BackColor = System.Drawing.SystemColors.Control;
             this.tbtnLaunch.Enabled = false;
+            this.tbtnLaunch.Image = ((System.Drawing.Image)(resources.GetObject("tbtnLaunch.Image")));
             this.tbtnLaunch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnLaunch.Name = "tbtnLaunch";
-            this.tbtnLaunch.Size = new System.Drawing.Size(75, 22);
+            this.tbtnLaunch.Size = new System.Drawing.Size(91, 22);
             this.tbtnLaunch.Text = "Spiel starten";
             this.tbtnLaunch.Click += new System.EventHandler(this.tbtnLaunch_Click);
             // 
@@ -1216,35 +1217,35 @@
             // menArmaCfgForceAdapterIdDefault
             // 
             this.menArmaCfgForceAdapterIdDefault.Name = "menArmaCfgForceAdapterIdDefault";
-            this.menArmaCfgForceAdapterIdDefault.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterIdDefault.Size = new System.Drawing.Size(143, 22);
             this.menArmaCfgForceAdapterIdDefault.Text = "-1 (Standard)";
             this.menArmaCfgForceAdapterIdDefault.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
             // 
             // menArmaCfgForceAdapterId0
             // 
             this.menArmaCfgForceAdapterId0.Name = "menArmaCfgForceAdapterId0";
-            this.menArmaCfgForceAdapterId0.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterId0.Size = new System.Drawing.Size(143, 22);
             this.menArmaCfgForceAdapterId0.Text = "0";
             this.menArmaCfgForceAdapterId0.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
             // 
             // menArmaCfgForceAdapterId1
             // 
             this.menArmaCfgForceAdapterId1.Name = "menArmaCfgForceAdapterId1";
-            this.menArmaCfgForceAdapterId1.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterId1.Size = new System.Drawing.Size(143, 22);
             this.menArmaCfgForceAdapterId1.Text = "1";
             this.menArmaCfgForceAdapterId1.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
             // 
             // menArmaCfgForceAdapterId2
             // 
             this.menArmaCfgForceAdapterId2.Name = "menArmaCfgForceAdapterId2";
-            this.menArmaCfgForceAdapterId2.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterId2.Size = new System.Drawing.Size(143, 22);
             this.menArmaCfgForceAdapterId2.Text = "2";
             this.menArmaCfgForceAdapterId2.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
             // 
             // menArmaCfgForceAdapterId3
             // 
             this.menArmaCfgForceAdapterId3.Name = "menArmaCfgForceAdapterId3";
-            this.menArmaCfgForceAdapterId3.Size = new System.Drawing.Size(152, 22);
+            this.menArmaCfgForceAdapterId3.Size = new System.Drawing.Size(143, 22);
             this.menArmaCfgForceAdapterId3.Text = "3";
             this.menArmaCfgForceAdapterId3.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
             // 
