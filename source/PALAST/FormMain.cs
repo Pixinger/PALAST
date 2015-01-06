@@ -956,9 +956,12 @@ namespace PALAST
             }*/
         }
 
-        private void _ToolStripAddons_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void timerBlink_Tick(object sender, EventArgs e)
         {
-
+            if (tbtnLaunch.ForeColor == Color.Red)
+                tbtnLaunch.ForeColor = Color.Black;
+            else
+                tbtnLaunch.ForeColor = Color.Red;
         }
     }
 }

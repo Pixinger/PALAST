@@ -93,8 +93,19 @@
             this.tbtnUpdateAddons = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this._ToolStripPreset = new System.Windows.Forms.ToolStrip();
+            this.tbtnRSM = new System.Windows.Forms.ToolStripButton();
+            this.tbtnServerInfo = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.ddbtnServer = new System.Windows.Forms.ToolStripDropDownButton();
+            this.menServerNeu = new System.Windows.Forms.ToolStripMenuItem();
+            this.menServerEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menServerClone = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menServerRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.pnlCenter = new System.Windows.Forms.Panel();
+            this.clstAddons = new PALAST.AddonList();
             this.pnlSplitterCenterTop = new System.Windows.Forms.Panel();
             this.pnlSplitterLeft = new System.Windows.Forms.Panel();
             this.pnlLeft = new System.Windows.Forms.Panel();
@@ -106,17 +117,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnExtended = new System.Windows.Forms.ToolStripDropDownButton();
             this.menLogfile = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbtnRSM = new System.Windows.Forms.ToolStripButton();
-            this.tbtnServerInfo = new System.Windows.Forms.ToolStripButton();
-            this.clstAddons = new PALAST.AddonList();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.ddbtnServer = new System.Windows.Forms.ToolStripDropDownButton();
-            this.menServerNeu = new System.Windows.Forms.ToolStripMenuItem();
-            this.menServerEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.menServerClone = new System.Windows.Forms.ToolStripMenuItem();
-            this.menServerRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.timerBlink = new System.Windows.Forms.Timer(this.components);
             this.grpAutoConnect.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
@@ -141,7 +142,7 @@
             this.chbShowScriptErrors.Location = new System.Drawing.Point(6, 42);
             this.chbShowScriptErrors.Name = "chbShowScriptErrors";
             this.chbShowScriptErrors.Size = new System.Drawing.Size(108, 17);
-            this.chbShowScriptErrors.TabIndex = 4;
+            this.chbShowScriptErrors.TabIndex = 1;
             this.chbShowScriptErrors.Text = "-showScriptErrors";
             this.chbShowScriptErrors.UseVisualStyleBackColor = true;
             this.chbShowScriptErrors.CheckedChanged += new System.EventHandler(this.chbShowScriptErrors_CheckedChanged);
@@ -153,7 +154,7 @@
             this.chbNoPause.Location = new System.Drawing.Point(6, 19);
             this.chbNoPause.Name = "chbNoPause";
             this.chbNoPause.Size = new System.Drawing.Size(71, 17);
-            this.chbNoPause.TabIndex = 5;
+            this.chbNoPause.TabIndex = 0;
             this.chbNoPause.Text = "-noPause";
             this.chbNoPause.UseVisualStyleBackColor = true;
             this.chbNoPause.CheckedChanged += new System.EventHandler(this.chbNoPause_CheckedChanged);
@@ -165,7 +166,7 @@
             this.chbExThreads.Location = new System.Drawing.Point(6, 134);
             this.chbExThreads.Name = "chbExThreads";
             this.chbExThreads.Size = new System.Drawing.Size(79, 17);
-            this.chbExThreads.TabIndex = 6;
+            this.chbExThreads.TabIndex = 8;
             this.chbExThreads.Text = "-exThreads";
             this.chbExThreads.UseVisualStyleBackColor = true;
             this.chbExThreads.CheckedChanged += new System.EventHandler(this.chbExThreads_CheckedChanged);
@@ -177,7 +178,7 @@
             this.chbNoFilePatching.Location = new System.Drawing.Point(6, 65);
             this.chbNoFilePatching.Name = "chbNoFilePatching";
             this.chbNoFilePatching.Size = new System.Drawing.Size(99, 17);
-            this.chbNoFilePatching.TabIndex = 7;
+            this.chbNoFilePatching.TabIndex = 2;
             this.chbNoFilePatching.Text = "-noFilePatching";
             this.chbNoFilePatching.UseVisualStyleBackColor = true;
             this.chbNoFilePatching.CheckedChanged += new System.EventHandler(this.chbNoFilePatching_CheckedChanged);
@@ -189,7 +190,7 @@
             this.chbNoSpalsh.Location = new System.Drawing.Point(6, 19);
             this.chbNoSpalsh.Name = "chbNoSpalsh";
             this.chbNoSpalsh.Size = new System.Drawing.Size(73, 17);
-            this.chbNoSpalsh.TabIndex = 9;
+            this.chbNoSpalsh.TabIndex = 0;
             this.chbNoSpalsh.Text = "-noSplash";
             this.chbNoSpalsh.UseVisualStyleBackColor = true;
             this.chbNoSpalsh.CheckedChanged += new System.EventHandler(this.chbNoSpalsh_CheckedChanged);
@@ -201,7 +202,7 @@
             this.chbNoLogs.Location = new System.Drawing.Point(6, 157);
             this.chbNoLogs.Name = "chbNoLogs";
             this.chbNoLogs.Size = new System.Drawing.Size(64, 17);
-            this.chbNoLogs.TabIndex = 11;
+            this.chbNoLogs.TabIndex = 10;
             this.chbNoLogs.Text = "-noLogs";
             this.chbNoLogs.UseVisualStyleBackColor = true;
             this.chbNoLogs.CheckedChanged += new System.EventHandler(this.chbNoLogs_CheckedChanged);
@@ -213,7 +214,7 @@
             this.chbCpuCount.Location = new System.Drawing.Point(6, 111);
             this.chbCpuCount.Name = "chbCpuCount";
             this.chbCpuCount.Size = new System.Drawing.Size(75, 17);
-            this.chbCpuCount.TabIndex = 12;
+            this.chbCpuCount.TabIndex = 6;
             this.chbCpuCount.Text = "-cpuCount";
             this.chbCpuCount.UseVisualStyleBackColor = true;
             this.chbCpuCount.CheckedChanged += new System.EventHandler(this.chbCpuCount_CheckedChanged);
@@ -225,7 +226,7 @@
             this.chbMaxMem.Location = new System.Drawing.Point(6, 19);
             this.chbMaxMem.Name = "chbMaxMem";
             this.chbMaxMem.Size = new System.Drawing.Size(71, 17);
-            this.chbMaxMem.TabIndex = 13;
+            this.chbMaxMem.TabIndex = 0;
             this.chbMaxMem.Text = "-maxMem";
             this.chbMaxMem.UseVisualStyleBackColor = true;
             this.chbMaxMem.CheckedChanged += new System.EventHandler(this.chbMaxMem_CheckedChanged);
@@ -237,7 +238,7 @@
             this.chbMaxVRAM.Location = new System.Drawing.Point(6, 42);
             this.chbMaxVRAM.Name = "chbMaxVRAM";
             this.chbMaxVRAM.Size = new System.Drawing.Size(79, 17);
-            this.chbMaxVRAM.TabIndex = 14;
+            this.chbMaxVRAM.TabIndex = 2;
             this.chbMaxVRAM.Text = "-maxVRAM";
             this.chbMaxVRAM.UseVisualStyleBackColor = true;
             this.chbMaxVRAM.CheckedChanged += new System.EventHandler(this.chbMaxVRAM_CheckedChanged);
@@ -249,7 +250,7 @@
             this.chbName.Location = new System.Drawing.Point(6, 19);
             this.chbName.Name = "chbName";
             this.chbName.Size = new System.Drawing.Size(55, 17);
-            this.chbName.TabIndex = 15;
+            this.chbName.TabIndex = 0;
             this.chbName.Text = "-name";
             this.chbName.UseVisualStyleBackColor = true;
             this.chbName.CheckedChanged += new System.EventHandler(this.chbName_CheckedChanged);
@@ -262,7 +263,7 @@
             this.txtServer.Location = new System.Drawing.Point(84, 33);
             this.txtServer.Name = "txtServer";
             this.txtServer.Size = new System.Drawing.Size(172, 20);
-            this.txtServer.TabIndex = 20;
+            this.txtServer.TabIndex = 2;
             this.txtServer.TextChanged += new System.EventHandler(this.txtServer_TextChanged);
             // 
             // txtPort
@@ -273,7 +274,7 @@
             this.txtPort.Location = new System.Drawing.Point(84, 55);
             this.txtPort.Name = "txtPort";
             this.txtPort.Size = new System.Drawing.Size(172, 20);
-            this.txtPort.TabIndex = 21;
+            this.txtPort.TabIndex = 4;
             this.txtPort.TextChanged += new System.EventHandler(this.txtPort_TextChanged);
             // 
             // txtPasswort
@@ -284,7 +285,7 @@
             this.txtPasswort.Location = new System.Drawing.Point(84, 77);
             this.txtPasswort.Name = "txtPasswort";
             this.txtPasswort.Size = new System.Drawing.Size(172, 20);
-            this.txtPasswort.TabIndex = 22;
+            this.txtPasswort.TabIndex = 6;
             this.txtPasswort.TextChanged += new System.EventHandler(this.txtPasswort_TextChanged);
             // 
             // label1
@@ -294,7 +295,7 @@
             this.label1.Location = new System.Drawing.Point(6, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 24;
+            this.label1.TabIndex = 1;
             this.label1.Text = "Server";
             // 
             // label2
@@ -304,7 +305,7 @@
             this.label2.Location = new System.Drawing.Point(6, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
-            this.label2.TabIndex = 25;
+            this.label2.TabIndex = 3;
             this.label2.Text = "Port";
             // 
             // lblPassword
@@ -314,7 +315,7 @@
             this.lblPassword.Location = new System.Drawing.Point(6, 81);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(50, 13);
-            this.lblPassword.TabIndex = 26;
+            this.lblPassword.TabIndex = 5;
             this.lblPassword.Text = "Passwort";
             // 
             // grpAutoConnect
@@ -333,7 +334,7 @@
             this.grpAutoConnect.Margin = new System.Windows.Forms.Padding(5);
             this.grpAutoConnect.Name = "grpAutoConnect";
             this.grpAutoConnect.Size = new System.Drawing.Size(288, 105);
-            this.grpAutoConnect.TabIndex = 30;
+            this.grpAutoConnect.TabIndex = 0;
             this.grpAutoConnect.TabStop = false;
             this.grpAutoConnect.Text = "Automatisch verbinden";
             // 
@@ -358,7 +359,7 @@
             this.chbAutoConnectEnabled.Location = new System.Drawing.Point(6, 19);
             this.chbAutoConnectEnabled.Name = "chbAutoConnectEnabled";
             this.chbAutoConnectEnabled.Size = new System.Drawing.Size(63, 17);
-            this.chbAutoConnectEnabled.TabIndex = 27;
+            this.chbAutoConnectEnabled.TabIndex = 0;
             this.chbAutoConnectEnabled.Text = "aktiviert";
             this.chbAutoConnectEnabled.UseVisualStyleBackColor = true;
             this.chbAutoConnectEnabled.CheckedChanged += new System.EventHandler(this.chbAutoConnectEnabled_CheckedChanged);
@@ -379,7 +380,7 @@
             this.grpDeveloperOptions.Margin = new System.Windows.Forms.Padding(5);
             this.grpDeveloperOptions.Name = "grpDeveloperOptions";
             this.grpDeveloperOptions.Size = new System.Drawing.Size(288, 111);
-            this.grpDeveloperOptions.TabIndex = 36;
+            this.grpDeveloperOptions.TabIndex = 4;
             this.grpDeveloperOptions.TabStop = false;
             this.grpDeveloperOptions.Text = "Entwickler Optionen";
             // 
@@ -432,7 +433,7 @@
             this.chbCheckSignatures.Location = new System.Drawing.Point(6, 88);
             this.chbCheckSignatures.Name = "chbCheckSignatures";
             this.chbCheckSignatures.Size = new System.Drawing.Size(109, 17);
-            this.chbCheckSignatures.TabIndex = 23;
+            this.chbCheckSignatures.TabIndex = 3;
             this.chbCheckSignatures.Text = "-checkSignatures";
             this.chbCheckSignatures.UseVisualStyleBackColor = true;
             this.chbCheckSignatures.CheckedChanged += new System.EventHandler(this.chbCheckSignatures_CheckedChanged);
@@ -462,7 +463,7 @@
             this.grpProfileOptions.Margin = new System.Windows.Forms.Padding(5);
             this.grpProfileOptions.Name = "grpProfileOptions";
             this.grpProfileOptions.Size = new System.Drawing.Size(288, 45);
-            this.grpProfileOptions.TabIndex = 35;
+            this.grpProfileOptions.TabIndex = 3;
             this.grpProfileOptions.TabStop = false;
             this.grpProfileOptions.Text = "Profil Optionen";
             // 
@@ -489,7 +490,7 @@
             this.cmbName.Location = new System.Drawing.Point(87, 17);
             this.cmbName.Name = "cmbName";
             this.cmbName.Size = new System.Drawing.Size(172, 21);
-            this.cmbName.TabIndex = 17;
+            this.cmbName.TabIndex = 1;
             this.cmbName.SelectedIndexChanged += new System.EventHandler(this.cmbName_SelectedIndexChanged);
             // 
             // grpPerformance
@@ -518,7 +519,7 @@
             this.grpPerformance.Margin = new System.Windows.Forms.Padding(5);
             this.grpPerformance.Name = "grpPerformance";
             this.grpPerformance.Size = new System.Drawing.Size(288, 179);
-            this.grpPerformance.TabIndex = 34;
+            this.grpPerformance.TabIndex = 2;
             this.grpPerformance.TabStop = false;
             this.grpPerformance.Text = "Leistung";
             // 
@@ -635,7 +636,7 @@
             this.cmbExThreads.Location = new System.Drawing.Point(87, 132);
             this.cmbExThreads.Name = "cmbExThreads";
             this.cmbExThreads.Size = new System.Drawing.Size(172, 21);
-            this.cmbExThreads.TabIndex = 25;
+            this.cmbExThreads.TabIndex = 9;
             this.cmbExThreads.SelectedIndexChanged += new System.EventHandler(this.cmbExThreads_SelectedIndexChanged);
             // 
             // cmbCpuCount
@@ -664,7 +665,7 @@
             this.cmbCpuCount.Location = new System.Drawing.Point(87, 109);
             this.cmbCpuCount.Name = "cmbCpuCount";
             this.cmbCpuCount.Size = new System.Drawing.Size(172, 21);
-            this.cmbCpuCount.TabIndex = 24;
+            this.cmbCpuCount.TabIndex = 7;
             this.cmbCpuCount.SelectedIndexChanged += new System.EventHandler(this.cmbCpuCount_SelectedIndexChanged);
             // 
             // numMaxMem
@@ -685,7 +686,7 @@
             0});
             this.numMaxMem.Name = "numMaxMem";
             this.numMaxMem.Size = new System.Drawing.Size(172, 20);
-            this.numMaxMem.TabIndex = 22;
+            this.numMaxMem.TabIndex = 1;
             this.numMaxMem.Value = new decimal(new int[] {
             3072,
             0,
@@ -711,7 +712,7 @@
             0});
             this.numMaxVRAM.Name = "numMaxVRAM";
             this.numMaxVRAM.Size = new System.Drawing.Size(172, 20);
-            this.numMaxVRAM.TabIndex = 23;
+            this.numMaxVRAM.TabIndex = 3;
             this.numMaxVRAM.Value = new decimal(new int[] {
             2047,
             0,
@@ -726,7 +727,7 @@
             this.chbWinXP.Location = new System.Drawing.Point(6, 65);
             this.chbWinXP.Name = "chbWinXP";
             this.chbWinXP.Size = new System.Drawing.Size(59, 17);
-            this.chbWinXP.TabIndex = 20;
+            this.chbWinXP.TabIndex = 4;
             this.chbWinXP.Text = "-winXP";
             this.chbWinXP.UseVisualStyleBackColor = true;
             this.chbWinXP.CheckedChanged += new System.EventHandler(this.chbWinXP_CheckedChanged);
@@ -738,7 +739,7 @@
             this.chbNoCB.Location = new System.Drawing.Point(6, 88);
             this.chbNoCB.Name = "chbNoCB";
             this.chbNoCB.Size = new System.Drawing.Size(55, 17);
-            this.chbNoCB.TabIndex = 21;
+            this.chbNoCB.TabIndex = 5;
             this.chbNoCB.Text = "-noCB";
             this.chbNoCB.UseVisualStyleBackColor = true;
             this.chbNoCB.CheckedChanged += new System.EventHandler(this.chbNoCB_CheckedChanged);
@@ -759,7 +760,7 @@
             this.grpGameLoadingSpeedup.Margin = new System.Windows.Forms.Padding(5);
             this.grpGameLoadingSpeedup.Name = "grpGameLoadingSpeedup";
             this.grpGameLoadingSpeedup.Size = new System.Drawing.Size(288, 88);
-            this.grpGameLoadingSpeedup.TabIndex = 24;
+            this.grpGameLoadingSpeedup.TabIndex = 1;
             this.grpGameLoadingSpeedup.TabStop = false;
             this.grpGameLoadingSpeedup.Text = "Spielstartbeschleunigung";
             // 
@@ -812,7 +813,7 @@
             this.chbWorldEmpty.Location = new System.Drawing.Point(6, 42);
             this.chbWorldEmpty.Name = "chbWorldEmpty";
             this.chbWorldEmpty.Size = new System.Drawing.Size(88, 17);
-            this.chbWorldEmpty.TabIndex = 18;
+            this.chbWorldEmpty.TabIndex = 1;
             this.chbWorldEmpty.Text = "-world=empty";
             this.chbWorldEmpty.UseVisualStyleBackColor = true;
             this.chbWorldEmpty.CheckedChanged += new System.EventHandler(this.chbWorldEmpty_CheckedChanged);
@@ -824,7 +825,7 @@
             this.chbSkipIntro.Location = new System.Drawing.Point(6, 65);
             this.chbSkipIntro.Name = "chbSkipIntro";
             this.chbSkipIntro.Size = new System.Drawing.Size(69, 17);
-            this.chbSkipIntro.TabIndex = 19;
+            this.chbSkipIntro.TabIndex = 2;
             this.chbSkipIntro.Text = "-skipIntro";
             this.chbSkipIntro.UseVisualStyleBackColor = true;
             this.chbSkipIntro.CheckedChanged += new System.EventHandler(this.chbSkipIntro_CheckedChanged);
@@ -838,7 +839,7 @@
             this.lstPreset.Location = new System.Drawing.Point(0, 39);
             this.lstPreset.Name = "lstPreset";
             this.lstPreset.Size = new System.Drawing.Size(198, 596);
-            this.lstPreset.TabIndex = 33;
+            this.lstPreset.TabIndex = 2;
             this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
             // 
             // pnlParameter
@@ -854,7 +855,7 @@
             this.pnlParameter.Location = new System.Drawing.Point(456, 0);
             this.pnlParameter.Name = "pnlParameter";
             this.pnlParameter.Size = new System.Drawing.Size(304, 637);
-            this.pnlParameter.TabIndex = 36;
+            this.pnlParameter.TabIndex = 2;
             // 
             // grpAdditionalParameters
             // 
@@ -876,7 +877,7 @@
             this.txtAdditionalParameter.Location = new System.Drawing.Point(6, 19);
             this.txtAdditionalParameter.Name = "txtAdditionalParameter";
             this.txtAdditionalParameter.Size = new System.Drawing.Size(276, 20);
-            this.txtAdditionalParameter.TabIndex = 17;
+            this.txtAdditionalParameter.TabIndex = 0;
             this.txtAdditionalParameter.TextChanged += new System.EventHandler(this.txtAdditionalParameter_TextChanged);
             // 
             // _ToolStripAddons
@@ -895,13 +896,13 @@
             this._ToolStripAddons.Location = new System.Drawing.Point(0, 0);
             this._ToolStripAddons.Name = "_ToolStripAddons";
             this._ToolStripAddons.Size = new System.Drawing.Size(248, 38);
-            this._ToolStripAddons.TabIndex = 35;
+            this._ToolStripAddons.TabIndex = 0;
             this._ToolStripAddons.Text = "toolStrip3";
-            this._ToolStripAddons.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this._ToolStripAddons_ItemClicked);
             // 
             // tbtnLaunch
             // 
             this.tbtnLaunch.Enabled = false;
+            this.tbtnLaunch.ForeColor = System.Drawing.Color.Red;
             this.tbtnLaunch.Image = ((System.Drawing.Image)(resources.GetObject("tbtnLaunch.Image")));
             this.tbtnLaunch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnLaunch.Name = "tbtnLaunch";
@@ -992,8 +993,93 @@
             this._ToolStripPreset.Location = new System.Drawing.Point(0, 0);
             this._ToolStripPreset.Name = "_ToolStripPreset";
             this._ToolStripPreset.Size = new System.Drawing.Size(198, 38);
-            this._ToolStripPreset.TabIndex = 35;
+            this._ToolStripPreset.TabIndex = 1;
             this._ToolStripPreset.Text = "toolStrip2";
+            // 
+            // tbtnRSM
+            // 
+            this.tbtnRSM.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tbtnRSM.Image = ((System.Drawing.Image)(resources.GetObject("tbtnRSM.Image")));
+            this.tbtnRSM.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnRSM.Name = "tbtnRSM";
+            this.tbtnRSM.Size = new System.Drawing.Size(35, 35);
+            this.tbtnRSM.Text = "RSM";
+            this.tbtnRSM.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbtnRSM.Click += new System.EventHandler(this.tbtnRSM_Click);
+            // 
+            // tbtnServerInfo
+            // 
+            this.tbtnServerInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tbtnServerInfo.Image = ((System.Drawing.Image)(resources.GetObject("tbtnServerInfo.Image")));
+            this.tbtnServerInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnServerInfo.Name = "tbtnServerInfo";
+            this.tbtnServerInfo.Size = new System.Drawing.Size(32, 35);
+            this.tbtnServerInfo.Text = "Info";
+            this.tbtnServerInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbtnServerInfo.Click += new System.EventHandler(this.tbtnServerInfo_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 38);
+            // 
+            // ddbtnServer
+            // 
+            this.ddbtnServer.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menServerNeu,
+            this.menServerEdit,
+            this.menServerClone,
+            this.toolStripMenuItem1,
+            this.menServerRemove});
+            this.ddbtnServer.Image = ((System.Drawing.Image)(resources.GetObject("ddbtnServer.Image")));
+            this.ddbtnServer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ddbtnServer.Name = "ddbtnServer";
+            this.ddbtnServer.Size = new System.Drawing.Size(52, 35);
+            this.ddbtnServer.Text = "Server";
+            this.ddbtnServer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // menServerNeu
+            // 
+            this.menServerNeu.Image = ((System.Drawing.Image)(resources.GetObject("menServerNeu.Image")));
+            this.menServerNeu.Name = "menServerNeu";
+            this.menServerNeu.Size = new System.Drawing.Size(130, 22);
+            this.menServerNeu.Text = "Neu";
+            this.menServerNeu.Click += new System.EventHandler(this.menServerNeu_Click);
+            // 
+            // menServerEdit
+            // 
+            this.menServerEdit.Image = ((System.Drawing.Image)(resources.GetObject("menServerEdit.Image")));
+            this.menServerEdit.Name = "menServerEdit";
+            this.menServerEdit.Size = new System.Drawing.Size(130, 22);
+            this.menServerEdit.Text = "Bearbeiten";
+            this.menServerEdit.Click += new System.EventHandler(this.menServerEdit_Click);
+            // 
+            // menServerClone
+            // 
+            this.menServerClone.Image = ((System.Drawing.Image)(resources.GetObject("menServerClone.Image")));
+            this.menServerClone.Name = "menServerClone";
+            this.menServerClone.Size = new System.Drawing.Size(130, 22);
+            this.menServerClone.Text = "Kopieren";
+            this.menServerClone.Click += new System.EventHandler(this.menServerClone_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(127, 6);
+            // 
+            // menServerRemove
+            // 
+            this.menServerRemove.Image = ((System.Drawing.Image)(resources.GetObject("menServerRemove.Image")));
+            this.menServerRemove.Name = "menServerRemove";
+            this.menServerRemove.Size = new System.Drawing.Size(130, 22);
+            this.menServerRemove.Text = "Löschen";
+            this.menServerRemove.Click += new System.EventHandler(this.menServerRemove_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
             // 
             // pnlMain
             // 
@@ -1018,7 +1104,20 @@
             this.pnlCenter.Location = new System.Drawing.Point(203, 0);
             this.pnlCenter.Name = "pnlCenter";
             this.pnlCenter.Size = new System.Drawing.Size(250, 637);
-            this.pnlCenter.TabIndex = 35;
+            this.pnlCenter.TabIndex = 0;
+            // 
+            // clstAddons
+            // 
+            this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clstAddons.ImageChecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageChecked")));
+            this.clstAddons.ImageUnchecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageUnchecked")));
+            this.clstAddons.Location = new System.Drawing.Point(0, 39);
+            this.clstAddons.Name = "clstAddons";
+            this.clstAddons.SelectedIndex = -1;
+            this.clstAddons.Size = new System.Drawing.Size(248, 596);
+            this.clstAddons.TabIndex = 1;
+            this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
+            this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
             // 
             // pnlSplitterCenterTop
             // 
@@ -1077,7 +1176,7 @@
             this._ToolStripTop.Location = new System.Drawing.Point(0, 0);
             this._ToolStripTop.Name = "_ToolStripTop";
             this._ToolStripTop.Size = new System.Drawing.Size(760, 25);
-            this._ToolStripTop.TabIndex = 37;
+            this._ToolStripTop.TabIndex = 1;
             this._ToolStripTop.Text = "toolStrip2";
             // 
             // tbtnInfo
@@ -1123,103 +1222,11 @@
             this.menLogfile.Text = "Logdatei anzeigen";
             this.menLogfile.Click += new System.EventHandler(this.menLogfile_Click);
             // 
-            // tbtnRSM
+            // timerBlink
             // 
-            this.tbtnRSM.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbtnRSM.Image = ((System.Drawing.Image)(resources.GetObject("tbtnRSM.Image")));
-            this.tbtnRSM.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnRSM.Name = "tbtnRSM";
-            this.tbtnRSM.Size = new System.Drawing.Size(35, 35);
-            this.tbtnRSM.Text = "RSM";
-            this.tbtnRSM.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tbtnRSM.Click += new System.EventHandler(this.tbtnRSM_Click);
-            // 
-            // tbtnServerInfo
-            // 
-            this.tbtnServerInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbtnServerInfo.Image = ((System.Drawing.Image)(resources.GetObject("tbtnServerInfo.Image")));
-            this.tbtnServerInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnServerInfo.Name = "tbtnServerInfo";
-            this.tbtnServerInfo.Size = new System.Drawing.Size(32, 35);
-            this.tbtnServerInfo.Text = "Info";
-            this.tbtnServerInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tbtnServerInfo.Click += new System.EventHandler(this.tbtnServerInfo_Click);
-            // 
-            // clstAddons
-            // 
-            this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clstAddons.ImageChecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageChecked")));
-            this.clstAddons.ImageUnchecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageUnchecked")));
-            this.clstAddons.Location = new System.Drawing.Point(0, 39);
-            this.clstAddons.Name = "clstAddons";
-            this.clstAddons.SelectedIndex = -1;
-            this.clstAddons.Size = new System.Drawing.Size(248, 596);
-            this.clstAddons.TabIndex = 37;
-            this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
-            this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 38);
-            // 
-            // ddbtnServer
-            // 
-            this.ddbtnServer.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menServerNeu,
-            this.menServerEdit,
-            this.menServerClone,
-            this.toolStripMenuItem1,
-            this.menServerRemove});
-            this.ddbtnServer.Image = ((System.Drawing.Image)(resources.GetObject("ddbtnServer.Image")));
-            this.ddbtnServer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ddbtnServer.Name = "ddbtnServer";
-            this.ddbtnServer.Size = new System.Drawing.Size(52, 35);
-            this.ddbtnServer.Text = "Server";
-            this.ddbtnServer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            // 
-            // menServerNeu
-            // 
-            this.menServerNeu.Image = ((System.Drawing.Image)(resources.GetObject("menServerNeu.Image")));
-            this.menServerNeu.Name = "menServerNeu";
-            this.menServerNeu.Size = new System.Drawing.Size(152, 22);
-            this.menServerNeu.Text = "Neu";
-            this.menServerNeu.Click += new System.EventHandler(this.menServerNeu_Click);
-            // 
-            // menServerEdit
-            // 
-            this.menServerEdit.Image = ((System.Drawing.Image)(resources.GetObject("menServerEdit.Image")));
-            this.menServerEdit.Name = "menServerEdit";
-            this.menServerEdit.Size = new System.Drawing.Size(152, 22);
-            this.menServerEdit.Text = "Bearbeiten";
-            this.menServerEdit.Click += new System.EventHandler(this.menServerEdit_Click);
-            // 
-            // menServerClone
-            // 
-            this.menServerClone.Image = ((System.Drawing.Image)(resources.GetObject("menServerClone.Image")));
-            this.menServerClone.Name = "menServerClone";
-            this.menServerClone.Size = new System.Drawing.Size(152, 22);
-            this.menServerClone.Text = "Kopieren";
-            this.menServerClone.Click += new System.EventHandler(this.menServerClone_Click);
-            // 
-            // menServerRemove
-            // 
-            this.menServerRemove.Image = ((System.Drawing.Image)(resources.GetObject("menServerRemove.Image")));
-            this.menServerRemove.Name = "menServerRemove";
-            this.menServerRemove.Size = new System.Drawing.Size(152, 22);
-            this.menServerRemove.Text = "Löschen";
-            this.menServerRemove.Click += new System.EventHandler(this.menServerRemove_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
+            this.timerBlink.Enabled = true;
+            this.timerBlink.Interval = 500;
+            this.timerBlink.Tick += new System.EventHandler(this.timerBlink_Tick);
             // 
             // FormMain
             // 
@@ -1356,6 +1363,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem menServerRemove;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.Timer timerBlink;
     }
 }
 
