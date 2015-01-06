@@ -240,7 +240,7 @@ namespace PALAST
         }
         private void RefreshArma3Cfg()
         {
-            menArmaCfg.Enabled = _ArmaCfgManager.FoundArma3Cfg;
+         /*   menArmaCfg.Enabled = _ArmaCfgManager.FoundArma3Cfg;
 
             #region _ArmaCfgManager.GetForceAdapterId
             int id;
@@ -282,6 +282,7 @@ namespace PALAST
                 menArmaCfgForceAdapterId.Enabled = false;
 
             #endregion
+          */ 
         }
         private bool IsArmaFolderValid
         {
@@ -581,12 +582,12 @@ namespace PALAST
         {
             if (lstPreset.SelectedIndex != -1)
             {
-                tbtnClonePreset.Enabled = true;
-                tbtnDeletePreset.Enabled = true;
-                tbtnEditPreset.Enabled = true;
+                menServerClone.Enabled = true;
+                menServerRemove.Enabled = true;
+                menServerEdit.Enabled = true;
                 tbtnLaunch.Enabled = true;
                 tbtnUpdateAddons.Enabled = true;
-                menRemoteServerManager.Enabled = true;
+                tbtnRSM.Enabled = true;
 
                 _Configuration.SelectedPreset = lstPreset.SelectedItem.ToString();
 
@@ -594,12 +595,12 @@ namespace PALAST
             }
             else
             {
-                tbtnClonePreset.Enabled = false;
-                tbtnDeletePreset.Enabled = false;
-                tbtnEditPreset.Enabled = false;
+                menServerClone.Enabled = false;
+                menServerRemove.Enabled = false;
+                menServerEdit.Enabled = false;
                 tbtnLaunch.Enabled = false;
                 tbtnUpdateAddons.Enabled = false;
-                menRemoteServerManager.Enabled = false;
+                tbtnRSM.Enabled = false;
             }
         }
 
@@ -649,7 +650,7 @@ namespace PALAST
 
             return true;
         }
-        private void tbtnAddPreset_Click(object sender, EventArgs e)
+        private void menServerNeu_Click(object sender, EventArgs e)
         {
             string name = RenamePresetDialog.ExecuteDialog("new");
             if (name != null)
@@ -667,9 +668,8 @@ namespace PALAST
                     lstPreset.SelectedIndex = lstPreset.Items.Count - 1;
                 }
             }
-
         }
-        private void tbtnEditPreset_Click(object sender, EventArgs e)
+        private void menServerEdit_Click(object sender, EventArgs e)
         {
             Configuration.Preset preset = lstPreset.SelectedItem as Configuration.Preset;
             string name = RenamePresetDialog.ExecuteDialog(preset.Name);
@@ -682,7 +682,7 @@ namespace PALAST
 
             }
         }
-        private void tbtnClonePreset_Click(object sender, EventArgs e)
+        private void menServerClone_Click(object sender, EventArgs e)
         {
             Configuration.Preset preset = (lstPreset.SelectedItem as Configuration.Preset).Clone();
             string newName = preset.Name + " (clone)";
@@ -695,14 +695,17 @@ namespace PALAST
             RefreshMenu();
             lstPreset.SelectedIndex = lstPreset.Items.Count - 1;
         }
-        private void tbtnDeletePreset_Click(object sender, EventArgs e)
+        private void menServerRemove_Click(object sender, EventArgs e)
         {
-            List<Configuration.Preset> list = new List<Configuration.Preset>(_Configuration.Presets);
-            foreach (Configuration.Preset preset in lstPreset.SelectedItems)
-                list.Remove(preset);
-            _Configuration.Presets = list.ToArray();
-            RefreshMenu();
-            lstPreset.SelectedIndex = lstPreset.Items.Count - 1;
+            if (MessageBox.Show(this, "Soll der Eintrag wirklich gelöscht werden?", "Achtung", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.OK)
+            {
+                List<Configuration.Preset> list = new List<Configuration.Preset>(_Configuration.Presets);
+                foreach (Configuration.Preset preset in lstPreset.SelectedItems)
+                    list.Remove(preset);
+                _Configuration.Presets = list.ToArray();
+                RefreshMenu();
+                lstPreset.SelectedIndex = lstPreset.Items.Count - 1;
+            }
         }
         private void tbtnSettings_Click(object sender, EventArgs e)
         {
@@ -885,11 +888,35 @@ namespace PALAST
                 }
             }
         }
+        private void tbtnParameter_Click(object sender, EventArgs e)
+        {
+            SetCommandLineParametersVisible(!tbtnParameter.Checked);
+        }
 
-        private void menRemoteServerManager_Click(object sender, EventArgs e)
+        private void tbtnRSM_Click(object sender, EventArgs e)
         {
             if (_Configuration != null)
                 RSM.ManagerDialog.ExecuteDialog(SelectedPreset, _Configuration.RsmTimeout);
+        }
+        private void tbtnServerInfo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int port = Convert.ToInt32(SelectedPreset.ParamPort) + 1;
+                if (port <= 0)
+                    throw new ApplicationException("Ungültiger Port");
+
+                if (string.IsNullOrWhiteSpace(SelectedPreset.ParamServer))
+                    throw new ApplicationException("Ungültige IP");
+
+                System.Net.IPAddress ip = System.Net.IPAddress.Parse(SelectedPreset.ParamServer);
+
+                Query.QueryDialog.ExecuteDialog(new System.Net.IPEndPoint(ip, port));
+            }
+            catch
+            {
+                MessageBox.Show("Zum Abfragen der Serverinformationen wird die Adresse verwendet, die bei den Parametern unter 'Automatisch verbinden' angegeben ist. Bitte überprüfen sie diese Adresse.");
+            }
         }
 
         private void menLogfile_Click(object sender, EventArgs e)
@@ -903,36 +930,9 @@ namespace PALAST
                 MessageBox.Show(ex.Message);
             }
         }
-
-        private void tbtnParameter_Click(object sender, EventArgs e)
-        {
-            SetCommandLineParametersVisible(!tbtnParameter.Checked);
-        }
-
-        private void menServerInfo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                int port = Convert.ToInt32(SelectedPreset.ParamPort) + 1;            
-                if (port <= 0)
-                    throw new ApplicationException("Ungültiger Port");
-
-                if (string.IsNullOrWhiteSpace(SelectedPreset.ParamServer))
-                    throw new ApplicationException("Ungültige IP");
-
-                System.Net.IPAddress ip = System.Net.IPAddress.Parse(SelectedPreset.ParamServer);
-                                
-                Query.QueryDialog.ExecuteDialog(new System.Net.IPEndPoint(ip, port));
-            }
-            catch
-            {
-                MessageBox.Show("Zum Abfragen der Serverinformationen wird die Adresse verwendet, die bei den Parametern unter 'Automatisch verbinden' angegeben ist. Bitte überprüfen sie diese Adresse.");
-            }
-        }
-
         private void menArmaCfgForceAdapterIdX_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, "Achtung! Wenn dieser Fehler falsch eingestellt ist, kann es sein, dass Arma nicht mehr starten kann. Wollen Sie fortfahren?", "Warnung", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
+        /*    if (MessageBox.Show(this, "Achtung! Wenn dieser Fehler falsch eingestellt ist, kann es sein, dass Arma nicht mehr starten kann. Wollen Sie fortfahren?", "Warnung", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
             {
                 int id = -1;
                 if (sender == menArmaCfgForceAdapterId0)
@@ -953,7 +953,12 @@ namespace PALAST
                 {
                     MessageBox.Show(this, "Der Parameter konnte nicht geändert werden. Bitte stellen Sie sicher das Arma nicht gestartet ist.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            }
+            }*/
+        }
+
+        private void _ToolStripAddons_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

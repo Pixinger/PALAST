@@ -30,6 +30,7 @@ namespace PALAST.RSM
         {
             using (ManagerDialog dlg = new ManagerDialog())
             {
+                dlg.slblName.Text = preset.Name;
                 if (!TokenTools.IsValid(preset.RsmServerToken))
                     preset.RsmServerToken = TokenDialog.ExecuteDialog("");
 

@@ -80,7 +80,6 @@
             this.chbSkipIntro = new System.Windows.Forms.CheckBox();
             this._ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lstPreset = new System.Windows.Forms.ListBox();
-            this.clstAddons = new PALAST.AddonList();
             this.pnlParameter = new System.Windows.Forms.Panel();
             this.grpAdditionalParameters = new System.Windows.Forms.GroupBox();
             this.txtAdditionalParameter = new System.Windows.Forms.TextBox();
@@ -94,11 +93,6 @@
             this.tbtnUpdateAddons = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this._ToolStripPreset = new System.Windows.Forms.ToolStrip();
-            this.tbtnAddPreset = new System.Windows.Forms.ToolStripButton();
-            this.tbtnEditPreset = new System.Windows.Forms.ToolStripButton();
-            this.tbtnClonePreset = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tbtnDeletePreset = new System.Windows.Forms.ToolStripButton();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.pnlCenter = new System.Windows.Forms.Panel();
             this.pnlSplitterCenterTop = new System.Windows.Forms.Panel();
@@ -111,17 +105,18 @@
             this.tbtnSettings = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnExtended = new System.Windows.Forms.ToolStripDropDownButton();
-            this.menServerInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.menLogfile = new System.Windows.Forms.ToolStripMenuItem();
-            this.menArmaCfg = new System.Windows.Forms.ToolStripMenuItem();
-            this.menArmaCfgForceAdapterId = new System.Windows.Forms.ToolStripMenuItem();
-            this.menArmaCfgForceAdapterIdDefault = new System.Windows.Forms.ToolStripMenuItem();
-            this.menArmaCfgForceAdapterId0 = new System.Windows.Forms.ToolStripMenuItem();
-            this.menArmaCfgForceAdapterId1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.menArmaCfgForceAdapterId2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.menArmaCfgForceAdapterId3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbtnRSM = new System.Windows.Forms.ToolStripButton();
+            this.tbtnServerInfo = new System.Windows.Forms.ToolStripButton();
+            this.clstAddons = new PALAST.AddonList();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.ddbtnServer = new System.Windows.Forms.ToolStripDropDownButton();
+            this.menServerNeu = new System.Windows.Forms.ToolStripMenuItem();
+            this.menServerEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.menServerClone = new System.Windows.Forms.ToolStripMenuItem();
+            this.menServerRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.menRemoteServerManager = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.grpAutoConnect.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
@@ -840,24 +835,11 @@
             this.lstPreset.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstPreset.FormattingEnabled = true;
             this.lstPreset.IntegralHeight = false;
-            this.lstPreset.Location = new System.Drawing.Point(0, 26);
+            this.lstPreset.Location = new System.Drawing.Point(0, 39);
             this.lstPreset.Name = "lstPreset";
-            this.lstPreset.Size = new System.Drawing.Size(198, 609);
+            this.lstPreset.Size = new System.Drawing.Size(198, 596);
             this.lstPreset.TabIndex = 33;
             this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
-            // 
-            // clstAddons
-            // 
-            this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clstAddons.ImageChecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageChecked")));
-            this.clstAddons.ImageUnchecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageUnchecked")));
-            this.clstAddons.Location = new System.Drawing.Point(0, 26);
-            this.clstAddons.Name = "clstAddons";
-            this.clstAddons.SelectedIndex = -1;
-            this.clstAddons.Size = new System.Drawing.Size(248, 609);
-            this.clstAddons.TabIndex = 37;
-            this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
-            this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
             // 
             // pnlParameter
             // 
@@ -899,6 +881,7 @@
             // 
             // _ToolStripAddons
             // 
+            this._ToolStripAddons.CanOverflow = false;
             this._ToolStripAddons.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this._ToolStripAddons.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbtnLaunch,
@@ -911,148 +894,106 @@
             this.toolStripSeparator4});
             this._ToolStripAddons.Location = new System.Drawing.Point(0, 0);
             this._ToolStripAddons.Name = "_ToolStripAddons";
-            this._ToolStripAddons.Size = new System.Drawing.Size(248, 25);
+            this._ToolStripAddons.Size = new System.Drawing.Size(248, 38);
             this._ToolStripAddons.TabIndex = 35;
             this._ToolStripAddons.Text = "toolStrip3";
+            this._ToolStripAddons.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this._ToolStripAddons_ItemClicked);
             // 
             // tbtnLaunch
             // 
-            this.tbtnLaunch.BackColor = System.Drawing.SystemColors.Control;
             this.tbtnLaunch.Enabled = false;
             this.tbtnLaunch.Image = ((System.Drawing.Image)(resources.GetObject("tbtnLaunch.Image")));
             this.tbtnLaunch.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnLaunch.Name = "tbtnLaunch";
-            this.tbtnLaunch.Size = new System.Drawing.Size(91, 22);
-            this.tbtnLaunch.Text = "Spiel starten";
+            this.tbtnLaunch.Size = new System.Drawing.Size(48, 35);
+            this.tbtnLaunch.Text = "Starten";
+            this.tbtnLaunch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbtnLaunch.ToolTipText = "Spiel starten";
             this.tbtnLaunch.Click += new System.EventHandler(this.tbtnLaunch_Click);
             // 
             // tbtnParameter
             // 
             this.tbtnParameter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbtnParameter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnParameter.Image = ((System.Drawing.Image)(resources.GetObject("tbtnParameter.Image")));
             this.tbtnParameter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnParameter.Name = "tbtnParameter";
-            this.tbtnParameter.Size = new System.Drawing.Size(23, 22);
-            this.tbtnParameter.Text = "Parameter";
+            this.tbtnParameter.Size = new System.Drawing.Size(50, 35);
+            this.tbtnParameter.Text = "Params";
+            this.tbtnParameter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbtnParameter.ToolTipText = "Parameter auf-/zuklappen";
             this.tbtnParameter.Click += new System.EventHandler(this.tbtnParameter_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 38);
             // 
             // tbtnTFAR
             // 
             this.tbtnTFAR.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbtnTFAR.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnTFAR.Enabled = false;
             this.tbtnTFAR.Image = ((System.Drawing.Image)(resources.GetObject("tbtnTFAR.Image")));
             this.tbtnTFAR.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnTFAR.Name = "tbtnTFAR";
-            this.tbtnTFAR.Size = new System.Drawing.Size(23, 22);
-            this.tbtnTFAR.Text = "TFAR Setup - zum Aktivieren, das TFAR-Addon auswählen";
+            this.tbtnTFAR.Size = new System.Drawing.Size(39, 35);
+            this.tbtnTFAR.Text = "TFAR";
+            this.tbtnTFAR.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbtnTFAR.ToolTipText = "TFAR Setup - Zum Ausführen, das TFAR Addon auswählen.";
             this.tbtnTFAR.Click += new System.EventHandler(this.tbtnTFAR_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 38);
             // 
             // tbtnDeleteAddon
             // 
             this.tbtnDeleteAddon.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbtnDeleteAddon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnDeleteAddon.Enabled = false;
             this.tbtnDeleteAddon.Image = ((System.Drawing.Image)(resources.GetObject("tbtnDeleteAddon.Image")));
             this.tbtnDeleteAddon.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnDeleteAddon.Name = "tbtnDeleteAddon";
-            this.tbtnDeleteAddon.Size = new System.Drawing.Size(23, 22);
-            this.tbtnDeleteAddon.Text = "Addon löschen";
+            this.tbtnDeleteAddon.Size = new System.Drawing.Size(55, 35);
+            this.tbtnDeleteAddon.Text = "Löschen";
+            this.tbtnDeleteAddon.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbtnDeleteAddon.ToolTipText = "Addon löschen";
             this.tbtnDeleteAddon.Click += new System.EventHandler(this.tbtnDeleteAddon_Click);
             // 
             // tbtnUpdateAddons
             // 
             this.tbtnUpdateAddons.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbtnUpdateAddons.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tbtnUpdateAddons.Enabled = false;
             this.tbtnUpdateAddons.Image = ((System.Drawing.Image)(resources.GetObject("tbtnUpdateAddons.Image")));
             this.tbtnUpdateAddons.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnUpdateAddons.Name = "tbtnUpdateAddons";
-            this.tbtnUpdateAddons.Size = new System.Drawing.Size(23, 22);
-            this.tbtnUpdateAddons.Text = "Addons synchronisieren";
+            this.tbtnUpdateAddons.Size = new System.Drawing.Size(36, 35);
+            this.tbtnUpdateAddons.Text = "Sync";
+            this.tbtnUpdateAddons.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbtnUpdateAddons.ToolTipText = "Addons synchronisieren";
             this.tbtnUpdateAddons.Click += new System.EventHandler(this.tbtnUpdateAddons_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 38);
             // 
             // _ToolStripPreset
             // 
             this._ToolStripPreset.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this._ToolStripPreset.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbtnAddPreset,
-            this.tbtnEditPreset,
-            this.tbtnClonePreset,
-            this.toolStripSeparator1,
-            this.tbtnDeletePreset});
+            this.tbtnRSM,
+            this.tbtnServerInfo,
+            this.toolStripSeparator6,
+            this.ddbtnServer,
+            this.toolStripSeparator1});
             this._ToolStripPreset.Location = new System.Drawing.Point(0, 0);
             this._ToolStripPreset.Name = "_ToolStripPreset";
-            this._ToolStripPreset.Size = new System.Drawing.Size(198, 25);
+            this._ToolStripPreset.Size = new System.Drawing.Size(198, 38);
             this._ToolStripPreset.TabIndex = 35;
             this._ToolStripPreset.Text = "toolStrip2";
-            // 
-            // tbtnAddPreset
-            // 
-            this.tbtnAddPreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnAddPreset.Image = ((System.Drawing.Image)(resources.GetObject("tbtnAddPreset.Image")));
-            this.tbtnAddPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnAddPreset.Name = "tbtnAddPreset";
-            this.tbtnAddPreset.Size = new System.Drawing.Size(23, 22);
-            this.tbtnAddPreset.Text = "Vorlage hinzufügen";
-            this.tbtnAddPreset.Click += new System.EventHandler(this.tbtnAddPreset_Click);
-            // 
-            // tbtnEditPreset
-            // 
-            this.tbtnEditPreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnEditPreset.Enabled = false;
-            this.tbtnEditPreset.Image = ((System.Drawing.Image)(resources.GetObject("tbtnEditPreset.Image")));
-            this.tbtnEditPreset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnEditPreset.Name = "tbtnEditPreset";
-            this.tbtnEditPreset.Size = new System.Drawing.Size(23, 22);
-            this.tbtnEditPreset.Text = "Vorlage bearbeiten";
-            this.tbtnEditPreset.Click += new System.EventHandler(this.tbtnEditPreset_Click);
-            // 
-            // tbtnClonePreset
-            // 
-            this.tbtnClonePreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnClonePreset.Enabled = false;
-            this.tbtnClonePreset.Image = ((System.Drawing.Image)(resources.GetObject("tbtnClonePreset.Image")));
-            this.tbtnClonePreset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnClonePreset.Name = "tbtnClonePreset";
-            this.tbtnClonePreset.Size = new System.Drawing.Size(23, 22);
-            this.tbtnClonePreset.Text = "Vorlage klonen";
-            this.tbtnClonePreset.Click += new System.EventHandler(this.tbtnClonePreset_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // tbtnDeletePreset
-            // 
-            this.tbtnDeletePreset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbtnDeletePreset.Enabled = false;
-            this.tbtnDeletePreset.Image = ((System.Drawing.Image)(resources.GetObject("tbtnDeletePreset.Image")));
-            this.tbtnDeletePreset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbtnDeletePreset.Name = "tbtnDeletePreset";
-            this.tbtnDeletePreset.Size = new System.Drawing.Size(23, 22);
-            this.tbtnDeletePreset.Text = "Vorlage löschen";
-            this.tbtnDeletePreset.Click += new System.EventHandler(this.tbtnDeletePreset_Click);
             // 
             // pnlMain
             // 
@@ -1083,7 +1024,7 @@
             // 
             this.pnlSplitterCenterTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlSplitterCenterTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlSplitterCenterTop.Location = new System.Drawing.Point(0, 25);
+            this.pnlSplitterCenterTop.Location = new System.Drawing.Point(0, 38);
             this.pnlSplitterCenterTop.Name = "pnlSplitterCenterTop";
             this.pnlSplitterCenterTop.Size = new System.Drawing.Size(248, 1);
             this.pnlSplitterCenterTop.TabIndex = 38;
@@ -1112,7 +1053,7 @@
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 25);
+            this.panel1.Location = new System.Drawing.Point(0, 38);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(198, 1);
             this.panel1.TabIndex = 40;
@@ -1167,100 +1108,118 @@
             // tbtnExtended
             // 
             this.tbtnExtended.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menServerInfo,
-            this.menLogfile,
-            this.menArmaCfg,
-            this.toolStripMenuItem1,
-            this.menRemoteServerManager});
+            this.menLogfile});
             this.tbtnExtended.Image = ((System.Drawing.Image)(resources.GetObject("tbtnExtended.Image")));
             this.tbtnExtended.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbtnExtended.Name = "tbtnExtended";
             this.tbtnExtended.Size = new System.Drawing.Size(66, 22);
             this.tbtnExtended.Text = "Extras";
             // 
-            // menServerInfo
-            // 
-            this.menServerInfo.Image = ((System.Drawing.Image)(resources.GetObject("menServerInfo.Image")));
-            this.menServerInfo.Name = "menServerInfo";
-            this.menServerInfo.Size = new System.Drawing.Size(263, 22);
-            this.menServerInfo.Text = "Server Informationen";
-            this.menServerInfo.Click += new System.EventHandler(this.menServerInfo_Click);
-            // 
             // menLogfile
             // 
             this.menLogfile.Image = ((System.Drawing.Image)(resources.GetObject("menLogfile.Image")));
             this.menLogfile.Name = "menLogfile";
-            this.menLogfile.Size = new System.Drawing.Size(263, 22);
+            this.menLogfile.Size = new System.Drawing.Size(170, 22);
             this.menLogfile.Text = "Logdatei anzeigen";
             this.menLogfile.Click += new System.EventHandler(this.menLogfile_Click);
             // 
-            // menArmaCfg
+            // tbtnRSM
             // 
-            this.menArmaCfg.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menArmaCfgForceAdapterId});
-            this.menArmaCfg.Name = "menArmaCfg";
-            this.menArmaCfg.Size = new System.Drawing.Size(263, 22);
-            this.menArmaCfg.Text = "Konfiguration anpassen (arma3.cfg)";
+            this.tbtnRSM.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tbtnRSM.Image = ((System.Drawing.Image)(resources.GetObject("tbtnRSM.Image")));
+            this.tbtnRSM.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnRSM.Name = "tbtnRSM";
+            this.tbtnRSM.Size = new System.Drawing.Size(35, 35);
+            this.tbtnRSM.Text = "RSM";
+            this.tbtnRSM.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbtnRSM.Click += new System.EventHandler(this.tbtnRSM_Click);
             // 
-            // menArmaCfgForceAdapterId
+            // tbtnServerInfo
             // 
-            this.menArmaCfgForceAdapterId.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menArmaCfgForceAdapterIdDefault,
-            this.menArmaCfgForceAdapterId0,
-            this.menArmaCfgForceAdapterId1,
-            this.menArmaCfgForceAdapterId2,
-            this.menArmaCfgForceAdapterId3});
-            this.menArmaCfgForceAdapterId.Name = "menArmaCfgForceAdapterId";
-            this.menArmaCfgForceAdapterId.Size = new System.Drawing.Size(279, 22);
-            this.menArmaCfgForceAdapterId.Text = "Grafikkarte festlegen (forcedAdapterId)";
+            this.tbtnServerInfo.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tbtnServerInfo.Image = ((System.Drawing.Image)(resources.GetObject("tbtnServerInfo.Image")));
+            this.tbtnServerInfo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbtnServerInfo.Name = "tbtnServerInfo";
+            this.tbtnServerInfo.Size = new System.Drawing.Size(32, 35);
+            this.tbtnServerInfo.Text = "Info";
+            this.tbtnServerInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tbtnServerInfo.Click += new System.EventHandler(this.tbtnServerInfo_Click);
             // 
-            // menArmaCfgForceAdapterIdDefault
+            // clstAddons
             // 
-            this.menArmaCfgForceAdapterIdDefault.Name = "menArmaCfgForceAdapterIdDefault";
-            this.menArmaCfgForceAdapterIdDefault.Size = new System.Drawing.Size(143, 22);
-            this.menArmaCfgForceAdapterIdDefault.Text = "-1 (Standard)";
-            this.menArmaCfgForceAdapterIdDefault.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
+            this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clstAddons.ImageChecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageChecked")));
+            this.clstAddons.ImageUnchecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageUnchecked")));
+            this.clstAddons.Location = new System.Drawing.Point(0, 39);
+            this.clstAddons.Name = "clstAddons";
+            this.clstAddons.SelectedIndex = -1;
+            this.clstAddons.Size = new System.Drawing.Size(248, 596);
+            this.clstAddons.TabIndex = 37;
+            this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
+            this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
             // 
-            // menArmaCfgForceAdapterId0
+            // toolStripSeparator6
             // 
-            this.menArmaCfgForceAdapterId0.Name = "menArmaCfgForceAdapterId0";
-            this.menArmaCfgForceAdapterId0.Size = new System.Drawing.Size(143, 22);
-            this.menArmaCfgForceAdapterId0.Text = "0";
-            this.menArmaCfgForceAdapterId0.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
+            this.toolStripSeparator6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 38);
             // 
-            // menArmaCfgForceAdapterId1
+            // ddbtnServer
             // 
-            this.menArmaCfgForceAdapterId1.Name = "menArmaCfgForceAdapterId1";
-            this.menArmaCfgForceAdapterId1.Size = new System.Drawing.Size(143, 22);
-            this.menArmaCfgForceAdapterId1.Text = "1";
-            this.menArmaCfgForceAdapterId1.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
+            this.ddbtnServer.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menServerNeu,
+            this.menServerEdit,
+            this.menServerClone,
+            this.toolStripMenuItem1,
+            this.menServerRemove});
+            this.ddbtnServer.Image = ((System.Drawing.Image)(resources.GetObject("ddbtnServer.Image")));
+            this.ddbtnServer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ddbtnServer.Name = "ddbtnServer";
+            this.ddbtnServer.Size = new System.Drawing.Size(52, 35);
+            this.ddbtnServer.Text = "Server";
+            this.ddbtnServer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
-            // menArmaCfgForceAdapterId2
+            // menServerNeu
             // 
-            this.menArmaCfgForceAdapterId2.Name = "menArmaCfgForceAdapterId2";
-            this.menArmaCfgForceAdapterId2.Size = new System.Drawing.Size(143, 22);
-            this.menArmaCfgForceAdapterId2.Text = "2";
-            this.menArmaCfgForceAdapterId2.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
+            this.menServerNeu.Image = ((System.Drawing.Image)(resources.GetObject("menServerNeu.Image")));
+            this.menServerNeu.Name = "menServerNeu";
+            this.menServerNeu.Size = new System.Drawing.Size(152, 22);
+            this.menServerNeu.Text = "Neu";
+            this.menServerNeu.Click += new System.EventHandler(this.menServerNeu_Click);
             // 
-            // menArmaCfgForceAdapterId3
+            // menServerEdit
             // 
-            this.menArmaCfgForceAdapterId3.Name = "menArmaCfgForceAdapterId3";
-            this.menArmaCfgForceAdapterId3.Size = new System.Drawing.Size(143, 22);
-            this.menArmaCfgForceAdapterId3.Text = "3";
-            this.menArmaCfgForceAdapterId3.Click += new System.EventHandler(this.menArmaCfgForceAdapterIdX_Click);
+            this.menServerEdit.Image = ((System.Drawing.Image)(resources.GetObject("menServerEdit.Image")));
+            this.menServerEdit.Name = "menServerEdit";
+            this.menServerEdit.Size = new System.Drawing.Size(152, 22);
+            this.menServerEdit.Text = "Bearbeiten";
+            this.menServerEdit.Click += new System.EventHandler(this.menServerEdit_Click);
+            // 
+            // menServerClone
+            // 
+            this.menServerClone.Image = ((System.Drawing.Image)(resources.GetObject("menServerClone.Image")));
+            this.menServerClone.Name = "menServerClone";
+            this.menServerClone.Size = new System.Drawing.Size(152, 22);
+            this.menServerClone.Text = "Kopieren";
+            this.menServerClone.Click += new System.EventHandler(this.menServerClone_Click);
+            // 
+            // menServerRemove
+            // 
+            this.menServerRemove.Image = ((System.Drawing.Image)(resources.GetObject("menServerRemove.Image")));
+            this.menServerRemove.Name = "menServerRemove";
+            this.menServerRemove.Size = new System.Drawing.Size(152, 22);
+            this.menServerRemove.Text = "Löschen";
+            this.menServerRemove.Click += new System.EventHandler(this.menServerRemove_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(260, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
-            // menRemoteServerManager
+            // toolStripSeparator1
             // 
-            this.menRemoteServerManager.Image = ((System.Drawing.Image)(resources.GetObject("menRemoteServerManager.Image")));
-            this.menRemoteServerManager.Name = "menRemoteServerManager";
-            this.menRemoteServerManager.Size = new System.Drawing.Size(263, 22);
-            this.menRemoteServerManager.Text = "RSM (Remote Server Manager)";
-            this.menRemoteServerManager.Click += new System.EventHandler(this.menRemoteServerManager_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 38);
             // 
             // FormMain
             // 
@@ -1369,11 +1328,6 @@
         private System.Windows.Forms.ToolStripButton tbtnUpdateAddons;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStrip _ToolStripPreset;
-        private System.Windows.Forms.ToolStripButton tbtnAddPreset;
-        private System.Windows.Forms.ToolStripButton tbtnEditPreset;
-        private System.Windows.Forms.ToolStripButton tbtnClonePreset;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton tbtnDeletePreset;
         private System.Windows.Forms.ToolStripButton tbtnTFAR;
         private AddonList clstAddons;
         private System.Windows.Forms.ToolStripButton tbtnDeleteAddon;
@@ -1389,19 +1343,19 @@
         private System.Windows.Forms.ToolStripButton tbtnSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripDropDownButton tbtnExtended;
-        private System.Windows.Forms.ToolStripMenuItem menRemoteServerManager;
         private System.Windows.Forms.ToolStripMenuItem menLogfile;
         private System.Windows.Forms.ToolStripButton tbtnParameter;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem menServerInfo;
+        private System.Windows.Forms.ToolStripButton tbtnRSM;
+        private System.Windows.Forms.ToolStripButton tbtnServerInfo;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripDropDownButton ddbtnServer;
+        private System.Windows.Forms.ToolStripMenuItem menServerNeu;
+        private System.Windows.Forms.ToolStripMenuItem menServerEdit;
+        private System.Windows.Forms.ToolStripMenuItem menServerClone;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem menArmaCfg;
-        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId;
-        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterIdDefault;
-        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId0;
-        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId1;
-        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId2;
-        private System.Windows.Forms.ToolStripMenuItem menArmaCfgForceAdapterId3;
+        private System.Windows.Forms.ToolStripMenuItem menServerRemove;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
