@@ -434,6 +434,7 @@
             // 
             // clstAddons
             // 
+            this.clstAddons.ContextMenuStrip = this.cmenMain;
             this.clstAddons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clstAddons.ImageChecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageChecked")));
             this.clstAddons.ImageUnchecked = ((System.Drawing.Image)(resources.GetObject("clstAddons.ImageUnchecked")));

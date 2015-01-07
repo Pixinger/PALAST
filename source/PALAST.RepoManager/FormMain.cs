@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace PALAST.RepoManager
         #region nLog instance (LOG)
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
+
+        public const string DSSignFile = "DSSignFile.exe";
+        public const string DSCreateKey = "DSCreateKey.exe";
 
         #region private class SilentUpdate
         private class SilentUpdate
@@ -406,8 +410,171 @@ namespace PALAST.RepoManager
         }
         private void ReSignKey(string addonName)
         {
-            MessageBox.Show("Diese Funktion ist noch nicht verfügbar");
+            if ((!File.Exists(DSSignFile)) || (!File.Exists(DSCreateKey)))
+            {
+                MessageBox.Show(this, "Die Programme 'DSSignFile.exe' oder 'DSCreateKey.exe' konnten nicht gefunden werden. Aus Copyright Gründen müssen Sie diese manuell herunterladen und dann in das Programmverzeichnis vom RepoManager kopieren.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if (MessageBox.Show(this, "Sollen die alten 'Bisign' und 'Bikey' gelöscht werden?", "Frage", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    try
+                    {
+                        string[] oldBiSigns = Directory.GetFiles( Path.Combine(_ProjectXml.AddonDirectory, addonName, "Addons"), "*.bisign");
+                        foreach (string file in oldBiSigns)
+                        {
+                            // Addon bisign löschen
+                            try
+                            {
+                                File.Delete(file);
+                            }
+                            catch { }
+
+                            int index = file.IndexOf(".pbo.");
+                            string bikey = file.Remove(0, index + 5).Replace(".bisign", ".bikey");
+
+                            // Addon bikey löschen
+                            try
+                            {
+                                string filename = Path.Combine(_ProjectXml.AddonDirectory, "Keys", bikey);
+                                if (File.Exists(filename))
+                                    File.Delete(filename);
+                            }
+                            catch { }
+
+                            // Server bikey löschen
+                            try
+                            {
+                                string filename = Path.Combine(_ProjectXml.AddonDirectory, addonName, "Keys", bikey);
+                                if (File.Exists(filename))
+                                    File.Delete(filename);
+                            }
+                            catch { }
+                        }
+                    }
+                    catch
+                    {
+                    }
+                }
+
+                string privateKey = addonName.Remove(0, 1) + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+
+                lstLog.Items.Clear();
+                lstLog.Items.Insert(0, "create privatekey: " + privateKey);
+                if (CreatePrivateKey(privateKey))
+                {
+                    lstLog.Items.Insert(0, "Delete old bisign and bikey's.");
+
+                    // BiKey in Addon kopieren
+                    try
+                    {
+                        lstLog.Items.Insert(0, "copy bikey");
+                        string keyFolder = Path.Combine(_ProjectXml.AddonDirectory, addonName, "Keys");
+                        if (!Directory.Exists(keyFolder))
+                            Directory.CreateDirectory(keyFolder);
+                        File.Copy(privateKey + ".bikey", Path.Combine(keyFolder, privateKey + ".bikey"));
+                    }
+                    catch (Exception ex)
+                    {
+                        lstLog.Items.Insert(0, "Exception: " + ex.Message);
+                    }
+
+                    // BiKey in Server kopieren
+                    try
+                    {
+                        lstLog.Items.Insert(0, "copy bikey");
+                        string keyFolder = Path.Combine(_ProjectXml.AddonDirectory, "Keys");
+                        if (!Directory.Exists(keyFolder))
+                            Directory.CreateDirectory(keyFolder);
+                        File.Copy(privateKey + ".bikey", Path.Combine(keyFolder, privateKey + ".bikey"));
+                    }
+                    catch (Exception ex)
+                    {
+                        lstLog.Items.Insert(0, "Exception: " + ex.Message);
+                    }
+
+                    // Pbos signieren
+                    string[] pboFiles = Directory.GetFiles(Path.Combine(_ProjectXml.AddonDirectory, addonName, "Addons"), "*.pbo");
+                    foreach (string pboFile in pboFiles)
+                    {
+                        lstLog.Items.Insert(0, "signing: " + pboFile);
+                        SignPbo(privateKey, pboFile);
+                    }
+                }
+
+                // Lokale Keys löschen
+                try
+                {
+                    lstLog.Items.Insert(0, "remove local bikey");
+                    File.Delete(privateKey + ".bikey");
+                    lstLog.Items.Insert(0, "remove local biprivatekey");
+                    File.Delete(privateKey + ".biprivatekey");
+                }
+                catch (Exception ex)
+                {
+                    lstLog.Items.Insert(0, "Exception: " + ex.Message);
+                }
+                lstLog.Items.Insert(0, "Finished");
+            }
         }
+        private bool CreatePrivateKey(string keyname)
+        {
+            string fullname = keyname + ".biprivatekey";
+            if (File.Exists(fullname))
+            {
+                lstLog.Items.Insert(0, "delete old biprivatekey");
+                File.Delete(fullname);
+            }
+            fullname = keyname + ".bikey";
+            if (File.Exists(fullname))
+            {
+                lstLog.Items.Insert(0, "delete old bikey");
+                File.Delete(fullname);
+            }
+
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            processStartInfo.FileName = DSCreateKey;
+            processStartInfo.Arguments = keyname;
+            processStartInfo.UseShellExecute = false;
+            processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.CreateNoWindow = true;
+            using (Process process = Process.Start(processStartInfo))
+            {
+                process.WaitForExit();
+            }
+
+            bool result = (File.Exists(keyname + ".biprivatekey")) && (File.Exists(keyname + ".bikey"));
+
+            if (!result)
+                lstLog.Items.Insert(0, "ERROR: Creating privatekey '" + keyname + "'");
+
+            return result;
+        }
+        private bool SignPbo(string privatekey, string pboName)
+        {
+            privatekey += ".biprivatekey";
+           
+            // PBO signieren
+            ProcessStartInfo processStartInfo = new ProcessStartInfo();
+            processStartInfo.FileName = DSSignFile;
+            processStartInfo.Arguments = privatekey + " " + pboName;
+            processStartInfo.UseShellExecute = false;
+            processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.CreateNoWindow = true;
+            using (Process process = Process.Start(processStartInfo))
+            {
+                process.WaitForExit();
+            }
+
+            string resultFilename = pboName + "." + Path.GetFileNameWithoutExtension(privatekey) + ".bisign";
+            bool result = File.Exists(resultFilename);
+
+            if (!result)
+                lstLog.Items.Insert(0, "ERROR: Signing '" + pboName + "'");
+
+            return result;
+        }
+
         private void LockGui()
         {
         }
