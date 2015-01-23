@@ -118,6 +118,8 @@
             this.tbtnExtended = new System.Windows.Forms.ToolStripDropDownButton();
             this.menLogfile = new System.Windows.Forms.ToolStripMenuItem();
             this.timerBlink = new System.Windows.Forms.Timer(this.components);
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.grpAutoConnect.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
@@ -838,7 +840,7 @@
             this.lstPreset.IntegralHeight = false;
             this.lstPreset.Location = new System.Drawing.Point(0, 39);
             this.lstPreset.Name = "lstPreset";
-            this.lstPreset.Size = new System.Drawing.Size(198, 596);
+            this.lstPreset.Size = new System.Drawing.Size(198, 574);
             this.lstPreset.TabIndex = 2;
             this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
             // 
@@ -1098,6 +1100,7 @@
             // 
             this.pnlCenter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCenter.Controls.Add(this.clstAddons);
+            this.pnlCenter.Controls.Add(this.statusStrip2);
             this.pnlCenter.Controls.Add(this.pnlSplitterCenterTop);
             this.pnlCenter.Controls.Add(this._ToolStripAddons);
             this.pnlCenter.Dock = System.Windows.Forms.DockStyle.Left;
@@ -1114,7 +1117,7 @@
             this.clstAddons.Location = new System.Drawing.Point(0, 39);
             this.clstAddons.Name = "clstAddons";
             this.clstAddons.SelectedIndex = -1;
-            this.clstAddons.Size = new System.Drawing.Size(248, 596);
+            this.clstAddons.Size = new System.Drawing.Size(248, 574);
             this.clstAddons.TabIndex = 1;
             this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
             this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
@@ -1140,6 +1143,7 @@
             // 
             this.pnlLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlLeft.Controls.Add(this.lstPreset);
+            this.pnlLeft.Controls.Add(this.statusStrip1);
             this.pnlLeft.Controls.Add(this.panel1);
             this.pnlLeft.Controls.Add(this._ToolStripPreset);
             this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Left;
@@ -1225,8 +1229,24 @@
             // timerBlink
             // 
             this.timerBlink.Enabled = true;
-            this.timerBlink.Interval = 500;
+            this.timerBlink.Interval = 1000;
             this.timerBlink.Tick += new System.EventHandler(this.timerBlink_Tick);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 613);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(198, 22);
+            this.statusStrip1.TabIndex = 41;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // statusStrip2
+            // 
+            this.statusStrip2.Location = new System.Drawing.Point(0, 613);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(248, 22);
+            this.statusStrip2.TabIndex = 39;
+            this.statusStrip2.Text = "statusStrip2";
             // 
             // FormMain
             // 
@@ -1364,6 +1384,8 @@
         private System.Windows.Forms.ToolStripMenuItem menServerRemove;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Timer timerBlink;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }
 

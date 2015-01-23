@@ -129,9 +129,12 @@ namespace PALAST
             cmbName.Items.Clear();
 
             string armaOtherProfilesFolder = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Arma 3 - Other Profiles");
-            string[] profileFolders = System.IO.Directory.GetDirectories(armaOtherProfilesFolder);
-            foreach (string profileFolder in profileFolders)
-                cmbName.Items.Add(profileFolder.Remove(0, armaOtherProfilesFolder.Length + 1));
+            if (Directory.Exists(armaOtherProfilesFolder))
+            {
+                string[] profileFolders = System.IO.Directory.GetDirectories(armaOtherProfilesFolder);
+                foreach (string profileFolder in profileFolders)
+                    cmbName.Items.Add(profileFolder.Remove(0, armaOtherProfilesFolder.Length + 1));
+            }
         }
         private void RefreshMenu()
         {
@@ -959,9 +962,15 @@ namespace PALAST
         private void timerBlink_Tick(object sender, EventArgs e)
         {
             if (tbtnLaunch.ForeColor == Color.Red)
+            {
                 tbtnLaunch.ForeColor = Color.Black;
+                tbtnLaunch.BackColor = SystemColors.Control;
+            }
             else
+            {
                 tbtnLaunch.ForeColor = Color.Red;
+                tbtnLaunch.BackColor = SystemColors.ControlLight;
+            }
         }
     }
 }
