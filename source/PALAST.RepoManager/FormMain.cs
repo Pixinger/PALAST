@@ -33,6 +33,7 @@ namespace PALAST.RepoManager
                 OnCompareRepositoriesCompletedException,
                 SynchronizeException,
                 OnSynchronizeCompletedException,
+                ReSignFailed,
             }
             #endregion
 
@@ -47,6 +48,18 @@ namespace PALAST.RepoManager
                 _ProjectXml = projectXml;
             }
 
+            private bool IsInCompareResults(string addon)
+            {
+                if (_CompareRepositoriesAsyncResult == null)
+                    return false;
+
+                foreach (SyncBase.CompareResult compareResult in _CompareRepositoriesAsyncResult.CompareResults)
+                    if (compareResult.Name == addon)
+                        return true;
+
+                return false;
+
+            }
             public Errors Run()
             {
                 try
@@ -58,6 +71,39 @@ namespace PALAST.RepoManager
 
                     _Finished = new System.Threading.ManualResetEvent(false);
 
+                    // ReSignieren
+                    #region ReSignieren
+                    if ((_ProjectXml.AutoResignAddons != null) && (_ProjectXml.AutoResignAddons.Length > 0))
+                    {
+                        // SyncExecutor erstellen
+                        if (_ProjectXml.FtpRepository != null)
+                            _SyncServer = new SyncServerFtpGz(_ProjectXml.AddonDirectory, _ProjectXml.FtpRepository.Address, _ProjectXml.FtpRepository.Username, _ProjectXml.FtpRepository.Password, _ProjectXml.FtpRepository.Passive, _ProjectXml.FtpRepository.ConnectionLimit, _ProjectXml.SelectedAddons);
+                        else
+                            _SyncServer = new SyncServerLocalGz(_ProjectXml.AddonDirectory, _ProjectXml.LocalRepository.Directory, _ProjectXml.SelectedAddons);
+
+                        // Vergleichen
+                        _SyncServer.CompareRepositories(true, new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted_ReSign));
+
+                        // Warten bis fertig
+                        _Finished.WaitOne();
+
+                        if (_ExitCode != Errors.Successfull)
+                            return _ExitCode;
+
+                        // Gewählte und gänderte Addons neu signieren
+                        foreach (string addon in _ProjectXml.AutoResignAddons)
+                        {
+                            if (IsInCompareResults(addon))
+                            {
+                                if (!ReSignKey(addon))
+                                    return Errors.ReSignFailed;
+                            }
+                        }
+                    }
+                    #endregion
+
+                    _Finished.Reset();
+
                     // SyncExecutor erstellen
                     if (_ProjectXml.FtpRepository != null)
                         _SyncServer = new SyncServerFtpGz(_ProjectXml.AddonDirectory, _ProjectXml.FtpRepository.Address, _ProjectXml.FtpRepository.Username, _ProjectXml.FtpRepository.Password, _ProjectXml.FtpRepository.Passive, _ProjectXml.FtpRepository.ConnectionLimit, _ProjectXml.SelectedAddons);
@@ -65,7 +111,7 @@ namespace PALAST.RepoManager
                         _SyncServer = new SyncServerLocalGz(_ProjectXml.AddonDirectory, _ProjectXml.LocalRepository.Directory, _ProjectXml.SelectedAddons);
 
                     // Vergleichen
-                    _SyncServer.CompareRepositories(true, new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted));
+                    _SyncServer.CompareRepositories(true, new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted_Synchronize));
 
                     // Warten bis fertig
                     _Finished.WaitOne();
@@ -81,7 +127,31 @@ namespace PALAST.RepoManager
                     return Errors.RunException;
                 }
             }
-            private void OnCompareRepositoriesCompleted(object sender, SyncBase.CompareRepositoriesAsyncResult e)
+            private void OnCompareRepositoriesCompleted_ReSign(object sender, SyncBase.CompareRepositoriesAsyncResult e)
+            {
+                try
+                {
+                    if (e.IsFailed)
+                        throw new ApplicationException();
+
+                    int modifications = 0;
+                    for (int i = 0; i < e.CompareResults.Length; i++)
+                        modifications += e.CompareResults[i].Count;
+
+                    _CompareRepositoriesAsyncResult = e;
+                    _ExitCode = Errors.Successfull;
+                    _Finished.Set();
+                    _SyncServer = null;
+                }
+                catch
+                {
+                    _ExitCode = Errors.OnCompareRepositoriesCompletedException;
+                    _SyncServer = null;
+                    _CompareRepositoriesAsyncResult = null;
+                    _Finished.Set();
+                }
+            }
+            private void OnCompareRepositoriesCompleted_Synchronize(object sender, SyncBase.CompareRepositoriesAsyncResult e)
             {
                 try
                 {
@@ -144,6 +214,166 @@ namespace PALAST.RepoManager
                     _ExitCode = Errors.OnSynchronizeCompletedException;
                     _Finished.Set();
                 }
+            }
+
+            private bool ReSignKey(string addonName)
+            {
+                if ((!File.Exists(DSSignFile)) || (!File.Exists(DSCreateKey)))
+                {
+                    LOG.Error("Die Programme 'DSSignFile.exe' oder 'DSCreateKey.exe' konnten nicht gefunden werden. Aus Copyright Gründen müssen Sie diese manuell herunterladen und dann in das Programmverzeichnis vom RepoManager kopieren.");
+                    return false;
+                }
+
+                #region Alte Keys löschen
+                try
+                {
+                    string[] oldBiSigns = Directory.GetFiles(Path.Combine(_ProjectXml.AddonDirectory, addonName, "Addons"), "*.bisign");
+                    foreach (string file in oldBiSigns)
+                    {
+                        // Addon bisign löschen
+                        try
+                        {
+                            File.Delete(file);
+                        }
+                        catch { }
+
+                        int index = file.IndexOf(".pbo.");
+                        string bikey = file.Remove(0, index + 5).Replace(".bisign", ".bikey");
+
+                        // Addon bikey löschen
+                        try
+                        {
+                            string filename = Path.Combine(_ProjectXml.AddonDirectory, "Keys", bikey);
+                            if (File.Exists(filename))
+                                File.Delete(filename);
+                        }
+                        catch { }
+
+                        // Server bikey löschen
+                        try
+                        {
+                            string filename = Path.Combine(_ProjectXml.AddonDirectory, addonName, "Keys", bikey);
+                            if (File.Exists(filename))
+                                File.Delete(filename);
+                        }
+                        catch { }
+                    }
+                }
+                catch
+                {
+                }
+                #endregion
+
+                string privateKey = addonName.Remove(0, 1) + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+
+                LOG.Info("create privatekey: " + privateKey);
+                if (CreatePrivateKey(privateKey))
+                {
+                    // BiKey in Addon kopieren
+                    try
+                    {
+                        string keyFolder = Path.Combine(_ProjectXml.AddonDirectory, addonName, "Keys");
+                        if (!Directory.Exists(keyFolder))
+                            Directory.CreateDirectory(keyFolder);
+                        File.Copy(privateKey + ".bikey", Path.Combine(keyFolder, privateKey + ".bikey"));
+                    }
+                    catch (Exception ex)
+                    {
+                        LOG.Error("Exception", ex);
+                        return false;
+                    }
+
+                    // BiKey in Server kopieren
+                    try
+                    {
+                        string keyFolder = Path.Combine(_ProjectXml.AddonDirectory, "Keys");
+                        if (!Directory.Exists(keyFolder))
+                            Directory.CreateDirectory(keyFolder);
+                        File.Copy(privateKey + ".bikey", Path.Combine(keyFolder, privateKey + ".bikey"));
+                    }
+                    catch (Exception ex)
+                    {
+                        LOG.Error("Exception", ex);
+                        return false;
+                    }
+
+                    // Pbos signieren
+                    string[] pboFiles = Directory.GetFiles(Path.Combine(_ProjectXml.AddonDirectory, addonName, "Addons"), "*.pbo");
+                    foreach (string pboFile in pboFiles)
+                    {
+                        LOG.Info("signing: {0}", pboFile);
+                        SignPbo(privateKey, pboFile);
+                    }
+                }
+
+                // Lokale Keys löschen
+                try
+                {
+                    File.Delete(privateKey + ".bikey");
+                    File.Delete(privateKey + ".biprivatekey");
+                }
+                catch (Exception ex)
+                {
+                    LOG.Error("Exception", ex);
+                    return false;
+                }
+
+                return true;
+            }
+            private bool CreatePrivateKey(string keyname)
+            {
+                string fullname = keyname + ".biprivatekey";
+                if (File.Exists(fullname))
+                {
+                    File.Delete(fullname);
+                }
+                fullname = keyname + ".bikey";
+                if (File.Exists(fullname))
+                {
+                    File.Delete(fullname);
+                }
+
+                ProcessStartInfo processStartInfo = new ProcessStartInfo();
+                processStartInfo.FileName = DSCreateKey;
+                processStartInfo.Arguments = keyname;
+                processStartInfo.UseShellExecute = false;
+                processStartInfo.RedirectStandardOutput = true;
+                processStartInfo.CreateNoWindow = true;
+                using (Process process = Process.Start(processStartInfo))
+                {
+                    process.WaitForExit();
+                }
+
+                bool result = (File.Exists(keyname + ".biprivatekey")) && (File.Exists(keyname + ".bikey"));
+
+                if (!result)
+                    LOG.Error("ERROR: Creating privatekey '" + keyname + "'");
+
+                return result;
+            }
+            private bool SignPbo(string privatekey, string pboName)
+            {
+                privatekey += ".biprivatekey";
+
+                // PBO signieren
+                ProcessStartInfo processStartInfo = new ProcessStartInfo();
+                processStartInfo.FileName = DSSignFile;
+                processStartInfo.Arguments = privatekey + " " + pboName;
+                processStartInfo.UseShellExecute = false;
+                processStartInfo.RedirectStandardOutput = true;
+                processStartInfo.CreateNoWindow = true;
+                using (Process process = Process.Start(processStartInfo))
+                {
+                    process.WaitForExit();
+                }
+
+                string resultFilename = pboName + "." + Path.GetFileNameWithoutExtension(privatekey) + ".bisign";
+                bool result = File.Exists(resultFilename);
+
+                if (!result)
+                    LOG.Error("ERROR: Signing '" + pboName + "'");
+
+                return result;
             }
         }
         #endregion
@@ -753,11 +983,55 @@ namespace PALAST.RepoManager
             if (clstAddons.SelectedItem != null)
                 CopyKey(clstAddons.SelectedItem as string);
         }
+        private void cmenAutoReSign_Click(object sender, EventArgs e)
+        {
+            if (clstAddons.SelectedItem != null)
+            {
+                string addon = clstAddons.SelectedItem as string;
+
+                if (_ProjectXml.AutoResignAddons == null)
+                    _ProjectXml.AutoResignAddons = new string[0];
+
+                if (_ProjectXml.AutoResignAddons.Contains(addon))
+                {
+                    // Entfernen
+                    string[] autoResignedAddons = new string[_ProjectXml.AutoResignAddons.Length - 1];
+                    int o = 0;
+                    for (int i = 0; i < _ProjectXml.AutoResignAddons.Length; i++)
+                    {
+                        if (_ProjectXml.AutoResignAddons[i] != addon)
+                        {
+                            autoResignedAddons[o] = _ProjectXml.AutoResignAddons[i];
+                            o++;
+                        }
+                    }
+                    _ProjectXml.AutoResignAddons = autoResignedAddons;
+                }
+                else
+                {
+                    // hinzufügen
+                    string[] autoResignedAddons = new string[_ProjectXml.AutoResignAddons.Length + 1];
+                    Array.Copy(_ProjectXml.AutoResignAddons, autoResignedAddons, _ProjectXml.AutoResignAddons.Length);
+                    autoResignedAddons[autoResignedAddons.Length - 1] = addon;
+                    _ProjectXml.AutoResignAddons = autoResignedAddons;
+                }
+
+                Modified = true;
+            }
+        }
 
         private void cmenMain_Opening(object sender, CancelEventArgs e)
         {
             cmenCopyKey.Enabled = clstAddons.SelectedItem != null;
             cmenReSign.Enabled = clstAddons.SelectedItem != null;
+            cmenAutoReSign.Enabled = clstAddons.SelectedItem != null;
+
+            cmenAutoReSign.Checked = false;
+            if (cmenAutoReSign.Enabled)
+            {
+                if ((_ProjectXml.AutoResignAddons != null) && (_ProjectXml.AutoResignAddons.Contains(clstAddons.SelectedItem.ToString())))
+                    cmenAutoReSign.Checked = true;
+            }
         }
 
         private void btnCompareRepositories_Click(object sender, EventArgs e)
@@ -900,5 +1174,6 @@ namespace PALAST.RepoManager
             if (_SyncServer != null)
                 _SyncServer.RequestCancel();
         }
+
     }
 }

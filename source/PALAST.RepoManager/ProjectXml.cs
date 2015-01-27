@@ -89,6 +89,7 @@ namespace PALAST.RepoManager
 
         public string AddonDirectory = "";
         public string[] SelectedAddons;
+        public string[] AutoResignAddons;
         public FtpRepositoryXml FtpRepository;
         public LocalRepositoryXml LocalRepository;
     }
