@@ -16,8 +16,9 @@ namespace PALAST
         #region nLog instance (LOG)
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
-		
+
         private string _ArmaDirectory;
+        private string _AddonDirectory;
         private Configuration.Preset _Preset;
 
         private SyncClientHttpGz _SyncClient;
@@ -31,9 +32,18 @@ namespace PALAST
 
         public static DialogResult ExecuteDialog(string armaDirectory, Configuration.Preset preset)
         {
+            if (!string.IsNullOrWhiteSpace(preset.AddonDirectory))
+            {
+                if (!Directory.Exists(preset.AddonDirectory))
+                {
+                    MessageBox.Show("Das Addonverzeichnis '" + preset.AddonDirectory + "' konnte nicht gefunden werden!");
+                    return DialogResult.Cancel;
+                }
+            }
+
             if (!Directory.Exists(armaDirectory))
             {
-                MessageBox.Show("Das angegebene Arma Verzeichnis konnte nicht gefunden werden1");
+                MessageBox.Show("Das angegebene Arma Verzeichnis konnte nicht gefunden werden!");
                 return DialogResult.Cancel;
             }
 
@@ -44,6 +54,10 @@ namespace PALAST
             using (AddonSyncDialog dlg = new AddonSyncDialog())
             {
                 dlg._ArmaDirectory = armaDirectory;
+                if (!string.IsNullOrWhiteSpace(preset.AddonDirectory))
+                    dlg._AddonDirectory = preset.AddonDirectory;
+                else
+                    dlg._AddonDirectory = armaDirectory;
                 dlg._Preset = preset;
                 dlg.txtUrl.Text = preset.AddonSyncUrl;
             
@@ -59,6 +73,10 @@ namespace PALAST
             {
                 txtUrl.BackColor = Color.Orange;
                 txtUrl.Focus();
+            }
+            else
+            {
+                btnCompareRepositories.PerformClick();
             }
         }
 
@@ -92,7 +110,7 @@ namespace PALAST
             {
                 try
                 {
-                    string addonUserconfigDirectory = System.IO.Path.Combine(_ArmaDirectory, compareResult.Name);
+                    string addonUserconfigDirectory = System.IO.Path.Combine(_AddonDirectory, compareResult.Name);
                     addonUserconfigDirectory = System.IO.Path.Combine(addonUserconfigDirectory, "userconfig");
                     if (System.IO.Directory.Exists(addonUserconfigDirectory))
                     {
@@ -161,7 +179,7 @@ namespace PALAST
                 lstActions.ForeColor = Color.Black;
                 lstActions.Items.Add("Analyse läuft... Bitte warten.");
 
-                _SyncClient = new SyncClientHttpGz(_Preset.AddonSyncUrl, _ArmaDirectory, lvwLog);
+                _SyncClient = new SyncClientHttpGz(_Preset.AddonSyncUrl, _AddonDirectory, lvwLog);
                 _SyncClient.CompareRepositories(new SyncBase.CompareRepositoriesAsyncResultEventHandler(OnCompareRepositoriesCompleted));
                 btnCancel.Enabled = true;
             }

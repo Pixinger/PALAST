@@ -48,14 +48,14 @@ namespace PALAST.RepoManager
                 _ProjectXml = projectXml;
             }
 
-            private bool IsInCompareResults(string addon)
+            private bool IsModifiedInCompareResults(string addon)
             {
                 if (_CompareRepositoriesAsyncResult == null)
                     return false;
 
                 foreach (SyncBase.CompareResult compareResult in _CompareRepositoriesAsyncResult.CompareResults)
                     if (compareResult.Name == addon)
-                        return true;
+                        return (compareResult.Count != 0);
 
                 return false;
 
@@ -93,7 +93,7 @@ namespace PALAST.RepoManager
                         // Gewählte und gänderte Addons neu signieren
                         foreach (string addon in _ProjectXml.AutoResignAddons)
                         {
-                            if (IsInCompareResults(addon))
+                            if (IsModifiedInCompareResults(addon))
                             {
                                 if (!ReSignKey(addon))
                                     return Errors.ReSignFailed;

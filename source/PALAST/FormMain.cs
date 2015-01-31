@@ -16,8 +16,8 @@ namespace PALAST
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
 
-        private readonly Size MINSIZE = new Size(469, 700);
-        private readonly Size MAXSIZE = new Size(776, 700);
+        private readonly Size MINSIZE = new Size(469, 755);
+        private readonly Size MAXSIZE = new Size(776, 755);
 
         private ArmaCfgManager _ArmaCfgManager; 
         private bool _BlockEventHandler = true;
@@ -117,6 +117,19 @@ namespace PALAST
             }
         }
 
+        private string AddonFolder
+        {
+            get
+            {
+                if (SelectedPreset == null)
+                    return System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe);
+
+                if (string.IsNullOrWhiteSpace(SelectedPreset.AddonDirectory))
+                    return System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe);
+
+                return SelectedPreset.AddonDirectory;
+            }
+        }
         private Configuration.Preset SelectedPreset
         {
             get
@@ -207,6 +220,20 @@ namespace PALAST
 
                 txtAdditionalParameter.Text = preset.ParamAdditionalParameters;
 
+                if (string.IsNullOrWhiteSpace(preset.AddonDirectory))
+                {
+                    txtExternAddonDirectory.Text = "";
+                    txtExternAddonDirectory.ForeColor = SystemColors.ControlText;
+                }
+                else
+                {
+                    txtExternAddonDirectory.Text = preset.AddonDirectory;
+                    if (Directory.Exists(SelectedPreset.AddonDirectory))
+                        txtExternAddonDirectory.ForeColor = SystemColors.ControlText;
+                    else
+                        txtExternAddonDirectory.ForeColor = Color.Red;
+                }
+
                 // grpAddons.Enabled = true;
                 //grpParameter.Enabled = true;
 
@@ -226,17 +253,26 @@ namespace PALAST
 
             clstAddons.Clear();
 
-            Configuration.Preset preset = SelectedPreset;
-            if ((preset != null) && (System.IO.File.Exists(_Configuration.Arma3Exe)))
+            try
             {
-                string armaFolder = System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe);
-                string[] addons = System.IO.Directory.GetDirectories(armaFolder, "@*");
-                foreach (string addon in addons)
+                Configuration.Preset preset = SelectedPreset;
+                if ((preset != null) && (System.IO.File.Exists(_Configuration.Arma3Exe)))
                 {
-                    string shortName = addon.Remove(0, armaFolder.Length + 1);
-                    bool chk = ((SelectedPreset != null) && (SelectedPreset.SelectedAddons != null) && (SelectedPreset.SelectedAddons.Contains(shortName)));
-                    clstAddons.Add(shortName, chk);
+                    string addonFolder = AddonFolder;
+                    if (Directory.Exists(addonFolder))
+                    {
+                        string[] addons = System.IO.Directory.GetDirectories(addonFolder, "@*");
+                        foreach (string addon in addons)
+                        {
+                            string shortName = addon.Remove(0, addonFolder.Length + 1);
+                            bool chk = ((SelectedPreset != null) && (SelectedPreset.SelectedAddons != null) && (SelectedPreset.SelectedAddons.Contains(shortName)));
+                            clstAddons.Add(shortName, chk);
+                        }
+                    }
                 }
+            }
+            catch
+            {
             }
 
             _BlockEventHandler = false;
@@ -559,6 +595,35 @@ namespace PALAST
 
             SelectedPreset.ParamAdditionalParameters = txtAdditionalParameter.Text;
         }
+
+        private void txtExternAddonDirectory_TextChanged(object sender, EventArgs e)
+        {
+            if (_BlockEventHandler)
+                return;
+
+            SelectedPreset.AddonDirectory = txtExternAddonDirectory.Text;
+            if (Directory.Exists(SelectedPreset.AddonDirectory))
+                txtExternAddonDirectory.ForeColor = SystemColors.ControlText;
+            else
+                txtExternAddonDirectory.ForeColor = Color.Red;
+            RefreshAddons();
+        }
+        private void btnBrowseExternAddonDirectory_Click(object sender, EventArgs e)
+        {
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
+            {
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    if (Directory.Exists(dlg.SelectedPath))
+                    {
+                        SelectedPreset.AddonDirectory = dlg.SelectedPath;
+                        txtExternAddonDirectory.Text = dlg.SelectedPath;
+                        RefreshAddons();
+                    }
+                }
+            }
+        }
+
         private void chbAutoConnectEnabled_CheckedChanged(object sender, EventArgs e)
         {
             if (_BlockEventHandler)
@@ -772,11 +837,26 @@ namespace PALAST
             }
 
 
+            string modfolderPrefix = "";
+            string addonFolder = AddonFolder.ToLower();
+            string armaFolder = Path.GetDirectoryName(_Configuration.Arma3Exe).ToLower();
+
+            if (addonFolder != armaFolder)
+            {
+                if (addonFolder.StartsWith(armaFolder))
+                    modfolderPrefix = addonFolder.Remove(0,armaFolder.Length);
+                else
+                    modfolderPrefix = addonFolder;
+            }
+            if (!modfolderPrefix.EndsWith("\\"))
+                modfolderPrefix += "\\";
+
+
             if ((preset != null) && (preset.SelectedAddons != null) && (preset.SelectedAddons.Length > 0))
             {
                 string mods = " -mod=";
                 foreach (string addon in preset.SelectedAddons)
-                    mods += addon + ";";
+                    mods += "\""+ modfolderPrefix + addon + "\";";
 
                 mods = mods.Remove(mods.Length - 1, 1);
                 args += mods;
@@ -828,10 +908,10 @@ namespace PALAST
             if (clstAddons.SelectedItem != null)
             {
                 string addon = clstAddons.SelectedItem as string;
-                if (MessageBox.Show("Wollen Sie das gewählte Addon '" + addon + "' wirklich aus dem ArmA-Verzeichnis löschen.", "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
+                if (MessageBox.Show("Wollen Sie das gewählte Addon '" + addon + "' wirklich löschen?", "Achtung!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
                 {
-                    string folder = Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon);
-                    if (MessageBox.Show("Ich werde nun folgendes Verzeichnis löschen:\n\n" + folder + "!", "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
+                    string folder = Path.Combine(AddonFolder, addon);
+                    if (MessageBox.Show("Ich werde nun folgendes Verzeichnis löschen:\n\n" + folder, "Achtung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
                     {
                         Directory.Delete(folder, true);
                         RefreshAddons();
@@ -849,7 +929,7 @@ namespace PALAST
             {
                 try
                 {
-                    string pluginsSource = Path.Combine(Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), addon), "TeamSpeak 3 Client\\plugins");
+                    string pluginsSource = Path.Combine(Path.Combine(AddonFolder, addon), "TeamSpeak 3 Client\\plugins");
                     if (Directory.Exists(pluginsSource))
                     {
                         TS3Manager ts3Manager = new TS3Manager();

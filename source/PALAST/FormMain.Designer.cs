@@ -81,6 +81,9 @@
             this._ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lstPreset = new System.Windows.Forms.ListBox();
             this.pnlParameter = new System.Windows.Forms.Panel();
+            this.grpExternAddonDirectory = new System.Windows.Forms.GroupBox();
+            this.btnBrowseExternAddonDirectory = new System.Windows.Forms.Button();
+            this.txtExternAddonDirectory = new System.Windows.Forms.TextBox();
             this.grpAdditionalParameters = new System.Windows.Forms.GroupBox();
             this.txtAdditionalParameter = new System.Windows.Forms.TextBox();
             this._ToolStripAddons = new System.Windows.Forms.ToolStrip();
@@ -118,8 +121,6 @@
             this.tbtnExtended = new System.Windows.Forms.ToolStripDropDownButton();
             this.menLogfile = new System.Windows.Forms.ToolStripMenuItem();
             this.timerBlink = new System.Windows.Forms.Timer(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.grpAutoConnect.SuspendLayout();
             this.grpDeveloperOptions.SuspendLayout();
             this.grpProfileOptions.SuspendLayout();
@@ -128,6 +129,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numMaxVRAM)).BeginInit();
             this.grpGameLoadingSpeedup.SuspendLayout();
             this.pnlParameter.SuspendLayout();
+            this.grpExternAddonDirectory.SuspendLayout();
             this.grpAdditionalParameters.SuspendLayout();
             this._ToolStripAddons.SuspendLayout();
             this._ToolStripPreset.SuspendLayout();
@@ -840,13 +842,14 @@
             this.lstPreset.IntegralHeight = false;
             this.lstPreset.Location = new System.Drawing.Point(0, 39);
             this.lstPreset.Name = "lstPreset";
-            this.lstPreset.Size = new System.Drawing.Size(198, 574);
+            this.lstPreset.Size = new System.Drawing.Size(198, 651);
             this.lstPreset.TabIndex = 2;
             this.lstPreset.SelectedIndexChanged += new System.EventHandler(this.lstPreset_SelectedIndexChanged);
             // 
             // pnlParameter
             // 
             this.pnlParameter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlParameter.Controls.Add(this.grpExternAddonDirectory);
             this.pnlParameter.Controls.Add(this.grpAdditionalParameters);
             this.pnlParameter.Controls.Add(this.grpAutoConnect);
             this.pnlParameter.Controls.Add(this.grpDeveloperOptions);
@@ -856,8 +859,42 @@
             this.pnlParameter.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlParameter.Location = new System.Drawing.Point(456, 0);
             this.pnlParameter.Name = "pnlParameter";
-            this.pnlParameter.Size = new System.Drawing.Size(304, 637);
+            this.pnlParameter.Size = new System.Drawing.Size(304, 692);
             this.pnlParameter.TabIndex = 2;
+            // 
+            // grpExternAddonDirectory
+            // 
+            this.grpExternAddonDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpExternAddonDirectory.Controls.Add(this.btnBrowseExternAddonDirectory);
+            this.grpExternAddonDirectory.Controls.Add(this.txtExternAddonDirectory);
+            this.grpExternAddonDirectory.Location = new System.Drawing.Point(7, 638);
+            this.grpExternAddonDirectory.Margin = new System.Windows.Forms.Padding(5);
+            this.grpExternAddonDirectory.Name = "grpExternAddonDirectory";
+            this.grpExternAddonDirectory.Size = new System.Drawing.Size(288, 47);
+            this.grpExternAddonDirectory.TabIndex = 38;
+            this.grpExternAddonDirectory.TabStop = false;
+            this.grpExternAddonDirectory.Text = "Externes Addonverzeichnis";
+            // 
+            // btnBrowseExternAddonDirectory
+            // 
+            this.btnBrowseExternAddonDirectory.Location = new System.Drawing.Point(255, 17);
+            this.btnBrowseExternAddonDirectory.Name = "btnBrowseExternAddonDirectory";
+            this.btnBrowseExternAddonDirectory.Size = new System.Drawing.Size(26, 23);
+            this.btnBrowseExternAddonDirectory.TabIndex = 1;
+            this.btnBrowseExternAddonDirectory.Text = "...";
+            this.btnBrowseExternAddonDirectory.UseVisualStyleBackColor = true;
+            this.btnBrowseExternAddonDirectory.Click += new System.EventHandler(this.btnBrowseExternAddonDirectory_Click);
+            // 
+            // txtExternAddonDirectory
+            // 
+            this.txtExternAddonDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtExternAddonDirectory.Location = new System.Drawing.Point(9, 19);
+            this.txtExternAddonDirectory.Name = "txtExternAddonDirectory";
+            this.txtExternAddonDirectory.Size = new System.Drawing.Size(240, 20);
+            this.txtExternAddonDirectory.TabIndex = 0;
+            this.txtExternAddonDirectory.TextChanged += new System.EventHandler(this.txtExternAddonDirectory_TextChanged);
             // 
             // grpAdditionalParameters
             // 
@@ -1093,20 +1130,19 @@
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 25);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(760, 637);
+            this.pnlMain.Size = new System.Drawing.Size(760, 692);
             this.pnlMain.TabIndex = 36;
             // 
             // pnlCenter
             // 
             this.pnlCenter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCenter.Controls.Add(this.clstAddons);
-            this.pnlCenter.Controls.Add(this.statusStrip2);
             this.pnlCenter.Controls.Add(this.pnlSplitterCenterTop);
             this.pnlCenter.Controls.Add(this._ToolStripAddons);
             this.pnlCenter.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlCenter.Location = new System.Drawing.Point(203, 0);
             this.pnlCenter.Name = "pnlCenter";
-            this.pnlCenter.Size = new System.Drawing.Size(250, 637);
+            this.pnlCenter.Size = new System.Drawing.Size(250, 692);
             this.pnlCenter.TabIndex = 0;
             // 
             // clstAddons
@@ -1117,7 +1153,7 @@
             this.clstAddons.Location = new System.Drawing.Point(0, 39);
             this.clstAddons.Name = "clstAddons";
             this.clstAddons.SelectedIndex = -1;
-            this.clstAddons.Size = new System.Drawing.Size(248, 574);
+            this.clstAddons.Size = new System.Drawing.Size(248, 651);
             this.clstAddons.TabIndex = 1;
             this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
             this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
@@ -1136,20 +1172,19 @@
             this.pnlSplitterLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlSplitterLeft.Location = new System.Drawing.Point(200, 0);
             this.pnlSplitterLeft.Name = "pnlSplitterLeft";
-            this.pnlSplitterLeft.Size = new System.Drawing.Size(3, 637);
+            this.pnlSplitterLeft.Size = new System.Drawing.Size(3, 692);
             this.pnlSplitterLeft.TabIndex = 34;
             // 
             // pnlLeft
             // 
             this.pnlLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlLeft.Controls.Add(this.lstPreset);
-            this.pnlLeft.Controls.Add(this.statusStrip1);
             this.pnlLeft.Controls.Add(this.panel1);
             this.pnlLeft.Controls.Add(this._ToolStripPreset);
             this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlLeft.Location = new System.Drawing.Point(0, 0);
             this.pnlLeft.Name = "pnlLeft";
-            this.pnlLeft.Size = new System.Drawing.Size(200, 637);
+            this.pnlLeft.Size = new System.Drawing.Size(200, 692);
             this.pnlLeft.TabIndex = 37;
             // 
             // panel1
@@ -1166,7 +1201,7 @@
             this.pnlSplitterRight.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlSplitterRight.Location = new System.Drawing.Point(453, 0);
             this.pnlSplitterRight.Name = "pnlSplitterRight";
-            this.pnlSplitterRight.Size = new System.Drawing.Size(3, 637);
+            this.pnlSplitterRight.Size = new System.Drawing.Size(3, 692);
             this.pnlSplitterRight.TabIndex = 36;
             // 
             // _ToolStripTop
@@ -1232,34 +1267,18 @@
             this.timerBlink.Interval = 1000;
             this.timerBlink.Tick += new System.EventHandler(this.timerBlink_Tick);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 613);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(198, 22);
-            this.statusStrip1.TabIndex = 41;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // statusStrip2
-            // 
-            this.statusStrip2.Location = new System.Drawing.Point(0, 613);
-            this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(248, 22);
-            this.statusStrip2.TabIndex = 39;
-            this.statusStrip2.Text = "statusStrip2";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(760, 662);
+            this.ClientSize = new System.Drawing.Size(760, 717);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this._ToolStripTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(776, 700);
+            this.MaximumSize = new System.Drawing.Size(776, 755);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(469, 700);
+            this.MinimumSize = new System.Drawing.Size(469, 755);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PALAST (Pixingers Arma Launcher and Sync Tool)";
@@ -1276,6 +1295,8 @@
             this.grpGameLoadingSpeedup.ResumeLayout(false);
             this.grpGameLoadingSpeedup.PerformLayout();
             this.pnlParameter.ResumeLayout(false);
+            this.grpExternAddonDirectory.ResumeLayout(false);
+            this.grpExternAddonDirectory.PerformLayout();
             this.grpAdditionalParameters.ResumeLayout(false);
             this.grpAdditionalParameters.PerformLayout();
             this._ToolStripAddons.ResumeLayout(false);
@@ -1384,8 +1405,9 @@
         private System.Windows.Forms.ToolStripMenuItem menServerRemove;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Timer timerBlink;
-        private System.Windows.Forms.StatusStrip statusStrip2;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.GroupBox grpExternAddonDirectory;
+        private System.Windows.Forms.Button btnBrowseExternAddonDirectory;
+        private System.Windows.Forms.TextBox txtExternAddonDirectory;
     }
 }
 
