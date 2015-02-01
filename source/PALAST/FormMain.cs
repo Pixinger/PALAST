@@ -612,6 +612,7 @@ namespace PALAST
         {
             using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
+                dlg.SelectedPath = AddonFolder;
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     if (Directory.Exists(dlg.SelectedPath))
@@ -840,6 +841,10 @@ namespace PALAST
             string modfolderPrefix = "";
             string addonFolder = AddonFolder.ToLower();
             string armaFolder = Path.GetDirectoryName(_Configuration.Arma3Exe).ToLower();
+            if (!addonFolder.EndsWith("\\"))
+                addonFolder += "\\";
+            if (!armaFolder.EndsWith("\\"))
+                armaFolder += "\\";
 
             if (addonFolder != armaFolder)
             {
@@ -847,19 +852,16 @@ namespace PALAST
                     modfolderPrefix = addonFolder.Remove(0,armaFolder.Length);
                 else
                     modfolderPrefix = addonFolder;
+
+                if (!modfolderPrefix.EndsWith("\\"))
+                    modfolderPrefix += "\\";
             }
-            if (!modfolderPrefix.EndsWith("\\"))
-                modfolderPrefix += "\\";
 
 
             if ((preset != null) && (preset.SelectedAddons != null) && (preset.SelectedAddons.Length > 0))
             {
-                string mods = " -mod=";
                 foreach (string addon in preset.SelectedAddons)
-                    mods += "\""+ modfolderPrefix + addon + "\";";
-
-                mods = mods.Remove(mods.Length - 1, 1);
-                args += mods;
+                    args += " -mod=" + modfolderPrefix + addon + ";";
             }
 
 

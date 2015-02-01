@@ -43,6 +43,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbtnAddUser = new System.Windows.Forms.ToolStripButton();
             this.tbtnDeleteUser = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tddRechte = new System.Windows.Forms.ToolStripDropDownButton();
             this.menAllowServerStart = new System.Windows.Forms.ToolStripMenuItem();
             this.menAllowServerStop = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +57,6 @@
             this.pnlRight = new System.Windows.Forms.Panel();
             this._ToolStripProcesses = new System.Windows.Forms.ToolStrip();
             this.tlblProcess = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.pnlGameServers.SuspendLayout();
             this._ToolStripGameServers.SuspendLayout();
             this.pnlCenter.SuspendLayout();
@@ -199,6 +199,11 @@
             this.tbtnDeleteUser.Text = "Benutzer entfernen";
             this.tbtnDeleteUser.Click += new System.EventHandler(this.tbtnDeleteUser_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
             // tddRechte
             // 
             this.tddRechte.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -268,7 +273,7 @@
             // 
             // _PostProcessControl
             // 
-            this._PostProcessControl.Description = "lblDescription";
+            this._PostProcessControl.Description = "Post-Prozess";
             this._PostProcessControl.Dock = System.Windows.Forms.DockStyle.Top;
             this._PostProcessControl.Location = new System.Drawing.Point(0, 298);
             this._PostProcessControl.Name = "_PostProcessControl";
@@ -279,7 +284,7 @@
             // 
             // _GameserverProcessControl
             // 
-            this._GameserverProcessControl.Description = "lblDescription";
+            this._GameserverProcessControl.Description = "Server-Prozess";
             this._GameserverProcessControl.Dock = System.Windows.Forms.DockStyle.Top;
             this._GameserverProcessControl.Location = new System.Drawing.Point(0, 149);
             this._GameserverProcessControl.Name = "_GameserverProcessControl";
@@ -290,7 +295,7 @@
             // 
             // _PreProcessControl
             // 
-            this._PreProcessControl.Description = "lblDescription";
+            this._PreProcessControl.Description = "Pre-Prozess";
             this._PreProcessControl.Dock = System.Windows.Forms.DockStyle.Top;
             this._PreProcessControl.Location = new System.Drawing.Point(0, 0);
             this._PreProcessControl.Name = "_PreProcessControl";
@@ -324,11 +329,6 @@
             this.tlblProcess.Name = "tlblProcess";
             this.tlblProcess.Size = new System.Drawing.Size(52, 22);
             this.tlblProcess.Text = "Prozesse";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // SetupDialog
             // 
