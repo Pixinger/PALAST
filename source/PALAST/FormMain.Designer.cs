@@ -679,7 +679,7 @@
             this.numMaxMem.Enabled = false;
             this.numMaxMem.Location = new System.Drawing.Point(87, 18);
             this.numMaxMem.Maximum = new decimal(new int[] {
-            16000,
+            32768,
             0,
             0,
             0});
@@ -692,7 +692,7 @@
             this.numMaxMem.Size = new System.Drawing.Size(172, 20);
             this.numMaxMem.TabIndex = 1;
             this.numMaxMem.Value = new decimal(new int[] {
-            3072,
+            4096,
             0,
             0,
             0});

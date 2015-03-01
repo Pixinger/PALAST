@@ -59,6 +59,14 @@ namespace PALAST
             set { _ImageUnchecked = value; }
         }
 
+        public bool ConatinsAddon(string addon)
+        {
+            foreach (ItemContainer item in _Listbox.Items)
+                if (item.Item.ToLower() == addon.ToLower())
+                    return true;
+
+            return false;
+        }
         public int Count
         {
             get

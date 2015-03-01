@@ -861,8 +861,12 @@ namespace PALAST
             if ((preset != null) && (preset.SelectedAddons != null) && (preset.SelectedAddons.Length > 0))
             {
                 foreach (string addon in preset.SelectedAddons)
-                    args += " -mod=" + modfolderPrefix + addon + ";";
+                {
+                    if (clstAddons.ConatinsAddon(addon))
+                        args += " -mod=" + modfolderPrefix + addon + ";";
+                }
             }
+            args += " -mod= ";
 
 
             LOG.Info("Starting Arma with args: {0}", args);
