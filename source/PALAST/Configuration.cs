@@ -63,6 +63,7 @@ namespace PALAST
             public bool ParamNoSplash = true;
             public bool ParamWorldEmpty = true;
             public bool ParamSkipIntro = true;
+            public bool ParamUseBE = true;
 
             public int ParamMaxMem = -1;
             public int ParamMaxVRam = -1;

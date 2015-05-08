@@ -52,6 +52,10 @@ namespace PALAST
             {
                 return "Disables world intros in the main menu permanently.";
             }
+            public string _useBE_()
+            {
+                return "Activated BattleEye on startup.";
+            }
             public string _maxMem_()
             {
                 return "Defines memory allocation limit to number (in MegaBytes).\n\n" +
@@ -151,6 +155,10 @@ namespace PALAST
             public string _skipIntro_de()
             {
                 return "Deaktiviert dauerhaft das \"world intro\" im Hauptmenu.";
+            }
+            public string _useBE_de()
+            {
+                return "Aktiviert BattlEye direkt beim Starten von Arma.";
             }
             public string _maxMem_de()
             {

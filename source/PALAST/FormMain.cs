@@ -181,6 +181,7 @@ namespace PALAST
                 chbNoSpalsh.Checked = preset.ParamNoSplash;
                 chbWorldEmpty.Checked = preset.ParamWorldEmpty;
                 chbSkipIntro.Checked = preset.ParamSkipIntro;
+                chbUseBE.Checked = preset.ParamUseBE;
 
                 numMaxMem.Enabled = (preset.ParamMaxMem != -1);
                 numMaxMem.Value = numMaxMem.Enabled ? preset.ParamMaxMem : numMaxMem.Minimum;
@@ -376,6 +377,13 @@ namespace PALAST
                 return;
 
             SelectedPreset.ParamSkipIntro = chbSkipIntro.Checked;
+        }
+        private void chbUseBE_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_BlockEventHandler)
+                return;
+
+            SelectedPreset.ParamUseBE = chbUseBE.Checked;
         }
 
         private void chbMaxMem_CheckedChanged(object sender, EventArgs e)
@@ -815,7 +823,7 @@ namespace PALAST
                 args += string.Format(" -exThreads={0}", preset.ParamExThreads);
             if (preset.ParamNoLogs)
                 args += " -noLogs";
-            if ((preset.ParamName != null) && (preset.ParamName != ""))
+            if ((preset.ParamName != null) && (preset.ParamName != "") && (!preset.ParamName.Contains(' ')))
                 args += string.Format(" -name={0}", preset.ParamName);
             if (preset.ParamNoPause)
                 args += " -noPause";
@@ -836,6 +844,8 @@ namespace PALAST
                         args += string.Format(" -password={0}", preset.ParamPassword);
                 }
             }
+
+            args += " -noLauncher";
 
 
             string modfolderPrefix = "";
@@ -866,7 +876,7 @@ namespace PALAST
                         args += " -mod=" + modfolderPrefix + addon + ";";
                 }
             }
-            args += " -mod= ";
+            //args += " -mod= ";
 
 
             LOG.Info("Starting Arma with args: {0}", args);
@@ -874,18 +884,42 @@ namespace PALAST
 
             if (System.IO.File.Exists(_Configuration.Arma3Exe))
             {
-#if(DEBUG)
+#if(DEBUGdd)
                 MessageBox.Show(args);
 #else
-                using (System.Diagnostics.Process process = new System.Diagnostics.Process())
+                if (preset.ParamUseBE)
                 {
-                    process.StartInfo.FileName = System.IO.Path.GetFileName(_Configuration.Arma3Exe);
-                    process.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe);
-                    process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-                    process.StartInfo.Arguments = args;
-                    process.StartInfo.UseShellExecute = true;
-                    process.StartInfo.CreateNoWindow = false;
-                    process.Start();
+                    string battlEyeFilename = Path.Combine(Path.GetDirectoryName(_Configuration.Arma3Exe), "arma3battleye.exe");
+                    if (System.IO.File.Exists(battlEyeFilename))
+                    {
+                        using (System.Diagnostics.Process process = new System.Diagnostics.Process())
+                        {
+                            process.StartInfo.FileName = "arma3battleye.exe";
+                            process.StartInfo.WorkingDirectory = Path.GetDirectoryName(_Configuration.Arma3Exe);
+                            process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                            process.StartInfo.Arguments = "0 1 " + args;
+                            process.StartInfo.UseShellExecute = true;
+                            process.StartInfo.CreateNoWindow = false;
+                            process.Start();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Arma3BattlEye.exe not found. Please try to start without '-useBE' option.");
+                    }
+                }
+                else
+                {
+                    using (System.Diagnostics.Process process = new System.Diagnostics.Process())
+                    {
+                        process.StartInfo.FileName = System.IO.Path.GetFileName(_Configuration.Arma3Exe);
+                        process.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(_Configuration.Arma3Exe);
+                        process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                        process.StartInfo.Arguments = args;
+                        process.StartInfo.UseShellExecute = true;
+                        process.StartInfo.CreateNoWindow = false;
+                        process.Start();
+                    }
                 }
 #endif
             }

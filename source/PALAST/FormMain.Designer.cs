@@ -73,6 +73,8 @@
             this.chbWinXP = new System.Windows.Forms.CheckBox();
             this.chbNoCB = new System.Windows.Forms.CheckBox();
             this.grpGameLoadingSpeedup = new System.Windows.Forms.GroupBox();
+            this.btnInfoUseBE = new System.Windows.Forms.Button();
+            this.chbUseBE = new System.Windows.Forms.CheckBox();
             this.btnInfoSkipIntro = new System.Windows.Forms.Button();
             this.btnInfoWorldEmpty = new System.Windows.Forms.Button();
             this.btnInfoNoSplash = new System.Windows.Forms.Button();
@@ -753,6 +755,8 @@
             this.grpGameLoadingSpeedup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grpGameLoadingSpeedup.BackColor = System.Drawing.SystemColors.Control;
+            this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoUseBE);
+            this.grpGameLoadingSpeedup.Controls.Add(this.chbUseBE);
             this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoSkipIntro);
             this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoWorldEmpty);
             this.grpGameLoadingSpeedup.Controls.Add(this.btnInfoNoSplash);
@@ -763,10 +767,36 @@
             this.grpGameLoadingSpeedup.Location = new System.Drawing.Point(7, 120);
             this.grpGameLoadingSpeedup.Margin = new System.Windows.Forms.Padding(5);
             this.grpGameLoadingSpeedup.Name = "grpGameLoadingSpeedup";
-            this.grpGameLoadingSpeedup.Size = new System.Drawing.Size(288, 88);
+            this.grpGameLoadingSpeedup.Size = new System.Drawing.Size(288, 131);
             this.grpGameLoadingSpeedup.TabIndex = 1;
             this.grpGameLoadingSpeedup.TabStop = false;
             this.grpGameLoadingSpeedup.Text = "Spielstartbeschleunigung";
+            // 
+            // btnInfoUseBE
+            // 
+            this.btnInfoUseBE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnInfoUseBE.Image = ((System.Drawing.Image)(resources.GetObject("btnInfoUseBE.Image")));
+            this.btnInfoUseBE.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnInfoUseBE.Location = new System.Drawing.Point(265, 87);
+            this.btnInfoUseBE.Name = "btnInfoUseBE";
+            this.btnInfoUseBE.Size = new System.Drawing.Size(16, 16);
+            this.btnInfoUseBE.TabIndex = 24;
+            this.btnInfoUseBE.Tag = "-useBE";
+            this._ToolTip.SetToolTip(this.btnInfoUseBE, "Infos");
+            this.btnInfoUseBE.UseVisualStyleBackColor = true;
+            this.btnInfoUseBE.Click += new System.EventHandler(this.btnInfoOptions_Click);
+            // 
+            // chbUseBE
+            // 
+            this.chbUseBE.AutoSize = true;
+            this.chbUseBE.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.chbUseBE.Location = new System.Drawing.Point(6, 88);
+            this.chbUseBE.Name = "chbUseBE";
+            this.chbUseBE.Size = new System.Drawing.Size(60, 17);
+            this.chbUseBE.TabIndex = 23;
+            this.chbUseBE.Text = "-useBE";
+            this.chbUseBE.UseVisualStyleBackColor = true;
+            this.chbUseBE.CheckedChanged += new System.EventHandler(this.chbUseBE_CheckedChanged);
             // 
             // btnInfoSkipIntro
             // 
@@ -1408,6 +1438,8 @@
         private System.Windows.Forms.GroupBox grpExternAddonDirectory;
         private System.Windows.Forms.Button btnBrowseExternAddonDirectory;
         private System.Windows.Forms.TextBox txtExternAddonDirectory;
+        private System.Windows.Forms.Button btnInfoUseBE;
+        private System.Windows.Forms.CheckBox chbUseBE;
     }
 }
 
