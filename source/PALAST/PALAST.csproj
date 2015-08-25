@@ -191,7 +191,7 @@
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)_bin
 copy $(TargetPath) $(SolutionDir)_setup
 $(SolutionDir)_setup\PALAST.exe /saveversion:..\..\..\..\_releases\latestVersion.xml
-"D:\Program Files (x86)\Inno Setup 5\iscc.exe" "..\..\..\_setup\PALAST.iss"</PostBuildEvent>
+"C:\Program Files (x86)\Inno Setup 5\iscc.exe" "..\..\..\_setup\PALAST.iss"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
