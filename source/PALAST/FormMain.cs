@@ -16,8 +16,8 @@ namespace PALAST
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
 
-        private readonly Size MINSIZE = new Size(469, 800);
-        private readonly Size MAXSIZE = new Size(776, 800);
+        private readonly Size MINSIZE = new Size(469, 779);
+        private readonly Size MAXSIZE = new Size(776, 779);
 
         private ArmaCfgManager _ArmaCfgManager; 
         private bool _BlockEventHandler = true;
