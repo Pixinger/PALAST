@@ -505,7 +505,7 @@ namespace PALAST.RepoManager
             {
                 _ProjectXml.Validate();
 
-                Text = "YAAST Server - " + Path.GetFileName(_ProjectXml.Filename);
+                Text = "PALAST RepoManager- " + Path.GetFileName(_ProjectXml.Filename);
                 pnlTop.Enabled = true;
                 lstLog.Enabled = true;
                 menSave.Enabled = _Modified;
@@ -531,7 +531,7 @@ namespace PALAST.RepoManager
             }
             else
             {
-                Text = "YAAST Server";
+                Text = "PALAST RepoManager";
                 pnlTop.Enabled = false;
                 lstLog.Enabled = false;
                 menSave.Enabled = false;
@@ -563,7 +563,7 @@ namespace PALAST.RepoManager
                 return true;
 
             string filename = Path.GetFileName(_ProjectXml.Filename);
-            if (filename.EndsWith(".yaast.proj"))
+            if (filename.EndsWith(".ppp"))
                 filename = filename.Remove(filename.Length - 11, 11);
             saveDlg.FileName = filename;
 
@@ -571,7 +571,7 @@ namespace PALAST.RepoManager
             {
                 _ProjectXml.SaveAs(saveDlg.FileName);
                 Modified = false;
-                Text = "YAAST Server - " + Path.GetFileName(_ProjectXml.Filename);
+                Text = "PALAST RepoManager - " + Path.GetFileName(_ProjectXml.Filename);
                 return true;
             }
             else

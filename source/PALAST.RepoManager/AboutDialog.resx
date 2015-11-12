@@ -132,7 +132,7 @@
     <value>0</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>YAAST:</value>
+    <value>PALAST:</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -372,13 +372,13 @@
     <value>104, 9</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>207, 13</value>
+    <value>271, 13</value>
   </data>
   <data name="label13.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
   <data name="label13.Text" xml:space="preserve">
-    <value>[Y]et [A]nother [A]rma [S]ync [T]ool</value>
+    <value>[P]ixingers [A]rma [L]aunch [A]nd [S]ync [T]ool</value>
   </data>
   <data name="&gt;&gt;label13.Name" xml:space="preserve">
     <value>label13</value>

@@ -33,6 +33,8 @@
             this.cmenMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmenReSign = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenCopyKey = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.cmenAutoReSign = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSynchronize = new System.Windows.Forms.Button();
@@ -69,8 +71,6 @@
             this.pnlTop = new System.Windows.Forms.Panel();
             this.clstAddons = new PALAST.AddonList();
             this.folderDlg = new System.Windows.Forms.FolderBrowserDialog();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.cmenAutoReSign = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenMain.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabControlMode.SuspendLayout();
@@ -88,22 +88,34 @@
             this.toolStripMenuItem2,
             this.cmenAutoReSign});
             this.cmenMain.Name = "cmenMain";
-            this.cmenMain.Size = new System.Drawing.Size(153, 98);
+            this.cmenMain.Size = new System.Drawing.Size(139, 76);
             this.cmenMain.Opening += new System.ComponentModel.CancelEventHandler(this.cmenMain_Opening);
             // 
             // cmenReSign
             // 
             this.cmenReSign.Name = "cmenReSign";
-            this.cmenReSign.Size = new System.Drawing.Size(152, 22);
+            this.cmenReSign.Size = new System.Drawing.Size(138, 22);
             this.cmenReSign.Text = "re-sign";
             this.cmenReSign.Click += new System.EventHandler(this.cmenReSign_Click);
             // 
             // cmenCopyKey
             // 
             this.cmenCopyKey.Name = "cmenCopyKey";
-            this.cmenCopyKey.Size = new System.Drawing.Size(152, 22);
+            this.cmenCopyKey.Size = new System.Drawing.Size(138, 22);
             this.cmenCopyKey.Text = "copy key";
             this.cmenCopyKey.Click += new System.EventHandler(this.cmenCopyKey_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(135, 6);
+            // 
+            // cmenAutoReSign
+            // 
+            this.cmenAutoReSign.Name = "cmenAutoReSign";
+            this.cmenAutoReSign.Size = new System.Drawing.Size(138, 22);
+            this.cmenAutoReSign.Text = "auto re-sign";
+            this.cmenAutoReSign.Click += new System.EventHandler(this.cmenAutoReSign_Click);
             // 
             // panel3
             // 
@@ -134,6 +146,7 @@
             // 
             // btnSynchronize
             // 
+            this.btnSynchronize.Enabled = false;
             this.btnSynchronize.Location = new System.Drawing.Point(277, 222);
             this.btnSynchronize.Name = "btnSynchronize";
             this.btnSynchronize.Size = new System.Drawing.Size(130, 23);
@@ -453,18 +466,6 @@
             // 
             this.folderDlg.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
-            // 
-            // cmenAutoReSign
-            // 
-            this.cmenAutoReSign.Name = "cmenAutoReSign";
-            this.cmenAutoReSign.Size = new System.Drawing.Size(152, 22);
-            this.cmenAutoReSign.Text = "auto re-sign";
-            this.cmenAutoReSign.Click += new System.EventHandler(this.cmenAutoReSign_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -477,7 +478,7 @@
             this.MainMenuStrip = this.mainMenu;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PALAST Server";
+            this.Text = "PALAST RepoManager";
             this.cmenMain.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();

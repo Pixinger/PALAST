@@ -887,7 +887,7 @@
             this.pnlParameter.Controls.Add(this.grpProfileOptions);
             this.pnlParameter.Controls.Add(this.grpPerformance);
             this.pnlParameter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlParameter.Location = new System.Drawing.Point(456, 0);
+            this.pnlParameter.Location = new System.Drawing.Point(469, 0);
             this.pnlParameter.Name = "pnlParameter";
             this.pnlParameter.Size = new System.Drawing.Size(304, 716);
             this.pnlParameter.TabIndex = 2;
@@ -964,7 +964,7 @@
             this.toolStripSeparator4});
             this._ToolStripAddons.Location = new System.Drawing.Point(0, 0);
             this._ToolStripAddons.Name = "_ToolStripAddons";
-            this._ToolStripAddons.Size = new System.Drawing.Size(248, 38);
+            this._ToolStripAddons.Size = new System.Drawing.Size(261, 38);
             this._ToolStripAddons.TabIndex = 0;
             this._ToolStripAddons.Text = "toolStrip3";
             // 
@@ -1160,7 +1160,7 @@
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 25);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(760, 716);
+            this.pnlMain.Size = new System.Drawing.Size(773, 716);
             this.pnlMain.TabIndex = 36;
             // 
             // pnlCenter
@@ -1172,7 +1172,7 @@
             this.pnlCenter.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlCenter.Location = new System.Drawing.Point(203, 0);
             this.pnlCenter.Name = "pnlCenter";
-            this.pnlCenter.Size = new System.Drawing.Size(250, 716);
+            this.pnlCenter.Size = new System.Drawing.Size(263, 716);
             this.pnlCenter.TabIndex = 0;
             // 
             // clstAddons
@@ -1183,7 +1183,7 @@
             this.clstAddons.Location = new System.Drawing.Point(0, 39);
             this.clstAddons.Name = "clstAddons";
             this.clstAddons.SelectedIndex = -1;
-            this.clstAddons.Size = new System.Drawing.Size(248, 675);
+            this.clstAddons.Size = new System.Drawing.Size(261, 675);
             this.clstAddons.TabIndex = 1;
             this.clstAddons.CheckedChanged += new System.EventHandler(this.clstAddons_CheckedChanged);
             this.clstAddons.SelectedIndexChanged += new System.EventHandler(this.clstAddons_SelectedIndexChanged);
@@ -1194,7 +1194,7 @@
             this.pnlSplitterCenterTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlSplitterCenterTop.Location = new System.Drawing.Point(0, 38);
             this.pnlSplitterCenterTop.Name = "pnlSplitterCenterTop";
-            this.pnlSplitterCenterTop.Size = new System.Drawing.Size(248, 1);
+            this.pnlSplitterCenterTop.Size = new System.Drawing.Size(261, 1);
             this.pnlSplitterCenterTop.TabIndex = 38;
             // 
             // pnlSplitterLeft
@@ -1229,9 +1229,9 @@
             // pnlSplitterRight
             // 
             this.pnlSplitterRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlSplitterRight.Location = new System.Drawing.Point(453, 0);
+            this.pnlSplitterRight.Location = new System.Drawing.Point(459, 0);
             this.pnlSplitterRight.Name = "pnlSplitterRight";
-            this.pnlSplitterRight.Size = new System.Drawing.Size(3, 716);
+            this.pnlSplitterRight.Size = new System.Drawing.Size(10, 716);
             this.pnlSplitterRight.TabIndex = 36;
             // 
             // _ToolStripTop
@@ -1244,7 +1244,7 @@
             this.tbtnExtended});
             this._ToolStripTop.Location = new System.Drawing.Point(0, 0);
             this._ToolStripTop.Name = "_ToolStripTop";
-            this._ToolStripTop.Size = new System.Drawing.Size(760, 25);
+            this._ToolStripTop.Size = new System.Drawing.Size(773, 25);
             this._ToolStripTop.TabIndex = 1;
             this._ToolStripTop.Text = "toolStrip2";
             // 
@@ -1301,14 +1301,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(760, 741);
+            this.ClientSize = new System.Drawing.Size(773, 741);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this._ToolStripTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(776, 779);
+            this.MaximumSize = new System.Drawing.Size(789, 779);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(469, 779);
+            this.MinimumSize = new System.Drawing.Size(483, 779);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PALAST (Pixingers Arma Launcher and Sync Tool)";

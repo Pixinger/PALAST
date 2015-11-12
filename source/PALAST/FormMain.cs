@@ -16,8 +16,8 @@ namespace PALAST
         protected static readonly NLog.Logger LOG = NLog.LogManager.GetCurrentClassLogger();
         #endregion
 
-        private readonly Size MINSIZE = new Size(469, 779);
-        private readonly Size MAXSIZE = new Size(776, 779);
+        private readonly Size MINSIZE = new Size(483, 779);
+        private readonly Size MAXSIZE = new Size(789, 779);
 
         private ArmaCfgManager _ArmaCfgManager; 
         private bool _BlockEventHandler = true;
@@ -640,7 +640,6 @@ namespace PALAST
 
             if (chbAutoConnectEnabled.Checked)
             {
-                MessageBox.Show("Es kann sein, daß diese Parameter in Arma3 nicht funktionieren!");
                 SelectedPreset.AutoConnectEnabled = true;
                 txtServer.Enabled = true;
                 txtPort.Enabled = true;
